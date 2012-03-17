@@ -3,7 +3,8 @@
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2012 
+ *  (c) 2012 Nico de Haen <mail@ndh-websolutions.de>
+ *  
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -33,56 +34,84 @@
 class Tx_Classparser_Domain_Model_MethodParameter extends Tx_Classparser_Domain_Model_AbstractObject {
 
 	/**
-	 * name
 	 *
 	 * @var string
 	 */
 	protected $name;
 
 	/**
-	 * varType
 	 *
 	 * @var string
 	 */
 	protected $varType;
 
 	/**
-	 * typeHint
-	 *
-	 * @var string
+	 * @var mixed
 	 */
-	protected $typeHint;
+	protected $typeHint = NULL;
+
 
 	/**
-	 * defaultValue
 	 *
-	 * @var string
+	 * @var mixed
 	 */
 	protected $defaultValue;
 
 	/**
-	 * position
 	 *
-	 * @var integer
+	 * @var int
 	 */
 	protected $position;
 
 	/**
-	 * optional
 	 *
 	 * @var boolean
 	 */
-	protected $optional = FALSE;
+	protected $optional;
 
 	/**
-	 * passedByReference
 	 *
 	 * @var boolean
 	 */
-	protected $passedByReference = FALSE;
+	protected $passedByReference;
 
 	/**
-	 * Returns the name
+	 *
+	 * @param $propertyName
+	 * @param $propertyReflection (optional)
+	 * @return unknown_type
+	 */
+	public function __construct($parameterName, $parameterReflection = NULL) {
+		$this->name = $parameterName;
+		//TODO the parameter hints (or casts?) are not yet evaluated since the reflection does not recognize the
+		// maybe we can get them by a reg expression from the import tool?
+
+		if ($parameterReflection && $parameterReflection instanceof Tx_Extbase_Reflection_ParameterReflection) {
+			foreach ($this as $key => $value) {
+				$setterMethodName = 'set' . ucfirst($key);
+				$getterMethodName = 'get' . ucfirst($key);
+				$getBooleanMethodName = 'is' . ucfirst($key);
+
+				// map properties of reflection parmeter to this parameter
+				try {
+					if (method_exists($parameterReflection, $getterMethodName) && method_exists($this, $setterMethodName)) {
+						$this->$setterMethodName($parameterReflection->$getterMethodName());
+					}
+				}
+				catch (ReflectionException $e) {
+					// the getDefaultValue throws an exception if the parameter is not optional
+				}
+
+				if (method_exists($parameterReflection, $getBooleanMethodName)) {
+					$this->$key = $parameterReflection->$getBooleanMethodName();
+				}
+
+			}
+		}
+	}
+
+
+	/**
 	 *
 	 * @return string $name
 	 */
@@ -91,104 +120,77 @@ class Tx_Classparser_Domain_Model_MethodParameter extends Tx_Classparser_Domain_
 	}
 
 	/**
-	 * Sets the name
 	 *
 	 * @param string $name
-	 * @return void
 	 */
 	public function setName($name) {
 		$this->name = $name;
 	}
 
 	/**
-	 * Returns the varType
+	 * Returns $varType.
 	 *
-	 * @return string $varType
 	 */
 	public function getVarType() {
 		return $this->varType;
 	}
 
 	/**
-	 * Sets the varType
+	 * Sets $varType.
 	 *
-	 * @param string $varType
-	 * @return void
+	 * @param object $varType
 	 */
 	public function setVarType($varType) {
 		$this->varType = $varType;
 	}
 
 	/**
-	 * Returns the typeHint
 	 *
-	 * @return string $typeHint
-	 */
-	public function getTypeHint() {
-		return $this->typeHint;
-	}
-
-	/**
-	 * Sets the typeHint
-	 *
-	 * @param string $typeHint
-	 * @return void
-	 */
-	public function setTypeHint($typeHint) {
-		$this->typeHint = $typeHint;
-	}
-
-	/**
-	 * Returns the defaultValue
-	 *
-	 * @return string $defaultValue
-	 */
-	public function getDefaultValue() {
-		return $this->defaultValue;
-	}
-
-	/**
-	 * Sets the defaultValue
-	 *
-	 * @param string $defaultValue
-	 * @return void
-	 */
-	public function setDefaultValue($defaultValue) {
-		$this->defaultValue = $defaultValue;
-	}
-
-	/**
-	 * Returns the position
-	 *
-	 * @return integer $position
+	 * @return int $position
 	 */
 	public function getPosition() {
 		return $this->position;
 	}
 
 	/**
-	 * Sets the position
+	 * setter for position
 	 *
-	 * @param integer $position
+	 * @param int $position
 	 * @return void
 	 */
 	public function setPosition($position) {
 		$this->position = $position;
 	}
 
+
 	/**
-	 * Returns the optional
-	 *
-	 * @return boolean $optional
+	 * getter for defaultValue
+	 * @return mixed
 	 */
-	public function getOptional() {
+	public function getDefaultValue() {
+		return $this->defaultValue;
+	}
+
+	/**
+	 * setter for defaultValue
+	 * @param $defaultValue
+	 * @return void
+	 */
+	public function setDefaultValue($defaultValue = NULL) {
+		$this->defaultValue = $defaultValue;
+	}
+
+	/**
+	 *
+	 * @return boolean
+	 */
+	public function isOptional() {
 		return $this->optional;
 	}
 
 	/**
-	 * Sets the optional
 	 *
-	 * @param boolean $optional
+	 * @param $optional
 	 * @return void
 	 */
 	public function setOptional($optional) {
@@ -196,41 +198,29 @@ class Tx_Classparser_Domain_Model_MethodParameter extends Tx_Classparser_Domain_
 	}
 
 	/**
-	 * Returns the boolean state of optional
-	 *
-	 * @return boolean
-	 */
-	public function isOptional() {
-		return $this->getOptional();
-	}
-
-	/**
-	 * Returns the passedByReference
-	 *
-	 * @return boolean $passedByReference
-	 */
-	public function getPassedByReference() {
-		return $this->passedByReference;
-	}
-
-	/**
-	 * Sets the passedByReference
-	 *
-	 * @param boolean $passedByReference
-	 * @return void
-	 */
-	public function setPassedByReference($passedByReference) {
-		$this->passedByReference = $passedByReference;
-	}
-
-	/**
-	 * Returns the boolean state of passedByReference
 	 *
 	 * @return boolean
 	 */
 	public function isPassedByReference() {
-		return $this->getPassedByReference();
+		return $this->passedByReference;
 	}
 
+	/**
+	 *
+	 * @return
+	 */
+	public function getTypeHint() {
+		return $this->typeHint;
+	}
+
+	/**
+	 * Sets $typeHint.
+	 *
+	 * @param object $typeHint
+	 * @see Tx_ExtensionBuilder_Domain_Model_Class_MethodParameter::$typeHint
+	 */
+	public function setTypeHint($typeHint) {
+		$this->typeHint = $typeHint;
+	}
 }
 ?>

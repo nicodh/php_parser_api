@@ -3,7 +3,8 @@
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2012 
+ *  (c) 2012 Nico de Haen <mail@ndh-websolutions.de>
+ *  			
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -33,6 +34,7 @@
  * @package TYPO3
  * @subpackage Class Parser
  *
+ * @author Nico de Haen <mail@ndh-websolutions.de>
  */
 class Tx_Classparser_Domain_Model_PropertyTest extends Tx_Extbase_Tests_Unit_BaseTestCase {
 	/**
