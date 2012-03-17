@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<T3locallang>
+	<meta type="array">
+		<type>module</type>
+		<description>Language labels for the Class Parser extension in the FRONTEND</description>
+	</meta>
+	<data type="array">
+		<languageKey index="default" type="array">
+			<label index="tx_classparser_domain_model_abstractobject">AbstractObject</label>
+			<label index="tx_classparser_domain_model_abstractobject.name">name</label>
+			<label index="tx_classparser_domain_model_abstractobject.modifiers">array</label>
+			<label index="tx_classparser_domain_model_abstractobject.tags">array</label>
+			<label index="tx_classparser_domain_model_abstractobject.doc_comment">docComment</label>
+			<label index="tx_classparser_domain_model_abstractobject.preceding_block">precedingBlock</label>
+			<label index="tx_classparser_domain_model_class">Class</label>
+			<label index="tx_classparser_domain_model_class.file_name">fileName</label>
+			<label index="tx_classparser_domain_model_class.constants">constants</label>
+			<label index="tx_classparser_domain_model_class.properties">properties</label>
+			<label index="tx_classparser_domain_model_class.methods">methods</label>
+			<label index="tx_classparser_domain_model_property">Property</label>
+			<label index="tx_classparser_domain_model_property.var_type">varType</label>
+			<label index="tx_classparser_domain_model_property.tx_classparser_default">default</label>
+			<label index="tx_classparser_domain_model_property.value">value</label>
+			<label index="tx_classparser_domain_model_method">Method</label>
+			<label index="tx_classparser_domain_model_method.body">body</label>
+			<label index="tx_classparser_domain_model_method.parameters">parameters</label>
+		</languageKey>
+	</data>
+</T3locallang>

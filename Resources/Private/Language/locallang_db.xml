@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<T3locallang>
+	<meta type="array">
+		<type>database</type>
+		<description>Language labels for database tables/fields belonging to extension 'classparser'</description>
+	</meta>
+	<data type="array">
+		<languageKey index="default" type="array">
+            
+			<label index="tx_classparser_domain_model_abstractobject">Abstract Object</label>
+			<label index="tx_classparser_domain_model_abstractobject.name">Name</label>
+			<label index="tx_classparser_domain_model_abstractobject.modifiers">Modifiers</label>
+			<label index="tx_classparser_domain_model_abstractobject.tags">Tags</label>
+			<label index="tx_classparser_domain_model_abstractobject.doc_comment">Doc Comment</label>
+			<label index="tx_classparser_domain_model_abstractobject.preceding_block">Preceding Block</label>
+
+			<label index="tx_classparser_domain_model_class">Class</label>
+			<label index="tx_classparser_domain_model_class.file_name">File Name</label>
+			<label index="tx_classparser_domain_model_class.constants">Constants</label>
+			<label index="tx_classparser_domain_model_class.properties">Properties</label>
+			<label index="tx_classparser_domain_model_class.methods">Methods</label>
+
+			<label index="tx_classparser_domain_model_property">Property</label>
+			<label index="tx_classparser_domain_model_property.var_type">Var Type</label>
+			<label index="tx_classparser_domain_model_property.tx_classparser_default">Default</label>
+			<label index="tx_classparser_domain_model_property.value">Value</label>
+
+			<label index="tx_classparser_domain_model_method">Method</label>
+			<label index="tx_classparser_domain_model_method.body">Body</label>
+			<label index="tx_classparser_domain_model_method.parameters">Parameters</label>
+
+		</languageKey>
+	</data>
+</T3locallang>

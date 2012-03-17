@@ -1,0 +1,88 @@
+<?php
+
+/***************************************************************
+ *  Copyright notice
+ *
+ *  (c) 2012 
+ *  All rights reserved
+ *
+ *  This script is part of the TYPO3 project. The TYPO3 project is
+ *  free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation; either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  The GNU General Public License can be found at
+ *  http://www.gnu.org/copyleft/gpl.html.
+ *
+ *  This script is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  This copyright notice MUST APPEAR in all copies of the script!
+ ***************************************************************/
+
+/**
+ *
+ *
+ * @package classparser
+ * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
+ *
+ */
+class Tx_Classparser_Domain_Model_Method extends Tx_Classparser_Domain_Model_AbstractObject {
+
+	/**
+	 * body
+	 *
+	 * @var string
+	 */
+	protected $body;
+
+	/**
+	 * parameters
+	 *
+	 * @var string
+	 */
+	protected $parameters;
+
+	/**
+	 * Returns the body
+	 *
+	 * @return string $body
+	 */
+	public function getBody() {
+		return $this->body;
+	}
+
+	/**
+	 * Sets the body
+	 *
+	 * @param string $body
+	 * @return void
+	 */
+	public function setBody($body) {
+		$this->body = $body;
+	}
+
+	/**
+	 * Returns the parameters
+	 *
+	 * @return string $parameters
+	 */
+	public function getParameters() {
+		return $this->parameters;
+	}
+
+	/**
+	 * Sets the parameters
+	 *
+	 * @param string $parameters
+	 * @return void
+	 */
+	public function setParameters($parameters) {
+		$this->parameters = $parameters;
+	}
+
+}
+?>
