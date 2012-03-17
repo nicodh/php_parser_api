@@ -31,8 +31,7 @@
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class Tx_Classparser_Domain_Model_AbstractObject extends Tx_Classparser_Domain_Model_AbstractObject {
-
+class Tx_Classparser_Domain_Model_AbstractObject {
 
 	/**
 	 * 1	ReflectionMethod::IS_STATIC
@@ -41,6 +40,8 @@ class Tx_Classparser_Domain_Model_AbstractObject extends Tx_Classparser_Domain_M
 	 * 256	ReflectionMethod::IS_PUBLIC
 	 * 512	ReflectionMethod::IS_PROTECTED
 	 * 1024	ReflectionMethod::IS_PRIVATE
+	 *
+	 * @var array
 	 */
 	private $mapModifierNames = array(
 		'static' => ReflectionMethod::IS_STATIC,
@@ -53,24 +54,36 @@ class Tx_Classparser_Domain_Model_AbstractObject extends Tx_Classparser_Domain_M
 	);
 
 	/**
+	 * Description of property
+	 *
+	 * @var string
+	 */
+	protected $description;
+
+	/**
 	 * name
+	 *
 	 * @var string
 	 */
 	protected $name;
 
 	/**
-	 * modifiers  (privat, static abstract etc. not to mix up with "isModified" )
-	 * @var array
+	 * array
+	 *
+	 * @var string
 	 */
 	protected $modifiers = array();
 
 	/**
-	 * @var array An array of tag names and their values (multiple values are possible)
+	 * array
+	 *
+	 * @var string
 	 */
 	protected $tags = array();
 
 	/**
 	 * docComment
+	 *
 	 * @var string
 	 */
 	protected $docComment;
@@ -82,18 +95,6 @@ class Tx_Classparser_Domain_Model_AbstractObject extends Tx_Classparser_Domain_M
 	 * @var string
 	 */
 	protected $precedingBlock;
-
-	/**
-	 * isModified (this flag is set to TRUE, if a modification of a class was detected)
-	 * @var string
-	 */
-	protected $isModified;
-
-	/**
-	 * Description of property
-	 * @var string
-	 */
-	protected $description;
 
 	/**
 	 * Setter for name
@@ -118,7 +119,7 @@ class Tx_Classparser_Domain_Model_AbstractObject extends Tx_Classparser_Domain_M
 	 * Checks if the doc comment of this method is tagged with
 	 * the specified tag
 	 *
-	 * @param  string $tag: Tag name to check for
+	 * @param string $tag: Tag name to check for
 	 * @return boolean TRUE if such a tag has been defined, otherwise FALSE
 	 */
 	public function isTaggedWith($tagName) {
@@ -135,6 +136,7 @@ class Tx_Classparser_Domain_Model_AbstractObject extends Tx_Classparser_Domain_M
 	}
 
 	/**
+	 * getAnnotations
 	 *
 	 * @return
 	 */
@@ -161,6 +163,7 @@ class Tx_Classparser_Domain_Model_AbstractObject extends Tx_Classparser_Domain_M
 	/**
 	 * sets the array of tags
 	 *
+	 * @param $tags
 	 * @return array Tags and values
 	 */
 	public function setTags($tags) {
@@ -224,13 +227,14 @@ class Tx_Classparser_Domain_Model_AbstractObject extends Tx_Classparser_Domain_M
 	 * Set property description
 	 *
 	 * @param string $description Property description
+	 * @return
 	 */
 	public function setDescription($description) {
 		$this->description = $description;
 	}
 
 	/**
-	 *
+	 * hasDescription
 	 *
 	 * @return boolean TRUE if the description isn't empty
 	 */
@@ -243,6 +247,8 @@ class Tx_Classparser_Domain_Model_AbstractObject extends Tx_Classparser_Domain_M
 
 	/**
 	 * Returns the values of the specified tag
+	 *
+	 * @param $tagName
 	 * @return array Values of the given tag
 	 */
 	public function getTagsValues($tagName) {
@@ -278,7 +284,6 @@ class Tx_Classparser_Domain_Model_AbstractObject extends Tx_Classparser_Domain_M
 		}
 	}
 
-
 	/**
 	 * Getter for modifiers
 	 *
@@ -288,6 +293,11 @@ class Tx_Classparser_Domain_Model_AbstractObject extends Tx_Classparser_Domain_M
 		return $this->modifiers;
 	}
 
+	/**
+	 * getModifierNames
+	 *
+	 * @return
+	 */
 	public function getModifierNames() {
 		$modifiers = $this->getModifiers();
 		$modifierNames = array();
@@ -301,7 +311,6 @@ class Tx_Classparser_Domain_Model_AbstractObject extends Tx_Classparser_Domain_M
 		}
 		return $modifierNames;
 	}
-
 
 	/**
 	 * Setter for docComment

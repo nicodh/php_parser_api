@@ -31,27 +31,39 @@
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class Tx_Classparser_Domain_Model_Method extends Tx_Classparser_Domain_Model_AbstractObject {
+class Tx_Classparser_Domain_Model_Class_Method extends Tx_Classparser_Domain_Model_AbstractObject {
 
+	/**
+	 * defaultIndent
+	 *
+	 * @var string
+	 */
+	public $defaultIndent = "\t\t";
 
 	/**
 	 * body
+	 *
 	 * @var string
 	 */
 	protected $body;
 
-	public $defaultIndent = "\t\t";
-
 	/**
+	 * parameters
 	 *
-	 * @var array
+	 * @var string
 	 */
 	protected $parameters;
 
-
+	/**
+	 * __construct
+	 *
+	 * @param $methodName
+	 * @param $methodReflection
+	 * @return
+	 */
 	public function __construct($methodName, $methodReflection = NULL) {
 		$this->setName($methodName);
-		if ($methodReflection instanceof Tx_ExtensionBuilder_Reflection_MethodReflection) {
+		if ($methodReflection instanceof Tx_Classparser_Reflection_MethodReflection) {
 			$methodReflection->getTagsValues(); // just to initialize the docCommentParser
 			foreach ($this as $key => $value) {
 				$setterMethodName = 'set' . t3lib_div::underscoredToUpperCamelCase($key);
@@ -70,7 +82,6 @@ class Tx_Classparser_Domain_Model_Method extends Tx_Classparser_Domain_Model_Abs
 				//$this->setTag('return','void');
 			}
 		}
-
 	}
 
 	/**
@@ -103,6 +114,7 @@ class Tx_Classparser_Domain_Model_Method extends Tx_Classparser_Domain_Model_Abs
 
 	/**
 	 * getter for parameters
+	 *
 	 * @return array parameters
 	 */
 	public function getParameters() {
@@ -111,6 +123,7 @@ class Tx_Classparser_Domain_Model_Method extends Tx_Classparser_Domain_Model_Abs
 
 	/**
 	 * getter for parameter names
+	 *
 	 * @return array parameter names
 	 */
 	public function getParameterNames() {
@@ -125,19 +138,20 @@ class Tx_Classparser_Domain_Model_Method extends Tx_Classparser_Domain_Model_Abs
 
 	/**
 	 * adder for parameters
-	 * @param array $parameters of type Tx_ExtensionBuilder_Reflection_ParameterReflection
+	 *
+	 * @param array $parameters of type Tx_Classparser_Reflection_ParameterReflection
 	 * @return void
 	 */
 	public function setParameters($parameters) {
 		foreach ($parameters as $parameter) {
-			$methodParameter = new Tx_ExtensionBuilder_Domain_Model_Class_MethodParameter($parameter->getName(), $parameter);
+			$methodParameter = new Tx_Classparser_Domain_Model_Class_MethodParameter($parameter->getName(), $parameter);
 			$this->parameters[$methodParameter->getPosition()] = $methodParameter;
 		}
-
 	}
 
 	/**
 	 * setter for a single parameter
+	 *
 	 * @param array $parameter
 	 * @return void
 	 */
@@ -145,11 +159,11 @@ class Tx_Classparser_Domain_Model_Method extends Tx_Classparser_Domain_Model_Abs
 		if (!in_array($parameter->getName(), $this->getParameterNames())) {
 			$this->parameters[$parameter->getPosition()] = $parameter;
 		}
-
 	}
 
 	/**
 	 * replace a single parameter, depending on position
+	 *
 	 * @param array $parameter
 	 * @return void
 	 */
@@ -159,6 +173,7 @@ class Tx_Classparser_Domain_Model_Method extends Tx_Classparser_Domain_Model_Abs
 
 	/**
 	 * removes a parameter
+	 *
 	 * @param $parameterName
 	 * @param $parameterSortingIndex
 	 * @return boolean TRUE (if successfull removed)
@@ -173,6 +188,7 @@ class Tx_Classparser_Domain_Model_Method extends Tx_Classparser_Domain_Model_Abs
 	}
 
 	/**
+	 * renameParameter
 	 *
 	 * @param $parameterName
 	 * @param $parameterSortingIndex
@@ -192,9 +208,9 @@ class Tx_Classparser_Domain_Model_Method extends Tx_Classparser_Domain_Model_Abs
 	}
 
 	/**
-	 *
 	 * TODO: THe sorting of tags/annotations should be controlled
 	 *
+	 * @return
 	 */
 	public function getAnnotations() {
 		$annotations = parent::getAnnotations();

@@ -34,39 +34,22 @@
 class Tx_Classparser_Domain_Model_Class extends Tx_Classparser_Domain_Model_AbstractObject {
 
 	/**
-	 * constants
-	 * @var array
-	 */
-	protected $constants;
-
-	/**
-	 * properties
-	 * @var Tx_ExtensionBuilder_Domain_Model_Class_Property[]
-	 */
-	protected $properties = array();
-
-	/**
 	 * propertyNames - deprecated -> use this->getPropertyNames() instead
+	 *
 	 * @var array
 	 */
 	protected $propertyNames = array();
 
-
-	/**
-	 * methods
-	 * @var Tx_ExtensionBuilder_Domain_Model_Class_Method[]
-	 */
-	protected $methods = array();
-
-
 	/**
 	 * interfaceNames
+	 *
 	 * @var array
 	 */
 	protected $interfaceNames;
 
 	/**
 	 * all lines that were found below the class declaration
+	 *
 	 * @var string
 	 */
 	protected $appendedBlock;
@@ -76,34 +59,59 @@ class Tx_Classparser_Domain_Model_Class extends Tx_Classparser_Domain_Model_Abst
 	 * @var string
 	 */
 	//protected $parent_class;
-
-
+	
 	/**
 	 * isFileBased
+	 *
 	 * @var boolean
 	 */
 	protected $isFileBased = FALSE;
 
-
-	/**
-	 * the path to the file this class was defined in
-	 * @var string
-	 */
-	protected $fileName;
-
 	/**
 	 * is instantiated only if the class is imported from a file
-	 * @var Tx_ExtensionBuilder_Reflection_ClassReflection
+	 *
+	 * @var Tx_Classparser_Reflection_ClassReflection
 	 */
 	protected $classReflection = NULL;
 
 	/**
+	 * parentClass
+	 *
 	 * @var object parentClass
 	 */
 	protected $parentClass = NULL;
 
 	/**
+	 * the path to the file this class was defined in
+	 *
+	 * @var string
+	 */
+	protected $fileName;
+
+	/**
+	 * constants
+	 *
+	 * @var string
+	 */
+	protected $constants;
+
+	/**
+	 * properties
+	 *
+	 * @var string
+	 */
+	protected $properties = array();
+
+	/**
+	 * methods
+	 *
+	 * @var string
+	 */
+	protected $methods = array();
+
+	/**
 	 * constructor of this class
+	 *
 	 * @param string $className
 	 * @return unknown_type
 	 */
@@ -143,6 +151,7 @@ class Tx_Classparser_Domain_Model_Class extends Tx_Classparser_Domain_Model_Abst
 	/**
 	 * Getter for a single constant
 	 *
+	 * @param $constantName
 	 * @return mixed constant value
 	 */
 	public function getConstant($constantName) {
@@ -154,6 +163,7 @@ class Tx_Classparser_Domain_Model_Class extends Tx_Classparser_Domain_Model_Abst
 
 	/**
 	 * removes a constant
+	 *
 	 * @param string $constantName
 	 * @return boolean TRUE (if successfull removed)
 	 */
@@ -166,7 +176,9 @@ class Tx_Classparser_Domain_Model_Class extends Tx_Classparser_Domain_Model_Abst
 	}
 
 	/**
+	 * methodExists
 	 *
+	 * @param $methodName
 	 * @return boolean
 	 */
 	public function methodExists($methodName) {
@@ -183,7 +195,7 @@ class Tx_Classparser_Domain_Model_Class extends Tx_Classparser_Domain_Model_Abst
 	/**
 	 * Setter for methods
 	 *
-	 * @param array $methods (Tx_ExtensionBuilder_Domain_Model_Class_Method[])
+	 * @param array $methods (Tx_Classparser_Domain_Model_Class_Method[])
 	 * @return void
 	 */
 	public function setMethods(array $methods) {
@@ -193,17 +205,17 @@ class Tx_Classparser_Domain_Model_Class extends Tx_Classparser_Domain_Model_Abst
 	/**
 	 * Setter for a single method (allows to override an existing method)
 	 *
-	 * @param Tx_ExtensionBuilder_Domain_Model_Class_Method $method
+	 * @param Tx_Classparser_Domain_Model_Class_Method $method
 	 * @return void
 	 */
-	public function setMethod(Tx_ExtensionBuilder_Domain_Model_Class_Method $classMethod) {
+	public function setMethod(Tx_Classparser_Domain_Model_Class_Method $classMethod) {
 		$this->methods[$classMethod->getName()] = $classMethod;
 	}
 
 	/**
 	 * Getter for methods
 	 *
-	 * @return Tx_ExtensionBuilder_Domain_Model_Class_Method[]
+	 * @return Tx_Classparser_Domain_Model_Class_Method[]
 	 */
 	public function getMethods() {
 		return $this->methods;
@@ -212,7 +224,8 @@ class Tx_Classparser_Domain_Model_Class extends Tx_Classparser_Domain_Model_Abst
 	/**
 	 * Getter for method
 	 *
-	 * @return Tx_ExtensionBuilder_Domain_Model_Class_Method
+	 * @param $methodName
+	 * @return Tx_Classparser_Domain_Model_Class_Method
 	 */
 	public function getMethod($methodName) {
 		if ($this->methodExists($methodName)) {
@@ -224,18 +237,18 @@ class Tx_Classparser_Domain_Model_Class extends Tx_Classparser_Domain_Model_Abst
 	/**
 	 * Add a method
 	 *
-	 * @param Tx_ExtensionBuilder_Domain_Model_Class_Method $classMethod
+	 * @param Tx_Classparser_Domain_Model_Class_Method $classMethod
 	 * @return void
 	 */
 	public function addMethod($classMethod) {
 		if (!$this->methodExists($classMethod->getName())) {
 			$this->methods[$classMethod->getName()] = $classMethod;
 		}
-
 	}
 
 	/**
 	 * removes a method
+	 *
 	 * @param string $methodName
 	 * @return boolean TRUE (if successfull removed)
 	 */
@@ -249,6 +262,7 @@ class Tx_Classparser_Domain_Model_Class extends Tx_Classparser_Domain_Model_Abst
 
 	/**
 	 * rename a method
+	 *
 	 * @param string $oldName
 	 * @param string $newName
 	 * @return boolean success
@@ -264,10 +278,10 @@ class Tx_Classparser_Domain_Model_Class extends Tx_Classparser_Domain_Model_Abst
 		else return FALSE;
 	}
 
-
 	/**
 	 * returns all methods starting with "get"
-	 * @return Tx_ExtensionBuilder_Domain_Model_Class_Method[]
+	 *
+	 * @return Tx_Classparser_Domain_Model_Class_Method[]
 	 */
 	public function getGetters() {
 		$getterMethods = array();
@@ -286,7 +300,8 @@ class Tx_Classparser_Domain_Model_Class extends Tx_Classparser_Domain_Model_Abst
 
 	/**
 	 * returnes all methods starting with "set"
-	 * @return Tx_ExtensionBuilder_Domain_Model_Class_Method[]
+	 *
+	 * @return Tx_Classparser_Domain_Model_Class_Method[]
 	 */
 	public function getSetters() {
 		$setterMethods = array();
@@ -302,11 +317,11 @@ class Tx_Classparser_Domain_Model_Class extends Tx_Classparser_Domain_Model_Abst
 		return $setterMethods;
 	}
 
-
 	/**
 	 * Getter for property
+	 *
 	 * @param string $propertyName the name of the property
-	 * @return Tx_ExtensionBuilder_Reflection_PropertyReflection
+	 * @return Tx_Classparser_Reflection_PropertyReflection
 	 */
 	public function getProperty($propertyName) {
 		if ($this->propertyExists($propertyName)) {
@@ -328,7 +343,7 @@ class Tx_Classparser_Domain_Model_Class extends Tx_Classparser_Domain_Model_Abst
 	/**
 	 * Getter for properties
 	 *
-	 * @return Tx_ExtensionBuilder_Domain_Model_Class_Property[]
+	 * @return Tx_Classparser_Domain_Model_Class_Property[]
 	 */
 	public function getProperties() {
 		return $this->properties;
@@ -336,6 +351,7 @@ class Tx_Classparser_Domain_Model_Class extends Tx_Classparser_Domain_Model_Abst
 
 	/**
 	 * removes a property
+	 *
 	 * @param string $propertyName
 	 * @return boolean TRUE (if successfull removed)
 	 */
@@ -349,6 +365,7 @@ class Tx_Classparser_Domain_Model_Class extends Tx_Classparser_Domain_Model_Abst
 
 	/**
 	 * rename a property
+	 *
 	 * @param string $oldName
 	 * @param string $newName
 	 * @return boolean success
@@ -365,9 +382,11 @@ class Tx_Classparser_Domain_Model_Class extends Tx_Classparser_Domain_Model_Abst
 	}
 
 	/**
+	 * setPropertyTag
 	 *
 	 * @param string $propertyName
 	 * @param array $tag
+	 * @return
 	 */
 	public function setPropertyTag($propertyName, $tag) {
 		if ($this->propertyExists($propertyName)) {
@@ -394,8 +413,9 @@ class Tx_Classparser_Domain_Model_Class extends Tx_Classparser_Domain_Model_Abst
 		return $this->staticProperties;
 	}
 
-
 	/**
+	 * propertyExists
+	 *
 	 * @param string $propertyName
 	 * @return boolean
 	 */
@@ -413,10 +433,10 @@ class Tx_Classparser_Domain_Model_Class extends Tx_Classparser_Domain_Model_Abst
 	/**
 	 * add a property (returns TRUE if successfull added)
 	 *
-	 * @param Tx_ExtensionBuilder_Domain_Model_Class_Property
+	 * @param Tx_Classparser_Domain_Model_Class_Property
 	 * @return boolean success
 	 */
-	public function addProperty(Tx_ExtensionBuilder_Domain_Model_Class_Property $classProperty) {
+	public function addProperty(Tx_Classparser_Domain_Model_Class_Property $classProperty) {
 		if (!$this->propertyExists($classProperty->getName())) {
 			$this->propertyNames[] = $classProperty->getName();
 			$this->properties[$classProperty->getName()] = $classProperty;
@@ -426,6 +446,7 @@ class Tx_Classparser_Domain_Model_Class extends Tx_Classparser_Domain_Model_Abst
 
 	/**
 	 * returns all property names
+	 *
 	 * @return array
 	 */
 	public function getPropertyNames() {
@@ -435,13 +456,12 @@ class Tx_Classparser_Domain_Model_Class extends Tx_Classparser_Domain_Model_Abst
 	/**
 	 * Setter for property
 	 *
-	 * @param Tx_ExtensionBuilder_Domain_Model_Class_Property
+	 * @param Tx_Classparser_Domain_Model_Class_Property
 	 * @return boolean success
 	 */
 	public function setProperty($classProperty) {
 		$this->properties[$classProperty->getName()] = $classProperty;
 	}
-
 
 	/**
 	 * Setter for interfaceNames
@@ -461,7 +481,6 @@ class Tx_Classparser_Domain_Model_Class extends Tx_Classparser_Domain_Model_Abst
 	public function getInterfaceNames() {
 		return $this->interfaceNames;
 	}
-
 
 	/**
 	 * Setter for parentClass
@@ -493,6 +512,7 @@ class Tx_Classparser_Domain_Model_Class extends Tx_Classparser_Domain_Model_Abst
 
 	/**
 	 * Setter for fileName
+	 *
 	 * @param string $fileName
 	 * @return void
 	 */
@@ -502,6 +522,7 @@ class Tx_Classparser_Domain_Model_Class extends Tx_Classparser_Domain_Model_Abst
 
 	/**
 	 * getter for appendedBlock
+	 *
 	 * @return string $appendedBlock
 	 */
 	public function getAppendedBlock() {
@@ -510,6 +531,7 @@ class Tx_Classparser_Domain_Model_Class extends Tx_Classparser_Domain_Model_Abst
 
 	/**
 	 * setter for appendedBlock
+	 *
 	 * @param string $appendedBlock
 	 * @return void
 	 */
@@ -517,6 +539,11 @@ class Tx_Classparser_Domain_Model_Class extends Tx_Classparser_Domain_Model_Abst
 		$this->appendedBlock = $appendedBlock;
 	}
 
+	/**
+	 * getInfo
+	 *
+	 * @return
+	 */
 	public function getInfo() {
 		$infoArray = array();
 		$infoArray['className'] = $this->getName();

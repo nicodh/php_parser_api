@@ -31,51 +31,59 @@
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class Tx_Classparser_Domain_Model_MethodParameter extends Tx_Classparser_Domain_Model_AbstractObject {
+class Tx_Classparser_Domain_Model_Class_MethodParameter extends Tx_Classparser_Domain_Model_AbstractObject {
 
 	/**
+	 * name
 	 *
 	 * @var string
 	 */
 	protected $name;
 
 	/**
+	 * varType
 	 *
 	 * @var string
 	 */
 	protected $varType;
 
 	/**
-	 * @var mixed
+	 * typeHint
+	 *
+	 * @var string
 	 */
 	protected $typeHint = NULL;
 
-
 	/**
+	 * defaultValue
 	 *
-	 * @var mixed
+	 * @var string
 	 */
 	protected $defaultValue;
 
 	/**
+	 * position
 	 *
-	 * @var int
+	 * @var integer
 	 */
 	protected $position;
 
 	/**
+	 * optional
 	 *
 	 * @var boolean
 	 */
-	protected $optional;
+	protected $optional = FALSE;
 
 	/**
+	 * passedByReference
 	 *
 	 * @var boolean
 	 */
-	protected $passedByReference;
+	protected $passedByReference = FALSE;
 
 	/**
+	 * __construct
 	 *
 	 * @param $propertyName
 	 * @param $propertyReflection (optional)
@@ -110,8 +118,8 @@ class Tx_Classparser_Domain_Model_MethodParameter extends Tx_Classparser_Domain_
 		}
 	}
 
-
 	/**
+	 * getName
 	 *
 	 * @return string $name
 	 */
@@ -120,8 +128,10 @@ class Tx_Classparser_Domain_Model_MethodParameter extends Tx_Classparser_Domain_
 	}
 
 	/**
+	 * setName
 	 *
 	 * @param string $name
+	 * @return
 	 */
 	public function setName($name) {
 		$this->name = $name;
@@ -130,6 +140,7 @@ class Tx_Classparser_Domain_Model_MethodParameter extends Tx_Classparser_Domain_
 	/**
 	 * Returns $varType.
 	 *
+	 * @return
 	 */
 	public function getVarType() {
 		return $this->varType;
@@ -139,12 +150,14 @@ class Tx_Classparser_Domain_Model_MethodParameter extends Tx_Classparser_Domain_
 	 * Sets $varType.
 	 *
 	 * @param object $varType
+	 * @return
 	 */
 	public function setVarType($varType) {
 		$this->varType = $varType;
 	}
 
 	/**
+	 * getPosition
 	 *
 	 * @return int $position
 	 */
@@ -162,9 +175,9 @@ class Tx_Classparser_Domain_Model_MethodParameter extends Tx_Classparser_Domain_
 		$this->position = $position;
 	}
 
-
 	/**
 	 * getter for defaultValue
+	 *
 	 * @return mixed
 	 */
 	public function getDefaultValue() {
@@ -173,6 +186,7 @@ class Tx_Classparser_Domain_Model_MethodParameter extends Tx_Classparser_Domain_
 
 	/**
 	 * setter for defaultValue
+	 *
 	 * @param $defaultValue
 	 * @return void
 	 */
@@ -181,6 +195,7 @@ class Tx_Classparser_Domain_Model_MethodParameter extends Tx_Classparser_Domain_
 	}
 
 	/**
+	 * isOptional
 	 *
 	 * @return boolean
 	 */
@@ -189,6 +204,7 @@ class Tx_Classparser_Domain_Model_MethodParameter extends Tx_Classparser_Domain_
 	}
 
 	/**
+	 * setOptional
 	 *
 	 * @param $optional
 	 * @return void
@@ -198,6 +214,7 @@ class Tx_Classparser_Domain_Model_MethodParameter extends Tx_Classparser_Domain_
 	}
 
 	/**
+	 * isPassedByReference
 	 *
 	 * @return boolean
 	 */
@@ -206,6 +223,7 @@ class Tx_Classparser_Domain_Model_MethodParameter extends Tx_Classparser_Domain_
 	}
 
 	/**
+	 * getTypeHint
 	 *
 	 * @return
 	 */
@@ -217,10 +235,12 @@ class Tx_Classparser_Domain_Model_MethodParameter extends Tx_Classparser_Domain_
 	 * Sets $typeHint.
 	 *
 	 * @param object $typeHint
-	 * @see Tx_ExtensionBuilder_Domain_Model_Class_MethodParameter::$typeHint
+	 * @see Tx_Classparser_Domain_Model_Class_MethodParameter::$typeHint
+	 * @return
 	 */
 	public function setTypeHint($typeHint) {
 		$this->typeHint = $typeHint;
 	}
+
 }
 ?>

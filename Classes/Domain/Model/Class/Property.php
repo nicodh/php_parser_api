@@ -26,19 +26,12 @@
 
 /**
  *
- *
+ *ClassSchema
  * @package classparser
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class Tx_Classparser_Domain_Model_Property extends Tx_Classparser_Domain_Model_AbstractObject {
-
-	/**
-	 * php var type of this property (read from @var annotation in doc comment)
-	 *
-	 * @var string type
-	 */
-	protected $varType;
+class Tx_Classparser_Domain_Model_Class_Property extends Tx_Classparser_Domain_Model_AbstractObject {
 
 	/**
 	 * if there is a domain object property associated
@@ -50,17 +43,28 @@ class Tx_Classparser_Domain_Model_Property extends Tx_Classparser_Domain_Model_A
 	protected $associatedDomainObjectProperty = NULL;
 
 	/**
-	 * @var boolean
+	 * varType
+	 *
+	 * @var string
+	 */
+	protected $varType;
+
+	/**
+	 * default
+	 *
+	 * @var string
 	 */
 	protected $default;
 
 	/**
+	 * value
 	 *
-	 * @var mixed
+	 * @var string
 	 */
 	protected $value;
 
 	/**
+	 * __construct
 	 *
 	 * @param string $propertyName
 	 * @return void
@@ -70,14 +74,13 @@ class Tx_Classparser_Domain_Model_Property extends Tx_Classparser_Domain_Model_A
 	}
 
 	/**
-	 *
 	 * all properties that have a setter in this class and a getter in the reflection class will be set here
 	 *
-	 * @param Tx_ExtensionBuilder_Reflection_PropertyReflection $propertyReflection
+	 * @param Tx_Classparser_Reflection_PropertyReflection $propertyReflection
 	 * @return void
 	 */
 	public function mapToReflectionProperty($propertyReflection) {
-		if ($propertyReflection instanceof Tx_ExtensionBuilder_Reflection_PropertyReflection) {
+		if ($propertyReflection instanceof Tx_Classparser_Reflection_PropertyReflection) {
 
 			$tags = $propertyReflection->getTagsValues(); // just to initialize the docCommentParser
 			foreach ($this as $key => $value) {
@@ -115,8 +118,8 @@ class Tx_Classparser_Domain_Model_Property extends Tx_Classparser_Domain_Model_A
 		}
 	}
 
-
 	/**
+	 * getVarType
 	 *
 	 * @return string $type.
 	 */
@@ -128,12 +131,12 @@ class Tx_Classparser_Domain_Model_Property extends Tx_Classparser_Domain_Model_A
 	 * Sets $type.
 	 *
 	 * @param string $type
+	 * @return
 	 */
 	public function setVarType($varType) {
 		$this->tags['var'] = array($varType);
 		$this->varType = $varType;
 	}
-
 
 	/**
 	 * Returns $associatedDomainObjectProperty.
@@ -148,6 +151,7 @@ class Tx_Classparser_Domain_Model_Property extends Tx_Classparser_Domain_Model_A
 	 * Sets $associatedDomainObjectProperty.
 	 *
 	 * @param object $associatedDomainObjectProperty
+	 * @return
 	 */
 	public function setAssociatedDomainObjectProperty($associatedDomainObjectProperty) {
 		$this->associatedDomainObjectProperty = $associatedDomainObjectProperty;
@@ -159,11 +163,17 @@ class Tx_Classparser_Domain_Model_Property extends Tx_Classparser_Domain_Model_A
 		}
 	}
 
+	/**
+	 * hasAssociatedDomainObjectProperty
+	 *
+	 * @return
+	 */
 	public function hasAssociatedDomainObjectProperty() {
 		return !is_null($this->associatedDomainObjectProperty);
 	}
 
 	/**
+	 * isDefault
 	 *
 	 * @return boolean
 	 */
@@ -172,14 +182,17 @@ class Tx_Classparser_Domain_Model_Property extends Tx_Classparser_Domain_Model_A
 	}
 
 	/**
+	 * setDefault
 	 *
 	 * @param boolean $default
+	 * @return
 	 */
 	public function setDefault($default) {
 		$this->default = $default;
 	}
 
 	/**
+	 * getDefault
 	 *
 	 * @return boolean
 	 */
@@ -188,6 +201,8 @@ class Tx_Classparser_Domain_Model_Property extends Tx_Classparser_Domain_Model_A
 	}
 
 	/**
+	 * getValue
+	 *
 	 * @return mixed
 	 */
 	public function getValue() {
@@ -198,6 +213,7 @@ class Tx_Classparser_Domain_Model_Property extends Tx_Classparser_Domain_Model_A
 	 * Setter for value
 	 *
 	 * @param mixed
+	 * @return
 	 */
 	public function setValue($value) {
 		$this->value = $value;
@@ -206,6 +222,7 @@ class Tx_Classparser_Domain_Model_Property extends Tx_Classparser_Domain_Model_A
 	/**
 	 * This is a helper function to be called in fluid if conditions
 	 * it returns TRUE even if the default value is 0 or an empty string or "FALSE"
+	 *
 	 * @return bool
 	 */
 	public function getHasDefaultValue() {
@@ -218,6 +235,7 @@ class Tx_Classparser_Domain_Model_Property extends Tx_Classparser_Domain_Model_A
 	/**
 	 * This is a helper function to be called in fluid if conditions
 	 * it returns TRUE even if the value is 0 or an empty string or "FALSE"
+	 *
 	 * @return bool
 	 */
 	public function getHasValue() {
