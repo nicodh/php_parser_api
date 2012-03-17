@@ -24,7 +24,7 @@
  ***************************************************************/
 
 /**
- * Test case for class Tx_Classparser_Domain_Model_Property.
+ * Test case for class Tx_Classparser_Controller_MethodParameterController.
  *
  * @version $Id$
  * @copyright Copyright belongs to the respective authors
@@ -34,14 +34,14 @@
  * @subpackage Class Parser
  *
  */
-class Tx_Classparser_Domain_Model_PropertyTest extends Tx_Extbase_Tests_Unit_BaseTestCase {
+class Tx_Classparser_Controller_MethodParameterControllerTest extends Tx_Extbase_Tests_Unit_BaseTestCase {
 	/**
-	 * @var Tx_Classparser_Domain_Model_Property
+	 * @var Tx_Classparser_Domain_Model_MethodParameter
 	 */
 	protected $fixture;
 
 	public function setUp() {
-		$this->fixture = new Tx_Classparser_Domain_Model_Property();
+		$this->fixture = new Tx_Classparser_Domain_Model_MethodParameter();
 	}
 
 	public function tearDown() {
@@ -51,53 +51,9 @@ class Tx_Classparser_Domain_Model_PropertyTest extends Tx_Extbase_Tests_Unit_Bas
 	/**
 	 * @test
 	 */
-	public function getVarTypeReturnsInitialValueForString() { }
-
-	/**
-	 * @test
-	 */
-	public function setVarTypeForStringSetsVarType() { 
-		$this->fixture->setVarType('Conceived at T3CON10');
-
-		$this->assertSame(
-			'Conceived at T3CON10',
-			$this->fixture->getVarType()
-		);
+	public function dummyMethod() {
+		$this->markTestIncomplete();
 	}
-	
-	/**
-	 * @test
-	 */
-	public function getDefaultReturnsInitialValueForString() { }
 
-	/**
-	 * @test
-	 */
-	public function setDefaultForStringSetsDefault() { 
-		$this->fixture->setDefault('Conceived at T3CON10');
-
-		$this->assertSame(
-			'Conceived at T3CON10',
-			$this->fixture->getDefault()
-		);
-	}
-	
-	/**
-	 * @test
-	 */
-	public function getValueReturnsInitialValueForString() { }
-
-	/**
-	 * @test
-	 */
-	public function setValueForStringSetsValue() { 
-		$this->fixture->setValue('Conceived at T3CON10');
-
-		$this->assertSame(
-			'Conceived at T3CON10',
-			$this->fixture->getValue()
-		);
-	}
-	
 }
 ?>

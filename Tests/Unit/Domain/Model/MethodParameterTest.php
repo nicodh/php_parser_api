@@ -24,7 +24,7 @@
  ***************************************************************/
 
 /**
- * Test case for class Tx_Classparser_Domain_Model_AbstractObject.
+ * Test case for class Tx_Classparser_Domain_Model_MethodParameter.
  *
  * @version $Id$
  * @copyright Copyright belongs to the respective authors
@@ -34,14 +34,14 @@
  * @subpackage Class Parser
  *
  */
-class Tx_Classparser_Domain_Model_AbstractObjectTest extends Tx_Extbase_Tests_Unit_BaseTestCase {
+class Tx_Classparser_Domain_Model_MethodParameterTest extends Tx_Extbase_Tests_Unit_BaseTestCase {
 	/**
-	 * @var Tx_Classparser_Domain_Model_AbstractObject
+	 * @var Tx_Classparser_Domain_Model_MethodParameter
 	 */
 	protected $fixture;
 
 	public function setUp() {
-		$this->fixture = new Tx_Classparser_Domain_Model_AbstractObject();
+		$this->fixture = new Tx_Classparser_Domain_Model_MethodParameter();
 	}
 
 	public function tearDown() {
@@ -68,68 +68,117 @@ class Tx_Classparser_Domain_Model_AbstractObjectTest extends Tx_Extbase_Tests_Un
 	/**
 	 * @test
 	 */
-	public function getModifiersReturnsInitialValueForString() { }
+	public function getVarTypeReturnsInitialValueForString() { }
 
 	/**
 	 * @test
 	 */
-	public function setModifiersForStringSetsModifiers() { 
-		$this->fixture->setModifiers('Conceived at T3CON10');
+	public function setVarTypeForStringSetsVarType() { 
+		$this->fixture->setVarType('Conceived at T3CON10');
 
 		$this->assertSame(
 			'Conceived at T3CON10',
-			$this->fixture->getModifiers()
+			$this->fixture->getVarType()
 		);
 	}
 	
 	/**
 	 * @test
 	 */
-	public function getTagsReturnsInitialValueForString() { }
+	public function getTypeHintReturnsInitialValueForString() { }
 
 	/**
 	 * @test
 	 */
-	public function setTagsForStringSetsTags() { 
-		$this->fixture->setTags('Conceived at T3CON10');
+	public function setTypeHintForStringSetsTypeHint() { 
+		$this->fixture->setTypeHint('Conceived at T3CON10');
 
 		$this->assertSame(
 			'Conceived at T3CON10',
-			$this->fixture->getTags()
+			$this->fixture->getTypeHint()
 		);
 	}
 	
 	/**
 	 * @test
 	 */
-	public function getDocCommentReturnsInitialValueForString() { }
+	public function getDefaultValueReturnsInitialValueForString() { }
 
 	/**
 	 * @test
 	 */
-	public function setDocCommentForStringSetsDocComment() { 
-		$this->fixture->setDocComment('Conceived at T3CON10');
+	public function setDefaultValueForStringSetsDefaultValue() { 
+		$this->fixture->setDefaultValue('Conceived at T3CON10');
 
 		$this->assertSame(
 			'Conceived at T3CON10',
-			$this->fixture->getDocComment()
+			$this->fixture->getDefaultValue()
 		);
 	}
 	
 	/**
 	 * @test
 	 */
-	public function getPrecedingBlockReturnsInitialValueForString() { }
+	public function getPositionReturnsInitialValueForInteger() { 
+		$this->assertSame(
+			0,
+			$this->fixture->getPosition()
+		);
+	}
 
 	/**
 	 * @test
 	 */
-	public function setPrecedingBlockForStringSetsPrecedingBlock() { 
-		$this->fixture->setPrecedingBlock('Conceived at T3CON10');
+	public function setPositionForIntegerSetsPosition() { 
+		$this->fixture->setPosition(12);
 
 		$this->assertSame(
-			'Conceived at T3CON10',
-			$this->fixture->getPrecedingBlock()
+			12,
+			$this->fixture->getPosition()
+		);
+	}
+	
+	/**
+	 * @test
+	 */
+	public function getOptionalReturnsInitialValueForBoolean() { 
+		$this->assertSame(
+			TRUE,
+			$this->fixture->getOptional()
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function setOptionalForBooleanSetsOptional() { 
+		$this->fixture->setOptional(TRUE);
+
+		$this->assertSame(
+			TRUE,
+			$this->fixture->getOptional()
+		);
+	}
+	
+	/**
+	 * @test
+	 */
+	public function getPassedByReferenceReturnsInitialValueForBoolean() { 
+		$this->assertSame(
+			TRUE,
+			$this->fixture->getPassedByReference()
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function setPassedByReferenceForBooleanSetsPassedByReference() { 
+		$this->fixture->setPassedByReference(TRUE);
+
+		$this->assertSame(
+			TRUE,
+			$this->fixture->getPassedByReference()
 		);
 	}
 	

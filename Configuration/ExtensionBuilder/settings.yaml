@@ -50,12 +50,10 @@ overwriteSettings:
 
   Resources:
     Private:
-      Language:
-        #locallang.xml: merge
-        #locallang.xlf: merge
+      Language: skip
       Templates: skip
 
-  ext_icon.gif: keep
+  ext_icon.gif: skip
 
   ext_localconf.php: skip
 
