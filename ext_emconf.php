@@ -12,8 +12,8 @@
 
 $EM_CONF[$_EXTKEY] = array(
 	'title' => 'Class Parser',
-	'description' => '',
-	'category' => 'plugin',
+	'description' => 'Tool to convert PHP classes in objects, modify them and get a string representation of the new source code',
+	'category' => 'misc',
 	'author' => 'Nico de Haen',
 	'author_email' => 'mail@ndh-websolutions.de',
 	'author_company' => '',

@@ -569,5 +569,9 @@ class Tx_Classparser_Domain_Model_Class extends Tx_Classparser_Domain_Model_Abst
 		return $infoArray;
 	}
 
+	public function setName($name) {
+		$this->name = $name;
+	}
+
 }
 ?>

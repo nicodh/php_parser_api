@@ -31,6 +31,11 @@ class Tx_Classparser_Tests_ParserTest extends Tx_Extbase_Tests_Unit_BaseTestCase
 	 */
 	protected $debugMode = TRUE;
 
+
+	function setUp(){
+		$this->objectManager = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager');
+	}
+
 	/**
 	 * Parse a basic class from a file
 	 * @test
@@ -169,12 +174,7 @@ class Tx_Classparser_Tests_ParserTest extends Tx_Extbase_Tests_Unit_BaseTestCase
 		$this->assertEquals($classObjectPropertCount, $reflectionPropertyCount, 'Not all Properties were found!');
 	}
 
-	/**
-	 * @test
-	 */
-	public function ParserServiceReturnsString() {
 
-	}
 
 }
 

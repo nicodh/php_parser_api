@@ -1,4 +1,4 @@
-<?php
+	<?php
 /***************************************************************
  *  Copyright notice
  *
@@ -210,14 +210,17 @@ class Tx_Classparser_Service_Parser implements t3lib_singleton {
 	/**
 	 * builds a classSchema from a className, you have to require_once before importing the class
 	 * @param string $className
+	 * @throws Tx_Classparser_Exception_ParseError
 	 * @return Tx_Classparser_Domain_Model_Class
 	 */
 	public function parse($className) {
 
-		$this->starttime = microtime(TRUE);
+		if($this->debugMode) {
+			$this->starttime = microtime(TRUE);
+		}
 
 		if (!class_exists($className)) {
-			throw new Exception('Class not exists: ' . $className);
+			throw new Tx_Classparser_Exception_ParseError('Class not exists: ' . $className);
 		}
 
 		$this->initClassObject($className);
@@ -227,7 +230,7 @@ class Tx_Classparser_Service_Parser implements t3lib_singleton {
 		$fileHandler = fopen($file, 'r');
 
 		if (!$fileHandler) {
-			throw new Exception('Could not open file: ' . $file);
+			throw new Tx_Classparser_Exception_ParseError('Could not open file: ' . $file);
 		}
 
 		$this->lineCount = 1;
@@ -289,8 +292,8 @@ class Tx_Classparser_Service_Parser implements t3lib_singleton {
 				$this->onMethodEnd($trimmedLine);
 			}
 
-			// if no matches of the various regex are found, the line might be added
-			// later (onMethodEnd or on Multiline property end)
+			// if no matches of the various regex are found, the line might be added later
+			// in (onMethodEnd or on Multiline property end)
 			$this->lines[$this->lineCount] = $this->currentLine;
 			$this->lineCount++;
 
@@ -309,11 +312,11 @@ class Tx_Classparser_Service_Parser implements t3lib_singleton {
 
 		// some checks again the reflection class
 		if (count($this->classObject->getMethods()) != count($this->classReflection->getNotInheritedMethods())) {
-			throw new Exception('Class ' . $className . ' could not be parsed properly. Method count does not equal reflection method count');
+			throw new Tx_Classparser_Exception_ParseError('Class ' . $className . ' could not be parsed properly. Method count does not equal reflection method count');
 		}
 
 		if (count($this->classObject->getProperties()) != count($this->classReflection->getNotInheritedProperties())) {
-			throw new Exception('Class ' . $className . ' could not be parsed properly. Property count does not equal reflection property count');
+			throw new Tx_Classparser_Exception_ParseError('Class ' . $className . ' could not be parsed properly. Property count does not equal reflection property count');
 		}
 
 		return $this->classObject;
@@ -406,7 +409,6 @@ class Tx_Classparser_Service_Parser implements t3lib_singleton {
 		// end of a method body
 		$this->inMethodBody = FALSE;
 		$this->lastMatchedLineNumber = $this->lineCount;
-		//TODO what if a method is defined in the same line as the preceding method ends? Should be checked with tokenizer?
 	}
 
 	/**

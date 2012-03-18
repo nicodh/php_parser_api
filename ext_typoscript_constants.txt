@@ -1,0 +1,8 @@
+module.tx_classparser {
+	view {
+		templateRootPath = EXT:classparser/Resources/Private/Templates
+		partialRootPath = EXT:classparser/Resources/Private/Partials
+		layoutRootPath =  EXT:classparser/Resources/Private/Layout
+	}
+
+}
