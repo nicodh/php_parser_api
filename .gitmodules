@@ -1,0 +1,3 @@
+[submodule "Classes/Parser"]
+	path = Classes/Parser
+	url = git@github.com:nicodh/PHP-Parser.git

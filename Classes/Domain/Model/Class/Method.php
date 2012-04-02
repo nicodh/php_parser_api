@@ -41,9 +41,9 @@ class Tx_Classparser_Domain_Model_Class_Method extends Tx_Classparser_Domain_Mod
 	public $defaultIndent = "\t\t";
 
 	/**
-	 * body
+	 * stmts of this methods body
 	 *
-	 * @var string
+	 * @var array
 	 */
 	protected $body;
 
@@ -57,29 +57,23 @@ class Tx_Classparser_Domain_Model_Class_Method extends Tx_Classparser_Domain_Mod
 	/**
 	 * __construct
 	 *
-	 * @param $methodName
-	 * @param $methodReflection
+	 * @param PHPParser_Node_Stmt_ClassMethod $methodNode
 	 * @return
 	 */
-	public function __construct($methodName, $methodReflection = NULL) {
-		$this->setName($methodName);
-		if ($methodReflection instanceof Tx_Classparser_Reflection_MethodReflection) {
-			$methodReflection->getTagsValues(); // just to initialize the docCommentParser
-			foreach ($this as $key => $value) {
-				$setterMethodName = 'set' . t3lib_div::underscoredToUpperCamelCase($key);
-				$getterMethodName = 'get' . t3lib_div::underscoredToUpperCamelCase($key);
-				// map properties of reflection class to this class
-				if (method_exists($methodReflection, $getterMethodName) && method_exists($this, $setterMethodName)) {
-					$this->$setterMethodName($methodReflection->$getterMethodName());
-					//t3lib_div::print_array($getterMethodName);
+	public function __construct($methodNode = NULL) {
+		if($methodNode) {
+			$this->setName($methodNode->__get('name'));
+			$this->setStmts(array($methodNode));
+			$this->addModifier($methodNode->getType());
+			$this->setDocComment($methodNode->getDocComment());
+			if($methodNode->__get('params')) {
+				$position = 0;
+				foreach($methodNode->__get('params') as $param) {
+					$parameter = new Tx_Classparser_Domain_Model_Class_MethodParameter($param->__get('name'));
+					$parameter->setPosition($position);
+					$parameter->setStmts(array($methodNode));
+					$this->setParameter($parameter);
 				}
-
-			}
-			if (empty($this->tags)) {
-				// strange behaviour in php ReflectionProperty->getDescription(). A backslash is added to the description
-				$this->description = str_replace("\n/", '', $this->description);
-				$this->description = trim($this->description);
-				//$this->setTag('return','void');
 			}
 		}
 	}
@@ -87,26 +81,17 @@ class Tx_Classparser_Domain_Model_Class_Method extends Tx_Classparser_Domain_Mod
 	/**
 	 * Setter for body
 	 *
-	 * @param string $body body
+	 * @param array $stmts
 	 * @return void
 	 */
-	public function setBody($body) {
-		// keep or set the indent
-		if (strpos($body, $this->defaultIndent) !== 0) {
-			$lines = explode("\n", $body);
-			$newLines = array();
-			foreach ($lines as $line) {
-				$newLines[] = $this->defaultIndent . $line;
-			}
-			$body = implode("\n", $newLines);
-		}
-		$this->body = rtrim($body);
+	public function setBody($stmts) {
+		$this->body = $stmts;
 	}
 
 	/**
 	 * Getter for body
 	 *
-	 * @return string body
+	 * @return array body
 	 */
 	public function getBody() {
 		return $this->body;

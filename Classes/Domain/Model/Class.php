@@ -48,9 +48,9 @@ class Tx_Classparser_Domain_Model_Class extends Tx_Classparser_Domain_Model_Abst
 	protected $interfaceNames;
 
 	/**
-	 * all lines that were found below the class declaration
+	 * all stmts that were found below the class declaration
 	 *
-	 * @var string
+	 * @var array
 	 */
 	protected $appendedBlock;
 
@@ -67,12 +67,6 @@ class Tx_Classparser_Domain_Model_Class extends Tx_Classparser_Domain_Model_Abst
 	 */
 	protected $isFileBased = FALSE;
 
-	/**
-	 * is instantiated only if the class is imported from a file
-	 *
-	 * @var Tx_Classparser_Reflection_ClassReflection
-	 */
-	protected $classReflection = NULL;
 
 	/**
 	 * parentClass
@@ -420,8 +414,7 @@ class Tx_Classparser_Domain_Model_Class extends Tx_Classparser_Domain_Model_Abst
 	 * @return boolean
 	 */
 	public function propertyExists($propertyName) {
-		$propertyNames = $this->getPropertyNames();
-		if (!is_array($this->methods)) {
+		if (!is_array($this->properties)) {
 			return FALSE;
 		}
 		if (in_array($propertyName, $this->getPropertyNames())) {
@@ -567,10 +560,6 @@ class Tx_Classparser_Domain_Model_Class extends Tx_Classparser_Domain_Model_Abst
 		$infoArray['Tags'] = $this->getTags();
 		//$infoArray['Methods'] = count($this->getMethods());
 		return $infoArray;
-	}
-
-	public function setName($name) {
-		$this->name = $name;
 	}
 
 }

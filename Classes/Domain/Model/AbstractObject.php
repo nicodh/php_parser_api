@@ -89,6 +89,11 @@ class Tx_Classparser_Domain_Model_AbstractObject {
 	protected $docComment;
 
 	/**
+	 * @var array
+	 */
+	protected $stmts;
+
+	/**
 	 * precedingBlock
 	 * all lines that were found above the declaration of the current element
 	 *
@@ -368,23 +373,12 @@ class Tx_Classparser_Domain_Model_AbstractObject {
 		}
 	}
 
-	/**
-	 * Setter for isModified
-	 *
-	 * @param string $isModified isModified
-	 * @return void
-	 */
-	public function setIsModified($isModified) {
-		$this->isModified = $isModified;
+	public function setStmts(array $stmts) {
+		$this->stmts = $stmts;
 	}
 
-	/**
-	 * Getter for isModified
-	 *
-	 * @return string isModified
-	 */
-	public function getIsModified() {
-		return $this->isModified;
+	public function getStmts() {
+		return $this->stmts;
 	}
 
 }

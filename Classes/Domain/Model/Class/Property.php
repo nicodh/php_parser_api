@@ -66,11 +66,22 @@ class Tx_Classparser_Domain_Model_Class_Property extends Tx_Classparser_Domain_M
 	/**
 	 * __construct
 	 *
-	 * @param string $propertyName
+	 * @param PHPParser_Node_Stmt_Property $propertyNode
 	 * @return void
 	 */
-	public function __construct($propertyName) {
-		$this->name = $propertyName;
+	public function __construct($propertyNode = NULL) {
+		if($propertyNode) {
+			$this->setVarType($propertyNode->getType());
+			$this->setStmts(array($propertyNode));
+			foreach($propertyNode->getSubNodes() as $subNode) {
+				if($subNode instanceof PHPParser_Node_Stmt_PropertyProperty) {
+					$this->setName($subNode->__get('name'));
+					if($subNode->__get('default')) {
+						$this->setDefault(TRUE);
+					}
+				}
+			}
+		}
 	}
 
 	/**
