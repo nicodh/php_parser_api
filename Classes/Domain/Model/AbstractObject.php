@@ -34,22 +34,22 @@
 class Tx_Classparser_Domain_Model_AbstractObject {
 
 	/**
-	 * 1	ReflectionMethod::IS_STATIC
-	 * 2	ReflectionMethod::IS_ABSTRACT
-	 * 4	ReflectionMethod::IS_FINAL
-	 * 256	ReflectionMethod::IS_PUBLIC
-	 * 512	ReflectionMethod::IS_PROTECTED
-	 * 1024	ReflectionMethod::IS_PRIVATE
+	 *  const MODIFIER_PUBLIC    =  1;
+	 *  const MODIFIER_PROTECTED =  2;
+	 *  const MODIFIER_PRIVATE   =  4;
+	 *  const MODIFIER_STATIC    =  8;
+	 *  const MODIFIER_ABSTRACT  = 16;
+	 *  const MODIFIER_FINAL     = 32;
 	 *
 	 * @var array
 	 */
 	private $mapModifierNames = array(
-		'static' => ReflectionMethod::IS_STATIC,
-		'abstract' => ReflectionMethod::IS_ABSTRACT,
-		'final' => ReflectionMethod::IS_FINAL,
-		'public' => ReflectionMethod::IS_PUBLIC,
-		'protected' => ReflectionMethod::IS_PROTECTED,
-		'private' => ReflectionMethod::IS_PRIVATE
+		'static'    => PHPParser_Node_Stmt_Class::MODIFIER_STATIC,
+		'abstract'  => PHPParser_Node_Stmt_Class::MODIFIER_ABSTRACT,
+		'final'     => PHPParser_Node_Stmt_Class::MODIFIER_FINAL,
+		'public'    => PHPParser_Node_Stmt_Class::MODIFIER_PUBLIC,
+		'protected' => PHPParser_Node_Stmt_Class::MODIFIER_PROTECTED,
+		'private'   => PHPParser_Node_Stmt_Class::MODIFIER_PRIVATE
 
 	);
 
@@ -89,9 +89,15 @@ class Tx_Classparser_Domain_Model_AbstractObject {
 	protected $docComment;
 
 	/**
-	 * @var array
+	 * @var Tx_Classparser_Parser_DocCommentParser
 	 */
-	protected $stmts;
+	protected $docCommentParser;
+
+
+	/**
+	 * @var PHPParser_Node
+	 */
+	protected $node;
 
 	/**
 	 * precedingBlock
@@ -107,8 +113,11 @@ class Tx_Classparser_Domain_Model_AbstractObject {
 	 * @param string $name name
 	 * @return void
 	 */
-	public function setName($name) {
+	public function setName($name, $updateNodeName = TRUE) {
 		$this->name = $name;
+		if($updateNodeName) {
+			$this->node->__set('name',$name);
+		}
 	}
 
 	/**
@@ -118,146 +127,6 @@ class Tx_Classparser_Domain_Model_AbstractObject {
 	 */
 	public function getName() {
 		return $this->name;
-	}
-
-	/**
-	 * Checks if the doc comment of this method is tagged with
-	 * the specified tag
-	 *
-	 * @param string $tag: Tag name to check for
-	 * @return boolean TRUE if such a tag has been defined, otherwise FALSE
-	 */
-	public function isTaggedWith($tagName) {
-		return in_array($tagName, array_keys($this->tags));
-	}
-
-	/**
-	 * Returns an array of tags and their values
-	 *
-	 * @return array Tags and values
-	 */
-	public function getTags() {
-		return $this->tags;
-	}
-
-	/**
-	 * getAnnotations
-	 *
-	 * @return
-	 */
-	public function getAnnotations() {
-		$annotations = array();
-		$tagNames = array_keys($this->tags);
-		foreach ($tagNames as $tagName) {
-			if (empty($this->tags[$tagName])) {
-				$annotations[] = $tagName;
-			}
-			if (is_array($this->tags[$tagName])) {
-				foreach ($this->tags[$tagName] as $tagValue) {
-					$annotations[] = $tagName . ' ' . $tagValue;
-				}
-				//$tagValue = implode(' ',$tagValue);
-			}
-			else {
-				$annotations[] = $tagName . ' ' . $this->tags[$tagName];
-			}
-		}
-		return $annotations;
-	}
-
-	/**
-	 * sets the array of tags
-	 *
-	 * @param $tags
-	 * @return array Tags and values
-	 */
-	public function setTags($tags) {
-		$this->tags = $tags;
-	}
-
-	/**
-	 * sets a tags
-	 *
-	 * @param string $tagName
-	 * @param mixed $tagValue
-	 * @return void
-	 */
-	public function setTag($tagName, $tagValue, $override = TRUE) {
-		if (!$override && isset($this->tags[$tagName])) {
-			if (!is_array($this->tags[$tagName])) {
-				// build an array with the existing value as first element
-				$this->tags[$tagName] = array($this->tags[$tagName]);
-			}
-			$this->tags[$tagName][] = $tagValue;
-		}
-		else {
-			$this->tags[$tagName] = $tagValue;
-		}
-	}
-
-	/**
-	 * unsets a tags
-	 *
-	 * @param string $tagName
-	 * @return void
-	 */
-	public function removeTag($tagName) {
-		//TODO: multiple tags with same tagname must be possible (param etc.)
-		unset($this->tags[$tagName]);
-	}
-
-	/**
-	 * Get property description to be used in comments
-	 *
-	 * @return string Property description
-	 */
-	public function getDescription() {
-		$test = str_replace('/', '', trim($this->description));
-		if (empty($this->description) || empty($test)) {
-			return $this->name;
-		}
-		return $this->description;
-	}
-
-	/**
-	 * Get property description lines as array
-	 *
-	 * @return string Property description
-	 */
-	public function getDescriptionLines() {
-		return t3lib_div::trimExplode("\n", trim($this->getDescription()));
-	}
-
-	/**
-	 * Set property description
-	 *
-	 * @param string $description Property description
-	 * @return
-	 */
-	public function setDescription($description) {
-		$this->description = $description;
-	}
-
-	/**
-	 * hasDescription
-	 *
-	 * @return boolean TRUE if the description isn't empty
-	 */
-	public function hasDescription() {
-		if (empty($this->description)) {
-			return FALSE;
-		}
-		return TRUE;
-	}
-
-	/**
-	 * Returns the values of the specified tag
-	 *
-	 * @param $tagName
-	 * @return array Values of the given tag
-	 */
-	public function getTagsValues($tagName) {
-		return $this->tags[$tagName];
 	}
 
 	/**
@@ -317,14 +186,38 @@ class Tx_Classparser_Domain_Model_AbstractObject {
 		return $modifierNames;
 	}
 
+	public function setNode(PHPParser_Node $node) {
+		$this->node = $node;
+	}
+
+	public function getNode() {
+		return $this->node;
+	}
+
+	protected function updateDocComment() {
+		$this->docComment = $this->docCommentParser->renderDocComment($this->tags, $this->description);
+		$this->node->setDocComment($this->docComment);
+	}
+
 	/**
 	 * Setter for docComment
 	 *
 	 * @param string $docComment docComment
+	 * @param boolean $updateNodeDocComment
 	 * @return void
 	 */
-	public function setDocComment($docComment) {
+	public function setDocComment($docComment, $updateNodeDocComment = TRUE) {
 		$this->docComment = $docComment;
+		if(!is_object($this->docCommentParser)) {
+		    // inject not possible?
+			$this->docCommentParser = t3lib_div::makeInstance('Tx_Classparser_Parser_DocCommentParser');
+		}
+		$this->docCommentParser->parseDocComment($docComment);
+		$this->tags = $this->docCommentParser->getTags();
+		$this->description = $this->docCommentParser->getDescription();
+		if($updateNodeDocComment) {
+			$this->node->setDocComment($docComment);
+		}
 	}
 
 	/**
@@ -349,9 +242,90 @@ class Tx_Classparser_Domain_Model_AbstractObject {
 	}
 
 	/**
+	 * Checks if the doc comment of this method is tagged with
+	 * the specified tag
+	 *
+	 * @param  string $tag: Tag name to check for
+	 * @return boolean TRUE if such a tag has been defined, otherwise FALSE
+	 */
+	public function isTaggedWith($tagName) {
+		return (isset($this->tags[$tagName]));
+	}
+
+
+	/**
+	 * Returns the values of the specified tag
+	 * @return array Values of the given tag
+	 */
+	public function getTagValues($tagName) {
+		return $this->tags[$tagName];
+	}
+
+	/**
+	 * Returns an array of tags and their values
+	 *
+	 * @return array Tags and values
+	 */
+	public function getTags() {
+		return $this->tag;
+	}
+
+	/**
+	 * sets a tags
+	 *
+	 * @param string $tagName
+	 * @param mixed $tagValue
+	 * @return void
+	 */
+	public function setTag($tagName, $tagValue, $override = TRUE) {
+		if (!$override && isset($this->tags[$tagName])) {
+			if (!is_array($this->tags[$tagName])) {
+				// build an array with the existing value as first element
+				$this->tags[$tagName] = array($this->tags[$tagName]);
+			}
+			$this->tags[$tagName][] = $tagValue;
+		}
+		else {
+			$this->tags[$tagName] = $tagValue;
+		}
+		$this->updateDocComment();
+	}
+
+	public function addTag($tagName, $tagValue) {
+		if(isset($this->tags[$tagName])) {
+			$this->tags[$tagName][] = $tagValue;
+		} else {
+			$this->tags[$tagName] = array($tagValue);
+		}
+		$this->updateDocComment();
+		return $this;
+	}
+
+	/**
+	 * unsets a tag
+	 *
+	 * @param string $tagName
+	 * @param mixed $tagValue of the tag to be removed
+	 * (if second parameter is not set, all tags with that name will be removed)
+	 * @return void
+	 */
+	public function removeTag($tagName, $tagValue = NULL) {
+		if(func_num_args() > 1) {
+			for($i = 0;$i < count($this->tags[$tagName]);$i++) {
+				if($tagValue === $this->tags[$tagName][$i]) {
+					unset($this->tags[$tagName][$i]);
+				}
+			}
+		} else {
+			unset($this->tags[$tagName]);
+		}
+		$this->updateDocComment();
+	}
+
+	/**
 	 * Setter for precedingBlock
 	 *
-	 * @param string $precedingBlock precedingBlock
+	 * @param string $precedingBlock precedt3lib_div::makeInstance(ingBlock
 	 * @return void
 	 */
 	public function setPrecedingBlock($precedingBlock) {
@@ -371,14 +345,6 @@ class Tx_Classparser_Domain_Model_AbstractObject {
 		} else {
 			return $cleanPrecedingBlock;
 		}
-	}
-
-	public function setStmts(array $stmts) {
-		$this->stmts = $stmts;
-	}
-
-	public function getStmts() {
-		return $this->stmts;
 	}
 
 }

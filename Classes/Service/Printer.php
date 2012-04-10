@@ -30,42 +30,27 @@
 
 
 /**
-* provides methods to import a class object
-*
+* provides methods to render the sourcecode for statements
 * @package Classparser
 * @version $ID:$
 */
-class Tx_Classparser_Service_Printer implements t3lib_singleton {
+class Tx_Classparser_Service_Printer extends PHPParser_PrettyPrinter_TYPO3CGL implements t3lib_singleton {
+
 
 	/**
-	 * @var Tx_Extbase_Configuration_ConfigurationManager
+	 * @param array $stmts
 	 */
-	protected $configurationManager;
-
-	/**
-	 * @param Tx_Extbase_Configuration_ConfigurationManager $configurationManager
-	 * @return void
-	 */
-	public function injectConfigurationManager(Tx_Extbase_Configuration_ConfigurationManager $configurationManager) {
-		$this->configurationManager = $configurationManager;
+	public function render($stmts) {
+		if(!is_array($stmts)) {
+			$stmts = array($stmts);
+		}
+		t3lib_utility_Debug::debugInPopUpWindow($stmts);
+		return $this->prettyPrint($stmts);
 	}
 
-	/**
-	 * @param Tx_Classparser_Domain_Model_Class $classObject
-	 */
-	public function toString(Tx_Classparser_Domain_Model_Class $classObject) {
-		$view = new Tx_Fluid_View_StandaloneView;
-		$view->setFormat('text');
-		//$extbaseFrameworkConfiguration = $this->configurationManager->getConfiguration(Tx_Extbase_Configuration_ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK);
-		//return $extbaseFrameworkConfiguration;
-		$templateRootPath = t3lib_div::getFileAbsFileName('EXT:classparser/Resources/Private/Templates/');
-		$templatePathAndFilename = $templateRootPath . 'Class.phpt';
-		$view->setTemplatePathAndFilename($templatePathAndFilename);
-		//$view->setLayoutRootPath(t3lib_div::getFileAbsFileName($extbaseFrameworkConfiguration['view']['layoutRootPath']));
-		$view->setPartialRootPath(t3lib_div::getFileAbsFileName('EXT:classparser/Resources/Private/Partials/'));
-		$view->assign('classObject',$classObject);
-		$sourceCode = $view->render();
-		return $sourceCode;
+	public function renderClassObject($classObject) {
+		$classObject->updateStmts();
+		return $this->render($classObject->getNode());
 	}
 }
 

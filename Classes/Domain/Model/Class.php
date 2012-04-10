@@ -106,11 +106,13 @@ class Tx_Classparser_Domain_Model_Class extends Tx_Classparser_Domain_Model_Abst
 	/**
 	 * constructor of this class
 	 *
-	 * @param string $className
+	 * @param PHPParser_Node_Stmt_Class $classNode
 	 * @return unknown_type
 	 */
-	public function __construct($className) {
-		$this->name = $className;
+	public function __construct(PHPParser_Node_Stmt_Class $classNode) {
+		$this->name = $classNode->__get('name');
+		$this->setDocComment($classNode->getDocComment(), FALSE);
+		$this->node = $classNode;
 	}
 
 	/**
@@ -119,8 +121,20 @@ class Tx_Classparser_Domain_Model_Class extends Tx_Classparser_Domain_Model_Abst
 	 * @param string $constant constant
 	 * @return void
 	 */
-	public function setConstant($constantName, $constantValue) {
-		$this->constants[$constantName] = array('name' => $constantName, 'value' => $constantValue);
+	public function setConstant($constantName, $constantValue, $node) {
+		$this->constants[$constantName] = array('name' => $constantName, 'value' => $constantValue, 'node' => $node);
+	}
+
+	/**
+	 * Setter for a single constant
+	 *
+	 * @param string $constant constant
+	 * @return void
+	 */
+	public function setConstantNode($constantNode) {
+		foreach($constantNode->__get('consts') as $const) {
+			$this->setConstant($const->__get('name'), $const->__get('value')->__get('value'), $constantNode);
+		}
 	}
 
 	/**
@@ -532,6 +546,38 @@ class Tx_Classparser_Domain_Model_Class extends Tx_Classparser_Domain_Model_Abst
 		$this->appendedBlock = $appendedBlock;
 	}
 
+	public function updateStmts() {
+		$stmts = array();
+
+		$properties = array();
+		$methods = array();
+
+		foreach($this->methods as $method) {
+			$methods[$method->getName()] = $method->getNode();
+		}
+
+		foreach($this->properties as $property) {
+			$properties[$property->getName()] = $property->getNode();
+		}
+
+        ksort($properties);
+        ksort($methods);
+
+		foreach ($this->constants as $constantName => $constant) {
+			$stmts[] = $constant['node'];
+		}
+
+	    foreach ($properties as $property) {
+	         $stmts[] = $property;
+	    }
+
+	    foreach ($methods as $method) {
+            $stmts[] = $method;
+        }
+
+	    $this->node->stmts = $stmts;
+	}
+
 	/**
 	 * getInfo
 	 *
@@ -557,8 +603,9 @@ class Tx_Classparser_Domain_Model_Class extends Tx_Classparser_Domain_Model_Abst
 		//$infoArray['Not inherited Properties'] = count($this->getNotInheritedProperties());
 		$infoArray['Constants'] = $this->getConstants();
 		$infoArray['Modifiers'] = $this->getModifierNames();
-		$infoArray['Tags'] = $this->getTags();
+		$infoArray['Tags'] = $this->tags;
 		//$infoArray['Methods'] = count($this->getMethods());
+		$infoArray['node'] = $this->getNode();
 		return $infoArray;
 	}
 

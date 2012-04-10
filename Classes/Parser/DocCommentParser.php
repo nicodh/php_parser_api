@@ -24,13 +24,44 @@
  ***************************************************************/
 
 /**
- * @package classparser
+ * @package
  * @author Nico de Haen
  */
 
-class Tx_Classparser_Parser_Traverser extends PHPParser_NodeTraverser implements t3lib_singleton {
+class Tx_Classparser_Parser_DocCommentParser extends Tx_Extbase_Reflection_DocCommentParser{
 
-	public function resetVisitors() {
-		$this->visitors = array();
+	public function parse($docComment) {
+		parent::parseDocComment($docComment);
+		return $this->tags;
+	}
+
+	public function getTags() {
+		return $this->tags;
+	}
+
+	public function renderDocComment($tags, $description) {
+		$docComment = '/**' . LF;
+		$docComment .= ' * ' . implode(LF . ' * ', t3lib_div::trimExplode(LF,$description, TRUE));
+		$docComment .= LF . ' *' . LF;
+		$annotations = array();
+		$tagNames = array_keys($tags);
+		foreach ($tagNames as $tagName) {
+			if (empty($tags[$tagName])) {
+				$annotations[] = $tagName;
+			}
+			if (is_array($tags[$tagName])) {
+				foreach ($tags[$tagName] as $tagValue) {
+					$annotations[] = $tagName . ' ' . $tagValue;
+				}
+			}
+			else {
+				$annotations[] = $tagName . ' ' . $tags[$tagName];
+			}
+		}
+		foreach($annotations as $annotation) {
+			$docComment .= ' * @'.$annotation . LF;
+		}
+		$docComment .= '*/' . LF;
+		return $docComment;
 	}
 }

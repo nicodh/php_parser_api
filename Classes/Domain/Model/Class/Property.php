@@ -47,7 +47,7 @@ class Tx_Classparser_Domain_Model_Class_Property extends Tx_Classparser_Domain_M
 	 *
 	 * @var string
 	 */
-	protected $varType;
+	protected $type;
 
 	/**
 	 * default
@@ -71,71 +71,27 @@ class Tx_Classparser_Domain_Model_Class_Property extends Tx_Classparser_Domain_M
 	 */
 	public function __construct($propertyNode = NULL) {
 		if($propertyNode) {
-			$this->setVarType($propertyNode->getType());
-			$this->setStmts(array($propertyNode));
-			foreach($propertyNode->getSubNodes() as $subNode) {
+			$this->setType($propertyNode->getType());
+			$this->setNode($propertyNode);
+			foreach($propertyNode->__get('props') as $subNode) {
 				if($subNode instanceof PHPParser_Node_Stmt_PropertyProperty) {
-					$this->setName($subNode->__get('name'));
+					$this->setName($subNode->__get('name'), FALSE);
 					if($subNode->__get('default')) {
-						$this->setDefault(TRUE);
+						$this->setDefault($subNode->__get('default'));
 					}
 				}
 			}
 		}
 	}
 
-	/**
-	 * all properties that have a setter in this class and a getter in the reflection class will be set here
-	 *
-	 * @param Tx_Classparser_Reflection_PropertyReflection $propertyReflection
-	 * @return void
-	 */
-	public function mapToReflectionProperty($propertyReflection) {
-		if ($propertyReflection instanceof Tx_Classparser_Reflection_PropertyReflection) {
-
-			$tags = $propertyReflection->getTagsValues(); // just to initialize the docCommentParser
-			foreach ($this as $key => $value) {
-				$setterMethodName = 'set' . t3lib_div::underscoredToUpperCamelCase($key);
-				$getterMethodName = 'get' . t3lib_div::underscoredToUpperCamelCase($key);
-
-				// map properties of reflection class to this class
-				if (method_exists($propertyReflection, $getterMethodName) && method_exists($this, $setterMethodName) && $key != 'value') {
-					$this->$setterMethodName($propertyReflection->$getterMethodName());
-				}
-
-				$isMethodName = 'is' . t3lib_div::underscoredToUpperCamelCase($key);
-
-				// map properties of reflection class to this class
-				if (method_exists($propertyReflection, $setterMethodName) && method_exists($this, $isMethodName)) {
-					$this->$setterMethodName($propertyReflection->$isMethodName());
-				}
-			}
-
-			// This is not yet used later on. The type is not validated, so it might be anything!!
-			if (isset($this->tags['var'])) {
-				$parts = preg_split('/\s/', $this->tags['var'][0], 2);
-				$this->varType = $parts[0];
-			}
-			else {
-				t3lib_div::devLog('No var type set for property $' . $this->name . ' in class ' . $propertyReflection->getDeclaringClass()->name, 'extension_builder');
-			}
-
-			if (empty($this->tags)) {
-				// strange behaviour in php ReflectionProperty->getDescription(). A backslash is added to the description
-				$this->description = str_replace("\n/", '', $this->description);
-				$this->description = trim($this->description);
-				$this->setTag('var', 'mixed // please define a var type here');
-			}
-		}
-	}
 
 	/**
-	 * getVarType
+	 * getType
 	 *
 	 * @return string $type.
 	 */
-	public function getVarType() {
-		return $this->varType;
+	public function getType() {
+		return $this->type;
 	}
 
 	/**
@@ -144,9 +100,9 @@ class Tx_Classparser_Domain_Model_Class_Property extends Tx_Classparser_Domain_M
 	 * @param string $type
 	 * @return
 	 */
-	public function setVarType($varType) {
-		$this->tags['var'] = array($varType);
-		$this->varType = $varType;
+	public function setType($type) {
+		$this->tags['var'] = array($type);
+		$this->type = $type;
 	}
 
 	/**
@@ -254,6 +210,20 @@ class Tx_Classparser_Domain_Model_Class_Property extends Tx_Classparser_Domain_M
 			return TRUE;
 		}
 		return FALSE;
+	}
+
+	/**
+	 * Setter for name
+	 *
+	 * @param string $name name
+	 * @return void
+	 */
+	public function setName($name, $updateNodeName = TRUE) {
+		$this->name = $name;
+		if($updateNodeName) {
+			$props =  array(new PHPParser_Node_Stmt_PropertyProperty($this->name, $this->default));
+			$this->node->__set('props',$props);
+		}
 	}
 
 }

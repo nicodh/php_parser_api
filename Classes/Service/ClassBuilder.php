@@ -24,13 +24,19 @@
  ***************************************************************/
 
 /**
- * @package classparser
+ * @package
  * @author Nico de Haen
  */
 
-class Tx_Classparser_Parser_Traverser extends PHPParser_NodeTraverser implements t3lib_singleton {
+class Tx_Classparser_Service_ClassBuilder extends PHPParser_BuilderAbstract{
 
-	public function resetVisitors() {
-		$this->visitors = array();
+	static public function normalize($value, $type) {
+		if($type == 'name') {
+			return self::normalizeName($value);
+		}
+	}
+
+	public function getNode() {
+		return NULL;
 	}
 }

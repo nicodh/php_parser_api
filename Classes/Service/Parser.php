@@ -36,8 +36,6 @@
  * @version $ID:$
  */
 
-require t3lib_extMgm::extPath('classparser'). 'Classes/Parser/lib/PHPParser/Autoloader.php';
-PHPParser_Autoloader::register();
 
 class Tx_Classparser_Service_Parser extends PHPParser_Parser implements t3lib_singleton{
 
@@ -47,83 +45,41 @@ class Tx_Classparser_Service_Parser extends PHPParser_Parser implements t3lib_si
 	protected $traverser;
 
 	/**
-	 * @param PHPParser_NodeTraverser $traverser
+	 * @param Tx_Classparser_Parser_Traverser $traverser
 	 */
-	public function injectTraverser(PHPParser_NodeTraverser $traverser) {
+	public function injectTraverser(Tx_Classparser_Parser_Traverser $traverser) {
 		$this->traverser = $traverser;
+	}
+
+	/**
+	 * @var Tx_Extbase_Object_Manager
+	 */
+	protected $objectManager;
+
+	public function injectObjectManager(Tx_Extbase_Object_Manager $objectManager) {
+		$this->objectManager = $objectManager;
 	}
 
 	public function parse($code) {
 		$stmts = parent::parse(new PHPParser_Lexer($code));
-		$visitor = new ClassVisitor;
+		//t3lib_utility_Debug::debug($stmts, 'stmts');
+		$visitor = $this->objectManager->get('Tx_Classparser_Parser_Visitor_ClassVisitor');
 		$this->traverser->addVisitor($visitor);
-		$this->traverser->traverse($stmts);
+		$this->traverser->traverse(array($stmts));
 		$classObject = $visitor->getClassObject();
-		t3lib_utility_Debug::debug($classObject->getInfo(), 'classObject: ' . $classObject->getName());
+		//t3lib_utility_Debug::debug($classObject->getInfo(), 'classObject: ' . $classObject->getName());
 		return $classObject;
 	}
 
-}
-
-class ClassVisitor extends PHPParser_NodeVisitorAbstract {
-	protected $properties = array();
-
-	/**
-	 * @var Tx_Classparser_Domain_Model_Class
-	 */
-	protected $classObject = NULL;
-
-	protected $preIncludes = array();
-
-	protected $postIncludes = array();
-
-	protected $nameSpaces = array();
-
-	public function getClassObject() {
-		return $this->classObject;
+	public function parseFile($fileName) {
+		if(!file_exists($fileName)) {
+			throw new Exception('File "'. $fileName . '" not found!');
+		}
+		$fileHandler = fopen($fileName, 'r');
+		$code = fread($fileHandler, filesize($fileName));
+		return $this->parse($code);
 	}
 
-	public function enterNode(PHPParser_Node $node) {
-
-		if($node instanceof PHPParser_Node_Expr_Include) {
-			if($this->classObject === NULL) {
-				$this->preIncludes[$node->getLine()] = $node;
-			} else {
-				$this->postIncludes[$node->getLine()] = $node;
-			}
-		}
-
-		if($node instanceof PHPParser_Node_Stmt_Use) {
-			$this->nameSpaces[$node->getLine()] = $node;
-		}
-
-		// PHPParser_Node_Stmt_ClassConst ??
-		if($node instanceof PHPParser_Node_Stmt_Const) {
-			$this->classObject = new Tx_Classparser_Domain_Model_Class($node->__get('name'));
-			//t3lib_utility_Debug::debug($node, 'classObject: ' . $node->__get('name'));
-		}
-
-		if($node instanceof PHPParser_Node_Stmt_Property) {
-			$property = new Tx_Classparser_Domain_Model_Class_Property($node);
-			$this->classObject->addProperty($property);
-			//t3lib_utility_Debug::debug($property, 'property: ' . $property->getName());
-			//$prettyPrinter = new PHPParser_PrettyPrinter_TYPO3CGL;
-			//t3lib_utility_Debug::debug($prettyPrinter->prettyPrint($property->getStmnts()), 'property: ' . $property->getName());
-			//t3lib_utility_Debug::debug($property, 'property: ' . $property->getName());
-		}
-
-		if($node instanceof PHPParser_Node_Stmt_ClassMethod) {
-			$method = new Tx_Classparser_Domain_Model_Class_Method($node);
-			$this->classObject->addMethod($method);
-			//$prettyPrinter = new PHPParser_PrettyPrinter_TYPO3CGL;
-			//t3lib_utility_Debug::debug($prettyPrinter->prettyPrint($node->__get('stmts')), 'method body: ' . $method->getName());
-		}
-
-	}
-
-	public function beforeTraverse(array $nodes){}
-	public function leaveNode(PHPParser_Node $node){}
-	public function afterTraverse(array $nodes){}
 }
 
 ?>

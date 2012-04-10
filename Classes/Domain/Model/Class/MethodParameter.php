@@ -33,12 +33,6 @@
  */
 class Tx_Classparser_Domain_Model_Class_MethodParameter extends Tx_Classparser_Domain_Model_AbstractObject {
 
-	/**
-	 * name
-	 *
-	 * @var string
-	 */
-	protected $name;
 
 	/**
 	 * varType
@@ -89,71 +83,37 @@ class Tx_Classparser_Domain_Model_Class_MethodParameter extends Tx_Classparser_D
 	 * @param $propertyReflection (optional)
 	 * @return unknown_type
 	 */
-	public function __construct($parameterName, $parameterReflection = NULL) {
-		$this->name = $parameterName;
-		//TODO the parameter hints (or casts?) are not yet evaluated since the reflection does not recognize the
-		// maybe we can get them by a reg expression from the import tool?
-
-		if ($parameterReflection && $parameterReflection instanceof Tx_Extbase_Reflection_ParameterReflection) {
-			foreach ($this as $key => $value) {
-				$setterMethodName = 'set' . ucfirst($key);
-				$getterMethodName = 'get' . ucfirst($key);
-				$getBooleanMethodName = 'is' . ucfirst($key);
-
-				// map properties of reflection parmeter to this parameter
-				try {
-					if (method_exists($parameterReflection, $getterMethodName) && method_exists($this, $setterMethodName)) {
-						$this->$setterMethodName($parameterReflection->$getterMethodName());
-					}
-				}
-				catch (ReflectionException $e) {
-					// the getDefaultValue throws an exception if the parameter is not optional
-				}
-
-				if (method_exists($parameterReflection, $getBooleanMethodName)) {
-					$this->$key = $parameterReflection->$getBooleanMethodName();
-				}
-
-			}
+	public function __construct($parameterNode = NULL) {
+		if($parameterNode) {
+			$this->setName($parameterNode->__get('name'), FALSE);
+			$this->setNode($parameterNode);
+			$this->setType($parameterNode->getType(), FALSE);
+			$this->setDocComment($parameterNode->getDocComment(), 'FALSE');
+			$this->setDefault($parameterNode->__get('default'), FALSE);
+			$this->setPassedByReference($parameterNode->__get('byRef'), FALSE);
 		}
 	}
 
 	/**
-	 * getName
-	 *
-	 * @return string $name
-	 */
-	public function getName() {
-		return $this->name;
-	}
-
-	/**
-	 * setName
-	 *
-	 * @param string $name
-	 * @return
-	 */
-	public function setName($name) {
-		$this->name = $name;
-	}
-
-	/**
-	 * Returns $varType.
+	 * Returns $type.
 	 *
 	 * @return
 	 */
-	public function getVarType() {
-		return $this->varType;
+	public function getType() {
+		return $this->type;
 	}
 
 	/**
-	 * Sets $varType.
+	 * Sets $type.
 	 *
-	 * @param object $varType
+	 * @param string $type
 	 * @return
 	 */
-	public function setVarType($varType) {
-		$this->varType = $varType;
+	public function setType($type, $updateNodeType = TRUE) {
+		$this->type = $type;
+		if($updateNodeType) {
+			$this->node->__set('type',$type);
+		}
 	}
 
 	/**
@@ -176,22 +136,25 @@ class Tx_Classparser_Domain_Model_Class_MethodParameter extends Tx_Classparser_D
 	}
 
 	/**
-	 * getter for defaultValue
+	 * getter for default
 	 *
 	 * @return mixed
 	 */
-	public function getDefaultValue() {
-		return $this->defaultValue;
+	public function getDefault() {
+		return $this->default;
 	}
 
 	/**
-	 * setter for defaultValue
+	 * setter for default
 	 *
-	 * @param $defaultValue
+	 * @param $default
 	 * @return void
 	 */
-	public function setDefaultValue($defaultValue = NULL) {
-		$this->defaultValue = $defaultValue;
+	public function setDefault($default, $updateNodeDefault = TRUE) {
+		$this->default = $default;
+		if($updateNodeDefault) {
+			$this->node->__set('default',Tx_Classparser_Parser_Utility_Normalize::normalizeValue($default));
+		}
 	}
 
 	/**
@@ -222,6 +185,13 @@ class Tx_Classparser_Domain_Model_Class_MethodParameter extends Tx_Classparser_D
 		return $this->passedByReference;
 	}
 
+	public function setPassedByReference( $passedByReference, $updateNodeByRef = TRUE ) {
+		$this->passedByReference = $passedByReference;
+		if($updateNodeByRef) {
+			$this->node->__set('byRef',$passedByReference);
+		}
+	}
+
 	/**
 	 * getTypeHint
 	 *
@@ -238,8 +208,11 @@ class Tx_Classparser_Domain_Model_Class_MethodParameter extends Tx_Classparser_D
 	 * @see Tx_Classparser_Domain_Model_Class_MethodParameter::$typeHint
 	 * @return
 	 */
-	public function setTypeHint($typeHint) {
+	public function setTypeHint($typeHint, $updateNodeTypeHint = TRUE ) {
 		$this->typeHint = $typeHint;
+		if($updateNodeTypeHint) {
+			$this->node->__set('type',Tx_Classparser_Parser_Utility_Normalize::normalizeName($typeHint));
+		}
 	}
 
 }

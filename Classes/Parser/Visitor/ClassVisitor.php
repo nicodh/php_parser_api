@@ -50,6 +50,15 @@ class Tx_Classparser_Parser_Visitor_ClassVisitor extends PHPParser_NodeVisitorAb
 
 	protected $nameSpaces = array();
 
+	/**
+	 * @var Tx_Extbase_Object_Manager
+	 */
+	protected $objectManager;
+
+	public function injectObjectManager(Tx_Extbase_Object_Manager $objectManager) {
+		$this->objectManager = $objectManager;
+	}
+
 	public function getClassObject() {
 		return $this->classObject;
 	}
@@ -68,30 +77,26 @@ class Tx_Classparser_Parser_Visitor_ClassVisitor extends PHPParser_NodeVisitorAb
 			$this->nameSpaces[$node->getLine()] = $node;
 		}
 
-		// PHPParser_Node_Stmt_ClassConst ??
+		if($node instanceof PHPParser_Node_Stmt_ClassConst) {
+			$this->classObject->setConstantNode($node);
+		}
+
 		if($node instanceof PHPParser_Node_Stmt_Class) {
-			$this->classObject = new Tx_Classparser_Domain_Model_Class($node->__get('name'));
-			//t3lib_utility_Debug::debug($node, 'classObject: ' . $node->__get('name'));
+			$this->classObject = $this->objectManager->get('Tx_Classparser_Domain_Model_Class',$node);
 		}
 
 		if($node instanceof PHPParser_Node_Stmt_Property) {
-			$property = new Tx_Classparser_Domain_Model_Class_Property($node);
+			$property = $this->objectManager->get('Tx_Classparser_Domain_Model_Class_Property',$node);
 			if($this->classObject) {
 				$this->classObject->addProperty($property);
 			}
-			//t3lib_utility_Debug::debug($property, 'property: ' . $property->getName());
-			//$prettyPrinter = new PHPParser_PrettyPrinter_TYPO3CGL;
-			//t3lib_utility_Debug::debug($prettyPrinter->prettyPrint($property->getStmnts()), 'property: ' . $property->getName());
-			//t3lib_utility_Debug::debug($property, 'property: ' . $property->getName());
 		}
 
 		if($node instanceof PHPParser_Node_Stmt_ClassMethod) {
-			$method = new Tx_Classparser_Domain_Model_Class_Method($node);
+			$method = $this->objectManager->get('Tx_Classparser_Domain_Model_Class_Method',$node);
 			if($this->classObject) {
 				$this->classObject->addMethod($method);
 			}
-			//$prettyPrinter = new PHPParser_PrettyPrinter_TYPO3CGL;
-			//t3lib_utility_Debug::debug($prettyPrinter->prettyPrint($node->__get('stmts')), 'method body: ' . $method->getName());
 		}
 
 	}

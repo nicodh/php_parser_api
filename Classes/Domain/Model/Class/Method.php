@@ -45,12 +45,12 @@ class Tx_Classparser_Domain_Model_Class_Method extends Tx_Classparser_Domain_Mod
 	 *
 	 * @var array
 	 */
-	protected $body;
+	protected $bodyStmts;
 
 	/**
 	 * parameters
 	 *
-	 * @var string
+	 * @var array
 	 */
 	protected $parameters;
 
@@ -62,17 +62,17 @@ class Tx_Classparser_Domain_Model_Class_Method extends Tx_Classparser_Domain_Mod
 	 */
 	public function __construct($methodNode = NULL) {
 		if($methodNode) {
-			$this->setName($methodNode->__get('name'));
-			$this->setStmts(array($methodNode));
+			$this->setName($methodNode->__get('name'), FALSE);
+			$this->setNode($methodNode);
 			$this->addModifier($methodNode->getType());
-			$this->setDocComment($methodNode->getDocComment());
+			$this->setDocComment($methodNode->getDocComment(), 'FALSE');
+			$this->setBodyStmts($methodNode->getSubnodes());
 			if($methodNode->__get('params')) {
 				$position = 0;
 				foreach($methodNode->__get('params') as $param) {
-					$parameter = new Tx_Classparser_Domain_Model_Class_MethodParameter($param->__get('name'));
+					$parameter = new Tx_Classparser_Domain_Model_Class_MethodParameter($param);
 					$parameter->setPosition($position);
-					$parameter->setStmts(array($methodNode));
-					$this->setParameter($parameter);
+					$this->addParameter($parameter);
 				}
 			}
 		}
@@ -84,8 +84,8 @@ class Tx_Classparser_Domain_Model_Class_Method extends Tx_Classparser_Domain_Mod
 	 * @param array $stmts
 	 * @return void
 	 */
-	public function setBody($stmts) {
-		$this->body = $stmts;
+	public function setBodyStmts($stmts) {
+		$this->bodyStmts = $stmts;
 	}
 
 	/**
@@ -93,8 +93,8 @@ class Tx_Classparser_Domain_Model_Class_Method extends Tx_Classparser_Domain_Mod
 	 *
 	 * @return array body
 	 */
-	public function getBody() {
-		return $this->body;
+	public function getBodyStmts() {
+		return $this->bodyStmts;
 	}
 
 	/**
@@ -124,10 +124,11 @@ class Tx_Classparser_Domain_Model_Class_Method extends Tx_Classparser_Domain_Mod
 	/**
 	 * adder for parameters
 	 *
-	 * @param array $parameters of type Tx_Classparser_Reflection_ParameterReflection
+	 * @param array $parameters of type Tx_Classparser_Domain_Model_Class_MethodParameter
 	 * @return void
 	 */
 	public function setParameters($parameters) {
+		// TODO: setParameters in node
 		foreach ($parameters as $parameter) {
 			$methodParameter = new Tx_Classparser_Domain_Model_Class_MethodParameter($parameter->getName(), $parameter);
 			$this->parameters[$methodParameter->getPosition()] = $methodParameter;
@@ -140,10 +141,8 @@ class Tx_Classparser_Domain_Model_Class_Method extends Tx_Classparser_Domain_Mod
 	 * @param array $parameter
 	 * @return void
 	 */
-	public function setParameter($parameter) {
-		if (!in_array($parameter->getName(), $this->getParameterNames())) {
-			$this->parameters[$parameter->getPosition()] = $parameter;
-		}
+	public function addParameter($parameter) {
+		$this->parameters[$parameter->getPosition()] = $parameter;
 	}
 
 	/**
