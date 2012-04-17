@@ -57,11 +57,21 @@ class Tx_Classparser_Tests_Parser_ParserTest extends Tx_Extbase_Tests_Unit_BaseT
 	/**
 	 * @test
 	 */
-	function parseAndWriteSimpleProperty() {
+	function parseSimpleProperty() {
 		$classFileObject = $this->parseFile('SimpleProperty.php');
 		$this->assertEquals(count($classFileObject->getFirstClass()->getMethods()), 2);
 		$this->assertEquals(count($classFileObject->getFirstClass()->getProperties()), 2);
 		$this->assertEquals($classFileObject->getFirstClass()->getProperty('property')->getModifierNames(), array('protected'));
+	}
+
+	/**
+	 * @test
+	 */
+	function parseClassMethodWithManyParameter() {
+		$classFileObject = $this->parseFile('ClassMethodWithManyParameter.php');
+		foreach($classFileObject->getFirstClass()->getMethod('testMethod')->getParameters() as $p) {
+			debug($p,$p->getTypeHint());
+		}
 	}
 
 

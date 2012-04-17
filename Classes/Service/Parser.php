@@ -40,6 +40,10 @@
 class Tx_Classparser_Service_Parser extends PHPParser_Parser implements t3lib_singleton{
 
 
+	/**
+	 * @param string $code
+	 * @return Tx_Classparser_Domain_Model_File
+	 */
 	public function parse($code) {
 		$stmts = parent::parse(new PHPParser_Lexer($code));
 		//t3lib_utility_Debug::debug($stmts, 'stmts');
@@ -54,6 +58,11 @@ class Tx_Classparser_Service_Parser extends PHPParser_Parser implements t3lib_si
 		return $fileObject;
 	}
 
+	/**
+	 * @param string $fileName
+	 * @return array|Tx_Classparser_Domain_Model_File
+	 * @throws Exception
+	 */
 	public function parseFile($fileName) {
 		if(!file_exists($fileName)) {
 			throw new Exception('File "'. $fileName . '" not found!');

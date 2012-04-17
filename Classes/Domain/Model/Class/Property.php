@@ -73,6 +73,7 @@ class Tx_Classparser_Domain_Model_Class_Property extends Tx_Classparser_Domain_M
 		if($propertyNode) {
 			$this->setModifiers($propertyNode->__get('type'));
 			$this->setNode($propertyNode);
+			$this->initDocComment();
 			foreach($propertyNode->__get('props') as $subNode) {
 				if($subNode instanceof PHPParser_Node_Stmt_PropertyProperty) {
 					$this->setName($subNode->__get('name'), FALSE);

@@ -26,7 +26,7 @@
 
 /**
  *
- *
+ * @author Nico de Haen
  * @package classparser
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
@@ -44,13 +44,12 @@ class Tx_Classparser_Domain_Model_AbstractObject {
 	 * @var array
 	 */
 	private $mapModifierNames = array(
-		'static'    => PHPParser_Node_Stmt_Class::MODIFIER_STATIC,
-		'abstract'  => PHPParser_Node_Stmt_Class::MODIFIER_ABSTRACT,
-		'final'     => PHPParser_Node_Stmt_Class::MODIFIER_FINAL,
 		'public'    => PHPParser_Node_Stmt_Class::MODIFIER_PUBLIC,
 		'protected' => PHPParser_Node_Stmt_Class::MODIFIER_PROTECTED,
-		'private'   => PHPParser_Node_Stmt_Class::MODIFIER_PRIVATE
-
+		'private'   => PHPParser_Node_Stmt_Class::MODIFIER_PRIVATE,
+		'static'    => PHPParser_Node_Stmt_Class::MODIFIER_STATIC,
+		'abstract'  => PHPParser_Node_Stmt_Class::MODIFIER_ABSTRACT,
+		'final'     => PHPParser_Node_Stmt_Class::MODIFIER_FINAL
 	);
 
 	/**
@@ -178,28 +177,47 @@ class Tx_Classparser_Domain_Model_AbstractObject {
 	public function getModifierNames() {
 		$modifiers = $this->getModifiers();
 		return Tx_Classparser_Parser_Utility_NodeFactory::modifierToNames($modifiers);
-
-
-		$modifierNames = array();
-		if (is_array($modifiers)) {
-			foreach ($modifiers as $modifier) {
-				$modifierNames[] = array_shift(Reflection::getModifierNames($modifier));
-			}
-		}
-		else {
-			$modifierNames = Reflection::getModifierNames($modifiers);
-		}
-		return $modifierNames;
 	}
 
+	/**
+	 * @param PHPParser_Node $node
+	 */
 	public function setNode(PHPParser_Node $node) {
 		$this->node = $node;
 	}
 
+	/**
+	 * @return PHPParser_Node
+	 */
 	public function getNode() {
 		return $this->node;
 	}
 
+	/**
+	 * for internal use only
+	 * @return void
+	 */
+	protected function initDocComment() {
+		if(empty($this->docComment)) {
+			foreach($this->node->getIgnorables() as $ignorable) {
+				if($ignorable instanceof PHPParser_Node_Ignorable_DocComment) {
+					$this->docComment = $ignorable->__get('value');
+				}
+			}
+		}
+		if(!is_object($this->docCommentParser)) {
+		    // we don't use injection since the class parser might run before
+			// any extbase object manager is loadable
+			$this->docCommentParser = t3lib_div::makeInstance('Tx_Classparser_Parser_DocCommentParser');
+		}
+		$this->docCommentParser->parseDocComment($this->docComment);
+		$this->tags = $this->docCommentParser->getTags();
+		$this->description = $this->docCommentParser->getDescription();
+	}
+
+	/**
+	 * for internal use
+	 */
 	protected function updateDocComment() {
 		$returnTagValue = $this->tags['return'];
 		if($returnTagValue) {
@@ -208,7 +226,11 @@ class Tx_Classparser_Domain_Model_AbstractObject {
 			$this->tags['return'] = $returnTagValue;
 		}
 		$this->docComment = $this->docCommentParser->renderDocComment($this->tags, $this->description);
-		$this->node->setDocComment($this->docComment);
+		foreach($this->node->getIgnorables() as $ignorable) {
+			if($ignorable instanceof PHPParser_Node_Ignorable_DocComment) {
+				$ignorable->__set('value', $this->docComment);
+			}
+		}
 	}
 
 	/**
@@ -220,15 +242,12 @@ class Tx_Classparser_Domain_Model_AbstractObject {
 	 */
 	public function setDocComment($docComment, $updateNodeDocComment = TRUE) {
 		$this->docComment = $docComment;
-		if(!is_object($this->docCommentParser)) {
-		    // inject not possible?
-			$this->docCommentParser = t3lib_div::makeInstance('Tx_Classparser_Parser_DocCommentParser');
-		}
-		$this->docCommentParser->parseDocComment($docComment);
-		$this->tags = $this->docCommentParser->getTags();
-		$this->description = $this->docCommentParser->getDescription();
-		if($updateNodeDocComment) {
-			$this->node->setIgnorables($docComment);
+		if($updateNodeDocComment){
+			foreach($this->node->getIgnorables() as $ignorable) {
+				if($ignorable instanceof PHPParser_Node_Ignorable_DocComment) {
+					$ignorable->__set('value', $this->docComment);
+				}
+			}
 		}
 	}
 
@@ -279,7 +298,7 @@ class Tx_Classparser_Domain_Model_AbstractObject {
 	 * @return array Tags and values
 	 */
 	public function getTags() {
-		return $this->tag;
+		return $this->tags;
 	}
 
 	/**
@@ -303,6 +322,12 @@ class Tx_Classparser_Domain_Model_AbstractObject {
 		$this->updateDocComment();
 	}
 
+	/**
+	 *
+	 * @param $tagName
+	 * @param $tagValue
+	 * @return Tx_Classparser_Domain_Model_AbstractObject
+	 */
 	public function addTag($tagName, $tagValue) {
 		if(isset($this->tags[$tagName])) {
 			$this->tags[$tagName][] = $tagValue;
@@ -349,14 +374,23 @@ class Tx_Classparser_Domain_Model_AbstractObject {
 		return $this->description;
 	}
 
+	/**
+	 * @param string $nameSpace
+	 */
 	public function setNameSpace($nameSpace) {
 		$this->nameSpace = $nameSpace;
 	}
 
+	/**
+	 * @return string
+	 */
 	public function getNameSpace() {
 		return $this->nameSpace;
 	}
 
+	/**
+	 * @return bool
+	 */
 	public function isNameSpaced() {
 		if(empty($this->nameSpace)) {
 			return FALSE;

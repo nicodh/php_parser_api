@@ -30,6 +30,14 @@
 
 class Tx_Classparser_Parser_Utility_NodeFactory {
 
+	public static function getTypeHintFromVarType ($varType) {
+		if(in_array(strtolower($varType), array('int', 'double', 'float', 'boolean', 'string'))) {
+			return '';
+		} else {
+			return $varType;
+		}
+	}
+
 	/**
 	 * Normalizes a name: Converts plain string names to PHPParser_Node_Name.
 	 *
@@ -112,6 +120,8 @@ class Tx_Classparser_Parser_Utility_NodeFactory {
 	public static function getValueFromNode($node) {
 		if($node->getType() == 'Stmt_Namespace') {
 			return '\\' . implode('\\',$node->__get('name')->__get('parts'));
+		} elseif($node instanceof PHPParser_Node_Name) {
+			return implode(' ',$node->__get('parts'));
 		}
 	}
 

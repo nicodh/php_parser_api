@@ -33,12 +33,6 @@
  */
 class Tx_Classparser_Domain_Model_Class_Method extends Tx_Classparser_Domain_Model_AbstractObject {
 
-	/**
-	 * defaultIndent
-	 *
-	 * @var string
-	 */
-	public $defaultIndent = "\t\t";
 
 	/**
 	 * stmts of this methods body
@@ -65,14 +59,14 @@ class Tx_Classparser_Domain_Model_Class_Method extends Tx_Classparser_Domain_Mod
 			$this->setName($methodNode->__get('name'), FALSE);
 			$this->setNode($methodNode);
 			$this->addModifier($methodNode->getType());
-			$this->setDocComment($methodNode->getIgnorables(), 'FALSE');
 			$this->setBodyStmts($methodNode->__get('stmts'));
+			$this->initDocComment();
 			if($methodNode->__get('params')) {
 				$position = 0;
 				foreach($methodNode->__get('params') as $param) {
 					$parameter = new Tx_Classparser_Domain_Model_Class_MethodParameter($param);
 					$parameter->setPosition($position);
-					$this->addParameter($parameter);
+					$this->setParameter($parameter);
 					$position++;
 				}
 			}
@@ -80,7 +74,7 @@ class Tx_Classparser_Domain_Model_Class_Method extends Tx_Classparser_Domain_Mod
 	}
 
 	/**
-	 * Setter for body
+	 * Setter for body statements
 	 *
 	 * @param array $stmts
 	 * @return void
@@ -90,7 +84,7 @@ class Tx_Classparser_Domain_Model_Class_Method extends Tx_Classparser_Domain_Mod
 	}
 
 	/**
-	 * Getter for body
+	 * Getter for body statements
 	 *
 	 * @return array body
 	 */
@@ -129,11 +123,13 @@ class Tx_Classparser_Domain_Model_Class_Method extends Tx_Classparser_Domain_Mod
 	 * @return void
 	 */
 	public function setParameters($parameters) {
-		// TODO: setParameters in node
+		$parameterNodes = array();
 		foreach ($parameters as $parameter) {
 			$methodParameter = new Tx_Classparser_Domain_Model_Class_MethodParameter($parameter->getName(), $parameter);
 			$this->parameters[$methodParameter->getPosition()] = $methodParameter;
+			$parameterNodes[] = $parameter->getNode();
 		}
+		$this->node->__set('params',$parameterNodes);
 	}
 
 	/**
@@ -142,8 +138,12 @@ class Tx_Classparser_Domain_Model_Class_Method extends Tx_Classparser_Domain_Mod
 	 * @param array $parameter
 	 * @return void
 	 */
-	public function addParameter($parameter) {
+	public function setParameter($parameter) {
 		$this->parameters[$parameter->getPosition()] = $parameter;
+		$parameterNodes = $this->node->__get('params');
+		$parameterNodes[$parameter->getPosition()] = $parameter->getNode();
+		$this->node->__set('params', $parameterNodes);
+		$this->updateParamTags();
 	}
 
 	/**
@@ -156,7 +156,7 @@ class Tx_Classparser_Domain_Model_Class_Method extends Tx_Classparser_Domain_Mod
 		$this->parameters[$parameter->getPosition()] = $parameter;
 	}
 
-	/**
+	/**debug($oldName, $newName);
 	 * removes a parameter
 	 *
 	 * @param $parameterName
@@ -165,8 +165,12 @@ class Tx_Classparser_Domain_Model_Class_Method extends Tx_Classparser_Domain_Mod
 	 */
 	public function removeParameter($parameterName, $parameterPosition) {
 		//TODO: Not yet tested
-		if (isset($this->parameter[$parameterPosition]) && $this->parameter[$parameterPosition]->getName() == $parameterName) {
-			unset($this->parameter[$parameterPosition]);
+		if (isset($this->parameters[$parameterPosition]) && $this->parameters[$parameterPosition]->getName() == $parameterName) {
+			unset($this->parameters[$parameterPosition]);
+			$params = $this->node->__get('params');
+			unset($params[$parameterPosition]);
+			$this->node->__set('params',$params);
+			$this->updateParamTags();
 			return TRUE;
 		}
 		else return FALSE;
@@ -180,12 +184,12 @@ class Tx_Classparser_Domain_Model_Class_Method extends Tx_Classparser_Domain_Mod
 	 * @return boolean TRUE (if successfull removed)
 	 */
 	public function renameParameter($oldName, $newName, $parameterPosition) {
-		//TODO: Not yet tested
-		if (isset($this->parameter[$parameterPosition])) {
-			$parameter = $this->parameter[$parameterPosition];
+		if (isset($this->parameters[$parameterPosition])) {
+			$parameter = $this->parameters[$parameterPosition];
 			if ($parameter->getName() == $oldName) {
 				$parameter->setName($newName);
-				$this->parameter[$parameterPosition] = $parameter;
+				$this->parameters[$parameterPosition] = $parameter;
+
 				return TRUE;
 			}
 		}
@@ -210,6 +214,19 @@ class Tx_Classparser_Domain_Model_Class_Method extends Tx_Classparser_Domain_Mod
 			$annotations[] = 'return';
 		}
 		return $annotations;
+	}
+
+	protected function updateParamTags() {
+		$paramTags = array();
+		foreach($this->parameters as $position => $parameter) {
+			$varType = $parameter->getVarType();
+			if(!empty($varType)) {
+				$varType = $parameter->getTypeHint();
+			}
+			$paramTags[] = $parameter->getVarType() . ' $' . $parameter->getName();
+		}
+		$this->tags['param'] = $paramTags;
+		$this->updateDocComment();
 	}
 
 }

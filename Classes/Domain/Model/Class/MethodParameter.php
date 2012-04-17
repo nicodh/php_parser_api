@@ -79,8 +79,7 @@ class Tx_Classparser_Domain_Model_Class_MethodParameter extends Tx_Classparser_D
 	/**
 	 * __construct
 	 *
-	 * @param $propertyName
-	 * @param $propertyReflection (optional)
+	 * @param PHPParser_Node_Param $parameterNode
 	 * @return unknown_type
 	 */
 	public function __construct($parameterNode = NULL) {
@@ -88,8 +87,14 @@ class Tx_Classparser_Domain_Model_Class_MethodParameter extends Tx_Classparser_D
 			$this->setName($parameterNode->__get('name'), FALSE);
 			$this->setNode($parameterNode);
 			$this->setType($parameterNode->getType(), FALSE);
+			$this->setTypeHint($parameterNode->__get('type'), FALSE);
+			if($this->getName() == 'n') {
+				debug($this);
+			}
 			$this->setDefault($parameterNode->__get('default'), FALSE);
 			$this->setPassedByReference($parameterNode->__get('byRef'), FALSE);
+		} else {
+			$this->setNode(new PHPParser_Node_Param(''));
 		}
 	}
 
@@ -152,7 +157,7 @@ class Tx_Classparser_Domain_Model_Class_MethodParameter extends Tx_Classparser_D
 	public function setDefault($default, $updateNodeDefault = TRUE) {
 		$this->default = $default;
 		if($updateNodeDefault) {
-			$this->node->__set('default',Tx_Classparser_Parser_Utility_Normalize::getNodeFromvalue($default));
+			$this->node->__set('default',Tx_Classparser_Parser_Utility_NodeFactory::getNodeFromvalue($default));
 		}
 	}
 
@@ -203,15 +208,35 @@ class Tx_Classparser_Domain_Model_Class_MethodParameter extends Tx_Classparser_D
 	/**
 	 * Sets $typeHint.
 	 *
-	 * @param object $typeHint
-	 * @see Tx_Classparser_Domain_Model_Class_MethodParameter::$typeHint
+	 * @param string $typeHint
 	 * @return
 	 */
 	public function setTypeHint($typeHint, $updateNodeTypeHint = TRUE ) {
+		if(!is_string($typeHint) && !empty($typeHint)) {
+			$typeHint = Tx_Classparser_Parser_Utility_NodeFactory::getValueFromNode($typeHint);
+			debug($typeHint,'typeHint');
+		}
 		$this->typeHint = $typeHint;
 		if($updateNodeTypeHint) {
-			$this->node->__set('type',Tx_Classparser_Parser_Utility_Normalize::normalizeName($typeHint));
+			$this->node->__set('type',Tx_Classparser_Parser_Utility_NodeFactory::getNodeFromName($typeHint));
 		}
+	}
+
+	/**
+	 * @param string $varType
+	 */
+	public function setVarType($varType, $updateNodeType = TRUE) {
+		if($updateNodeType) {
+			$this->setTypeHint(Tx_Classparser_Parser_Utility_NodeFactory::getTypeHintFromVarType($varType),TRUE);
+		}
+		$this->varType = $varType;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getVarType() {
+		return $this->varType;
 	}
 
 }

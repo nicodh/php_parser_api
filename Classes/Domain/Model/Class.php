@@ -83,12 +83,12 @@ class Tx_Classparser_Domain_Model_Class extends Tx_Classparser_Domain_Model_Abst
 	 * @return unknown_type
 	 */
 	public function __construct(PHPParser_Node_Stmt_Class $classNode) {
+		$this->node = $classNode;
 		$this->name = $classNode->__get('name');
-		$this->setDocComment($classNode->getIgnorables(), FALSE);
 		$this->setInterfaces($classNode->__get('implements'));
 		$this->setParentClass($classNode->__get('extends'));
 		$this->setModifiers($classNode->__get('type'));
-		$this->node = $classNode;
+		$this->initDocComment();
 	}
 
 	/**
