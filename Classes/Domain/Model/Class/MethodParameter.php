@@ -88,7 +88,6 @@ class Tx_Classparser_Domain_Model_Class_MethodParameter extends Tx_Classparser_D
 			$this->setName($parameterNode->__get('name'), FALSE);
 			$this->setNode($parameterNode);
 			$this->setType($parameterNode->getType(), FALSE);
-			$this->setDocComment($parameterNode->getDocComment(), 'FALSE');
 			$this->setDefault($parameterNode->__get('default'), FALSE);
 			$this->setPassedByReference($parameterNode->__get('byRef'), FALSE);
 		}

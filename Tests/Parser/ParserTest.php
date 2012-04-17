@@ -60,7 +60,7 @@ class Tx_Classparser_Tests_Parser_ParserTest extends Tx_Extbase_Tests_Unit_BaseT
 	function parseAndWriteSimpleProperty() {
 		$classFileObject = $this->parseFile('SimpleProperty.php');
 		$this->assertEquals(count($classFileObject->getFirstClass()->getMethods()), 2);
-		$this->assertEquals(count($classFileObject->getFirstClass()->getProperties()), 1);
+		$this->assertEquals(count($classFileObject->getFirstClass()->getProperties()), 2);
 		$this->assertEquals($classFileObject->getFirstClass()->getProperty('property')->getModifierNames(), array('protected'));
 	}
 

@@ -55,7 +55,7 @@ class Tx_Classparser_Utility_AutoLoader {
 			    require $file;
 		    }
 	    } elseif(0 === strpos($class, 'PHPParser_')) {
-		    $file = t3lib_extMgm::extPath('classparser') . 'Classes/Parser/lib/'  . strtr($class, '_', '/') . '.php';
+		    $file = t3lib_extMgm::extPath('classparser') . 'Resources/Private/PHP/PHP-Parser/lib/'  . strtr($class, '_', '/') . '.php';
 		    if (is_file($file)) {
 			    require $file;
 		    }

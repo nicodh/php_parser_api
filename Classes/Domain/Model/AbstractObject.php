@@ -228,7 +228,7 @@ class Tx_Classparser_Domain_Model_AbstractObject {
 		$this->tags = $this->docCommentParser->getTags();
 		$this->description = $this->docCommentParser->getDescription();
 		if($updateNodeDocComment) {
-			$this->node->setDocComment($docComment);
+			$this->node->setIgnorables($docComment);
 		}
 	}
 

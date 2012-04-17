@@ -30,17 +30,30 @@
 
 class Tx_Classparser_Tests_SimplePropertyTest {
 
+	private $test = array(
+		'test' 	=> 123,
+		'test5'	=> 456,
+		'arr' 	=> array(
+			'sieben' => 7
+		)
+	);
+		
+	
+	// just a single line comment
+	
+	
 	/**
 	 * @var string
 	 */
-	protected $property;
+	protected $property = array('a' => 'b');
 
 	/**
 	 * @param string $property
 	 */
 	public function setProperty($property) {
-		if(strlen($property)>50) {
-			$property = substr($property,0,49);
+		// comment in a new line
+		if(strlen($property)>50) { // some comment here
+			$property = substr($property,0,49); // some comment there
 		}
 		$this->property = $property;
 	}
