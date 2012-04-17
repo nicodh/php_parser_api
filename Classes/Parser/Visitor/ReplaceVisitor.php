@@ -63,7 +63,6 @@ class Tx_Classparser_Parser_Visitor_ReplaceVisitor extends PHPParser_NodeVisitor
 		if($nodeTypeMatch) {
 			foreach($this->replacements as $oldValue => $newValue) {
 				if($node->$nodeProperty == $oldValue) {
-					t3lib_utility_Debug::debug($node, get_class($node));
 					$node->$nodeProperty = $newValue;
 				}
 			}

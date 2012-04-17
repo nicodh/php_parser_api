@@ -51,9 +51,9 @@ class Tx_Classparser_Domain_Model_Class_MethodParameter extends Tx_Classparser_D
 	/**
 	 * defaultValue
 	 *
-	 * @var string
+	 * @var array
 	 */
-	protected $defaultValue;
+	protected $default;
 
 	/**
 	 * position
@@ -153,7 +153,7 @@ class Tx_Classparser_Domain_Model_Class_MethodParameter extends Tx_Classparser_D
 	public function setDefault($default, $updateNodeDefault = TRUE) {
 		$this->default = $default;
 		if($updateNodeDefault) {
-			$this->node->__set('default',Tx_Classparser_Parser_Utility_Normalize::normalizeValue($default));
+			$this->node->__set('default',Tx_Classparser_Parser_Utility_Normalize::getNodeFromvalue($default));
 		}
 	}
 

@@ -41,46 +41,19 @@ class Tx_Classparser_Domain_Model_Class extends Tx_Classparser_Domain_Model_Abst
 	protected $propertyNames = array();
 
 	/**
-	 * interfaceNames
+	 * interfaces
 	 *
-	 * @var array
+	 * @var  array of PHPParser_Node_Name objects
 	 */
-	protected $interfaceNames;
-
-	/**
-	 * all stmts that were found below the class declaration
-	 *
-	 * @var array
-	 */
-	protected $appendedBlock;
-
-	/**
-	 * parentClass
-	 * @var string
-	 */
-	//protected $parent_class;
-	
-	/**
-	 * isFileBased
-	 *
-	 * @var boolean
-	 */
-	protected $isFileBased = FALSE;
+	protected $interfaces;
 
 
 	/**
 	 * parentClass
 	 *
-	 * @var object parentClass
+	 * @var  PHPParser_Node_Name parentClass
 	 */
 	protected $parentClass = NULL;
-
-	/**
-	 * the path to the file this class was defined in
-	 *
-	 * @var string
-	 */
-	protected $fileName;
 
 	/**
 	 * constants
@@ -112,6 +85,9 @@ class Tx_Classparser_Domain_Model_Class extends Tx_Classparser_Domain_Model_Abst
 	public function __construct(PHPParser_Node_Stmt_Class $classNode) {
 		$this->name = $classNode->__get('name');
 		$this->setDocComment($classNode->getDocComment(), FALSE);
+		$this->setInterfaces($classNode->__get('implements'));
+		$this->setParentClass($classNode->__get('extends'));
+		$this->setModifiers($classNode->__get('type'));
 		$this->node = $classNode;
 	}
 
@@ -390,38 +366,6 @@ class Tx_Classparser_Domain_Model_Class extends Tx_Classparser_Domain_Model_Abst
 	}
 
 	/**
-	 * setPropertyTag
-	 *
-	 * @param string $propertyName
-	 * @param array $tag
-	 * @return
-	 */
-	public function setPropertyTag($propertyName, $tag) {
-		if ($this->propertyExists($propertyName)) {
-			$this->properties[$propertyName]->setTag($tag['name'], $tag['value']);
-		}
-	}
-
-	/**
-	 * Setter for staticProperties
-	 *
-	 * @param string $staticProperties
-	 * @return void
-	 */
-	public function setStaticProperties($staticProperties) {
-		$this->staticProperties = $staticProperties;
-	}
-
-	/**
-	 * Getter for staticProperties
-	 *
-	 * @return string staticProperties
-	 */
-	public function getStaticProperties() {
-		return $this->staticProperties;
-	}
-
-	/**
 	 * propertyExists
 	 *
 	 * @param string $propertyName
@@ -471,13 +415,33 @@ class Tx_Classparser_Domain_Model_Class extends Tx_Classparser_Domain_Model_Abst
 	}
 
 	/**
-	 * Setter for interfaceNames
+	 * Setter for interfaces
 	 *
-	 * @param array $interfaceNames interfaceNames
+	 * @param array of PHPParser_Node_Name objects
 	 * @return void
 	 */
-	public function setInterfaceNames($interfaceNames) {
-		$this->interfaceNames = $interfaceNames;
+	public function setInterfaces($interfaces) {
+		$this->interfaces = $interfaces;
+	}
+
+	/**
+	 * Adds a interface node, based on a string
+	 *
+	 * @param string $interfaceName
+	 */
+	public function addInterfaceName($interfaceName) {
+		$this->interfaces[] = Tx_Classparser_Parser_Utility_NodeFactory::getNodeFromName($interfaceName);
+		$this->node->__set('implements',$this->interfaces);
+	}
+
+
+	/**
+	 * Getter for interfaces
+	 *
+	 * @return array interfaces
+	 */
+	public function getInterfaces() {
+		return $this->interfaces;
 	}
 
 	/**
@@ -486,13 +450,37 @@ class Tx_Classparser_Domain_Model_Class extends Tx_Classparser_Domain_Model_Abst
 	 * @return array interfaceNames
 	 */
 	public function getInterfaceNames() {
-		return $this->interfaceNames;
+		$interfaceNames = array();
+		foreach($this->interfaces as $interface) {
+			$interfaceNames[] = implode('',$interface->__get('parts'));
+		}
+		return $interfaceNames;
+	}
+
+	/**
+	 * @param string $interfaceName
+	 * @return bool
+	 */
+	public function hasInterface($interfaceName) {
+		$interfaceNames = $this->getInterfaceNames();
+		return in_array($interfaceName, $interfaceNames);
+	}
+
+	public function removeInterface( $interfaceName) {
+		$interfaces = array();
+		foreach($this->interfaces as $interface) {
+			if($interfaceName != implode('',$interface->__get('parts'))){
+				$interfaces[] = $interface;
+			}
+		}
+		$this->interfaces = $interfaces;
+		$this->node->__set('implements', $this->interfaces);
 	}
 
 	/**
 	 * Setter for parentClass
 	 *
-	 * @param string $parentClass parentClass
+	 * @param PHPParser_Node_Name $parentClass
 	 * @return void
 	 */
 	public function setParentClass($parentClass) {
@@ -500,50 +488,27 @@ class Tx_Classparser_Domain_Model_Class extends Tx_Classparser_Domain_Model_Abst
 	}
 
 	/**
+	 * Setter for parentClassName
+	 *
+	 * @param string $parentClass
+	 * @return void
+	 */
+	public function setParentClassName($parentClass) {
+		$this->node->__get('extends')->__set('parts',array($parentClass));
+	}
+
+	/**
 	 * Getter for parentClass
 	 *
 	 * @return string parentClass
 	 */
-	public function getParentClass() {
-		return $this->parentClass;
+	public function getParentClassName() {
+		return implode('', $this->parentClass->__get('parts'));
 	}
 
-	/**
-	 * Getter for fileName
-	 *
-	 * @return string fileName
-	 */
-	public function getFileName() {
-		return $this->fileName;
-	}
-
-	/**
-	 * Setter for fileName
-	 *
-	 * @param string $fileName
-	 * @return void
-	 */
-	public function setFileName($fileName) {
-		$this->fileName = $fileName;
-	}
-
-	/**
-	 * getter for appendedBlock
-	 *
-	 * @return string $appendedBlock
-	 */
-	public function getAppendedBlock() {
-		return $this->appendedBlock;
-	}
-
-	/**
-	 * setter for appendedBlock
-	 *
-	 * @param string $appendedBlock
-	 * @return void
-	 */
-	public function setAppendedBlock($appendedBlock) {
-		$this->appendedBlock = $appendedBlock;
+	public function removeParentClass() {
+		$this->parentClass = '';
+		$this->node->__set('extends',NULL);
 	}
 
 	public function updateStmts() {
@@ -560,8 +525,8 @@ class Tx_Classparser_Domain_Model_Class extends Tx_Classparser_Domain_Model_Abst
 			$properties[$property->getName()] = $property->getNode();
 		}
 
-        ksort($properties);
-        ksort($methods);
+        //ksort($properties);
+        //ksort($methods);
 
 		foreach ($this->constants as $constantName => $constant) {
 			$stmts[] = $constant['node'];

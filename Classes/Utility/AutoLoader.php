@@ -28,32 +28,39 @@
  * @author Nico de Haen
  */
 
-class Tx_Classparser_Service_ClassModifier implements t3lib_Singleton{
+
+
+class Tx_Classparser_Utility_AutoLoader {
+
+	static public $autoloadRegistry;
 
 	/**
-	 * @var Tx_Classparser_Parser_Traverser
-	 */
-	protected $traverser;
+    * Registers PHPParser_Autoloader as an SPL autoloader.
+    */
+    static public function register(){
+        ini_set('unserialize_callback_func', 'spl_autoload_call');
+        spl_autoload_register(array(__CLASS__, 'autoload'));
+    }
 
-	/**
-	 * @param $objectToModify
-	 * @param array $replacements
-	 * @param string $nodeType
-	 * @param string $nodeProperty
-	 * @return PHPParser_Node
-	 */
-	public function replaceNodeProperty($objectToModify, $replacements, $nodeType = NULL, $nodeProperty = 'name') {
-		if(!is_object($this->traverser)) {
-			$this->traverser = new Tx_Classparser_Parser_Traverser;
-		}
-		$node = $objectToModify->getNode();
-		$visitor = t3lib_div::makeInstance('Tx_Classparser_Parser_Visitor_ReplaceVisitor');
-		$visitor->setNodeType($nodeType)
-				->setNodeProperty($nodeProperty)
-				->setReplacements($replacements);
-		$this->traverser->addVisitor($visitor);
-		$stmts = $this->traverser->traverse(array($node));
-		$this->traverser->resetVisitors();
-		return $stmts[0];
-	}
+    /**
+    * Handles autoloading of classes.
+    *
+    * @param string $class A class name.
+    */
+    static public function autoload($class){
+
+	    if(0 === strpos($class, 'Tx_Classparser_')) {
+		    $file = t3lib_extMgm::extPath('classparser') . 'Classes/'  . strtr(str_replace('Tx_Classparser_', '', $class), '_', '/') . '.php';
+		    if (is_file($file)) {
+			    require $file;
+		    }
+	    } elseif(0 === strpos($class, 'PHPParser_')) {
+		    $file = t3lib_extMgm::extPath('classparser') . 'Classes/Parser/lib/'  . strtr($class, '_', '/') . '.php';
+		    if (is_file($file)) {
+			    require $file;
+		    }
+	    }
+
+    }
 }
+

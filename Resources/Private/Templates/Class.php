@@ -2,9 +2,8 @@
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2012 Nico de Haen <mail@ndh-websolutions.de>
+*  (c) YYYY Your name here (your@email.here)
 *  All rights reserved
-*
 *
 *  This script is part of the TYPO3 project. The TYPO3 project is
 *  free software; you can redistribute it and/or modify
@@ -14,6 +13,9 @@
 *
 *  The GNU General Public License can be found at
 *  http://www.gnu.org/copyleft/gpl.html.
+*  A copy is found in the textfile GPL.txt and important notices to the license
+*  from the author is found in LICENSE.txt distributed with these scripts.
+*
 *
 *  This script is distributed in the hope that it will be useful,
 *  but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -24,41 +26,13 @@
 ***************************************************************/
 
 /**
-* @package
-* @author Nico de Haen
-*/
+ * __className
+ *
+ * __description__
+ *
+ * @author John Doe <john.doe@example.com>
+ */
 
+class __className {
 
-/**
-* provides methods to render the sourcecode for statements
-* @package Classparser
-* @version $ID:$
-*/
-class Tx_Classparser_Service_Printer extends PHPParser_PrettyPrinter_TYPO3CGL implements t3lib_singleton {
-
-
-	/**
-	 * @param array $stmts
-	 */
-	public function render($stmts) {
-		if(!is_array($stmts)) {
-			$stmts = array($stmts);
-		}
-		//t3lib_utility_Debug::debugInPopUpWindow($stmts);
-		return $this->prettyPrint($stmts);
-	}
-
-	public function renderClassObject($classObject) {
-		$classObject->updateStmts();
-		return $this->render($classObject->getNode());
-	}
-
-	public function renderFileObject($fileObject) {
-		foreach($fileObject->getClasses() as $class) {
-			$class->updateStmts();
-		}
-		return $this->render($fileObject->getStmts());
-	}
 }
-
-?>

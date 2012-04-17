@@ -39,36 +39,19 @@
 
 class Tx_Classparser_Service_Parser extends PHPParser_Parser implements t3lib_singleton{
 
-	/**
-	 * @var PHPParser_NodeTraverser
-	 */
-	protected $traverser;
-
-	/**
-	 * @param Tx_Classparser_Parser_Traverser $traverser
-	 */
-	public function injectTraverser(Tx_Classparser_Parser_Traverser $traverser) {
-		$this->traverser = $traverser;
-	}
-
-	/**
-	 * @var Tx_Extbase_Object_Manager
-	 */
-	protected $objectManager;
-
-	public function injectObjectManager(Tx_Extbase_Object_Manager $objectManager) {
-		$this->objectManager = $objectManager;
-	}
 
 	public function parse($code) {
 		$stmts = parent::parse(new PHPParser_Lexer($code));
 		//t3lib_utility_Debug::debug($stmts, 'stmts');
-		$visitor = $this->objectManager->get('Tx_Classparser_Parser_Visitor_ClassVisitor');
+		$visitor = new Tx_Classparser_Parser_Visitor_ClassFileVisitor;
+		if(!is_object($this->traverser)) {
+			$this->traverser = new Tx_Classparser_Parser_Traverser;
+		}
 		$this->traverser->addVisitor($visitor);
 		$this->traverser->traverse(array($stmts));
-		$classObject = $visitor->getClassObject();
+		$fileObject = $visitor->getFileObject();
 		//t3lib_utility_Debug::debug($classObject->getInfo(), 'classObject: ' . $classObject->getName());
-		return $classObject;
+		return $fileObject;
 	}
 
 	public function parseFile($fileName) {
@@ -77,7 +60,9 @@ class Tx_Classparser_Service_Parser extends PHPParser_Parser implements t3lib_si
 		}
 		$fileHandler = fopen($fileName, 'r');
 		$code = fread($fileHandler, filesize($fileName));
-		return $this->parse($code);
+		$fileObject = $this->parse($code);
+		$fileObject->setFilePathAndName($fileName);
+		return $fileObject;
 	}
 
 }

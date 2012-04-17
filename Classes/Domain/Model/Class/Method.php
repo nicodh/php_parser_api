@@ -66,13 +66,14 @@ class Tx_Classparser_Domain_Model_Class_Method extends Tx_Classparser_Domain_Mod
 			$this->setNode($methodNode);
 			$this->addModifier($methodNode->getType());
 			$this->setDocComment($methodNode->getDocComment(), 'FALSE');
-			$this->setBodyStmts($methodNode->getSubnodes());
+			$this->setBodyStmts($methodNode->__get('stmts'));
 			if($methodNode->__get('params')) {
 				$position = 0;
 				foreach($methodNode->__get('params') as $param) {
 					$parameter = new Tx_Classparser_Domain_Model_Class_MethodParameter($param);
 					$parameter->setPosition($position);
 					$this->addParameter($parameter);
+					$position++;
 				}
 			}
 		}

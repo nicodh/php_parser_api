@@ -67,6 +67,8 @@ class Tx_Classparser_Domain_Model_AbstractObject {
 	 */
 	protected $name;
 
+
+
 	/**
 	 * array
 	 *
@@ -93,19 +95,16 @@ class Tx_Classparser_Domain_Model_AbstractObject {
 	 */
 	protected $docCommentParser;
 
+	/**
+	 * @var string
+	 */
+	protected $nameSpace;
+
 
 	/**
 	 * @var PHPParser_Node
 	 */
 	protected $node;
-
-	/**
-	 * precedingBlock
-	 * all lines that were found above the declaration of the current element
-	 *
-	 * @var string
-	 */
-	protected $precedingBlock;
 
 	/**
 	 * Setter for name
@@ -126,7 +125,11 @@ class Tx_Classparser_Domain_Model_AbstractObject {
 	 * @return string name
 	 */
 	public function getName() {
-		return $this->name;
+		if($this->isNameSpaced()) {
+			return $this->nameSpace . '\\' . $this->name;
+		} else {
+			return $this->name;
+		}
 	}
 
 	/**
@@ -136,11 +139,7 @@ class Tx_Classparser_Domain_Model_AbstractObject {
 	 * @return void
 	 */
 	public function setModifiers($modifiers) {
-		if (is_array($modifiers)) {
-			$this->modifiers = $modifiers;
-		} else {
-			$this->modifiers = explode(' ', $modifiers);
-		}
+		$this->modifiers = $modifiers;
 	}
 
 	/**
@@ -150,11 +149,15 @@ class Tx_Classparser_Domain_Model_AbstractObject {
 	 * @return void
 	 */
 	public function addModifier($modifier) {
-		if (!is_numeric($modifier)) {
-			$modifier = $this->mapModifierNames[$modifier];
-		}
-		if (!in_array($modifier, $this->modifiers)) {
-			$this->modifiers[] = $modifier;
+		if(!in_array($modifier, $this->getModifierNames())) {
+			try{
+				PHPParser_Node_Stmt_Class::verifyModifier($this->modifiers, $this->mapModifierNames[$modifier]);
+				$this->modifiers |= $this->mapModifierNames[$modifier];
+				$this->node->__set('type',$this->modifiers);
+			} catch(Exception $e) {
+				debug('Error: ' . $e->getMessage(), 'Error');
+			}
+
 		}
 	}
 
@@ -174,6 +177,9 @@ class Tx_Classparser_Domain_Model_AbstractObject {
 	 */
 	public function getModifierNames() {
 		$modifiers = $this->getModifiers();
+		return Tx_Classparser_Parser_Utility_NodeFactory::modifierToNames($modifiers);
+
+
 		$modifierNames = array();
 		if (is_array($modifiers)) {
 			foreach ($modifiers as $modifier) {
@@ -195,6 +201,12 @@ class Tx_Classparser_Domain_Model_AbstractObject {
 	}
 
 	protected function updateDocComment() {
+		$returnTagValue = $this->tags['return'];
+		if($returnTagValue) {
+			// always keep the return tag as last tag
+			unset($this->tags['return']);
+			$this->tags['return'] = $returnTagValue;
+		}
 		$this->docComment = $this->docCommentParser->renderDocComment($this->tags, $this->description);
 		$this->node->setDocComment($this->docComment);
 	}
@@ -323,27 +335,33 @@ class Tx_Classparser_Domain_Model_AbstractObject {
 	}
 
 	/**
-	 * Setter for precedingBlock
-	 *
-	 * @param string $precedingBlock precedt3lib_div::makeInstance(ingBlock
-	 * @return void
+	 * @param string $description
 	 */
-	public function setPrecedingBlock($precedingBlock) {
-		$this->precedingBlock = $precedingBlock;
+	public function setDescription($description) {
+		$this->description = $description;
+		$this->updateDocComment();
 	}
 
 	/**
-	 * Getter for precedingBlock
-	 *
-	 * @return string precedingBlock
+	 * @return string
 	 */
-	public function getPrecedingBlock() {
-		$cleanPrecedingBlock = str_replace($this->docComment, '', $this->precedingBlock);
-		$cleanPrecedingBlock = str_replace('<?php', '', $cleanPrecedingBlock);
-		if (strlen(trim($cleanPrecedingBlock)) == 0) {
-			return NULL;
+	public function getDescription() {
+		return $this->description;
+	}
+
+	public function setNameSpace($nameSpace) {
+		$this->nameSpace = $nameSpace;
+	}
+
+	public function getNameSpace() {
+		return $this->nameSpace;
+	}
+
+	public function isNameSpaced() {
+		if(empty($this->nameSpace)) {
+			return FALSE;
 		} else {
-			return $cleanPrecedingBlock;
+			return TRUE;
 		}
 	}
 

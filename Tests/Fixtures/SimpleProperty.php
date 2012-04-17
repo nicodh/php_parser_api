@@ -28,32 +28,27 @@
  * @author Nico de Haen
  */
 
-class Tx_Classparser_Service_ClassModifier implements t3lib_Singleton{
+class Tx_Classparser_Tests_SimplePropertyTest {
 
 	/**
-	 * @var Tx_Classparser_Parser_Traverser
+	 * @var string
 	 */
-	protected $traverser;
+	protected $property;
 
 	/**
-	 * @param $objectToModify
-	 * @param array $replacements
-	 * @param string $nodeType
-	 * @param string $nodeProperty
-	 * @return PHPParser_Node
+	 * @param string $property
 	 */
-	public function replaceNodeProperty($objectToModify, $replacements, $nodeType = NULL, $nodeProperty = 'name') {
-		if(!is_object($this->traverser)) {
-			$this->traverser = new Tx_Classparser_Parser_Traverser;
+	public function setProperty($property) {
+		if(strlen($property)>50) {
+			$property = substr($property,0,49);
 		}
-		$node = $objectToModify->getNode();
-		$visitor = t3lib_div::makeInstance('Tx_Classparser_Parser_Visitor_ReplaceVisitor');
-		$visitor->setNodeType($nodeType)
-				->setNodeProperty($nodeProperty)
-				->setReplacements($replacements);
-		$this->traverser->addVisitor($visitor);
-		$stmts = $this->traverser->traverse(array($node));
-		$this->traverser->resetVisitors();
-		return $stmts[0];
+		$this->property = $property;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getProperty() {
+		return $this->property;
 	}
 }

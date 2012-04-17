@@ -71,7 +71,7 @@ class Tx_Classparser_Domain_Model_Class_Property extends Tx_Classparser_Domain_M
 	 */
 	public function __construct($propertyNode = NULL) {
 		if($propertyNode) {
-			$this->setType($propertyNode->getType());
+			$this->setModifiers($propertyNode->__get('type'));
 			$this->setNode($propertyNode);
 			foreach($propertyNode->__get('props') as $subNode) {
 				if($subNode instanceof PHPParser_Node_Stmt_PropertyProperty) {
@@ -84,26 +84,6 @@ class Tx_Classparser_Domain_Model_Class_Property extends Tx_Classparser_Domain_M
 		}
 	}
 
-
-	/**
-	 * getType
-	 *
-	 * @return string $type.
-	 */
-	public function getType() {
-		return $this->type;
-	}
-
-	/**
-	 * Sets $type.
-	 *
-	 * @param string $type
-	 * @return
-	 */
-	public function setType($type) {
-		$this->tags['var'] = array($type);
-		$this->type = $type;
-	}
 
 	/**
 	 * Returns $associatedDomainObjectProperty.

@@ -41,8 +41,11 @@ class Tx_Classparser_Parser_DocCommentParser extends Tx_Extbase_Reflection_DocCo
 
 	public function renderDocComment($tags, $description) {
 		$docComment = '/**' . LF;
-		$docComment .= ' * ' . implode(LF . ' * ', t3lib_div::trimExplode(LF,$description, TRUE));
-		$docComment .= LF . ' *' . LF;
+		if(!empty($description)) {
+			$docComment .= ' * ' . implode(LF . ' * ', t3lib_div::trimExplode(LF,$description, TRUE));
+			$docComment .= LF . ' *' . LF;
+		}
+
 		$annotations = array();
 		$tagNames = array_keys($tags);
 		foreach ($tagNames as $tagName) {
@@ -61,7 +64,7 @@ class Tx_Classparser_Parser_DocCommentParser extends Tx_Extbase_Reflection_DocCo
 		foreach($annotations as $annotation) {
 			$docComment .= ' * @'.$annotation . LF;
 		}
-		$docComment .= '*/' . LF;
+		$docComment .= ' */';
 		return $docComment;
 	}
 }

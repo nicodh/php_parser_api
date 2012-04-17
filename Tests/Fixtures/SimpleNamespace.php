@@ -27,33 +27,8 @@
  * @package
  * @author Nico de Haen
  */
+namespace Test\Model;
 
-class Tx_Classparser_Service_ClassModifier implements t3lib_Singleton{
+class Tx_Classparser_Tests_SimpleNamepaceTest {
 
-	/**
-	 * @var Tx_Classparser_Parser_Traverser
-	 */
-	protected $traverser;
-
-	/**
-	 * @param $objectToModify
-	 * @param array $replacements
-	 * @param string $nodeType
-	 * @param string $nodeProperty
-	 * @return PHPParser_Node
-	 */
-	public function replaceNodeProperty($objectToModify, $replacements, $nodeType = NULL, $nodeProperty = 'name') {
-		if(!is_object($this->traverser)) {
-			$this->traverser = new Tx_Classparser_Parser_Traverser;
-		}
-		$node = $objectToModify->getNode();
-		$visitor = t3lib_div::makeInstance('Tx_Classparser_Parser_Visitor_ReplaceVisitor');
-		$visitor->setNodeType($nodeType)
-				->setNodeProperty($nodeProperty)
-				->setReplacements($replacements);
-		$this->traverser->addVisitor($visitor);
-		$stmts = $this->traverser->traverse(array($node));
-		$this->traverser->resetVisitors();
-		return $stmts[0];
-	}
 }
