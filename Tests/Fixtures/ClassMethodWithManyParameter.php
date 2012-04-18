@@ -31,8 +31,9 @@
 class ClassMethodWithManyParameter {
 
 	/**
-	 * @static
-	 * @param $number
+	 * This is the description
+	 *
+	 * @param int $number
 	 * @param $string
 	 * @param array $arr
 	 * @param bool $boolean

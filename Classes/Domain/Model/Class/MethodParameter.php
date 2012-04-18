@@ -88,9 +88,6 @@ class Tx_Classparser_Domain_Model_Class_MethodParameter extends Tx_Classparser_D
 			$this->setNode($parameterNode);
 			$this->setType($parameterNode->getType(), FALSE);
 			$this->setTypeHint($parameterNode->__get('type'), FALSE);
-			if($this->getName() == 'n') {
-				debug($this);
-			}
 			$this->setDefault($parameterNode->__get('default'), FALSE);
 			$this->setPassedByReference($parameterNode->__get('byRef'), FALSE);
 		} else {
@@ -214,7 +211,6 @@ class Tx_Classparser_Domain_Model_Class_MethodParameter extends Tx_Classparser_D
 	public function setTypeHint($typeHint, $updateNodeTypeHint = TRUE ) {
 		if(!is_string($typeHint) && !empty($typeHint)) {
 			$typeHint = Tx_Classparser_Parser_Utility_NodeConverter::getValueFromNode($typeHint);
-			debug($typeHint,'typeHint');
 		}
 		$this->typeHint = $typeHint;
 		if($updateNodeTypeHint) {

@@ -63,9 +63,20 @@ class Tx_Classparser_Domain_Model_Class_Method extends Tx_Classparser_Domain_Mod
 			$this->initDocComment();
 			if($methodNode->__get('params')) {
 				$position = 0;
+				$getVarTypeFromParamTag = FALSE;
+				$paramTags = $this->tags['param'];
+				if(count($paramTags == count($methodNode->__get('params')))) {
+					$getVarTypeFromParamTag = TRUE;
+				}
 				foreach($methodNode->__get('params') as $param) {
 					$parameter = new Tx_Classparser_Domain_Model_Class_MethodParameter($param);
 					$parameter->setPosition($position);
+					if(strlen($parameter->getTypeHint()) < 1 && $getVarTypeFromParamTag) {
+						$paramTag = explode(' ',$paramTags[$position]);
+						if($paramTag[0] !== '$' . $param->__get('name')) {
+							$parameter->setVarType($paramTag[0]);
+						}
+					}
 					$this->setParameter($parameter);
 					$position++;
 				}
@@ -220,10 +231,13 @@ class Tx_Classparser_Domain_Model_Class_Method extends Tx_Classparser_Domain_Mod
 		$paramTags = array();
 		foreach($this->parameters as $position => $parameter) {
 			$varType = $parameter->getVarType();
-			if(!empty($varType)) {
+			if(empty($varType)) {
 				$varType = $parameter->getTypeHint();
 			}
-			$paramTags[] = $parameter->getVarType() . ' $' . $parameter->getName();
+			if(!empty($varType)) {
+				$varType .= ' ';
+			}
+			$paramTags[] = $varType . '$' . $parameter->getName();
 		}
 		$this->tags['param'] = $paramTags;
 		$this->updateDocComment();

@@ -62,6 +62,7 @@ class Tx_Classparser_Tests_Parser_ParserTest extends Tx_Extbase_Tests_Unit_BaseT
 		$this->assertEquals(count($classFileObject->getFirstClass()->getMethods()), 2);
 		$this->assertEquals(count($classFileObject->getFirstClass()->getProperties()), 2);
 		$this->assertEquals($classFileObject->getFirstClass()->getProperty('property')->getModifierNames(), array('protected'));
+		return $classFileObject;
 	}
 
 	/**
@@ -69,9 +70,6 @@ class Tx_Classparser_Tests_Parser_ParserTest extends Tx_Extbase_Tests_Unit_BaseT
 	 */
 	function parseClassMethodWithManyParameter() {
 		$classFileObject = $this->parseFile('ClassMethodWithManyParameter.php');
-		foreach($classFileObject->getFirstClass()->getMethod('testMethod')->getParameters() as $p) {
-			debug($p,$p->getTypeHint());
-		}
 	}
 
 

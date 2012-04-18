@@ -42,7 +42,31 @@ class Tx_Classparser_Tests_PrinterTest extends Tx_Classparser_Tests_Parser_Parse
 	 * @test
 	 */
 	public function printTest() {
+		$this->parseAndWrite('ClassMethodWithManyParameter.php');
+	}
 
+	protected function parseAndWrite($fileName) {
+		$classFilePath = t3lib_extmgm::extPath('classparser') . 'Tests/Fixtures/' . $fileName;
+		$classFileObject = $this->parser->parseFile($classFilePath);
+		$newClassFilePath = $this->testDir . $fileName;
+		t3lib_div::writeFile($newClassFilePath,"<?php\n\n" . $this->printer->renderFileObject($classFileObject) . "\n?>");
+		$this->compareClasses($classFileObject, $classFilePath);
+		return $classFileObject;
+	}
+
+	protected function compareClasses($classFileObject, $classFilePath) {
+		$this->assertTrue(file_exists($classFilePath));
+		$classObject = $classFileObject->getFirstClass();
+		$this->assertTrue($classObject instanceof Tx_Classparser_Domain_Model_Class);
+		if(!class_exists($classObject->getName())) {
+			require_once($classFilePath);
+		}
+		$className = $classObject->getName();
+		$this->assertTrue(class_exists($className), 'Class ' . $classObject->getName() . ' does not exist!');
+		$ref = new ReflectionClass($className);
+		$this->assertEquals(count($ref->getMethods()), count($classObject->getMethods()));
+		$this->assertEquals(count($ref->getProperties()), count($classObject->getProperties()));
+		$this->assertEquals(count($ref->getConstants()), count($classObject->getConstants()));
 	}
 
 }
