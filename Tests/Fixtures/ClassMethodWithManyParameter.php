@@ -39,7 +39,7 @@ class ClassMethodWithManyParameter {
 	 * @param float $float
 	 * @return string
 	 */
-	private static function testMethod($number, $string, array $arr, $boolean = FALSE, $float = 0.2, Tx_Classparser_Parser_Utility_NodeFactory $n) {
+	private static function testMethod($number, $string, array $arr, $boolean = FALSE, $float = 0.2, Tx_Classparser_Parser_Utility_NodeConverter $n) {
 		if($number > 3) {
 			return 'bar';
 		} else {

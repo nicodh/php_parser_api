@@ -157,7 +157,7 @@ class Tx_Classparser_Domain_Model_Class_MethodParameter extends Tx_Classparser_D
 	public function setDefault($default, $updateNodeDefault = TRUE) {
 		$this->default = $default;
 		if($updateNodeDefault) {
-			$this->node->__set('default',Tx_Classparser_Parser_Utility_NodeFactory::getNodeFromvalue($default));
+			$this->node->__set('default',Tx_Classparser_Parser_Utility_NodeConverter::getNodeFromvalue($default));
 		}
 	}
 
@@ -213,12 +213,12 @@ class Tx_Classparser_Domain_Model_Class_MethodParameter extends Tx_Classparser_D
 	 */
 	public function setTypeHint($typeHint, $updateNodeTypeHint = TRUE ) {
 		if(!is_string($typeHint) && !empty($typeHint)) {
-			$typeHint = Tx_Classparser_Parser_Utility_NodeFactory::getValueFromNode($typeHint);
+			$typeHint = Tx_Classparser_Parser_Utility_NodeConverter::getValueFromNode($typeHint);
 			debug($typeHint,'typeHint');
 		}
 		$this->typeHint = $typeHint;
 		if($updateNodeTypeHint) {
-			$this->node->__set('type',Tx_Classparser_Parser_Utility_NodeFactory::getNodeFromName($typeHint));
+			$this->node->__set('type',Tx_Classparser_Parser_Utility_NodeConverter::getNodeFromName($typeHint));
 		}
 	}
 
@@ -227,7 +227,7 @@ class Tx_Classparser_Domain_Model_Class_MethodParameter extends Tx_Classparser_D
 	 */
 	public function setVarType($varType, $updateNodeType = TRUE) {
 		if($updateNodeType) {
-			$this->setTypeHint(Tx_Classparser_Parser_Utility_NodeFactory::getTypeHintFromVarType($varType),TRUE);
+			$this->setTypeHint(Tx_Classparser_Parser_Utility_NodeConverter::getTypeHintFromVarType($varType),TRUE);
 		}
 		$this->varType = $varType;
 	}

@@ -430,7 +430,7 @@ class Tx_Classparser_Domain_Model_Class extends Tx_Classparser_Domain_Model_Abst
 	 * @param string $interfaceName
 	 */
 	public function addInterfaceName($interfaceName) {
-		$this->interfaces[] = Tx_Classparser_Parser_Utility_NodeFactory::getNodeFromName($interfaceName);
+		$this->interfaces[] = Tx_Classparser_Parser_Utility_NodeConverter::getNodeFromName($interfaceName);
 		$this->node->__set('implements',$this->interfaces);
 	}
 

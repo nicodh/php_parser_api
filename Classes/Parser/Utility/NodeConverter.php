@@ -28,7 +28,7 @@
  * @author Nico de Haen
  */
 
-class Tx_Classparser_Parser_Utility_NodeFactory {
+class Tx_Classparser_Parser_Utility_NodeConverter {
 
 	public static function getTypeHintFromVarType ($varType) {
 		if(in_array(strtolower($varType), array('int', 'double', 'float', 'boolean', 'string'))) {
@@ -85,13 +85,13 @@ class Tx_Classparser_Parser_Utility_NodeFactory {
 				// for consecutive, numeric keys don't generate keys
 				if (null !== $lastKey && ++$lastKey === $itemKey) {
 					$items[] = new PHPParser_Node_Expr_ArrayItem(
-						$this->getNodeFromvalue($itemValue)
+						self::getNodeFromvalue($itemValue)
 					);
 				} else {
 					$lastKey = null;
 					$items[] = new PHPParser_Node_Expr_ArrayItem(
-						$this->getNodeFromvalue($itemValue),
-						$this->getNodeFromvalue($itemKey)
+						self::getNodeFromvalue($itemValue),
+						self::getNodeFromvalue($itemKey)
 					);
 				}
 			}

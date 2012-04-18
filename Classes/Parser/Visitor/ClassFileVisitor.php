@@ -97,9 +97,9 @@ class Tx_Classparser_Parser_Visitor_ClassFileVisitor extends PHPParser_NodeVisit
 			array_pop($this->contextStack);
 			if(count($this->contextStack) > 0) {
 				if(end($this->contextStack)->getType() == 'Stmt_Namespace') {
-					$nameSpaceLabel = Tx_Classparser_Parser_Utility_NodeFactory::getValueFromNode(end($this->contextStack));
+					$nameSpaceLabel = Tx_Classparser_Parser_Utility_NodeConverter::getValueFromNode(end($this->contextStack));
 					$this->classObject->setNameSpace($nameSpaceLabel);
-					$this->fileObject->addNameSpacedClass(Tx_Classparser_Parser_Utility_NodeFactory::getValueFromNode(end($this->contextStack)), $this->classObject);
+					$this->fileObject->addNameSpacedClass(Tx_Classparser_Parser_Utility_NodeConverter::getValueFromNode(end($this->contextStack)), $this->classObject);
 				}
 			} else {
 				$this->fileObject->addClass($this->classObject);

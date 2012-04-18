@@ -176,7 +176,7 @@ class Tx_Classparser_Domain_Model_AbstractObject {
 	 */
 	public function getModifierNames() {
 		$modifiers = $this->getModifiers();
-		return Tx_Classparser_Parser_Utility_NodeFactory::modifierToNames($modifiers);
+		return Tx_Classparser_Parser_Utility_NodeConverter::modifierToNames($modifiers);
 	}
 
 	/**
