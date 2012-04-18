@@ -35,13 +35,13 @@ class Tx_Classparser_Domain_Model_File {
 
 	protected $filePathAndName = '';
 
-	protected $nameSpaces = array();
+	protected $namespaces = array();
 
 	protected $preIncludes = array();
 
 	protected $classes = array();
 
-	protected $nameSpacedClasses = array();
+	protected $namespacedClasses = array();
 
 	protected $postIncludes = array();
 
@@ -53,17 +53,17 @@ class Tx_Classparser_Domain_Model_File {
 		return $this->classes;
 	}
 
-	public function addNameSpacedClass($nameSpace, $class) {
-		$this->nameSpacedClasses[$nameSpace] = $class;
+	public function addNamespacedClass($namespace, $class) {
+		$this->namespacedClasses[$namespace] = $class;
 	}
 
-	public function getNameSpacedClasses() {
-		return $this->nameSpacedClasses;
+	public function getNamespacedClasses() {
+		return $this->namespacedClasses;
 	}
 
 	public function getFirstClass() {
-		if(count($this->nameSpacedClasses) > 0) {
-			foreach($this->nameSpacedClasses as $nameSpace => $class) {
+		if(count($this->namespacedClasses) > 0) {
+			foreach($this->namespacedClasses as $namespace => $class) {
 				return $class;
 			}
 		}
@@ -76,12 +76,12 @@ class Tx_Classparser_Domain_Model_File {
 		$this->classes[] = $classObject;
 	}
 
-	public function addNameSpace($nameSpace) {
-		$this->nameSpaces[] = $nameSpace;
+	public function addNamespace($namespace) {
+		$this->namespaces[] = $namespace;
 	}
 
-	public function getNameSpaces() {
-		return $this->nameSpaces;
+	public function getNamespaces() {
+		return $this->namespaces;
 	}
 
 	public function addPostInclude($postInclude) {
@@ -110,7 +110,7 @@ class Tx_Classparser_Domain_Model_File {
 
 	public function getStmts() {
 		$stmts = array();
-		$stmts += $this->nameSpaces;
+		$stmts += $this->namespaces;
 		foreach($this->preIncludes as $preInclude) {
 			$stmts[] = $preInclude;
 		}

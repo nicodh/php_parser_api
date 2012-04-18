@@ -2,7 +2,7 @@
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2012 Nico de Haen <mail@ndh-websolutions.de>
+ *  (c) 2012 Nico de Haen
  *  All rights reserved
  *
  *
@@ -23,14 +23,9 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-/**
- * @package
- * @author Nico de Haen
- */
-
 require_once(t3lib_extmgm::extPath('classparser') . 'Tests/BaseTest.php');
 
-class Tx_Classparser_Tests_Function_ParseAndWriteTest extends Tx_Classparser_Tests_BaseTest {
+class Tx_Classparser_Tests_Unit_PrinterTest extends Tx_Classparser_Tests_BaseTest {
 
 
 	function setUp(){
@@ -40,23 +35,13 @@ class Tx_Classparser_Tests_Function_ParseAndWriteTest extends Tx_Classparser_Tes
 		$this->testDir = t3lib_extmgm::extPath('classparser') . 'Tests/Fixtures/tmp/';
 	}
 
-	function tearDown() {
-		// remove all files in tmp
-	}
+
 
 	/**
 	 * @test
 	 */
-	function parseAndWriteSimpleProperty() {
-		$classFileObject = $this->parseAndWrite('SimpleProperty.php');
-	}
-
-	/**
-	 * @test
-	 */
-	function parseAndWriteSimpleNamespace() {
-		$classFileObject = $this->parseAndWrite('SimpleNamespace.php');
-		$this->assertEquals($classFileObject->getFirstClass()->getNamespaceName(), '\\Test\\Model');
+	public function printTest() {
+		$this->parseAndWrite('ClassMethodWithManyParameter.php');
 	}
 
 	protected function parseAndWrite($fileName) {
@@ -68,20 +53,8 @@ class Tx_Classparser_Tests_Function_ParseAndWriteTest extends Tx_Classparser_Tes
 		return $classFileObject;
 	}
 
-	protected function compareClasses($classFileObject, $classFilePath) {
-		$this->assertTrue(file_exists($classFilePath));
-		$classObject = $classFileObject->getFirstClass();
-		$this->assertTrue($classObject instanceof Tx_Classparser_Domain_Model_Class);
-		if(!class_exists($classObject->getName())) {
-			require_once($classFilePath);
-		}
-		$className = $classObject->getName();
-		$this->assertTrue(class_exists($className), 'Class ' . $classObject->getName() . ' does not exist!');
-		$ref = new ReflectionClass($className);
-		$this->assertEquals(count($ref->getMethods()), count($classObject->getMethods()));
-		$this->assertEquals(count($ref->getProperties()), count($classObject->getProperties()));
-		$this->assertEquals(count($ref->getConstants()), count($classObject->getConstants()));
-	}
 
 
 }
+
+?>

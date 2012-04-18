@@ -2,7 +2,7 @@
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2012 Nico de Haen
+ *  (c) 2012 Nico de Haen <mail@ndh-websolutions.de>
  *  All rights reserved
  *
  *
@@ -23,34 +23,31 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-require_once(t3lib_extmgm::extPath('classparser') . 'Tests/Parser/ParserTest.php');
+/**
+ * @package
+ * @author Nico de Haen
+ */
 
-class Tx_Classparser_Tests_PrinterTest extends Tx_Classparser_Tests_Parser_ParserTest {
-
-
-	function setUp(){
-		parent::setUp();
-		$this->printer = $this->objectManager->get('Tx_Classparser_Service_Printer');
-		//vfsStream::setup('testDir');
-		//$this->testDir = vfsStream::url('testDir').'/';
-		$this->testDir = t3lib_extmgm::extPath('classparser') . 'Tests/Fixtures/tmp/';
-	}
-
-
+abstract class Tx_Classparser_Tests_BaseTest extends Tx_Extbase_Tests_Unit_BaseTestCase{
 
 	/**
-	 * @test
+	 * @var Tx_Classparser_Service_Parser
 	 */
-	public function printTest() {
-		$this->parseAndWrite('ClassMethodWithManyParameter.php');
+	protected $parser;
+
+	/**
+	 * @var Tx_Classparser_Service_Printer
+	 */
+	protected $printer;
+
+	function setUp(){
+		$this->parser = t3lib_div::makeInstance('Tx_Classparser_Service_Parser');
+		$this->printer = t3lib_div::makeInstance('Tx_Classparser_Service_Printer');
 	}
 
-	protected function parseAndWrite($fileName) {
+	protected function parseFile($fileName) {
 		$classFilePath = t3lib_extmgm::extPath('classparser') . 'Tests/Fixtures/' . $fileName;
 		$classFileObject = $this->parser->parseFile($classFilePath);
-		$newClassFilePath = $this->testDir . $fileName;
-		t3lib_div::writeFile($newClassFilePath,"<?php\n\n" . $this->printer->renderFileObject($classFileObject) . "\n?>");
-		$this->compareClasses($classFileObject, $classFilePath);
 		return $classFileObject;
 	}
 
@@ -68,7 +65,4 @@ class Tx_Classparser_Tests_PrinterTest extends Tx_Classparser_Tests_Parser_Parse
 		$this->assertEquals(count($ref->getProperties()), count($classObject->getProperties()));
 		$this->assertEquals(count($ref->getConstants()), count($classObject->getConstants()));
 	}
-
 }
-
-?>

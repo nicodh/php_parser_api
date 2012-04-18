@@ -28,40 +28,17 @@
  * @author Nico de Haen
  */
 
-abstract class Tx_Classparser_Tests_SimplePropertyTest {
+require_once(t3lib_extmgm::extPath('classparser') . 'Tests/BaseTest.php');
 
-	private $test = array(
-		'test' 	=> 123,
-		'test5'	=> 456,
-		'arr' 	=> array(
-			'sieben' => 7
-		)
-	);
-		
-	
-	// just a single line comment
-	
-	
-	/**
-	 * @var string
-	 */
-	protected $property = array('a' => 'b');
+class Tx_Classparser_Tests_Unit_ModifiersTest extends Tx_Classparser_Tests_BaseTest {
+
 
 	/**
-	 * @param string $property
+	 * @test
 	 */
-	public function setProperty($property) {
-		// comment in a new line
-		if(strlen($property)>50) { // some comment here
-			$property = substr($property,0,49); // some comment there
-		}
-		$this->property = $property;
-	}
-
-	/**
-	 * @return string
-	 */
-	public function getProperty() {
-		return $this->property;
+	function findClassModifier() {
+		$classFileObject = $this->parseFile('SimpleProperty.php');
+		$classObject = $classFileObject->getFirstClass();
+		$this->assertTrue($classObject->isAbstract());
 	}
 }

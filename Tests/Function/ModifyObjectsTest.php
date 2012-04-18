@@ -28,40 +28,30 @@
  * @author Nico de Haen
  */
 
-abstract class Tx_Classparser_Tests_SimplePropertyTest {
+require_once(t3lib_extmgm::extPath('classparser') . 'Tests/BaseTest.php');
 
-	private $test = array(
-		'test' 	=> 123,
-		'test5'	=> 456,
-		'arr' 	=> array(
-			'sieben' => 7
-		)
-	);
-		
-	
-	// just a single line comment
-	
-	
-	/**
-	 * @var string
-	 */
-	protected $property = array('a' => 'b');
+class  Tx_Classparser_Tests_Function_ModifyObjectsTest extends Tx_Classparser_Tests_BaseTest{
 
 	/**
-	 * @param string $property
+	 * @test
 	 */
-	public function setProperty($property) {
-		// comment in a new line
-		if(strlen($property)>50) { // some comment here
-			$property = substr($property,0,49); // some comment there
-		}
-		$this->property = $property;
+	function changeClassModifier() {
+		$classObject = $this->parseFile('SimpleProperty.php')->getFirstClass();
+		$this->assertTrue($classObject->isAbstract());
+		$classObject->addModifier('static');
+		$this->assertTrue($classObject->isStatic());
+		$this->assertTrue($classObject->getProperty('test')->isPrivate());
+		$classObject->getProperty('test')->addModifier('public');
 	}
 
 	/**
-	 * @return string
+	 * @test
+	 *
+	 * @expectedRuntimeException PHPParser_Error
 	 */
-	public function getProperty() {
-		return $this->property;
+	function addingMultipleAccessModifiersThrowsException() {
+		$classObject = $this->parseFile('SimpleProperty.php')->getFirstClass();
+		$this->assertTrue($classObject->getProperty('test')->isPrivate());
+		$classObject->getProperty('test')->addModifier('public');
 	}
 }

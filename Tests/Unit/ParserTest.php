@@ -23,19 +23,9 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+require_once(t3lib_extmgm::extPath('classparser') . 'Tests/BaseTest.php');
 
-class Tx_Classparser_Tests_Parser_ParserTest extends Tx_Extbase_Tests_Unit_BaseTestCase {
-
-
-	/**
-	 * @var Tx_Extbase_Object_Manager
-	 */
-	protected $objectManager;
-
-	/**
-	 * @var Tx_Classparser_Service_Printer
-	 */
-	protected $printer;
+class Tx_Classparser_Tests_Unit_ParserTest extends Tx_Classparser_Tests_BaseTest {
 
 	/**
 	 * @var Tx_Classparser_Service_Printer
@@ -46,13 +36,6 @@ class Tx_Classparser_Tests_Parser_ParserTest extends Tx_Extbase_Tests_Unit_BaseT
 	 * set to true to see an overview of the parsed class objects in the backend
 	 */
 	protected $debugMode = TRUE;
-
-
-	function setUp(){
-		$this->objectManager = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager');
-		$this->parser =$this->objectManager->get('Tx_Classparser_Service_Parser');
-	}
-
 
 	/**
 	 * @test
@@ -72,12 +55,6 @@ class Tx_Classparser_Tests_Parser_ParserTest extends Tx_Extbase_Tests_Unit_BaseT
 		$classFileObject = $this->parseFile('ClassMethodWithManyParameter.php');
 	}
 
-
-	protected function parseFile($fileName) {
-		$classFilePath = t3lib_extmgm::extPath('classparser') . 'Tests/Fixtures/' . $fileName;
-		$classFileObject = $this->parser->parseFile($classFilePath);
-		return $classFileObject;
-	}
 
 }
 

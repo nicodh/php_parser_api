@@ -66,8 +66,6 @@ class Tx_Classparser_Domain_Model_AbstractObject {
 	 */
 	protected $name;
 
-
-
 	/**
 	 * array
 	 *
@@ -97,7 +95,7 @@ class Tx_Classparser_Domain_Model_AbstractObject {
 	/**
 	 * @var string
 	 */
-	protected $nameSpace;
+	protected $namespace;
 
 
 	/**
@@ -124,17 +122,70 @@ class Tx_Classparser_Domain_Model_AbstractObject {
 	 * @return string name
 	 */
 	public function getName() {
-		if($this->isNameSpaced()) {
-			return $this->nameSpace . '\\' . $this->name;
+		if($this->isNamespaced()) {
+			return $this->namespace . '\\' . $this->name;
 		} else {
 			return $this->name;
 		}
 	}
 
 	/**
-	 * Setter for modifiers
+	 * Getter for short name (without namespace
 	 *
-	 * @param string $modifiers modifiers
+	 * @return string name
+	 */
+	public function getShortName() {
+		return $this->name;
+	}
+
+	/**
+	 * @return bool
+	 */
+	public function isPublic() {
+		return (($this->modifiers & PHPParser_Node_Stmt_Class::MODIFIER_PUBLIC) !==0);
+	}
+
+	/**
+	 * @return bool
+	 */
+
+	public function isProtected() {
+		return (($this->modifiers & PHPParser_Node_Stmt_Class::MODIFIER_PROTECTED) !==0);
+	}
+
+	/**
+	 * @return bool
+	 */
+	public function isPrivate() {
+		return (($this->modifiers & PHPParser_Node_Stmt_Class::MODIFIER_PRIVATE) !==0);
+	}
+
+	/**
+	 * @return bool
+	 */
+	public function isStatic() {
+		return (($this->modifiers & PHPParser_Node_Stmt_Class::MODIFIER_STATIC) !==0);
+	}
+
+	/**
+	 * @return bool
+	 */
+	public function isAbstract() {
+		return (($this->modifiers & PHPParser_Node_Stmt_Class::MODIFIER_ABSTRACT) !==0);
+	}
+
+	/**
+	 * @return bool
+	 */
+	public function isFinal() {
+		return (($this->modifiers & PHPParser_Node_Stmt_Class::MODIFIER_FINAL) !==0);
+	}
+
+	/**
+	 * Setter for modifiers (will set all modifiers at once,
+	 * since modifiers are claculated bitwise)
+	 *
+	 * @param int $modifiers modifiers
 	 * @return void
 	 */
 	public function setModifiers($modifiers) {
@@ -375,26 +426,32 @@ class Tx_Classparser_Domain_Model_AbstractObject {
 	}
 
 	/**
-	 * @param string $nameSpace
+	 * @param string $namespace
 	 */
-	public function setNameSpace($nameSpace) {
-		$this->nameSpace = $nameSpace;
+	public function setNamespaceName($namespace) {
+		$this->namespace = $namespace;
 	}
 
 	/**
 	 * @return string
 	 */
-	public function getNameSpace() {
-		return $this->nameSpace;
+	public function getNamespaceName() {
+		return $this->namespace;
 	}
 
 	/**
 	 * @return bool
 	 */
-	public function isNameSpaced() {
-		if(empty($this->nameSpace)) {
+	public function isNamespaced() {
+		if(empty($this->namespace)) {
 			return FALSE;
 		} else {
+			return TRUE;
+		}
+	}
+
+	public function inNamespace($namespace) {
+		if($this->getNamespaceName() == $namespace) {
 			return TRUE;
 		}
 	}
