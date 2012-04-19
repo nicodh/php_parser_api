@@ -53,13 +53,16 @@ class Tx_Classparser_Domain_Model_File {
 	protected $classes = array();
 
 	/**
-	 * @var array Tx_Classparser_Domain_Model_Class
+	 * @var array all statements
 	 */
-	protected $namespacedClasses = array();
-
 	protected $stmts = array();
 
 	protected $aliasDeclarations = array();
+
+	/**
+	 * @var array Tx_Classparser_Domain_Model_Function
+	 */
+	protected $functions = array();
 
 	/**
 	 * @param Tx_Classparser_Domain_Model_Class $class
@@ -76,30 +79,17 @@ class Tx_Classparser_Domain_Model_File {
 	}
 
 	/**
-	 * @param $namespace
-	 * @param $class Tx_Classparser_Domain_Model_Class
-	 */
-	public function addNamespacedClass($namespace, $class) {
-		$this->namespacedClasses[$namespace] = $class;
-	}
-
-	/**
-	 * @return array
-	 */
-	public function getNamespacedClasses() {
-		return $this->namespacedClasses;
-	}
-
-	/**
 	 * @return Tx_Classparser_Domain_Model_Class
 	 */
 	public function getFirstClass() {
 		if(count($this->namespaces) > 0) {
 			reset($this->namespaces);
 			return current($this->namespaces)->getFirstClass();
-		} else  {
+		} elseif(count($this->classes) > 0) {
 			reset($this->classes);
 			return current($this->classes);
+		} else {
+			return NULL;
 		}
 	}
 
@@ -137,8 +127,8 @@ class Tx_Classparser_Domain_Model_File {
 		return $this->postIncludes;
 	}
 
-	public function addPreIncludes($preInclude) {
-		$this->preIncludes[] = $preInclude;
+	public function addPreInclude($preInclude) {
+		$this->preInclude[] = $preInclude;
 	}
 
 	public function getPreIncludes() {
@@ -196,6 +186,41 @@ class Tx_Classparser_Domain_Model_File {
 	public function getAliasDeclarations() {
 		return $this->aliasDeclarations;
 	}
+
+	/**
+	 * @param array $functions
+	 */
+	public function setFunctions($functions) {
+		$this->functions = $functions;
+	}
+
+	/**
+	 * @param Tx_Classparser_Domain_Model_Function $function
+	 */
+	public function addFunction($function) {
+		$this->functions[$function->getName()] = $function;
+	}
+
+	/**
+	 * @return array
+	 */
+	public function getFunctions() {
+		return $this->functions;
+	}
+
+	/**
+	 * @param string $name
+	 * @return Tx_Classparser_Domain_Model_Function
+	 */
+	public function getFunction($name) {
+		if(isset($this->functions[$name])) {
+			return $this->functions[$name];
+		} else {
+			return NULL;
+		}
+
+	}
+
 }
 
 ?>

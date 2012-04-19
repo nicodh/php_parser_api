@@ -82,11 +82,6 @@ class Tx_Classparser_Parser_Visitor_ClassFileVisitor extends PHPParser_NodeVisit
 			}
 		} elseif($node instanceof PHPParser_Node_Expr_Include) {
 			$this->contextStack[] = $node;
-			if($this->classObject === NULL) {
-				$this->fileObject->addPreIncludes($node);
-			} else {
-				$this->fileObject->addPostInclude($node);
-			}
 		} elseif($node instanceof PHPParser_Node_Stmt_Class) {
 			$this->contextStack[] = $node;
 			$this->classObject = new Tx_Classparser_Domain_Model_Class($node);
@@ -118,6 +113,22 @@ class Tx_Classparser_Parser_Visitor_ClassFileVisitor extends PHPParser_NodeVisit
 			} else {
 				$this->fileObject->addClass($this->classObject);
 				$this->classObject = NULL;
+			}
+		}
+		if($node instanceof PHPParser_Node_Expr_Include) {
+			array_pop($this->contextStack);
+			if($this->namespace === NULL) {
+				if($this->fileObject->getFirstClass() === NULL) {
+					$this->fileObject->addPreInclude($node);
+				} else {
+					$this->fileObject->addPostInclude($node);
+				}
+			} else {
+				if($this->namespace->getFirstClass() === NULL) {
+					$this->namespace->addPreInclude($node);
+				} else {
+					$this->namespace->addPostInclude($node);
+				}
 			}
 		}
 		if(get_class($node) == get_class(end($this->contextStack))) {

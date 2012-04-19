@@ -196,7 +196,7 @@ class Tx_Classparser_Domain_Model_AbstractObject {
 	 * adds a modifier
 	 *
 	 * @param string $modifiers
-	 * @return void
+	 * @return boolean TRUE if modifier could be added
 	 */
 	public function addModifier($modifier) {
 		if(!in_array($modifier, $this->getModifierNames())) {
@@ -204,8 +204,10 @@ class Tx_Classparser_Domain_Model_AbstractObject {
 				PHPParser_Node_Stmt_Class::verifyModifier($this->modifiers, $this->mapModifierNames[$modifier]);
 				$this->modifiers |= $this->mapModifierNames[$modifier];
 				$this->node->__set('type',$this->modifiers);
+				return TRUE;
 			} catch(Exception $e) {
-				debug('Error: ' . $e->getMessage(), 'Error');
+				//debug('Error: ' . $e->getMessage(), 'Error');
+				return FALSE;
 			}
 
 		}

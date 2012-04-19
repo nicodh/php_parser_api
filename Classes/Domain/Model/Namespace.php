@@ -62,8 +62,13 @@ class Tx_Classparser_Domain_Model_Namespace extends Tx_Classparser_Domain_Model_
 
 
 	public function getFirstClass() {
-		reset($this->classes);
-		return current($this->classes);
+		if(count($this->classes) > 0) {
+			reset($this->classes);
+			return current($this->classes);
+		} else {
+			return NULL;
+		}
+
 	}
 
 	/**
@@ -109,14 +114,6 @@ class Tx_Classparser_Domain_Model_Namespace extends Tx_Classparser_Domain_Model_
 		//TODO
 	}
 
-	public function setPostIncludes($postIncludes) {
-		$this->postIncludes = $postIncludes;
-	}
-
-	public function getPostIncludes() {
-		return $this->postIncludes;
-	}
-
 	/**
 	 * @param array $preIncludes
 	 */
@@ -129,6 +126,23 @@ class Tx_Classparser_Domain_Model_Namespace extends Tx_Classparser_Domain_Model_
 	 */
 	public function getPreIncludes() {
 		return $this->preIncludes;
+	}
+
+	public function addPreInclude($preInclude) {
+		$this->preIncludes[] = $preInclude;
+	}
+
+	public function setPostIncludes($postIncludes) {
+		$this->postIncludes = $postIncludes;
+	}
+
+	public function getPostIncludes() {
+		return $this->postIncludes;
+	}
+
+
+	public function addPostInclude($postInclude) {
+		$this->postIncludes[] = $postInclude;
 	}
 
 }

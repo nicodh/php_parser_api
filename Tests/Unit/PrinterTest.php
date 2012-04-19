@@ -64,8 +64,8 @@ class Tx_Classparser_Tests_Unit_PrinterTest extends Tx_Classparser_Tests_BaseTes
 		$fileName = 'ClassMethodWithMissingParameterTag.php';
 		$classFileObject = $this->parseAndWrite($fileName);
 		$reflectedClass = $this->compareClasses($classFileObject, $this->testDir . $fileName);
-		$parameters = $reflectedClass->getMethod('testMethod')->getParameters();
-		//$this->assertEquals($parameters[1]->getTypeHint());
+		// No way to detect the typeHint with Reflection...
+
 	}
 
 	/**

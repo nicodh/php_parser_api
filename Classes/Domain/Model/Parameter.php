@@ -31,7 +31,7 @@
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class Tx_Classparser_Domain_Model_Class_MethodParameter extends Tx_Classparser_Domain_Model_AbstractObject {
+class Tx_Classparser_Domain_Model_Parameter extends Tx_Classparser_Domain_Model_AbstractObject {
 
 
 	/**

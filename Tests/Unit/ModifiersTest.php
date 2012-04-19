@@ -40,5 +40,14 @@ class Tx_Classparser_Tests_Unit_ModifiersTest extends Tx_Classparser_Tests_BaseT
 		$classFileObject = $this->parseFile('SimpleProperty.php');
 		$classObject = $classFileObject->getFirstClass();
 		$this->assertTrue($classObject->isAbstract());
+
+		$this->assertTrue($classObject->getProperty('test')->isPrivate());
+		$this->assertFalse($classObject->getProperty('test')->isPublic());
+
+		$this->assertTrue($classObject->getProperty('property')->isProtected());
+		$this->assertFalse($classObject->getProperty('property')->isPublic());
+		$this->assertTrue($classObject->getMethod('getProperty')->isPublic());
+		$this->assertFalse($classObject->getMethod('getProperty')->isPrivate());
+		$this->assertFalse($classObject->getMethod('getProperty')->isStatic());
 	}
 }

@@ -31,6 +31,11 @@
 abstract class Tx_Classparser_Tests_BaseTest extends Tx_Extbase_Tests_Unit_BaseTestCase{
 
 	/**
+	 * @var string
+	 */
+	protected $testDir = '';
+
+	/**
 	 * @var Tx_Classparser_Service_Parser
 	 */
 	protected $parser;

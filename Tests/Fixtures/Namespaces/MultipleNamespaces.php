@@ -29,6 +29,8 @@
  */
 namespace Test\Model;
 
+require_once(dirname(dirname(__FILE__)) . '/DummyIncludeFile.php');
+
 class Tx_Classparser_Tests_MultipleNamespaces {
 
 }
@@ -37,7 +39,7 @@ class Tx_Classparser_Tests_MultipleNamespaces {
  * This is another namespace
  */
 namespace Test\Model2;
-
+require_once dirname(dirname(__FILE__)) . '/DummyIncludeFile.php';
 /**
  * This is my doc comment
  *

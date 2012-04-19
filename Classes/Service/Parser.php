@@ -46,7 +46,6 @@ class Tx_Classparser_Service_Parser extends PHPParser_Parser implements t3lib_si
 	 */
 	public function parse($code) {
 		$stmts = $this->parseRawStatements($code);
-		//t3lib_utility_Debug::debug($stmts, 'stmts');
 		$visitor = new Tx_Classparser_Parser_Visitor_ClassFileVisitor;
 		if(!is_object($this->traverser)) {
 			$this->traverser = new Tx_Classparser_Parser_Traverser;
