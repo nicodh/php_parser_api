@@ -27,15 +27,15 @@
  * @package
  * @author Nico de Haen
  */
-class Tx_Classparser_Test_ClassMethodWithMissingParameterTag {
+class Tx_PhpParser_Test_ClassMethodWithMissingParameterTag {
 
 	/**
 	 * This is the description
 	 *
-	 * @param Tx_Classparser_Parser_Utility_NodeConverter $n
+	 * @param Tx_PhpParser_Parser_Utility_NodeConverter $n
 	 * @return string
 	 */
-	function testMethod($string, array $arr, Tx_Classparser_Parser_Utility_NodeConverter $n) {
+	function testMethod($string, array $arr, Tx_PhpParser_Parser_Utility_NodeConverter $n) {
 		if ($string > 3) {
 			return 'bar';
 		} else {

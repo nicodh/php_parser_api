@@ -23,12 +23,12 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-require_once(t3lib_extmgm::extPath('classparser') . 'Tests/BaseTest.php');
+require_once(t3lib_extmgm::extPath('php_parser') . 'Tests/BaseTest.php');
 
-class Tx_Classparser_Tests_Unit_ParserTest extends Tx_Classparser_Tests_BaseTest {
+class Tx_PhpParser_Tests_Unit_ParserTest extends Tx_PhpParser_Tests_BaseTest {
 
 	/**
-	 * @var Tx_Classparser_Service_Printer
+	 * @var Tx_PhpParser_Service_Printer
 	 */
 	protected $parser;
 
@@ -64,7 +64,7 @@ class Tx_Classparser_Tests_Unit_ParserTest extends Tx_Classparser_Tests_BaseTest
 		$this->assertEquals( 6, count($parameters));
 		$this->assertEquals($parameters[3]->getName(), 'booleanParam');
 		$this->assertEquals($parameters[3]->getVarType(), 'boolean');
-		$this->assertEquals($parameters[5]->getTypeHint(), 'Tx_Classparser_Parser_Utility_NodeConverter');
+		$this->assertEquals($parameters[5]->getTypeHint(), 'Tx_PhpParser_Parser_Utility_NodeConverter');
 	}
 
 

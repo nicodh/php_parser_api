@@ -28,9 +28,9 @@
  * @author Nico de Haen
  */
 
-require_once(t3lib_extmgm::extPath('classparser') . 'Tests/BaseTest.php');
+require_once(t3lib_extmgm::extPath('php_parser') . 'Tests/BaseTest.php');
 
-class Tx_Classparser_Tests_Unit_ModifiersTest extends Tx_Classparser_Tests_BaseTest {
+class Tx_PhpParser_Tests_Unit_ModifiersTest extends Tx_PhpParser_Tests_BaseTest {
 
 
 	/**

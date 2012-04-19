@@ -34,6 +34,6 @@ use blah\blah as foo;
 /**
  * some comment
  */
-class Tx_Classparser_Tests_SimpleNamepaceWithUseTest {
+class Tx_PhpParser_Tests_SimpleNamepaceWithUseTest {
 
 }

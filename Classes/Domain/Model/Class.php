@@ -27,11 +27,11 @@
 /**
  * TODO: enable declares
  *
- * @package classparser
+ * @package php_parser
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class Tx_Classparser_Domain_Model_Class extends Tx_Classparser_Domain_Model_AbstractObject {
+class Tx_PhpParser_Domain_Model_Class extends Tx_PhpParser_Domain_Model_AbstractObject {
 
 	/**
 	 * propertyNames - deprecated -> use this->getPropertyNames() instead
@@ -179,7 +179,7 @@ class Tx_Classparser_Domain_Model_Class extends Tx_Classparser_Domain_Model_Abst
 	/**
 	 * Setter for methods
 	 *
-	 * @param array $methods (Tx_Classparser_Domain_Model_Class_Method[])
+	 * @param array $methods (Tx_PhpParser_Domain_Model_Class_Method[])
 	 * @return void
 	 */
 	public function setMethods(array $methods) {
@@ -189,17 +189,17 @@ class Tx_Classparser_Domain_Model_Class extends Tx_Classparser_Domain_Model_Abst
 	/**
 	 * Setter for a single method (allows to override an existing method)
 	 *
-	 * @param Tx_Classparser_Domain_Model_Class_Method $method
+	 * @param Tx_PhpParser_Domain_Model_Class_Method $method
 	 * @return void
 	 */
-	public function setMethod(Tx_Classparser_Domain_Model_Class_Method $classMethod) {
+	public function setMethod(Tx_PhpParser_Domain_Model_Class_Method $classMethod) {
 		$this->methods[$classMethod->getName()] = $classMethod;
 	}
 
 	/**
 	 * Getter for methods
 	 *
-	 * @return Tx_Classparser_Domain_Model_Class_Method[]
+	 * @return Tx_PhpParser_Domain_Model_Class_Method[]
 	 */
 	public function getMethods() {
 		return $this->methods;
@@ -209,7 +209,7 @@ class Tx_Classparser_Domain_Model_Class extends Tx_Classparser_Domain_Model_Abst
 	 * Getter for method
 	 *
 	 * @param $methodName
-	 * @return Tx_Classparser_Domain_Model_Class_Method
+	 * @return Tx_PhpParser_Domain_Model_Class_Method
 	 */
 	public function getMethod($methodName) {
 		if ($this->methodExists($methodName)) {
@@ -221,7 +221,7 @@ class Tx_Classparser_Domain_Model_Class extends Tx_Classparser_Domain_Model_Abst
 	/**
 	 * Add a method
 	 *
-	 * @param Tx_Classparser_Domain_Model_Class_Method $classMethod
+	 * @param Tx_PhpParser_Domain_Model_Class_Method $classMethod
 	 * @return void
 	 */
 	public function addMethod($classMethod) {
@@ -265,7 +265,7 @@ class Tx_Classparser_Domain_Model_Class extends Tx_Classparser_Domain_Model_Abst
 	/**
 	 * returns all methods starting with "get"
 	 *
-	 * @return Tx_Classparser_Domain_Model_Class_Method[]
+	 * @return Tx_PhpParser_Domain_Model_Class_Method[]
 	 */
 	public function getGetters() {
 		$getterMethods = array();
@@ -285,7 +285,7 @@ class Tx_Classparser_Domain_Model_Class extends Tx_Classparser_Domain_Model_Abst
 	/**
 	 * returnes all methods starting with "set"
 	 *
-	 * @return Tx_Classparser_Domain_Model_Class_Method[]
+	 * @return Tx_PhpParser_Domain_Model_Class_Method[]
 	 */
 	public function getSetters() {
 		$setterMethods = array();
@@ -305,7 +305,7 @@ class Tx_Classparser_Domain_Model_Class extends Tx_Classparser_Domain_Model_Abst
 	 * Getter for property
 	 *
 	 * @param string $propertyName the name of the property
-	 * @return Tx_Classparser_Reflection_PropertyReflection
+	 * @return Tx_PhpParser_Reflection_PropertyReflection
 	 */
 	public function getProperty($propertyName) {
 		if ($this->propertyExists($propertyName)) {
@@ -327,7 +327,7 @@ class Tx_Classparser_Domain_Model_Class extends Tx_Classparser_Domain_Model_Abst
 	/**
 	 * Getter for properties
 	 *
-	 * @return Tx_Classparser_Domain_Model_Class_Property[]
+	 * @return Tx_PhpParser_Domain_Model_Class_Property[]
 	 */
 	public function getProperties() {
 		return $this->properties;
@@ -384,10 +384,10 @@ class Tx_Classparser_Domain_Model_Class extends Tx_Classparser_Domain_Model_Abst
 	/**
 	 * add a property (returns TRUE if successfull added)
 	 *
-	 * @param Tx_Classparser_Domain_Model_Class_Property
+	 * @param Tx_PhpParser_Domain_Model_Class_Property
 	 * @return boolean success
 	 */
-	public function addProperty(Tx_Classparser_Domain_Model_Class_Property $classProperty) {
+	public function addProperty(Tx_PhpParser_Domain_Model_Class_Property $classProperty) {
 		if (!$this->propertyExists($classProperty->getName())) {
 			$this->propertyNames[] = $classProperty->getName();
 			$this->properties[$classProperty->getName()] = $classProperty;
@@ -407,7 +407,7 @@ class Tx_Classparser_Domain_Model_Class extends Tx_Classparser_Domain_Model_Abst
 	/**
 	 * Setter for property
 	 *
-	 * @param Tx_Classparser_Domain_Model_Class_Property
+	 * @param Tx_PhpParser_Domain_Model_Class_Property
 	 * @return boolean success
 	 */
 	public function setProperty($classProperty) {
@@ -430,7 +430,7 @@ class Tx_Classparser_Domain_Model_Class extends Tx_Classparser_Domain_Model_Abst
 	 * @param string $interfaceName
 	 */
 	public function addInterfaceName($interfaceName) {
-		$this->interfaces[] = Tx_Classparser_Parser_Utility_NodeConverter::getNodeFromName($interfaceName);
+		$this->interfaces[] = Tx_PhpParser_Parser_Utility_NodeConverter::getNodeFromName($interfaceName);
 		$this->node->__set('implements',$this->interfaces);
 	}
 

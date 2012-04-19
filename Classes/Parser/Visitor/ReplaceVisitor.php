@@ -24,7 +24,7 @@
 ***************************************************************/
 
 /**
-* @package classparser
+* @package php_parser
 * @author Nico de Haen
 */
 
@@ -32,11 +32,11 @@
 /**
 * provides methods to import a class object and methods and properties
 *
-* @package Classparser
+* @package php_parser
 * @version $ID:$
 */
 
-class Tx_Classparser_Parser_Visitor_ReplaceVisitor extends PHPParser_NodeVisitorAbstract {
+class Tx_PhpParser_Parser_Visitor_ReplaceVisitor extends PHPParser_NodeVisitorAbstract {
 
 
 	protected $nodeType;

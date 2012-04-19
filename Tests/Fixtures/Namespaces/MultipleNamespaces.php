@@ -31,7 +31,7 @@ namespace Test\Model;
 
 require_once(dirname(dirname(__FILE__)) . '/DummyIncludeFile.php');
 
-class Tx_Classparser_Tests_MultipleNamespaces {
+class Tx_PhpParser_Tests_MultipleNamespaces {
 
 }
 
@@ -46,6 +46,6 @@ require_once dirname(dirname(__FILE__)) . '/DummyIncludeFile.php';
  * @author Nico de Haen
  *
  */
-class Tx_Classparser_Tests_MultipleNamespaces {
+class Tx_PhpParser_Tests_MultipleNamespaces {
 
 }

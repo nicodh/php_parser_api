@@ -27,11 +27,11 @@
 /**
  *
  * @author Nico de Haen
- * @package classparser
+ * @package php_parser
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class Tx_Classparser_Domain_Model_AbstractObject {
+class Tx_PhpParser_Domain_Model_AbstractObject {
 
 	/**
 	 *  const MODIFIER_PUBLIC    =  1;
@@ -88,7 +88,7 @@ class Tx_Classparser_Domain_Model_AbstractObject {
 	protected $docComment;
 
 	/**
-	 * @var Tx_Classparser_Parser_DocCommentParser
+	 * @var Tx_PhpParser_Parser_DocCommentParser
 	 */
 	protected $docCommentParser;
 
@@ -229,7 +229,7 @@ class Tx_Classparser_Domain_Model_AbstractObject {
 	 */
 	public function getModifierNames() {
 		$modifiers = $this->getModifiers();
-		return Tx_Classparser_Parser_Utility_NodeConverter::modifierToNames($modifiers);
+		return Tx_PhpParser_Parser_Utility_NodeConverter::modifierToNames($modifiers);
 	}
 
 	/**
@@ -261,7 +261,7 @@ class Tx_Classparser_Domain_Model_AbstractObject {
 		if(!is_object($this->docCommentParser)) {
 		    // we don't use injection since the class parser might run before
 			// any extbase object manager is loadable
-			$this->docCommentParser = t3lib_div::makeInstance('Tx_Classparser_Parser_DocCommentParser');
+			$this->docCommentParser = t3lib_div::makeInstance('Tx_PhpParser_Parser_DocCommentParser');
 		}
 		$this->docCommentParser->parseDocComment($this->docComment);
 		$this->tags = $this->docCommentParser->getTags();
@@ -379,7 +379,7 @@ class Tx_Classparser_Domain_Model_AbstractObject {
 	 *
 	 * @param $tagName
 	 * @param $tagValue
-	 * @return Tx_Classparser_Domain_Model_AbstractObject
+	 * @return Tx_PhpParser_Domain_Model_AbstractObject
 	 */
 	public function addTag($tagName, $tagValue) {
 		if(isset($this->tags[$tagName])) {

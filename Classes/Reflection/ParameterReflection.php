@@ -26,14 +26,14 @@
  * Extended version of the Tx_Extbase_Reflection_ParameterReflection
  * implements typeHint
  *
- * @package Classparser
+ * @package php_parser
  * @subpackage Reflection
  */
-class Tx_Classparser_Reflection_ParameterReflection extends Tx_Extbase_Reflection_ParameterReflection {
+class Tx_PhpParser_Reflection_ParameterReflection extends Tx_Extbase_Reflection_ParameterReflection {
 
 	/**
 	 * typeHint is missing in PHP Reflection (at least in 5.3)
-	 * In the constructor of Tx_Classparser_Reflection_MethodReflection
+	 * In the constructor of Tx_PhpParser_Reflection_MethodReflection
 	 * is a workaround implemented and each parameter gets a typeHint injected
 	 *
 	 *

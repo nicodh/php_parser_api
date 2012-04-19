@@ -28,7 +28,7 @@
  * @author Nico de Haen
  */
 
-abstract class Tx_Classparser_Tests_SimplePropertyTest {
+abstract class Tx_PhpParser_Tests_SimplePropertyTest {
 
 	private $test = array(
 		'test' 	=> 123,

@@ -1,5 +1,5 @@
 #
-# Extension Builder settings for extension classparser
+# Extension Builder settings for extension php_parser
 # generated 2012-03-16
 #
 # See http://www.yaml.org/spec/1.2/spec.html
@@ -82,7 +82,7 @@ classBuilder:
 
   Model:
     AbstractEntity:
-      parentClass: Tx_Classparser_Domain_Model_AbstractObject
+      parentClass: Tx_PhpParser_Domain_Model_AbstractObject
 
     AbstractValueObject:
       parentClass: Tx_Extbase_DomainObject_AbstractValueObject

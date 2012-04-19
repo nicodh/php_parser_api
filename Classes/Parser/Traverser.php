@@ -24,11 +24,11 @@
  ***************************************************************/
 
 /**
- * @package classparser
+ * @package php_parser
  * @author Nico de Haen
  */
 
-class Tx_Classparser_Parser_Traverser extends PHPParser_NodeTraverser implements t3lib_singleton {
+class Tx_PhpParser_Parser_Traverser extends PHPParser_NodeTraverser implements t3lib_singleton {
 
 	public function resetVisitors() {
 		$this->visitors = array();

@@ -28,10 +28,10 @@
  * @author Nico de Haen
  */
 
-class Tx_Classparser_Service_ClassModifier implements t3lib_Singleton{
+class Tx_PhpParser_Service_ClassModifier implements t3lib_Singleton{
 
 	/**
-	 * @var Tx_Classparser_Parser_Traverser
+	 * @var Tx_PhpParser_Parser_Traverser
 	 */
 	protected $traverser;
 
@@ -44,10 +44,10 @@ class Tx_Classparser_Service_ClassModifier implements t3lib_Singleton{
 	 */
 	public function replaceNodeProperty($objectToModify, $replacements, $nodeType = NULL, $nodeProperty = 'name') {
 		if(!is_object($this->traverser)) {
-			$this->traverser = new Tx_Classparser_Parser_Traverser;
+			$this->traverser = new Tx_PhpParser_Parser_Traverser;
 		}
 		$node = $objectToModify->getNode();
-		$visitor = t3lib_div::makeInstance('Tx_Classparser_Parser_Visitor_ReplaceVisitor');
+		$visitor = t3lib_div::makeInstance('Tx_PhpParser_Parser_Visitor_ReplaceVisitor');
 		$visitor->setNodeType($nodeType)
 				->setNodeProperty($nodeProperty)
 				->setReplacements($replacements);

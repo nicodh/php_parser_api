@@ -25,10 +25,10 @@
 /**
  * Extended version of the ReflectionMethod
  *
- * @package Classparser
+ * @package php_parser
  * @subpackage Reflectionn $
  */
-class Tx_Classparser_Reflection_MethodReflection extends Tx_Extbase_Reflection_MethodReflection {
+class Tx_PhpParser_Reflection_MethodReflection extends Tx_Extbase_Reflection_MethodReflection {
 
 
 	protected $tags;
@@ -54,14 +54,14 @@ class Tx_Classparser_Reflection_MethodReflection extends Tx_Extbase_Reflection_M
 	 * that Tx_Extbase_Reflection_ParameterReflection objects are returned instead of the
 	 * orginal ReflectionParameter instances.
 	 *
-	 * @return array of Tx_Classparser_Reflection_ParameterReflection Parameter reflection objects of the parameters of this method
+	 * @return array of Tx_PhpParser_Reflection_ParameterReflection Parameter reflection objects of the parameters of this method
 	 */
 	public function getParameters() {
 
 		$extendedParameters = array();
 		foreach (parent::getParameters() as $parameter) {
 			$typeHint = $this->getTypeHintFromReflectionParameter($parameter);
-			$extendedParameters[] = new Tx_Classparser_Reflection_ParameterReflection(array($this->getDeclaringClass()->getName(), $this->getName()), $parameter->getName(), $typeHint);
+			$extendedParameters[] = new Tx_PhpParser_Reflection_ParameterReflection(array($this->getDeclaringClass()->getName(), $this->getName()), $parameter->getName(), $typeHint);
 
 		}
 		return $extendedParameters;
@@ -117,10 +117,10 @@ class Tx_Classparser_Reflection_MethodReflection extends Tx_Extbase_Reflection_M
 	/**
 	 * Returns the declaring class
 	 *
-	 * @return Tx_Classparser_Reflection_ClassReflection The declaring class
+	 * @return Tx_PhpParser_Reflection_ClassReflection The declaring class
 	 */
 	public function getDeclaringClass() {
-		return new Tx_Classparser_Reflection_ClassReflection(parent::getDeclaringClass()->getName());
+		return new Tx_PhpParser_Reflection_ClassReflection(parent::getDeclaringClass()->getName());
 	}
 
 	public function getTags() {

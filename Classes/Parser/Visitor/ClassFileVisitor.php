@@ -24,7 +24,7 @@
 ***************************************************************/
 
 /**
-* @package classparser
+* @package php_parser
 * @author Nico de Haen
 */
 
@@ -32,21 +32,21 @@
 /**
 * provides methods to import a class object and methods and properties
 *
-* @package Classparser
+* @package php_parser
 * @version $ID:$
 */
 
-class Tx_Classparser_Parser_Visitor_ClassFileVisitor extends PHPParser_NodeVisitorAbstract {
+class Tx_PhpParser_Parser_Visitor_ClassFileVisitor extends PHPParser_NodeVisitorAbstract {
 
 	protected $properties = array();
 
 	/**
-	 * @var Tx_Classparser_Domain_Model_Class
+	 * @var Tx_PhpParser_Domain_Model_Class
 	 */
 	protected $classObject = NULL;
 
 	/**
-	 * @var Tx_Classparser_Domain_Model_Namespace
+	 * @var Tx_PhpParser_Domain_Model_Namespace
 	 */
 	protected $namespace = NULL;
 
@@ -59,7 +59,7 @@ class Tx_Classparser_Parser_Visitor_ClassFileVisitor extends PHPParser_NodeVisit
 	protected $contextStack = array();
 
 	/**
-	 * @var Tx_Classparser_Domain_Model_File
+	 * @var Tx_PhpParser_Domain_Model_File
 	 */
 	protected $fileObject = NULL;
 
@@ -72,7 +72,7 @@ class Tx_Classparser_Parser_Visitor_ClassFileVisitor extends PHPParser_NodeVisit
 
 		if($node instanceof PHPParser_Node_Stmt_Namespace) {
 			$this->contextStack[] = $node;
-			$this->namespace = new Tx_Classparser_Domain_Model_Namespace($node);
+			$this->namespace = new Tx_PhpParser_Domain_Model_Namespace($node);
 			//$this->fileObject->addNamespace($namespace);
 		} elseif($node instanceof PHPParser_Node_Stmt_Use) {
 			if($this->namespace !== NULL) {
@@ -84,16 +84,16 @@ class Tx_Classparser_Parser_Visitor_ClassFileVisitor extends PHPParser_NodeVisit
 			$this->contextStack[] = $node;
 		} elseif($node instanceof PHPParser_Node_Stmt_Class) {
 			$this->contextStack[] = $node;
-			$this->classObject = new Tx_Classparser_Domain_Model_Class($node);
+			$this->classObject = new Tx_PhpParser_Domain_Model_Class($node);
 		} elseif($node instanceof PHPParser_Node_Stmt_ClassConst) {
 			$this->classObject->setConstantNode($node);
 		} elseif($node instanceof PHPParser_Node_Stmt_Property) {
 			$this->contextStack[] = $node;
-			$property = new Tx_Classparser_Domain_Model_Class_Property($node);
+			$property = new Tx_PhpParser_Domain_Model_Class_Property($node);
 			$this->classObject->addProperty($property);
 		} elseif($node instanceof PHPParser_Node_Stmt_ClassMethod) {
 			$this->contextStack[] = $node;
-			$method = new Tx_Classparser_Domain_Model_Class_Method($node);
+			$method = new Tx_PhpParser_Domain_Model_Class_Method($node);
 			$this->classObject->addMethod($method);
 		}
 
@@ -104,7 +104,7 @@ class Tx_Classparser_Parser_Visitor_ClassFileVisitor extends PHPParser_NodeVisit
 			array_pop($this->contextStack);
 			if(count($this->contextStack) > 0) {
 				if(end($this->contextStack)->getType() == 'Stmt_Namespace') {
-					$namespaceName = Tx_Classparser_Parser_Utility_NodeConverter::getValueFromNode(end($this->contextStack));
+					$namespaceName = Tx_PhpParser_Parser_Utility_NodeConverter::getValueFromNode(end($this->contextStack));
 					$this->classObject->setNamespaceName($namespaceName);
 					$this->namespace->addClass($this->classObject);
 					$this->fileObject->addNamespace($this->namespace);
@@ -137,7 +137,7 @@ class Tx_Classparser_Parser_Visitor_ClassFileVisitor extends PHPParser_NodeVisit
 	}
 
 	public function beforeTraverse(array $nodes){
-		$this->fileObject =  new Tx_Classparser_Domain_Model_File;
+		$this->fileObject =  new Tx_PhpParser_Domain_Model_File;
 	}
 
 	public function afterTraverse(array $nodes){

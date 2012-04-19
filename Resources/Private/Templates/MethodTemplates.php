@@ -5,7 +5,7 @@
  * with multiple lines
  *
  *
- * @package classparser
+ * @package php_parser
  * @API
  * @author Nico de Haen
  * @author Max Meiert

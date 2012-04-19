@@ -31,10 +31,10 @@
 
 /**
 * provides methods to render the sourcecode for statements
-* @package Classparser
+* @package php_parser
 * @version $ID:$
 */
-class Tx_Classparser_Service_Printer extends PHPParser_PrettyPrinter_TYPO3CGL implements t3lib_singleton {
+class Tx_PhpParser_Service_Printer extends PHPParser_PrettyPrinter_TYPO3CGL implements t3lib_singleton {
 
 
 	/**

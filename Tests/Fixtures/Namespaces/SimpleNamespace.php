@@ -29,6 +29,6 @@
  */
 namespace Test\Model;
 
-class Tx_Classparser_Tests_SimpleNamepaceTest {
+class Tx_PhpParser_Tests_SimpleNamepaceTest {
 
 }

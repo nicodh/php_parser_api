@@ -28,7 +28,7 @@
  * @author Nico de Haen
  */
 
-class Tx_Classparser_Parser_Utility_NodeConverter {
+class Tx_PhpParser_Parser_Utility_NodeConverter {
 
 	public static function getTypeHintFromVarType ($varType) {
 		if(in_array(strtolower($varType), array('int', 'double', 'float', 'boolean', 'bool', 'string'))) {

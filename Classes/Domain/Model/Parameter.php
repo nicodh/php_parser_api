@@ -27,11 +27,11 @@
 /**
  *
  *
- * @package classparser
+ * @package php_parser
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class Tx_Classparser_Domain_Model_Parameter extends Tx_Classparser_Domain_Model_AbstractObject {
+class Tx_PhpParser_Domain_Model_Parameter extends Tx_PhpParser_Domain_Model_AbstractObject {
 
 
 	/**
@@ -154,7 +154,7 @@ class Tx_Classparser_Domain_Model_Parameter extends Tx_Classparser_Domain_Model_
 	public function setDefault($default, $updateNodeDefault = TRUE) {
 		$this->default = $default;
 		if($updateNodeDefault) {
-			$this->node->__set('default',Tx_Classparser_Parser_Utility_NodeConverter::getNodeFromvalue($default));
+			$this->node->__set('default',Tx_PhpParser_Parser_Utility_NodeConverter::getNodeFromvalue($default));
 		}
 	}
 
@@ -210,11 +210,11 @@ class Tx_Classparser_Domain_Model_Parameter extends Tx_Classparser_Domain_Model_
 	 */
 	public function setTypeHint($typeHint, $updateNodeTypeHint = TRUE ) {
 		if(!is_string($typeHint) && !empty($typeHint)) {
-			$typeHint = Tx_Classparser_Parser_Utility_NodeConverter::getValueFromNode($typeHint);
+			$typeHint = Tx_PhpParser_Parser_Utility_NodeConverter::getValueFromNode($typeHint);
 		}
 		$this->typeHint = $typeHint;
 		if($updateNodeTypeHint) {
-			$this->node->__set('type',Tx_Classparser_Parser_Utility_NodeConverter::getNodeFromName($typeHint));
+			$this->node->__set('type',Tx_PhpParser_Parser_Utility_NodeConverter::getNodeFromName($typeHint));
 		}
 	}
 
@@ -223,7 +223,7 @@ class Tx_Classparser_Domain_Model_Parameter extends Tx_Classparser_Domain_Model_
 	 */
 	public function setVarType($varType, $updateNodeType = TRUE) {
 		if($updateNodeType) {
-			$this->setTypeHint(Tx_Classparser_Parser_Utility_NodeConverter::getTypeHintFromVarType($varType),TRUE);
+			$this->setTypeHint(Tx_PhpParser_Parser_Utility_NodeConverter::getTypeHintFromVarType($varType),TRUE);
 		}
 		$this->varType = $varType;
 	}

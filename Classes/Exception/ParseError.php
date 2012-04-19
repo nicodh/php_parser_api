@@ -25,9 +25,9 @@
 /**
  * An exception thrown if an error occured during parsing a php file
  *
- * @package Classparser
+ * @package php_parser
  */
-class Tx_Classparser_Exception_ParseError extends Tx_Extbase_Exception {
+class Tx_PhpParser_Exception_ParseError extends Tx_Extbase_Exception {
 
 }
 

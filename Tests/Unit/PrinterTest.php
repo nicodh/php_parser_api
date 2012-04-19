@@ -23,9 +23,9 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-require_once(t3lib_extmgm::extPath('classparser') . 'Tests/BaseTest.php');
+require_once(t3lib_extmgm::extPath('php_parser') . 'Tests/BaseTest.php');
 
-class Tx_Classparser_Tests_Unit_PrinterTest extends Tx_Classparser_Tests_BaseTest {
+class Tx_PhpParser_Tests_Unit_PrinterTest extends Tx_PhpParser_Tests_BaseTest {
 
 
 	/**
@@ -108,7 +108,7 @@ class Tx_Classparser_Tests_Unit_PrinterTest extends Tx_Classparser_Tests_BaseTes
 
 
 	protected function parseAndWrite($fileName, $subFolder = '') {
-		$classFilePath = t3lib_extmgm::extPath('classparser') . 'Tests/Fixtures/' . $subFolder . $fileName;
+		$classFilePath = t3lib_extmgm::extPath('php_parser') . 'Tests/Fixtures/' . $subFolder . $fileName;
 		$this->assertTrue(file_exists($classFilePath));
 		$classFileObject = $this->parser->parseFile($classFilePath);
 		$newClassFilePath = $this->testDir . $fileName;

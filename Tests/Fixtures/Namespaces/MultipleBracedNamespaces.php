@@ -28,7 +28,7 @@
  * @author Nico de Haen
  */
 namespace Test\Model {
-	class Tx_Classparser_Tests_MultipleBracedNamespaces {
+	class Tx_PhpParser_Tests_MultipleBracedNamespaces {
 
 	}
 }
@@ -45,7 +45,7 @@ namespace Test\Model2 {
 	 * @author Nico de Haen
 	 *
 	 */
-	class Tx_Classparser_Tests_MultipleBracedNamespaces {
+	class Tx_PhpParser_Tests_MultipleBracedNamespaces {
 
 	}
 }

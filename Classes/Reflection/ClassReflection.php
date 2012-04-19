@@ -25,10 +25,10 @@
 /**
  * Extended version of the Tx_Extbase_Reflection_ClassReflection
  *
- * @package Classparser
+ * @package php_parser
  * @subpackage Reflection
  */
-class Tx_Classparser_Reflection_ClassReflection extends Tx_Extbase_Reflection_ClassReflection {
+class Tx_PhpParser_Reflection_ClassReflection extends Tx_Extbase_Reflection_ClassReflection {
 
 	/**
 	 *
@@ -59,7 +59,7 @@ class Tx_Classparser_Reflection_ClassReflection extends Tx_Extbase_Reflection_Cl
 		$methods = ($filter === NULL ? parent::getMethods() : parent::getMethods($filter));
 
 		foreach ($methods as $method) {
-			$extendedMethods[] = new Tx_Classparser_Reflection_MethodReflection($this->getName(), $method->getName());
+			$extendedMethods[] = new Tx_PhpParser_Reflection_MethodReflection($this->getName(), $method->getName());
 		}
 		return $extendedMethods;
 	}
@@ -111,12 +111,12 @@ class Tx_Classparser_Reflection_ClassReflection extends Tx_Extbase_Reflection_Cl
 	 * that Tx_Extbase_Reflection_MethodReflection objects are returned instead of the
 	 * orginal ReflectionMethod instances.
 	 *
-	 * @return Tx_Classparser_Reflection_MethodReflection Method reflection object of the named method
+	 * @return Tx_PhpParser_Reflection_MethodReflection Method reflection object of the named method
 	 */
 	public function getMethod($name) {
 		$parentMethod = parent::getMethod($name);
 		if (!is_object($parentMethod)) return $parentMethod;
-		return new Tx_Classparser_Reflection_MethodReflection($this->getName(), $parentMethod->getName());
+		return new Tx_PhpParser_Reflection_MethodReflection($this->getName(), $parentMethod->getName());
 	}
 
 	/**
@@ -124,12 +124,12 @@ class Tx_Classparser_Reflection_ClassReflection extends Tx_Extbase_Reflection_Cl
 	 * that Tx_Extbase_Reflection_MethodReflection objects are returned instead of the
 	 * orginal ReflectionMethod instances.
 	 *
-	 * @return Tx_Classparser_Reflection_MethodReflection Method reflection object of the constructor method
+	 * @return Tx_PhpParser_Reflection_MethodReflection Method reflection object of the constructor method
 	 */
 	public function getConstructor() {
 		$parentConstructor = parent::getConstructor();
 		if (!is_object($parentConstructor)) return $parentConstructor;
-		return new Tx_Classparser_Reflection_MethodReflection($this->getName(), $parentConstructor->getName());
+		return new Tx_PhpParser_Reflection_MethodReflection($this->getName(), $parentConstructor->getName());
 	}
 
 	/**
@@ -144,7 +144,7 @@ class Tx_Classparser_Reflection_ClassReflection extends Tx_Extbase_Reflection_Cl
 		$extendedProperties = array();
 		$properties = ($filter === NULL ? parent::getProperties() : parent::getProperties($filter));
 		foreach ($properties as $property) {
-			$extendedProperties[] = new Tx_Classparser_Reflection_PropertyReflection($this->getName(), $property->getName());
+			$extendedProperties[] = new Tx_PhpParser_Reflection_PropertyReflection($this->getName(), $property->getName());
 		}
 		return $extendedProperties;
 	}
@@ -158,7 +158,7 @@ class Tx_Classparser_Reflection_ClassReflection extends Tx_Extbase_Reflection_Cl
 	 * @return Tx_Extbase_Reflection_PropertyReflection Property reflection object of the specified property in this class
 	 */
 	public function getProperty($name) {
-		return new Tx_Classparser_Reflection_PropertyReflection($this->getName(), $name);
+		return new Tx_PhpParser_Reflection_PropertyReflection($this->getName(), $name);
 	}
 
 	/**
@@ -214,7 +214,7 @@ class Tx_Classparser_Reflection_ClassReflection extends Tx_Extbase_Reflection_Cl
 		$phpReflectionClass = new ReflectionClass($this->getName());
 		$parentClass = $phpReflectionClass->getParentClass();
 		if ($parentClass) {
-			return new Tx_Classparser_Reflection_ClassReflection($parentClass->getName());
+			return new Tx_PhpParser_Reflection_ClassReflection($parentClass->getName());
 		}
 		else return FALSE;
 	}

@@ -27,16 +27,16 @@
 /**
  *
  *
- * @package classparser
+ * @package php_parser
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class Tx_Classparser_Domain_Model_File {
+class Tx_PhpParser_Domain_Model_File {
 
 	protected $filePathAndName = '';
 
 	/**
-	 * @var array of Tx_Classparser_Domain_Model_Namespace
+	 * @var array of Tx_PhpParser_Domain_Model_Namespace
 	 */
 	protected $namespaces = array();
 
@@ -48,7 +48,7 @@ class Tx_Classparser_Domain_Model_File {
 	protected $postIncludes = array();
 
 	/**
-	 * @var array Tx_Classparser_Domain_Model_Class
+	 * @var array Tx_PhpParser_Domain_Model_Class
 	 */
 	protected $classes = array();
 
@@ -60,14 +60,14 @@ class Tx_Classparser_Domain_Model_File {
 	protected $aliasDeclarations = array();
 
 	/**
-	 * @var array Tx_Classparser_Domain_Model_Function
+	 * @var array Tx_PhpParser_Domain_Model_Function
 	 */
 	protected $functions = array();
 
 	/**
-	 * @param Tx_Classparser_Domain_Model_Class $class
+	 * @param Tx_PhpParser_Domain_Model_Class $class
 	 */
-	public function addClass(Tx_Classparser_Domain_Model_Class $class) {
+	public function addClass(Tx_PhpParser_Domain_Model_Class $class) {
 		$this->classes[] = $class;
 	}
 
@@ -79,7 +79,7 @@ class Tx_Classparser_Domain_Model_File {
 	}
 
 	/**
-	 * @return Tx_Classparser_Domain_Model_Class
+	 * @return Tx_PhpParser_Domain_Model_Class
 	 */
 	public function getFirstClass() {
 		if(count($this->namespaces) > 0) {
@@ -94,17 +94,17 @@ class Tx_Classparser_Domain_Model_File {
 	}
 
 	/**
-	 * @param Tx_Classparser_Domain_Model_Class $classObject
+	 * @param Tx_PhpParser_Domain_Model_Class $classObject
 	 */
-	public function setSingleClass(Tx_Classparser_Domain_Model_Class $classObject) {
+	public function setSingleClass(Tx_PhpParser_Domain_Model_Class $classObject) {
 		$this->classes = array();
 		$this->classes[] = $classObject;
 	}
 
 	/**
-	 * @param Tx_Classparser_Domain_Model_Namespace $namespace
+	 * @param Tx_PhpParser_Domain_Model_Namespace $namespace
 	 */
-	public function addNamespace(Tx_Classparser_Domain_Model_Namespace $namespace) {
+	public function addNamespace(Tx_PhpParser_Domain_Model_Namespace $namespace) {
 		$this->namespaces[] = $namespace;
 	}
 
@@ -195,7 +195,7 @@ class Tx_Classparser_Domain_Model_File {
 	}
 
 	/**
-	 * @param Tx_Classparser_Domain_Model_Function $function
+	 * @param Tx_PhpParser_Domain_Model_Function $function
 	 */
 	public function addFunction($function) {
 		$this->functions[$function->getName()] = $function;
@@ -210,7 +210,7 @@ class Tx_Classparser_Domain_Model_File {
 
 	/**
 	 * @param string $name
-	 * @return Tx_Classparser_Domain_Model_Function
+	 * @return Tx_PhpParser_Domain_Model_Function
 	 */
 	public function getFunction($name) {
 		if(isset($this->functions[$name])) {

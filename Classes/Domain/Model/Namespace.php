@@ -27,11 +27,11 @@
 /**
  *
  *
- * @package classparser
+ * @package php_parser
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class Tx_Classparser_Domain_Model_Namespace extends Tx_Classparser_Domain_Model_AbstractObject{
+class Tx_PhpParser_Domain_Model_Namespace extends Tx_PhpParser_Domain_Model_AbstractObject{
 
 	protected $constants;
 
@@ -48,7 +48,7 @@ class Tx_Classparser_Domain_Model_Namespace extends Tx_Classparser_Domain_Model_
 	protected $postIncludes = array();
 
 	/**
-	 * @var array Tx_Classparser_Domain_Model_Class
+	 * @var array Tx_PhpParser_Domain_Model_Class
 	 */
 	protected $classes = array();
 
@@ -56,7 +56,7 @@ class Tx_Classparser_Domain_Model_Namespace extends Tx_Classparser_Domain_Model_
 
 	public function __construct(PHPParser_Node_Stmt_Namespace $node) {
 		$this->node = $node;
-		$this->name = Tx_Classparser_Parser_Utility_NodeConverter::getValueFromNode($node->__get('name'));
+		$this->name = Tx_PhpParser_Parser_Utility_NodeConverter::getValueFromNode($node->__get('name'));
 		$this->initDocComment();
 	}
 
@@ -72,9 +72,9 @@ class Tx_Classparser_Domain_Model_Namespace extends Tx_Classparser_Domain_Model_
 	}
 
 	/**
-	 * @param Tx_Classparser_Domain_Model_Class $class
+	 * @param Tx_PhpParser_Domain_Model_Class $class
 	 */
-	public function addClass(Tx_Classparser_Domain_Model_Class $class) {
+	public function addClass(Tx_PhpParser_Domain_Model_Class $class) {
 		$this->classes[] = $class;
 	}
 

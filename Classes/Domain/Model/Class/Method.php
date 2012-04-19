@@ -27,11 +27,11 @@
 /**
  *
  *
- * @package classparser
+ * @package php_parser
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class Tx_Classparser_Domain_Model_Class_Method extends Tx_Classparser_Domain_Model_Function {
+class Tx_PhpParser_Domain_Model_Class_Method extends Tx_PhpParser_Domain_Model_Function {
 
 }
 ?>

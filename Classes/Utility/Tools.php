@@ -25,10 +25,10 @@
 /**
  * provides helper methods
  *
- * @package Classparser
+ * @package php_parser
  * @version $ID:$
  */
-class Tx_Classparser_Utility_Tools implements t3lib_singleton {
+class Tx_PhpParser_Utility_Tools implements t3lib_singleton {
 
 	static public function convertJSONArrayToPHPArray($encodedArray) {
 		if (strpos($encodedArray, '}') > -1) {

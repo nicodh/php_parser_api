@@ -28,7 +28,7 @@
  * @author Nico de Haen
  */
 
-class Tx_Classparser_Parser_DocCommentParser extends Tx_Extbase_Reflection_DocCommentParser{
+class Tx_PhpParser_Parser_DocCommentParser extends Tx_Extbase_Reflection_DocCommentParser{
 
 	public function parse($docComment) {
 		parent::parseDocComment($docComment);

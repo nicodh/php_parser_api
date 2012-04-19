@@ -27,11 +27,11 @@
 /**
  *
  *ClassSchema
- * @package classparser
+ * @package php_parser
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class Tx_Classparser_Domain_Model_Class_Property extends Tx_Classparser_Domain_Model_AbstractObject {
+class Tx_PhpParser_Domain_Model_Class_Property extends Tx_PhpParser_Domain_Model_AbstractObject {
 
 	/**
 	 * if there is a domain object property associated

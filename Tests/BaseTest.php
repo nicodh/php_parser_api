@@ -28,7 +28,7 @@
  * @author Nico de Haen
  */
 
-abstract class Tx_Classparser_Tests_BaseTest extends Tx_Extbase_Tests_Unit_BaseTestCase{
+abstract class Tx_PhpParser_Tests_BaseTest extends Tx_Extbase_Tests_Unit_BaseTestCase{
 
 	/**
 	 * @var string
@@ -36,21 +36,21 @@ abstract class Tx_Classparser_Tests_BaseTest extends Tx_Extbase_Tests_Unit_BaseT
 	protected $testDir = '';
 
 	/**
-	 * @var Tx_Classparser_Service_Parser
+	 * @var Tx_PhpParser_Service_Parser
 	 */
 	protected $parser;
 
 	/**
-	 * @var Tx_Classparser_Service_Printer
+	 * @var Tx_PhpParser_Service_Printer
 	 */
 	protected $printer;
 
 	public function setUp(){
-		$this->parser = t3lib_div::makeInstance('Tx_Classparser_Service_Parser');
-		$this->printer = t3lib_div::makeInstance('Tx_Classparser_Service_Printer');
+		$this->parser = t3lib_div::makeInstance('Tx_PhpParser_Service_Parser');
+		$this->printer = t3lib_div::makeInstance('Tx_PhpParser_Service_Printer');
 		//vfsStream::setup('testDir');
 		//$this->testDir = vfsStream::url('testDir').'/';
-		$this->testDir = t3lib_extmgm::extPath('classparser') . 'Tests/Fixtures/tmp/';
+		$this->testDir = t3lib_extmgm::extPath('php_parser') . 'Tests/Fixtures/tmp/';
 	}
 
 	public function tearDown() {
@@ -62,15 +62,15 @@ abstract class Tx_Classparser_Tests_BaseTest extends Tx_Extbase_Tests_Unit_BaseT
 	}
 
 	protected function parseFile($fileName) {
-		$classFilePath = t3lib_extmgm::extPath('classparser') . 'Tests/Fixtures/' . $fileName;
+		$classFilePath = t3lib_extmgm::extPath('php_parser') . 'Tests/Fixtures/' . $fileName;
 		$classFileObject = $this->parser->parseFile($classFilePath);
 		return $classFileObject;
 	}
 
 	protected function compareClasses($classFileObject, $classFilePath) {
-		$this->assertTrue(file_exists($classFilePath));
+		$this->assertTrue(file_exists($classFilePath), $classFilePath . 'not exists');
 		$classObject = $classFileObject->getFirstClass();
-		$this->assertTrue($classObject instanceof Tx_Classparser_Domain_Model_Class);
+		$this->assertTrue($classObject instanceof Tx_PhpParser_Domain_Model_Class);
 		if(!class_exists($classObject->getName())) {
 			require_once($classFilePath);
 		}

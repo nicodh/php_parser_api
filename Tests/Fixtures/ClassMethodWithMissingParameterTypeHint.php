@@ -27,14 +27,14 @@
  * @package
  * @author Nico de Haen
  */
-class Tx_Classparser_Test_ClassMethodWithMissingParameterTypeHint {
+class Tx_PhpParser_Test_ClassMethodWithMissingParameterTypeHint {
 
 	/**
 	 * This is the description
 	 *
 	 * @param $string
 	 * @param array $arr
-	 * @param Tx_Classparser_Parser_Utility_NodeConverter $n
+	 * @param Tx_PhpParser_Parser_Utility_NodeConverter $n
 	 * @return string
 	 */
 	function testMethod($string, $arr, $n) {

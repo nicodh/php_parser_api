@@ -25,10 +25,10 @@
 /**
  * Extended version of the ReflectionProperty
  *
- * @package Classparser
+ * @package php_parser
  * @subpackage Reflection
  */
-class Tx_Classparser_Reflection_PropertyReflection extends Tx_Extbase_Reflection_PropertyReflection {
+class Tx_PhpParser_Reflection_PropertyReflection extends Tx_Extbase_Reflection_PropertyReflection {
 
 	/**
 	 * the line number where this property is declared in the class file

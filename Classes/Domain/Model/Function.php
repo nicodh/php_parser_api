@@ -28,7 +28,7 @@
  * @author Nico de Haen
  */
 
-class Tx_Classparser_Domain_Model_Function extends Tx_Classparser_Domain_Model_AbstractObject {
+class Tx_PhpParser_Domain_Model_Function extends Tx_PhpParser_Domain_Model_AbstractObject {
 
 	/**
 	 * stmts of this methods body
@@ -71,7 +71,7 @@ class Tx_Classparser_Domain_Model_Function extends Tx_Classparser_Domain_Model_A
 			$getVarTypeFromParamTag = TRUE;
 		}
 		foreach($functionNode->__get('params') as $param) {
-			$parameter = new Tx_Classparser_Domain_Model_Parameter($param);
+			$parameter = new Tx_PhpParser_Domain_Model_Parameter($param);
 			$parameter->setPosition($position);
 			if(strlen($parameter->getTypeHint()) < 1 && $getVarTypeFromParamTag) {
 				// if there is not type hint but a varType in the param tag, we set the varType of the parameter
@@ -144,13 +144,13 @@ class Tx_Classparser_Domain_Model_Function extends Tx_Classparser_Domain_Model_A
 	/**
 	 * adder for parameters
 	 *
-	 * @param array $parameters of type Tx_Classparser_Domain_Model_Class_MethodParameter
+	 * @param array $parameters of type Tx_PhpParser_Domain_Model_Class_MethodParameter
 	 * @return void
 	 */
 	public function setParameters($parameters) {
 		$parameterNodes = array();
 		foreach ($parameters as $parameter) {
-			$methodParameter = new Tx_Classparser_Domain_Model_Class_MethodParameter($parameter->getName(), $parameter);
+			$methodParameter = new Tx_PhpParser_Domain_Model_Class_MethodParameter($parameter->getName(), $parameter);
 			$this->parameters[$methodParameter->getPosition()] = $methodParameter;
 			$parameterNodes[] = $parameter->getNode();
 		}

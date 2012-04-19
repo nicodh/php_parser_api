@@ -30,7 +30,7 @@
 
 
 
-class Tx_Classparser_Utility_AutoLoader {
+class Tx_PhpParser_Utility_AutoLoader {
 
 	static public $autoloadRegistry;
 
@@ -49,13 +49,13 @@ class Tx_Classparser_Utility_AutoLoader {
     */
     static public function autoload($class){
 
-	    if(0 === strpos($class, 'Tx_Classparser_')) {
-		    $file = t3lib_extMgm::extPath('classparser') . 'Classes/'  . strtr(str_replace('Tx_Classparser_', '', $class), '_', '/') . '.php';
+	    if(0 === strpos($class, 'Tx_PhpParser_')) {
+		    $file = t3lib_extMgm::extPath('php_parser') . 'Classes/'  . strtr(str_replace('Tx_PhpParser_', '', $class), '_', '/') . '.php';
 		    if (is_file($file)) {
 			    require $file;
 		    }
 	    } elseif(0 === strpos($class, 'PHPParser_')) {
-		    $file = t3lib_extMgm::extPath('classparser') . 'Resources/Private/PHP/PHP-Parser/lib/'  . strtr($class, '_', '/') . '.php';
+		    $file = t3lib_extMgm::extPath('php_parser') . 'Resources/Private/PHP/PHP-Parser/lib/'  . strtr($class, '_', '/') . '.php';
 		    if (is_file($file)) {
 			    require $file;
 		    }

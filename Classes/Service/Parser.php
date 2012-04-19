@@ -32,23 +32,23 @@
 /**
  * provides methods to import a class object
  *
- * @package Classparser
+ * @package php_parser
  * @version $ID:$
  */
 
 
-class Tx_Classparser_Service_Parser extends PHPParser_Parser implements t3lib_singleton{
+class Tx_PhpParser_Service_Parser extends PHPParser_Parser implements t3lib_singleton{
 
 
 	/**
 	 * @param string $code
-	 * @return Tx_Classparser_Domain_Model_File
+	 * @return Tx_PhpParser_Domain_Model_File
 	 */
 	public function parse($code) {
 		$stmts = $this->parseRawStatements($code);
-		$visitor = new Tx_Classparser_Parser_Visitor_ClassFileVisitor;
+		$visitor = new Tx_PhpParser_Parser_Visitor_ClassFileVisitor;
 		if(!is_object($this->traverser)) {
-			$this->traverser = new Tx_Classparser_Parser_Traverser;
+			$this->traverser = new Tx_PhpParser_Parser_Traverser;
 		}
 		$this->traverser->addVisitor($visitor);
 		$this->traverser->traverse(array($stmts));
@@ -59,7 +59,7 @@ class Tx_Classparser_Service_Parser extends PHPParser_Parser implements t3lib_si
 
 	/**
 	 * @param string $fileName
-	 * @return array|Tx_Classparser_Domain_Model_File
+	 * @return array|Tx_PhpParser_Domain_Model_File
 	 * @throws Exception
 	 */
 	public function parseFile($fileName) {

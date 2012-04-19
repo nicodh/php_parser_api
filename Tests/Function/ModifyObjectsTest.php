@@ -28,9 +28,9 @@
  * @author Nico de Haen
  */
 
-require_once(t3lib_extmgm::extPath('classparser') . 'Tests/BaseTest.php');
+require_once(t3lib_extmgm::extPath('php_parser') . 'Tests/BaseTest.php');
 
-class  Tx_Classparser_Tests_Function_ModifyObjectsTest extends Tx_Classparser_Tests_BaseTest{
+class  Tx_PhpParser_Tests_Function_ModifyObjectsTest extends Tx_PhpParser_Tests_BaseTest{
 
 	/**
 	 * @test
@@ -48,7 +48,7 @@ class  Tx_Classparser_Tests_Function_ModifyObjectsTest extends Tx_Classparser_Te
 	 *
 	 */
 	function renameClassTest() {
-		$newName = 'Tx_Classparser_Tests_NewName';
+		$newName = 'Tx_PhpParser_Tests_NewName';
 		$classFileObject = $this->parseFile('SimpleProperty.php');
 		$classFileObject->getFirstClass()->setName($newName);
 		$newClassFilePath = $this->testDir . $newName . '.php';
@@ -62,7 +62,7 @@ class  Tx_Classparser_Tests_Function_ModifyObjectsTest extends Tx_Classparser_Te
 	 *
 	 */
 	function renameClassMethodTest() {
-		$newFileName = 'Tx_Classparser_Tests_CopyAndRenameClassMethodTest';
+		$newFileName = 'Tx_PhpParser_Tests_CopyAndRenameClassMethodTest';
 		$classFileObject = $this->parseFile('SimpleProperty.php');
 		$classFileObject->getFirstClass()->getMethod('getProperty')->setName('getNewName');
 		$newClassFilePath = $this->testDir . $newFileName . '.php';
