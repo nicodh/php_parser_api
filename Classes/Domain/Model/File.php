@@ -35,53 +35,98 @@ class Tx_Classparser_Domain_Model_File {
 
 	protected $filePathAndName = '';
 
+	/**
+	 * @var array of Tx_Classparser_Domain_Model_Namespace
+	 */
 	protected $namespaces = array();
 
+	/**
+	 * @var array
+	 */
 	protected $preIncludes = array();
-
-	protected $classes = array();
-
-	protected $namespacedClasses = array();
 
 	protected $postIncludes = array();
 
-	public function addClass($class) {
+	/**
+	 * @var array Tx_Classparser_Domain_Model_Class
+	 */
+	protected $classes = array();
+
+	/**
+	 * @var array Tx_Classparser_Domain_Model_Class
+	 */
+	protected $namespacedClasses = array();
+
+	protected $stmts = array();
+
+	protected $aliasDeclarations = array();
+
+	/**
+	 * @param Tx_Classparser_Domain_Model_Class $class
+	 */
+	public function addClass(Tx_Classparser_Domain_Model_Class $class) {
 		$this->classes[] = $class;
 	}
 
+	/**
+	 * @return array
+	 */
 	public function getClasses() {
 		return $this->classes;
 	}
 
+	/**
+	 * @param $namespace
+	 * @param $class Tx_Classparser_Domain_Model_Class
+	 */
 	public function addNamespacedClass($namespace, $class) {
 		$this->namespacedClasses[$namespace] = $class;
 	}
 
+	/**
+	 * @return array
+	 */
 	public function getNamespacedClasses() {
 		return $this->namespacedClasses;
 	}
 
+	/**
+	 * @return Tx_Classparser_Domain_Model_Class
+	 */
 	public function getFirstClass() {
-		if(count($this->namespacedClasses) > 0) {
-			foreach($this->namespacedClasses as $namespace => $class) {
-				return $class;
-			}
+		if(count($this->namespaces) > 0) {
+			reset($this->namespaces);
+			return current($this->namespaces)->getFirstClass();
+		} else  {
+			reset($this->classes);
+			return current($this->classes);
 		}
-		reset($this->classes);
-		return current($this->classes);
 	}
 
-	public function setSingleClass($classObject) {
+	/**
+	 * @param Tx_Classparser_Domain_Model_Class $classObject
+	 */
+	public function setSingleClass(Tx_Classparser_Domain_Model_Class $classObject) {
 		$this->classes = array();
 		$this->classes[] = $classObject;
 	}
 
-	public function addNamespace($namespace) {
+	/**
+	 * @param Tx_Classparser_Domain_Model_Namespace $namespace
+	 */
+	public function addNamespace(Tx_Classparser_Domain_Model_Namespace $namespace) {
 		$this->namespaces[] = $namespace;
 	}
 
+	/**
+	 * @return array
+	 */
 	public function getNamespaces() {
 		return $this->namespaces;
+	}
+
+	public function hasNamespaces() {
+		return (count($this->namespaces) > 0);
 	}
 
 	public function addPostInclude($postInclude) {
@@ -100,6 +145,9 @@ class Tx_Classparser_Domain_Model_File {
 		return $this->preIncludes;
 	}
 
+	/**
+	 * @param string $filePathAndName
+	 */
 	public function setFilePathAndName($filePathAndName) {
 		$this->filePathAndName = $filePathAndName;
 	}
@@ -108,20 +156,45 @@ class Tx_Classparser_Domain_Model_File {
 		return $this->filePathAndName;
 	}
 
+	/**
+	 * TODO: include all kind of statements that can occur in a php file
+	 * @return array
+	 */
 	public function getStmts() {
-		$stmts = array();
-		$stmts += $this->namespaces;
-		foreach($this->preIncludes as $preInclude) {
-			$stmts[] = $preInclude;
+		$this->stmts = array();
+		if($this->hasNamespaces()) {
+			foreach($this->namespaces as $namespace) {
+				$this->stmts[] = $namespace->getNode();
+				foreach($namespace->getAliasDeclarations() as $aliasDeclaration) {
+					$this->stmts[] = $aliasDeclaration;
+				}
+				$this->addSubStatements( $namespace);
+			}
+		} else {
+			$this->addSubStatements($this);
+		}
+		return $this->stmts;
+	}
+
+	protected function addSubStatements($parentObject) {
+		foreach($parentObject->getPreIncludes() as $preInclude) {
+			$this->stmts[] = $preInclude;
 		}
 
-		foreach($this->classes as $class) {
-			$stmts[] = $class->getNode();
+		foreach($parentObject->getClasses() as $class) {
+			$this->stmts[] = $class->getNode();
 		}
-		foreach($this->postIncludes as $postInclude) {
-			$stmts[] = $postInclude;
+		foreach($this->getPostIncludes() as $postInclude) {
+			$this->stmts[] = $postInclude;
 		}
-		return $stmts;
+	}
+
+	public function addAliasDeclarations($aliasDeclarations) {
+		$this->aliasDeclarations = $aliasDeclarations;
+	}
+
+	public function getAliasDeclarations() {
+		return $this->aliasDeclarations;
 	}
 }
 

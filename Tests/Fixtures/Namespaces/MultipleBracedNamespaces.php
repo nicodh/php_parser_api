@@ -27,25 +27,27 @@
  * @package
  * @author Nico de Haen
  */
+namespace Test\Model {
+	class Tx_Classparser_Tests_MultipleBracedNamespaces {
 
-class ClassMethodWithManyParameter {
-
-	/**
-	 * This is the description
-	 *
-	 * @param int $number
-	 * @param string $string
-	 * @param array $arr
-	 * @param boolean $boolean
-	 * @param float $float
-	 * @param Tx_Classparser_Parser_Utility_NodeConverter $n
-	 * @return string
-	 */
-	private static function testMethod($number, $stringParam, array $arr, $booleanParam = FALSE, $float = 0.2, Tx_Classparser_Parser_Utility_NodeConverter $n) {
-		if($number > 3) {
-			return 'bar';
-		} else {
-			return 'foo';
-		}
 	}
 }
+
+
+
+/**
+ * This is another namespace
+ */
+namespace Test\Model2 {
+	/**
+	 * This is my doc comment
+	 *
+	 * @author Nico de Haen
+	 *
+	 */
+	class Tx_Classparser_Tests_MultipleBracedNamespaces {
+
+	}
+}
+
+

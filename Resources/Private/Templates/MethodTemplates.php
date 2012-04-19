@@ -12,10 +12,9 @@
  */
 class MethodTemplates {
 
-	const TEST = 123;
-
-	private static $testProperty = 5;
-
+	/**
+	 * @var string
+	 */
 	private $propertyName;
 
 	/**
@@ -30,17 +29,10 @@ class MethodTemplates {
 	/**
 	 * Sets the propertyName
 	 *
-	 * @param array $propertyName
+	 * @param string $propertyName
 	 * @return void
 	 */
-	public function setPropertyName(array $propertyName) {
-		if($propertyName > 8) {
-			// single Line
-			$propertyName = 'Test';
-		} else {
-			$propertyName = 'propertyName';
-			$propertyNames = array();
-		}
+	public function setPropertyName( $propertyName) {
 		$this->propertyName = $propertyName;
 	}
 }

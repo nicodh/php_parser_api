@@ -524,7 +524,6 @@ class Tx_Classparser_Domain_Model_Class extends Tx_Classparser_Domain_Model_Abst
 		foreach($this->properties as $property) {
 			$properties[$property->getName()] = $property->getNode();
 		}
-
         //ksort($properties);
         //ksort($methods);
 

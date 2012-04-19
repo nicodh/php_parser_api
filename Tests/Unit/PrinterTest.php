@@ -28,28 +28,91 @@ require_once(t3lib_extmgm::extPath('classparser') . 'Tests/BaseTest.php');
 class Tx_Classparser_Tests_Unit_PrinterTest extends Tx_Classparser_Tests_BaseTest {
 
 
-	function setUp(){
-		parent::setUp();
-		//vfsStream::setup('testDir');
-		//$this->testDir = vfsStream::url('testDir').'/';
-		$this->testDir = t3lib_extmgm::extPath('classparser') . 'Tests/Fixtures/tmp/';
+	/**
+	 * @test
+	 */
+	public function printSimplePropertyClass() {
+		$fileName = 'SimpleProperty.php';
+		$classFileObject = $this->parseAndWrite($fileName);
+		$this->compareClasses($classFileObject, $this->testDir . $fileName);
 	}
 
+	/**
+	 * @test
+	 */
+	public function printSimpleClassMethodWithManyParameter() {
+		$fileName = 'ClassMethodWithManyParameter.php';
+		$classFileObject = $this->parseAndWrite($fileName);
+		$this->compareClasses($classFileObject, $this->testDir . $fileName);
+	}
+
+	/**
+	 * @test
+	 */
+	public function printSimpleClassMethodWithMissingParameterTypeHint() {
+		$fileName = 'ClassMethodWithMissingParameterTypeHint.php';
+		$classFileObject = $this->parseAndWrite($fileName);
+		$reflectedClass = $this->compareClasses($classFileObject, $this->testDir . $fileName);
+		$parameters = $reflectedClass->getMethod('testMethod')->getParameters();
+		//$this->assertEquals($parameters[1]->getTypeHint());
+	}
+
+	/**
+	 * @test
+	 */
+	public function printSimpleClassMethodWithMissingParameterTag() {
+		$fileName = 'ClassMethodWithMissingParameterTag.php';
+		$classFileObject = $this->parseAndWrite($fileName);
+		$reflectedClass = $this->compareClasses($classFileObject, $this->testDir . $fileName);
+		$parameters = $reflectedClass->getMethod('testMethod')->getParameters();
+		//$this->assertEquals($parameters[1]->getTypeHint());
+	}
+
+	/**
+	 * @test
+	 */
+	public function printSimpleNamespacedClass() {
+		$fileName = 'SimpleNamespace.php';
+		$classFileObject = $this->parseAndWrite($fileName,'Namespaces/');
+		$this->compareClasses($classFileObject, $this->testDir . $fileName);
+	}
 
 
 	/**
 	 * @test
 	 */
-	public function printTest() {
-		$this->parseAndWrite('ClassMethodWithManyParameter.php');
+	public function printSimpleNamespaceWithUseStatement() {
+		$fileName = 'SimpleNamespaceWithUseStatement.php';
+		$classFileObject = $this->parseAndWrite($fileName,'Namespaces/');
+		$this->compareClasses($classFileObject, $this->testDir . $fileName);
 	}
 
-	protected function parseAndWrite($fileName) {
-		$classFilePath = t3lib_extmgm::extPath('classparser') . 'Tests/Fixtures/' . $fileName;
+	/**
+	 * @test
+	 */
+	public function printMultipleNamespacedClass() {
+		$fileName = 'MultipleNamespaces.php';
+		$classFileObject = $this->parseAndWrite($fileName,'Namespaces/');
+		$this->compareClasses($classFileObject, $this->testDir . $fileName);
+	}
+
+
+	/**
+	 * @test
+	 */
+	public function printMultipleBracedNamespacedClass() {
+		$fileName = 'MultipleBracedNamespaces.php';
+		$classFileObject = $this->parseAndWrite($fileName,'Namespaces/');
+		$this->compareClasses($classFileObject, $this->testDir . $fileName);
+	}
+
+
+	protected function parseAndWrite($fileName, $subFolder = '') {
+		$classFilePath = t3lib_extmgm::extPath('classparser') . 'Tests/Fixtures/' . $subFolder . $fileName;
+		$this->assertTrue(file_exists($classFilePath));
 		$classFileObject = $this->parser->parseFile($classFilePath);
 		$newClassFilePath = $this->testDir . $fileName;
 		t3lib_div::writeFile($newClassFilePath,"<?php\n\n" . $this->printer->renderFileObject($classFileObject) . "\n?>");
-		$this->compareClasses($classFileObject, $classFilePath);
 		return $classFileObject;
 	}
 

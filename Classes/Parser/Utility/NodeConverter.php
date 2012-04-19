@@ -31,7 +31,7 @@
 class Tx_Classparser_Parser_Utility_NodeConverter {
 
 	public static function getTypeHintFromVarType ($varType) {
-		if(in_array(strtolower($varType), array('int', 'double', 'float', 'boolean', 'string'))) {
+		if(in_array(strtolower($varType), array('int', 'double', 'float', 'boolean', 'bool', 'string'))) {
 			return '';
 		} else {
 			return $varType;
@@ -118,11 +118,14 @@ class Tx_Classparser_Parser_Utility_NodeConverter {
     }
 
 	public static function getValueFromNode($node) {
-		if($node->getType() == 'Stmt_Namespace') {
+		if($node instanceof PHPParser_Node_Stmt_Namespace) {
 			return '\\' . implode('\\',$node->__get('name')->__get('parts'));
 		} elseif($node instanceof PHPParser_Node_Name) {
 			return implode(' ',$node->__get('parts'));
+		} else {
+			return $node->__get('value');
 		}
+		//TODO: support more node types
 	}
 
 }

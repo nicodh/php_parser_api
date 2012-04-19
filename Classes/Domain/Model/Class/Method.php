@@ -65,13 +65,15 @@ class Tx_Classparser_Domain_Model_Class_Method extends Tx_Classparser_Domain_Mod
 				$position = 0;
 				$getVarTypeFromParamTag = FALSE;
 				$paramTags = $this->tags['param'];
-				if(count($paramTags == count($methodNode->__get('params')))) {
+				if(count($paramTags) == count($methodNode->__get('params'))) {
 					$getVarTypeFromParamTag = TRUE;
 				}
 				foreach($methodNode->__get('params') as $param) {
 					$parameter = new Tx_Classparser_Domain_Model_Class_MethodParameter($param);
 					$parameter->setPosition($position);
 					if(strlen($parameter->getTypeHint()) < 1 && $getVarTypeFromParamTag) {
+						// if there is not type hint but a varType in the param tag, we set the varType of the parameter
+						// this will result in the typeHint being set
 						$paramTag = explode(' ',$paramTags[$position]);
 						if($paramTag[0] !== '$' . $param->__get('name')) {
 							$parameter->setVarType($paramTag[0]);
@@ -125,6 +127,18 @@ class Tx_Classparser_Domain_Model_Class_Method extends Tx_Classparser_Domain_Mod
 			}
 		}
 		return $parameterNames;
+	}
+
+	/**
+	 * @param int $position
+	 */
+	public function getParameterByPosition($position) {
+		if(isset($this->parameters[$position])) {
+			return $this->parameters[$position];
+		} else {
+			return NULL;
+		}
+
 	}
 
 	/**

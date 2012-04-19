@@ -41,7 +41,34 @@ class  Tx_Classparser_Tests_Function_ModifyObjectsTest extends Tx_Classparser_Te
 		$classObject->addModifier('static');
 		$this->assertTrue($classObject->isStatic());
 		$this->assertTrue($classObject->getProperty('test')->isPrivate());
-		$classObject->getProperty('test')->addModifier('public');
+	}
+
+	/**
+	 * @test
+	 *
+	 */
+	function renameClassTest() {
+		$newName = 'Tx_Classparser_Tests_NewName';
+		$classFileObject = $this->parseFile('SimpleProperty.php');
+		$classFileObject->getFirstClass()->setName($newName);
+		$newClassFilePath = $this->testDir . $newName . '.php';
+		t3lib_div::writeFile($newClassFilePath,"<?php\n\n" . $this->printer->renderFileObject($classFileObject) . "\n?>");
+		$reflectedClass = $this->compareClasses($classFileObject, $newClassFilePath);
+		$this->assertEquals($reflectedClass->getName(), $newName);
+	}
+
+	/**
+	 * @test
+	 *
+	 */
+	function renameClassMethodTest() {
+		$newFileName = 'Tx_Classparser_Tests_CopyAndRenameClassMethodTest';
+		$classFileObject = $this->parseFile('SimpleProperty.php');
+		$classFileObject->getFirstClass()->getMethod('getProperty')->setName('getNewName');
+		$newClassFilePath = $this->testDir . $newFileName . '.php';
+		t3lib_div::writeFile($newClassFilePath,"<?php\n\n" . $this->printer->renderFileObject($classFileObject) . "\n?>");
+		$reflectedClass = $this->compareClasses($classFileObject, $newClassFilePath);
+		$this->assertTrue($reflectedClass->hasMethod('getNewName'));
 	}
 
 	/**

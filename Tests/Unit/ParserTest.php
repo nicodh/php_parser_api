@@ -45,7 +45,14 @@ class Tx_Classparser_Tests_Unit_ParserTest extends Tx_Classparser_Tests_BaseTest
 		$this->assertEquals(count($classFileObject->getFirstClass()->getMethods()), 2);
 		$this->assertEquals(count($classFileObject->getFirstClass()->getProperties()), 2);
 		$this->assertEquals($classFileObject->getFirstClass()->getProperty('property')->getModifierNames(), array('protected'));
-		return $classFileObject;
+	}
+
+	/**
+	 * @test
+	 */
+	function parseSimpleNonBracedNamespace() {
+		$classFileObject = $this->parseFile('Namespaces/SimpleNamespace.php');
+		$this->assertEquals('\\Test\\Model',$classFileObject->getFirstClass()->getNamespaceName());
 	}
 
 	/**
@@ -53,6 +60,11 @@ class Tx_Classparser_Tests_Unit_ParserTest extends Tx_Classparser_Tests_BaseTest
 	 */
 	function parseClassMethodWithManyParameter() {
 		$classFileObject = $this->parseFile('ClassMethodWithManyParameter.php');
+		$parameters = $classFileObject->getFirstClass()->getMethod('testMethod')->getParameters();
+		$this->assertEquals( 6, count($parameters));
+		$this->assertEquals($parameters[3]->getName(), 'booleanParam');
+		$this->assertEquals($parameters[3]->getVarType(), 'boolean');
+		$this->assertEquals($parameters[5]->getTypeHint(), 'Tx_Classparser_Parser_Utility_NodeConverter');
 	}
 
 

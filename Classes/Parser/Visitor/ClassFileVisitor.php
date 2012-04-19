@@ -46,6 +46,11 @@ class Tx_Classparser_Parser_Visitor_ClassFileVisitor extends PHPParser_NodeVisit
 	protected $classObject = NULL;
 
 	/**
+	 * @var Tx_Classparser_Domain_Model_Namespace
+	 */
+	protected $namespace = NULL;
+
+	/**
 	 * currently not used, might be useful for filtering etc.
 	 * it keeps a reference to the current "first level" node
 	 *
@@ -65,9 +70,16 @@ class Tx_Classparser_Parser_Visitor_ClassFileVisitor extends PHPParser_NodeVisit
 
 	public function enterNode(PHPParser_Node $node) {
 
-		if($node instanceof PHPParser_Node_Stmt_Namespace || $node instanceof PHPParser_Node_Stmt_Use) {
+		if($node instanceof PHPParser_Node_Stmt_Namespace) {
 			$this->contextStack[] = $node;
-			$this->fileObject->addNamespace($node);
+			$this->namespace = new Tx_Classparser_Domain_Model_Namespace($node);
+			//$this->fileObject->addNamespace($namespace);
+		} elseif($node instanceof PHPParser_Node_Stmt_Use) {
+			if($this->namespace !== NULL) {
+				$this->namespace->addAliasDeclaration($node);
+			} else {
+				$this->fileObject->addAliasDeclaration($node);
+			}
 		} elseif($node instanceof PHPParser_Node_Expr_Include) {
 			$this->contextStack[] = $node;
 			if($this->classObject === NULL) {
@@ -99,10 +111,13 @@ class Tx_Classparser_Parser_Visitor_ClassFileVisitor extends PHPParser_NodeVisit
 				if(end($this->contextStack)->getType() == 'Stmt_Namespace') {
 					$namespaceName = Tx_Classparser_Parser_Utility_NodeConverter::getValueFromNode(end($this->contextStack));
 					$this->classObject->setNamespaceName($namespaceName);
-					$this->fileObject->addNamespacedClass(Tx_Classparser_Parser_Utility_NodeConverter::getValueFromNode(end($this->contextStack)), $this->classObject);
+					$this->namespace->addClass($this->classObject);
+					$this->fileObject->addNamespace($this->namespace);
+					$this->namespace = NULL;
 				}
 			} else {
 				$this->fileObject->addClass($this->classObject);
+				$this->classObject = NULL;
 			}
 		}
 		if(get_class($node) == get_class(end($this->contextStack))) {

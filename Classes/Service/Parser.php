@@ -45,7 +45,7 @@ class Tx_Classparser_Service_Parser extends PHPParser_Parser implements t3lib_si
 	 * @return Tx_Classparser_Domain_Model_File
 	 */
 	public function parse($code) {
-		$stmts = parent::parse(new PHPParser_Lexer($code));
+		$stmts = $this->parseRawStatements($code);
 		//t3lib_utility_Debug::debug($stmts, 'stmts');
 		$visitor = new Tx_Classparser_Parser_Visitor_ClassFileVisitor;
 		if(!is_object($this->traverser)) {
@@ -72,6 +72,10 @@ class Tx_Classparser_Service_Parser extends PHPParser_Parser implements t3lib_si
 		$fileObject = $this->parse($code);
 		$fileObject->setFilePathAndName($fileName);
 		return $fileObject;
+	}
+
+	public function parseRawStatements($code) {
+		return parent::parse(new PHPParser_Lexer($code));
 	}
 
 }

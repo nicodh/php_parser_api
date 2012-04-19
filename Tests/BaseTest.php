@@ -40,9 +40,20 @@ abstract class Tx_Classparser_Tests_BaseTest extends Tx_Extbase_Tests_Unit_BaseT
 	 */
 	protected $printer;
 
-	function setUp(){
+	public function setUp(){
 		$this->parser = t3lib_div::makeInstance('Tx_Classparser_Service_Parser');
 		$this->printer = t3lib_div::makeInstance('Tx_Classparser_Service_Printer');
+		//vfsStream::setup('testDir');
+		//$this->testDir = vfsStream::url('testDir').'/';
+		$this->testDir = t3lib_extmgm::extPath('classparser') . 'Tests/Fixtures/tmp/';
+	}
+
+	public function tearDown() {
+		$tmpFiles = t3lib_div::getFilesInDir($this->testDir);
+		foreach($tmpFiles as $tmpFile) {
+			// uncomment this to have a look at the generated files
+			unlink($this->testDir . $tmpFile);
+		}
 	}
 
 	protected function parseFile($fileName) {
@@ -60,9 +71,13 @@ abstract class Tx_Classparser_Tests_BaseTest extends Tx_Extbase_Tests_Unit_BaseT
 		}
 		$className = $classObject->getName();
 		$this->assertTrue(class_exists($className), 'Class ' . $classObject->getName() . ' does not exist!');
-		$ref = new ReflectionClass($className);
-		$this->assertEquals(count($ref->getMethods()), count($classObject->getMethods()));
-		$this->assertEquals(count($ref->getProperties()), count($classObject->getProperties()));
-		$this->assertEquals(count($ref->getConstants()), count($classObject->getConstants()));
+		$reflectedClass = new ReflectionClass($className);
+		$this->assertEquals(count($reflectedClass->getMethods()), count($classObject->getMethods()));
+		$this->assertEquals(count($reflectedClass->getProperties()), count($classObject->getProperties()));
+		$this->assertEquals(count($reflectedClass->getConstants()), count($classObject->getConstants()));
+		if(strlen($classObject->getNamespaceName()) > 0 ) {
+			$this->assertEquals( '\\' .$reflectedClass->getNamespaceName(), $classObject->getNamespaceName());
+		}
+		return $reflectedClass;
 	}
 }

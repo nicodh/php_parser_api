@@ -27,25 +27,13 @@
  * @package
  * @author Nico de Haen
  */
+namespace Test\Model;
 
-class ClassMethodWithManyParameter {
+use blah\blah as foo;
 
-	/**
-	 * This is the description
-	 *
-	 * @param int $number
-	 * @param string $string
-	 * @param array $arr
-	 * @param boolean $boolean
-	 * @param float $float
-	 * @param Tx_Classparser_Parser_Utility_NodeConverter $n
-	 * @return string
-	 */
-	private static function testMethod($number, $stringParam, array $arr, $booleanParam = FALSE, $float = 0.2, Tx_Classparser_Parser_Utility_NodeConverter $n) {
-		if($number > 3) {
-			return 'bar';
-		} else {
-			return 'foo';
-		}
-	}
+/**
+ * some comment
+ */
+class Tx_Classparser_Tests_SimpleNamepaceWithUseTest {
+
 }
