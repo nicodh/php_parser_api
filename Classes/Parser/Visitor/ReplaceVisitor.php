@@ -49,6 +49,10 @@ class Tx_PhpParser_Parser_Visitor_ReplaceVisitor extends PHPParser_NodeVisitorAb
 		return $this->classObject;
 	}
 
+	/**
+	 * @param \PHPParser_Node $node
+	 * @return PHPParser_Node|void
+	 */
 	public function leaveNode(PHPParser_Node $node) {
 		$nodeProperty = $this->nodeProperty;
 		$nodeTypeMatch = FALSE;

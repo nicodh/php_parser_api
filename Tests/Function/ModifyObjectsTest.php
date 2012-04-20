@@ -83,4 +83,30 @@ class  Tx_PhpParser_Tests_Function_ModifyObjectsTest extends Tx_PhpParser_Tests_
 		$this->assertTrue($classObject->getProperty('test')->isPrivate());
 		$classObject->getProperty('test')->addModifier('public');
 	}
+
+
+	/**
+	 * @test
+	 */
+	function renameMethodParameterAndUpdateMethodBody(){
+		$classFileObject = $this->parseFile('ClassMethodWithParameterToRename.php');
+		$oldBodyStmts = $classFileObject->getFirstClass()->getMethod('doSomething')->getBodyStmts();
+		$oldParameterName = 'param1';
+		$newParameterName = 'newName';
+		$newBodyStmts = $this->parser->replaceNodeProperty(
+			$oldBodyStmts,
+			array(
+				$oldParameterName => $newParameterName
+			)
+		);
+		$classFileObject->getFirstClass()->getMethod('doSomething')->getParameterByPosition(0)->setName('newName');
+		$classFileObject->getFirstClass()->getMethod('doSomething')->setBodyStmts($newBodyStmts);
+		$newClassFilePath = $this->testDir . 'ClassWithRenamedParameter.php';
+		t3lib_div::writeFile($newClassFilePath,"<?php\n\n" . $this->printer->renderFileObject($classFileObject) . "\n?>");
+		$this->compareClasses($classFileObject, $newClassFilePath);
+		require_once($newClassFilePath);
+		$resultingClass = new Tx_PhpParser_Test_ClassMethodWithParameterToRename();
+		$this->assertEquals('foo',$resultingClass->doSomething('foo', FALSE));
+		$this->assertEquals('FOO',$resultingClass->doSomething('foo', TRUE));
+	}
 }

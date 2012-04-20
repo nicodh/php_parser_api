@@ -28,7 +28,7 @@
  * @author Nico de Haen
  */
 
-class ClassMethodWithManyParameter {
+class Tx_PhpParser_Test_ClassMethodWithManyParameter {
 
 	/**
 	 * This is the description

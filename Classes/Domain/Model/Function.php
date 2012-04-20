@@ -85,6 +85,7 @@ class Tx_PhpParser_Domain_Model_Function extends Tx_PhpParser_Domain_Model_Abstr
 	 */
 	public function setBodyStmts($stmts) {
 		$this->bodyStmts = $stmts;
+		$this->node->__set('stmts',$stmts);
 	}
 
 	/**

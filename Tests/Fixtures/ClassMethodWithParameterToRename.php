@@ -1,5 +1,4 @@
 <?php
-
 /***************************************************************
  *  Copyright notice
  *
@@ -23,14 +22,27 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+
 /**
  * @package
  * @author Nico de Haen
  */
-namespace Test\Model;
-class Tx_PhpParser_Tests_SimpleNamepaceTest {
 
-	
+class Tx_PhpParser_Test_ClassMethodWithParameterToRename {
+
+	/**
+	 * @param string $property1
+	 * @param bool $param2
+	 * @return string
+	 */
+	public function doSomething($param1, $param2) {
+		// do some stuff
+		if(strpos('foo', $param1) === 0 && $param2) {
+			$result = strtoupper($param1);
+		} else {
+			$result = strtolower($param1);
+		}
+		return $result;
+	}
+
 }
-
-?>
