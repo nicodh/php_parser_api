@@ -417,8 +417,10 @@ class Tx_PhpParser_Domain_Model_Class extends Tx_PhpParser_Domain_Model_Containe
 		foreach($this->properties as $property) {
 			$properties[$property->getName()] = $property->getNode();
 		}
+
         //ksort($properties);
         //ksort($methods);
+
 		foreach ($this->constants as $name => $value) {
 			$stmts[] = Tx_PhpParser_Parser_Utility_NodeConverter::getConstantNodeFromNameValue($name, $value);
 		}

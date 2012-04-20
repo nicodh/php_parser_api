@@ -60,9 +60,17 @@ class Tx_PhpParser_Service_Printer extends PHPParser_PrettyPrinter_TYPO3CGL impl
 		return $this->render($fileObject->getStmts());
 	}
 
+	/**
+	 * Overrides the according method of the printer since
+	 * we don't want to get all Namespace Statements here
+	 * Since namespace extends
+	 *
+	 * @param PHPParser_Node_Stmt_Namespace $node
+	 * @return string
+	 */
 	public function pStmt_Namespace(PHPParser_Node_Stmt_Namespace $node) {
-     return 'namespace' . (null !== $node->name ? ' ' . $this->p($node->name) : '') . ';';
- }
+    	return 'namespace' . (null !== $node->name ? ' ' . $this->p($node->name) : '') . ';';
+	}
 }
 
 ?>

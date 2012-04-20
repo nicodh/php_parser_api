@@ -61,6 +61,18 @@ class Tx_PhpParser_Domain_Model_File extends Tx_PhpParser_Domain_Model_Container
 	}
 
 	/**
+	 * @param string $className
+	 * @return Tx_PhpParser_Domain_Model_Class
+	 */
+	public function getClassByName($className) {
+		foreach($this->getClasses() as $class) {
+			if($class->getName() == $className) {
+				return $class;
+			}
+		}
+	}
+
+	/**
 	 * @return array
 	 */
 	public function getClasses() {
@@ -122,6 +134,9 @@ class Tx_PhpParser_Domain_Model_File extends Tx_PhpParser_Domain_Model_Container
 		return $this->stmts;
 	}
 
+	/**
+	 * @param $parentObject either a file object or a namespace object
+	 */
 	protected function addSubStatements($parentObject) {
 		foreach ($parentObject->getConstants as $name => $value) {
 			$stmts[] = Tx_PhpParser_Parser_Utility_NodeConverter::getConstantNodeFromNameValue($name, $value);

@@ -63,6 +63,24 @@ class Tx_PhpParser_Tests_Unit_ParserTest extends Tx_PhpParser_Tests_BaseTest {
 		$this->assertEquals($parameters[5]->getTypeHint(), 'Tx_PhpParser_Parser_Utility_NodeConverter');
 	}
 
+	/**
+	 * @test
+	 */
+	function findClassModifier() {
+		$classFileObject = $this->parseFile('SimpleProperty.php');
+		$classObject = $classFileObject->getFirstClass();
+		$this->assertTrue($classObject->isAbstract());
+
+		$this->assertTrue($classObject->getProperty('test')->isPrivate());
+		$this->assertFalse($classObject->getProperty('test')->isPublic());
+
+		$this->assertTrue($classObject->getProperty('property')->isProtected());
+		$this->assertFalse($classObject->getProperty('property')->isPublic());
+		$this->assertTrue($classObject->getMethod('getProperty')->isPublic());
+		$this->assertFalse($classObject->getMethod('getProperty')->isPrivate());
+		$this->assertFalse($classObject->getMethod('getProperty')->isStatic());
+	}
+
 
 }
 

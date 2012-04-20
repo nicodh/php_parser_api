@@ -24,7 +24,8 @@
  ***************************************************************/
 
 /**
- * Provides methods that are common to File objects and Namespace objects
+ * Provides methods that are common to Class, File and Namespace objects
+ *
  * @package php_parser
  * @author Nico de Haen
  */

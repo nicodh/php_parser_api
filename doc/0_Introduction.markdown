@@ -19,7 +19,7 @@ foreach($classObjects as $classObject) {
 	}
 }
 
-$newCode = PrinterService->render($phpFileObject);
+$newCode = PrinterService->renderFileObject($phpFileObject);
 
 What else can it do?
 --------------------
