@@ -207,7 +207,8 @@ class Tx_PhpParser_Domain_Model_AbstractObject {
 				return TRUE;
 			} catch(Exception $e) {
 				//debug('Error: ' . $e->getMessage(), 'Error');
-				return FALSE;
+				throw new Tx_PhpParser_Exception_SyntaxErrorException($e->getMessage());
+				//return FALSE;
 			}
 
 		}
@@ -250,7 +251,7 @@ class Tx_PhpParser_Domain_Model_AbstractObject {
 	 * for internal use only
 	 * @return void
 	 */
-	protected function initDocComment() {
+	public function initDocComment() {
 		if(empty($this->docComment)) {
 			foreach($this->node->getIgnorables() as $ignorable) {
 				if($ignorable instanceof PHPParser_Node_Ignorable_DocComment) {
@@ -272,8 +273,8 @@ class Tx_PhpParser_Domain_Model_AbstractObject {
 	 * for internal use
 	 */
 	protected function updateDocComment() {
-		$returnTagValue = $this->tags['return'];
-		if($returnTagValue) {
+		if(isset($this->tags['return'])) {
+			$returnTagValue = $this->tags['return'];
 			// always keep the return tag as last tag
 			unset($this->tags['return']);
 			$this->tags['return'] = $returnTagValue;
@@ -296,11 +297,16 @@ class Tx_PhpParser_Domain_Model_AbstractObject {
 	public function setDocComment($docComment, $updateNodeDocComment = TRUE) {
 		$this->docComment = $docComment;
 		if($updateNodeDocComment){
-			foreach($this->node->getIgnorables() as $ignorable) {
-				if($ignorable instanceof PHPParser_Node_Ignorable_DocComment) {
-					$ignorable->__set('value', $this->docComment);
+			if(is_array($this->node->getIgnorables())) {
+				foreach($this->node->getIgnorables() as $ignorable) {
+					if($ignorable instanceof PHPParser_Node_Ignorable_DocComment) {
+						$ignorable->__set('value', $this->docComment);
+					}
 				}
+			} else {
+				$this->node->setIgnorables(array(new PHPParser_Node_Ignorable_DocComment($docComment)));
 			}
+
 		}
 	}
 

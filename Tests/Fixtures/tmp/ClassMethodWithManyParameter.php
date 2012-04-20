@@ -1,4 +1,5 @@
 <?php
+
 /***************************************************************
  *  Copyright notice
  *
@@ -22,46 +23,31 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-
 /**
  * @package
  * @author Nico de Haen
  */
-
-abstract class Tx_PhpParser_Tests_SimplePropertyTest {
-
-	private $test = array(
-		'test' 	=> 123,
-		'test5'	=> 456,
-		'arr' 	=> array(
-			'sieben' => 7
-		)
-	);
-		
-	const TEST = 'MyConstant';const TEST4 = 'MyConstant2';
-	// just a single line comment
-	const TEST2 = 890;
-	
-	/**
-	 * @var string
-	 */
-	protected $property = array('a' => 'b');
+class ClassMethodWithManyParameter {
 
 	/**
-	 * @param string $property
-	 */
-	public function setProperty($property) {
-		// comment in a new line
-		if(strlen($property)>50) { // some comment here
-			$property = substr($property,0,49); // some comment there
-		}
-		$this->property = $property;
-	}
-
-	/**
+	 * This is the description
+	 *
+	 * @param int $number
+	 * @param string $stringParam
+	 * @param array $arr
+	 * @param boolean $booleanParam
+	 * @param float $float
+	 * @param Tx_PhpParser_Parser_Utility_NodeConverter $n
 	 * @return string
 	 */
-	public function getProperty() {
-		return $this->property;
+	private static function testMethod( $number,  $stringParam, array $arr,  $booleanParam = FALSE,  $float = 0.2, Tx_PhpParser_Parser_Utility_NodeConverter $n) {
+		if ($number > 3) {
+			return 'bar';
+		} else {
+			return 'foo';
+		}
 	}
+
 }
+
+?>

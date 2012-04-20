@@ -31,7 +31,7 @@
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class Tx_PhpParser_Domain_Model_File {
+class Tx_PhpParser_Domain_Model_File extends Tx_PhpParser_Domain_Model_Container{
 
 	protected $filePathAndName = '';
 
@@ -40,17 +40,6 @@ class Tx_PhpParser_Domain_Model_File {
 	 */
 	protected $namespaces = array();
 
-	/**
-	 * @var array
-	 */
-	protected $preIncludes = array();
-
-	protected $postIncludes = array();
-
-	/**
-	 * @var array Tx_PhpParser_Domain_Model_Class
-	 */
-	protected $classes = array();
 
 	/**
 	 * @var array all statements
@@ -75,31 +64,13 @@ class Tx_PhpParser_Domain_Model_File {
 	 * @return array
 	 */
 	public function getClasses() {
-		return $this->classes;
-	}
-
-	/**
-	 * @return Tx_PhpParser_Domain_Model_Class
-	 */
-	public function getFirstClass() {
 		if(count($this->namespaces) > 0) {
-			reset($this->namespaces);
-			return current($this->namespaces)->getFirstClass();
-		} elseif(count($this->classes) > 0) {
-			reset($this->classes);
-			return current($this->classes);
+			return reset($this->namespaces)->getClasses();
 		} else {
-			return NULL;
+			return $this->classes;
 		}
 	}
 
-	/**
-	 * @param Tx_PhpParser_Domain_Model_Class $classObject
-	 */
-	public function setSingleClass(Tx_PhpParser_Domain_Model_Class $classObject) {
-		$this->classes = array();
-		$this->classes[] = $classObject;
-	}
 
 	/**
 	 * @param Tx_PhpParser_Domain_Model_Namespace $namespace
@@ -119,21 +90,6 @@ class Tx_PhpParser_Domain_Model_File {
 		return (count($this->namespaces) > 0);
 	}
 
-	public function addPostInclude($postInclude) {
-		$this->postIncludes[] = $postInclude;
-	}
-
-	public function getPostIncludes() {
-		return $this->postIncludes;
-	}
-
-	public function addPreInclude($preInclude) {
-		$this->preInclude[] = $preInclude;
-	}
-
-	public function getPreIncludes() {
-		return $this->preIncludes;
-	}
 
 	/**
 	 * @param string $filePathAndName
@@ -167,6 +123,10 @@ class Tx_PhpParser_Domain_Model_File {
 	}
 
 	protected function addSubStatements($parentObject) {
+		foreach ($parentObject->getConstants as $name => $value) {
+			$stmts[] = Tx_PhpParser_Parser_Utility_NodeConverter::getConstantNodeFromNameValue($name, $value);
+		}
+
 		foreach($parentObject->getPreIncludes() as $preInclude) {
 			$this->stmts[] = $preInclude;
 		}
@@ -187,39 +147,6 @@ class Tx_PhpParser_Domain_Model_File {
 		return $this->aliasDeclarations;
 	}
 
-	/**
-	 * @param array $functions
-	 */
-	public function setFunctions($functions) {
-		$this->functions = $functions;
-	}
-
-	/**
-	 * @param Tx_PhpParser_Domain_Model_Function $function
-	 */
-	public function addFunction($function) {
-		$this->functions[$function->getName()] = $function;
-	}
-
-	/**
-	 * @return array
-	 */
-	public function getFunctions() {
-		return $this->functions;
-	}
-
-	/**
-	 * @param string $name
-	 * @return Tx_PhpParser_Domain_Model_Function
-	 */
-	public function getFunction($name) {
-		if(isset($this->functions[$name])) {
-			return $this->functions[$name];
-		} else {
-			return NULL;
-		}
-
-	}
 
 }
 

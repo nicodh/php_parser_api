@@ -31,43 +31,16 @@
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class Tx_PhpParser_Domain_Model_Class extends Tx_PhpParser_Domain_Model_AbstractObject {
+class Tx_PhpParser_Domain_Model_Class extends Tx_PhpParser_Domain_Model_Container {
 
-	/**
-	 * propertyNames - deprecated -> use this->getPropertyNames() instead
-	 *
-	 * @var array
-	 */
-	protected $propertyNames = array();
 
 	/**
 	 * interfaces
 	 *
-	 * @var  array of PHPParser_Node_Name objects
+	 * @var  array of string
 	 */
-	protected $interfaces;
+	protected $interfaceNames;
 
-
-	/**
-	 * parentClass
-	 *
-	 * @var  PHPParser_Node_Name parentClass
-	 */
-	protected $parentClass = NULL;
-
-	/**
-	 * constants
-	 *
-	 * @var string
-	 */
-	protected $constants;
-
-	/**
-	 * properties
-	 *
-	 * @var string
-	 */
-	protected $properties = array();
 
 	/**
 	 * methods
@@ -76,88 +49,30 @@ class Tx_PhpParser_Domain_Model_Class extends Tx_PhpParser_Domain_Model_Abstract
 	 */
 	protected $methods = array();
 
+
+	/**
+	 * parentClassName
+	 *
+	 * @var  string parentClassName
+	 */
+	protected $parentClassName = '';
+
+
 	/**
 	 * constructor of this class
 	 *
-	 * @param PHPParser_Node_Stmt_Class $classNode
+	 * @param boolean $createNode
+	 * @param string $name
 	 * @return unknown_type
 	 */
-	public function __construct(PHPParser_Node_Stmt_Class $classNode) {
-		$this->node = $classNode;
-		$this->name = $classNode->__get('name');
-		$this->setInterfaces($classNode->__get('implements'));
-		$this->setParentClass($classNode->__get('extends'));
-		$this->setModifiers($classNode->__get('type'));
-		$this->initDocComment();
-	}
-
-	/**
-	 * Setter for a single constant
-	 *
-	 * @param string $constant constant
-	 * @return void
-	 */
-	public function setConstant($constantName, $constantValue, $node) {
-		$this->constants[$constantName] = array('name' => $constantName, 'value' => $constantValue, 'node' => $node);
-	}
-
-	/**
-	 * Setter for a single constant
-	 *
-	 * @param string $constant constant
-	 * @return void
-	 */
-	public function setConstantNode($constantNode) {
-		foreach($constantNode->__get('consts') as $const) {
-			$this->setConstant($const->__get('name'), $const->__get('value')->__get('value'), $constantNode);
+	public function __construct($name, $createNode = FALSE) {
+		$this->name = $name;
+		if($createNode) {
+			$this->node = Tx_PhpParser_Parser_NodeFactory::buildClassNode($name);
+			$this->initDocComment();
 		}
 	}
 
-	/**
-	 * Setter for constants
-	 *
-	 * @param string $constants constants
-	 * @return void
-	 */
-	public function setConstants($constants) {
-		$this->constants = $constants;
-	}
-
-	/**
-	 * Getter for constants
-	 *
-	 * @return string constants
-	 */
-	public function getConstants() {
-		return $this->constants;
-	}
-
-	/**
-	 * Getter for a single constant
-	 *
-	 * @param $constantName
-	 * @return mixed constant value
-	 */
-	public function getConstant($constantName) {
-		if (isset($this->constants[$constantName])) {
-			return $this->constants[$constantName]['value'];
-		}
-		else return NULL;
-	}
-
-	/**
-	 * removes a constant
-	 *
-	 * @param string $constantName
-	 * @return boolean TRUE (if successfull removed)
-	 */
-	public function removeConstant($constantName) {
-		if (isset($this->constants[$constantName])) {
-			unset($this->constants[$constantName]);
-			return TRUE;
-		}
-		return FALSE;
-	}
 
 	/**
 	 * methodExists
@@ -414,24 +329,22 @@ class Tx_PhpParser_Domain_Model_Class extends Tx_PhpParser_Domain_Model_Abstract
 		$this->properties[$classProperty->getName()] = $classProperty;
 	}
 
-	/**
-	 * Setter for interfaces
-	 *
-	 * @param array of PHPParser_Node_Name objects
-	 * @return void
-	 */
-	public function setInterfaces($interfaces) {
-		$this->interfaces = $interfaces;
-	}
 
 	/**
 	 * Adds a interface node, based on a string
 	 *
 	 * @param string $interfaceName
 	 */
-	public function addInterfaceName($interfaceName) {
-		$this->interfaces[] = Tx_PhpParser_Parser_Utility_NodeConverter::getNodeFromName($interfaceName);
-		$this->node->__set('implements',$this->interfaces);
+	public function addInterfaceName($interfaceName, $updateNode = TRUE) {
+		if(!in_array($interfaceName, $this->interfaceNames)) {
+			$this->interfaceNames[] = $interfaceName;
+			if($updateNode) {
+				$interfaceNodes = $this->node->__get('implements');
+				$interfaceNodes[] = Tx_PhpParser_Parser_Utility_NodeConverter::getNodeFromName($interfaceName);
+				$this->node->__set('implements',$interfaceNodes);
+			}
+		}
+		return $this;
 	}
 
 
@@ -440,21 +353,8 @@ class Tx_PhpParser_Domain_Model_Class extends Tx_PhpParser_Domain_Model_Abstract
 	 *
 	 * @return array interfaces
 	 */
-	public function getInterfaces() {
-		return $this->interfaces;
-	}
-
-	/**
-	 * Getter for interfaceNames
-	 *
-	 * @return array interfaceNames
-	 */
 	public function getInterfaceNames() {
-		$interfaceNames = array();
-		foreach($this->interfaces as $interface) {
-			$interfaceNames[] = implode('',$interface->__get('parts'));
-		}
-		return $interfaceNames;
+		return $this->interfaceNames;
 	}
 
 	/**
@@ -462,29 +362,19 @@ class Tx_PhpParser_Domain_Model_Class extends Tx_PhpParser_Domain_Model_Abstract
 	 * @return bool
 	 */
 	public function hasInterface($interfaceName) {
-		$interfaceNames = $this->getInterfaceNames();
-		return in_array($interfaceName, $interfaceNames);
+		return in_array($interfaceName, $this->interfaceNames);
 	}
 
-	public function removeInterface( $interfaceName) {
-		$interfaces = array();
-		foreach($this->interfaces as $interface) {
-			if($interfaceName != implode('',$interface->__get('parts'))){
-				$interfaces[] = $interface;
+	public function removeInterface( $interfaceNameToRemove) {
+		$interfaceNames = array();
+		$interfaceNodes = array();
+		foreach($this->interfaceNames as $interfaceName) {
+			if($interfaceName != $interfaceNameToRemove){
+				$interfaceNames[] = $interfaceName;
+				$interfaceNodes[] = Tx_PhpParser_Parser_Utility_NodeConverter::getNodeFromName($interfaceName);
 			}
 		}
-		$this->interfaces = $interfaces;
-		$this->node->__set('implements', $this->interfaces);
-	}
-
-	/**
-	 * Setter for parentClass
-	 *
-	 * @param PHPParser_Node_Name $parentClass
-	 * @return void
-	 */
-	public function setParentClass($parentClass) {
-		$this->parentClass = $parentClass;
+		$this->node->__set('implements', $interfaceNodes);
 	}
 
 	/**
@@ -493,8 +383,11 @@ class Tx_PhpParser_Domain_Model_Class extends Tx_PhpParser_Domain_Model_Abstract
 	 * @param string $parentClass
 	 * @return void
 	 */
-	public function setParentClassName($parentClass) {
-		$this->node->__get('extends')->__set('parts',array($parentClass));
+	public function setParentClassName($parentClassName, $updateNode = TRUE) {
+		$this->parentClassName = $parentClassName;
+		if($updateNode) {
+			$this->node->__set('extends',Tx_PhpParser_Parser_Utility_NodeConverter::getNodeFromName($parentClassName));
+		}
 	}
 
 	/**
@@ -503,10 +396,10 @@ class Tx_PhpParser_Domain_Model_Class extends Tx_PhpParser_Domain_Model_Abstract
 	 * @return string parentClass
 	 */
 	public function getParentClassName() {
-		return implode('', $this->parentClass->__get('parts'));
+		return $this->parentClassName;
 	}
 
-	public function removeParentClass() {
+	public function removeParentClassName() {
 		$this->parentClass = '';
 		$this->node->__set('extends',NULL);
 	}
@@ -526,10 +419,11 @@ class Tx_PhpParser_Domain_Model_Class extends Tx_PhpParser_Domain_Model_Abstract
 		}
         //ksort($properties);
         //ksort($methods);
-
-		foreach ($this->constants as $constantName => $constant) {
-			$stmts[] = $constant['node'];
+		debug($this->constants);
+		foreach ($this->constants as $name => $value) {
+			$stmts[] = Tx_PhpParser_Parser_Utility_NodeConverter::getConstantNodeFromNameValue($name, $value);
 		}
+		t3lib_utility_Debug::debugInPopUpWindow($stmts);
 
 	    foreach ($properties as $property) {
 	         $stmts[] = $property;

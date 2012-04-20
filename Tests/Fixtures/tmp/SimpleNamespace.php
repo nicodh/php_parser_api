@@ -1,4 +1,5 @@
 <?php
+
 /***************************************************************
  *  Copyright notice
  *
@@ -22,46 +23,14 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-
 /**
  * @package
  * @author Nico de Haen
  */
+namespace Test\Model;
+class Tx_PhpParser_Tests_SimpleNamepaceTest {
 
-abstract class Tx_PhpParser_Tests_SimplePropertyTest {
-
-	private $test = array(
-		'test' 	=> 123,
-		'test5'	=> 456,
-		'arr' 	=> array(
-			'sieben' => 7
-		)
-	);
-		
-	const TEST = 'MyConstant';const TEST4 = 'MyConstant2';
-	// just a single line comment
-	const TEST2 = 890;
 	
-	/**
-	 * @var string
-	 */
-	protected $property = array('a' => 'b');
-
-	/**
-	 * @param string $property
-	 */
-	public function setProperty($property) {
-		// comment in a new line
-		if(strlen($property)>50) { // some comment here
-			$property = substr($property,0,49); // some comment there
-		}
-		$this->property = $property;
-	}
-
-	/**
-	 * @return string
-	 */
-	public function getProperty() {
-		return $this->property;
-	}
 }
+
+?>

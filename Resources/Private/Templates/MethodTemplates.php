@@ -7,8 +7,8 @@
  *
  * @package php_parser
  * @API
- * @author Nico de Haen
- * @author Max Meiert
+ * @author John Doe
+ * @author Bob & ALice
  */
 class MethodTemplates {
 

@@ -28,40 +28,15 @@
  * @author Nico de Haen
  */
 
-abstract class Tx_PhpParser_Tests_SimplePropertyTest {
+interface Tx_PhpParser_Parser_ClassFactoryInterface {
 
-	private $test = array(
-		'test' 	=> 123,
-		'test5'	=> 456,
-		'arr' 	=> array(
-			'sieben' => 7
-		)
-	);
-		
-	const TEST = 'MyConstant';const TEST4 = 'MyConstant2';
-	// just a single line comment
-	const TEST2 = 890;
-	
-	/**
-	 * @var string
-	 */
-	protected $property = array('a' => 'b');
+	public function buildClassObjectFromNode(PHPParser_Node_Stmt_Class $node);
 
-	/**
-	 * @param string $property
-	 */
-	public function setProperty($property) {
-		// comment in a new line
-		if(strlen($property)>50) { // some comment here
-			$property = substr($property,0,49); // some comment there
-		}
-		$this->property = $property;
-	}
+	public function buildClassMethodObjectFromNode(PHPParser_Node_Stmt_ClassMethod $node);
 
-	/**
-	 * @return string
-	 */
-	public function getProperty() {
-		return $this->property;
-	}
+	public function buildPropertyObjectFromNode(PHPParser_Node_Stmt_Property $node);
+
+	public function buildFunctionObjectFromNode(PHPParser_Node_Stmt_Function $node);
+
+	public function buildNamespaceObjectFromNode(PHPParser_Node_Stmt_Namespace $node);
 }

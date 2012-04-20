@@ -116,8 +116,6 @@ class Tx_PhpParser_Tests_Unit_PrinterTest extends Tx_PhpParser_Tests_BaseTest {
 		return $classFileObject;
 	}
 
-
-
 }
 
 ?>

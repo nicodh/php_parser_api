@@ -43,12 +43,22 @@ class Tx_PhpParser_Parser_Visitor_ClassFileVisitor extends PHPParser_NodeVisitor
 	/**
 	 * @var Tx_PhpParser_Domain_Model_Class
 	 */
-	protected $classObject = NULL;
+	protected $currentClassObject = NULL;
 
 	/**
 	 * @var Tx_PhpParser_Domain_Model_Namespace
 	 */
-	protected $namespace = NULL;
+	protected $currentNamespace = NULL;
+
+	/**
+	 * @var Tx_PhpParser_Domain_Model_File
+	 */
+	protected $fileObject = NULL;
+
+	/**
+	 * @var Tx_PhpParser_Parser_ClassFactoryInterface
+	 */
+	protected $classFactory = NULL;
 
 	/**
 	 * currently not used, might be useful for filtering etc.
@@ -58,12 +68,6 @@ class Tx_PhpParser_Parser_Visitor_ClassFileVisitor extends PHPParser_NodeVisitor
 	 */
 	protected $contextStack = array();
 
-	/**
-	 * @var Tx_PhpParser_Domain_Model_File
-	 */
-	protected $fileObject = NULL;
-
-
 	public function getFileObject() {
 		return $this->fileObject;
 	}
@@ -72,11 +76,11 @@ class Tx_PhpParser_Parser_Visitor_ClassFileVisitor extends PHPParser_NodeVisitor
 
 		if($node instanceof PHPParser_Node_Stmt_Namespace) {
 			$this->contextStack[] = $node;
-			$this->namespace = new Tx_PhpParser_Domain_Model_Namespace($node);
-			//$this->fileObject->addNamespace($namespace);
+			$this->currentNamespace = $this->classFactory->buildNamespaceObjectFromNode($node);
+			//$this->fileObject->addNamespace($currentNamespace);
 		} elseif($node instanceof PHPParser_Node_Stmt_Use) {
-			if($this->namespace !== NULL) {
-				$this->namespace->addAliasDeclaration($node);
+			if($this->currentNamespace !== NULL) {
+				$this->currentNamespace->addAliasDeclaration($node);
 			} else {
 				$this->fileObject->addAliasDeclaration($node);
 			}
@@ -84,17 +88,20 @@ class Tx_PhpParser_Parser_Visitor_ClassFileVisitor extends PHPParser_NodeVisitor
 			$this->contextStack[] = $node;
 		} elseif($node instanceof PHPParser_Node_Stmt_Class) {
 			$this->contextStack[] = $node;
-			$this->classObject = new Tx_PhpParser_Domain_Model_Class($node);
+			$this->currentClassObject = $this->classFactory->buildClassObjectFromNode($node);
 		} elseif($node instanceof PHPParser_Node_Stmt_ClassConst) {
-			$this->classObject->setConstantNode($node);
+			$constants = Tx_PhpParser_Parser_Utility_NodeConverter::convertClassConstantNodeToArray($node);
+			foreach($constants as $constant) {
+				$this->currentClassObject->setConstant($constant['name'],$constant['value']);
+			}
 		} elseif($node instanceof PHPParser_Node_Stmt_Property) {
 			$this->contextStack[] = $node;
-			$property = new Tx_PhpParser_Domain_Model_Class_Property($node);
-			$this->classObject->addProperty($property);
+			$property = $this->classFactory->buildPropertyObjectFromNode($node);
+			$this->currentClassObject->addProperty($property);
 		} elseif($node instanceof PHPParser_Node_Stmt_ClassMethod) {
 			$this->contextStack[] = $node;
-			$method = new Tx_PhpParser_Domain_Model_Class_Method($node);
-			$this->classObject->addMethod($method);
+			$method = $this->classFactory->buildClassMethodObjectFromNode($node);
+			$this->currentClassObject->addMethod($method);
 		}
 
 	}
@@ -104,30 +111,30 @@ class Tx_PhpParser_Parser_Visitor_ClassFileVisitor extends PHPParser_NodeVisitor
 			array_pop($this->contextStack);
 			if(count($this->contextStack) > 0) {
 				if(end($this->contextStack)->getType() == 'Stmt_Namespace') {
-					$namespaceName = Tx_PhpParser_Parser_Utility_NodeConverter::getValueFromNode(end($this->contextStack));
-					$this->classObject->setNamespaceName($namespaceName);
-					$this->namespace->addClass($this->classObject);
-					$this->fileObject->addNamespace($this->namespace);
-					$this->namespace = NULL;
+					$currentNamespaceName = Tx_PhpParser_Parser_Utility_NodeConverter::getValueFromNode(end($this->contextStack));
+					$this->currentClassObject->setNamespaceName($currentNamespaceName);
+					$this->currentNamespace->addClass($this->currentClassObject);
+					$this->fileObject->addNamespace($this->currentNamespace);
+					$this->currentNamespace = NULL;
 				}
 			} else {
-				$this->fileObject->addClass($this->classObject);
-				$this->classObject = NULL;
+				$this->fileObject->addClass($this->currentClassObject);
+				$this->currentClassObject = NULL;
 			}
 		}
 		if($node instanceof PHPParser_Node_Expr_Include) {
 			array_pop($this->contextStack);
-			if($this->namespace === NULL) {
+			if($this->currentNamespace === NULL) {
 				if($this->fileObject->getFirstClass() === NULL) {
 					$this->fileObject->addPreInclude($node);
 				} else {
 					$this->fileObject->addPostInclude($node);
 				}
 			} else {
-				if($this->namespace->getFirstClass() === NULL) {
-					$this->namespace->addPreInclude($node);
+				if($this->currentNamespace->getFirstClass() === NULL) {
+					$this->currentNamespace->addPreInclude($node);
 				} else {
-					$this->namespace->addPostInclude($node);
+					$this->currentNamespace->addPostInclude($node);
 				}
 			}
 		}
@@ -141,5 +148,12 @@ class Tx_PhpParser_Parser_Visitor_ClassFileVisitor extends PHPParser_NodeVisitor
 	}
 
 	public function afterTraverse(array $nodes){
+	}
+
+	/**
+	 * @param \Tx_PhpParser_Parser_ClassFactoryInterface $classFactory
+	 */
+	public function setClassFactory($classFactory) {
+		$this->classFactory = $classFactory;
 	}
 }

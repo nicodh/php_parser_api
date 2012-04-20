@@ -50,27 +50,18 @@ class Tx_PhpParser_Domain_Model_Function extends Tx_PhpParser_Domain_Model_Abstr
 	 * @param PHPParser_Node $functionNode
 	 * @return
 	 */
-	public function __construct($functionNode = NULL) {
-		if($functionNode) {
-			$this->setName($functionNode->__get('name'), FALSE);
-			$this->setNode($functionNode);
-			$this->setModifiers($functionNode->__get('type'));
-			$this->setBodyStmts($functionNode->__get('stmts'));
-			$this->initDocComment();
-			if($functionNode->__get('params')) {
-				$this->addParameterFromNodes($functionNode);
-			}
-		}
+	public function __construct($name) {
+		$this->name = $name;
 	}
 
-	protected function addParameterFromNodes($functionNode) {
+	public function initializeParameters() {
 		$position = 0;
 		$getVarTypeFromParamTag = FALSE;
 		$paramTags = $this->tags['param'];
-		if(count($paramTags) == count($functionNode->__get('params'))) {
+		if(count($paramTags) == count($this->node->__get('params'))) {
 			$getVarTypeFromParamTag = TRUE;
 		}
-		foreach($functionNode->__get('params') as $param) {
+		foreach($this->node->__get('params') as $param) {
 			$parameter = new Tx_PhpParser_Domain_Model_Parameter($param);
 			$parameter->setPosition($position);
 			if(strlen($parameter->getTypeHint()) < 1 && $getVarTypeFromParamTag) {

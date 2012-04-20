@@ -30,14 +30,29 @@
 
 
 /**
- * provides methods to import a class object
+ * provides methods to generate classes from PHP code
  *
  * @package php_parser
  * @version $ID:$
  */
 
 
-class Tx_PhpParser_Service_Parser extends PHPParser_Parser implements t3lib_singleton{
+class Tx_PhpParser_Service_Parser extends PHPParser_Parser {
+
+	/**
+	 * @var PHPParser_NodeVisitor
+	 */
+	protected $classFileVisitor = NULL;
+
+	/**
+	 * @var Tx_Php_Parser_TraverserInterface
+	 */
+	protected $traverser = NULL;
+
+	/**
+	 * @var Tx_PhpParser_Parser_ClassFactoryInterface
+	 */
+	protected $classFactory = NULL;
 
 
 	/**
@@ -46,25 +61,32 @@ class Tx_PhpParser_Service_Parser extends PHPParser_Parser implements t3lib_sing
 	 */
 	public function parse($code) {
 		$stmts = $this->parseRawStatements($code);
-		$visitor = new Tx_PhpParser_Parser_Visitor_ClassFileVisitor;
-		if(!is_object($this->traverser)) {
+
+		// set defaults
+		if(NULL === $this->traverser) {
 			$this->traverser = new Tx_PhpParser_Parser_Traverser;
 		}
-		$this->traverser->addVisitor($visitor);
+		if(NULL === $this->classFileVisitor) {
+			$this->classFileVisitor = new Tx_PhpParser_Parser_Visitor_ClassFileVisitor;
+		}
+		if(NULL === $this->classFactory) {
+			$this->classFactory = new Tx_PhpParser_Parser_ClassFactory;
+		}
+		$this->classFileVisitor->setClassFactory($this->classFactory);
+		$this->traverser->addVisitor($this->classFileVisitor);
 		$this->traverser->traverse(array($stmts));
-		$fileObject = $visitor->getFileObject();
-		//t3lib_utility_Debug::debug($classObject->getInfo(), 'classObject: ' . $classObject->getName());
+		$fileObject = $this->classFileVisitor->getFileObject();
 		return $fileObject;
 	}
 
 	/**
 	 * @param string $fileName
-	 * @return array|Tx_PhpParser_Domain_Model_File
+	 * @return Tx_PhpParser_Domain_Model_File
 	 * @throws Exception
 	 */
 	public function parseFile($fileName) {
 		if(!file_exists($fileName)) {
-			throw new Exception('File "'. $fileName . '" not found!');
+			throw new Tx_PhpParser_Exception_FileNotFoundException('File "'. $fileName . '" not found!');
 		}
 		$fileHandler = fopen($fileName, 'r');
 		$code = fread($fileHandler, filesize($fileName));
@@ -73,8 +95,33 @@ class Tx_PhpParser_Service_Parser extends PHPParser_Parser implements t3lib_sing
 		return $fileObject;
 	}
 
+	/**
+	 * @param string $code
+	 * @return array
+	 */
 	public function parseRawStatements($code) {
 		return parent::parse(new PHPParser_Lexer($code));
+	}
+
+	/**
+	 * @param Tx_PhpParser_Parser_Visitor_ClassFileVisitorInterface $visitor
+	 */
+	public function setClassFileVisitor(Tx_PhpParser_Parser_Visitor_ClassFileVisitor $visitor) {
+		$this->classFileVisitor = $visitor;
+	}
+
+	/**
+	 * @param Tx_PhpParser_Parser_TraverserInterface $traverser
+	 */
+	public function setTraverser(Tx_PhpParser_Parser_TraverserInterface $traverser) {
+		$this->traverser = $traverser;
+	}
+
+	/**
+	 * @param Tx_PhpParser_Parser_ClassFactoryInterface $classFactory
+	 */
+	public function setClassFactory(Tx_PhpParser_Parser_ClassFactoryInterface $classFactory) {
+		$this->classFactory = $classFactory;
 	}
 
 }

@@ -28,20 +28,17 @@ require_once(t3lib_extmgm::extPath('php_parser') . 'Tests/BaseTest.php');
 class Tx_PhpParser_Tests_Unit_ParserTest extends Tx_PhpParser_Tests_BaseTest {
 
 	/**
-	 * @var Tx_PhpParser_Service_Printer
+	 * @var Tx_PhpParser_Service_Parser
 	 */
 	protected $parser;
-
-	/**
-	 * set to true to see an overview of the parsed class objects in the backend
-	 */
-	protected $debugMode = TRUE;
 
 	/**
 	 * @test
 	 */
 	function parseSimpleProperty() {
+		$this->parser->setTraverser(new Tx_PhpParser_Parser_Traverser);
 		$classFileObject = $this->parseFile('SimpleProperty.php');
+		t3lib_utility_Debug::debugInPopUpWindow($classFileObject);
 		$this->assertEquals(count($classFileObject->getFirstClass()->getMethods()), 2);
 		$this->assertEquals(count($classFileObject->getFirstClass()->getProperties()), 2);
 		$this->assertEquals($classFileObject->getFirstClass()->getProperty('property')->getModifierNames(), array('protected'));
@@ -52,7 +49,7 @@ class Tx_PhpParser_Tests_Unit_ParserTest extends Tx_PhpParser_Tests_BaseTest {
 	 */
 	function parseSimpleNonBracedNamespace() {
 		$classFileObject = $this->parseFile('Namespaces/SimpleNamespace.php');
-		$this->assertEquals('\\Test\\Model',$classFileObject->getFirstClass()->getNamespaceName());
+		$this->assertEquals('Test\\Model',$classFileObject->getFirstClass()->getNamespaceName());
 	}
 
 	/**

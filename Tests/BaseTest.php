@@ -57,7 +57,7 @@ abstract class Tx_PhpParser_Tests_BaseTest extends Tx_Extbase_Tests_Unit_BaseTes
 		$tmpFiles = t3lib_div::getFilesInDir($this->testDir);
 		foreach($tmpFiles as $tmpFile) {
 			// uncomment this to have a look at the generated files
-			unlink($this->testDir . $tmpFile);
+			//unlink($this->testDir . $tmpFile);
 		}
 	}
 
@@ -71,17 +71,17 @@ abstract class Tx_PhpParser_Tests_BaseTest extends Tx_Extbase_Tests_Unit_BaseTes
 		$this->assertTrue(file_exists($classFilePath), $classFilePath . 'not exists');
 		$classObject = $classFileObject->getFirstClass();
 		$this->assertTrue($classObject instanceof Tx_PhpParser_Domain_Model_Class);
-		if(!class_exists($classObject->getName())) {
+		$className = $classObject->getName();
+		if(!class_exists($className)) {
 			require_once($classFilePath);
 		}
-		$className = $classObject->getName();
-		$this->assertTrue(class_exists($className), 'Class ' . $classObject->getName() . ' does not exist!');
+		$this->assertTrue(class_exists($className), 'Class "' . $className . '" does not exist! Tried ' . $classFilePath);
 		$reflectedClass = new ReflectionClass($className);
 		$this->assertEquals(count($reflectedClass->getMethods()), count($classObject->getMethods()));
 		$this->assertEquals(count($reflectedClass->getProperties()), count($classObject->getProperties()));
 		$this->assertEquals(count($reflectedClass->getConstants()), count($classObject->getConstants()));
 		if(strlen($classObject->getNamespaceName()) > 0 ) {
-			$this->assertEquals( '\\' .$reflectedClass->getNamespaceName(), $classObject->getNamespaceName());
+			$this->assertEquals( $reflectedClass->getNamespaceName(), $classObject->getNamespaceName());
 		}
 		return $reflectedClass;
 	}

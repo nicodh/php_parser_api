@@ -28,7 +28,7 @@
  * @author Nico de Haen
  */
 
-class Tx_PhpParser_Parser_Traverser extends PHPParser_NodeTraverser implements t3lib_singleton {
+class Tx_PhpParser_Parser_Traverser extends PHPParser_NodeTraverser implements Tx_PhpParser_Parser_TraverserInterface{
 
 	public function resetVisitors() {
 		$this->visitors = array();

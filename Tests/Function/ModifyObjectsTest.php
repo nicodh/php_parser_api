@@ -71,10 +71,12 @@ class  Tx_PhpParser_Tests_Function_ModifyObjectsTest extends Tx_PhpParser_Tests_
 		$this->assertTrue($reflectedClass->hasMethod('getNewName'));
 	}
 
+
 	/**
 	 * @test
 	 *
 	 * @expectedRuntimeException PHPParser_Error
+	 * @expectedException Tx_PhpParser_Exception_SyntaxErrorException
 	 */
 	function addingMultipleAccessModifiersThrowsException() {
 		$classObject = $this->parseFile('SimpleProperty.php')->getFirstClass();

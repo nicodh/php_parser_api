@@ -31,7 +31,7 @@
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class Tx_PhpParser_Domain_Model_Namespace extends Tx_PhpParser_Domain_Model_AbstractObject{
+class Tx_PhpParser_Domain_Model_Namespace extends Tx_PhpParser_Domain_Model_Container{
 
 	protected $constants;
 
@@ -40,12 +40,6 @@ class Tx_PhpParser_Domain_Model_Namespace extends Tx_PhpParser_Domain_Model_Abst
 	 */
 	protected $aliasDeclarations;
 
-	/**
-	 * @var array
-	 */
-	protected $preIncludes = array();
-
-	protected $postIncludes = array();
 
 	/**
 	 * @var array Tx_PhpParser_Domain_Model_Class
@@ -54,36 +48,27 @@ class Tx_PhpParser_Domain_Model_Namespace extends Tx_PhpParser_Domain_Model_Abst
 
 	protected $functions;
 
-	public function __construct(PHPParser_Node_Stmt_Namespace $node) {
-		$this->node = $node;
-		$this->name = Tx_PhpParser_Parser_Utility_NodeConverter::getValueFromNode($node->__get('name'));
-		$this->initDocComment();
-	}
-
-
-	public function getFirstClass() {
-		if(count($this->classes) > 0) {
-			reset($this->classes);
-			return current($this->classes);
-		} else {
-			return NULL;
+	/**
+	 * @param string $name
+	 */
+	public function __construct( $name, $createNode = FALSE) {
+		$this->name = $name;
+		if($createNode) {
+			$this->node = Tx_PhpParser_Parser_NodeFactory::buildNamespaceNode($name);
+			$this->initDocComment();
 		}
-
 	}
+
+
 
 	/**
-	 * @param Tx_PhpParser_Domain_Model_Class $class
+	 * Setter for a single constant
+	 *
+	 * @param string $constant constant
+	 * @return void
 	 */
-	public function addClass(Tx_PhpParser_Domain_Model_Class $class) {
-		$this->classes[] = $class;
-	}
-
-	public function setClasses($classes) {
-		$this->classes = $classes;
-	}
-
-	public function getClasses() {
-		return $this->classes;
+	public function setConstant($name, $value) {
+		$this->constants[$name] = $value;
 	}
 
 	public function setConstants($constants) {

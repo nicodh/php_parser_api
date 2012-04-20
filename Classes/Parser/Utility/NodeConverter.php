@@ -119,13 +119,35 @@ class Tx_PhpParser_Parser_Utility_NodeConverter {
 
 	public static function getValueFromNode($node) {
 		if($node instanceof PHPParser_Node_Stmt_Namespace) {
-			return '\\' . implode('\\',$node->__get('name')->__get('parts'));
+			return implode('\\',$node->__get('name')->__get('parts'));
 		} elseif($node instanceof PHPParser_Node_Name) {
 			return implode(' ',$node->__get('parts'));
-		} else {
+		} elseif($node instanceof PHPParser_Node) {
 			return $node->__get('value');
+		} else {
+			return NULL;
 		}
 		//TODO: support more node types
+	}
+
+	public static function convertClassConstantNodeToArray(PHPParser_Node_Stmt_ClassConst $node) {
+		$constantsArray = array();
+		$consts = $node->__get('consts');
+		foreach($consts as $const) {
+			$constantsArray[] = array('name' => $const->__get('name'),'value' => self::getValueFromNode($const->__get('value')));
+		}
+		return $constantsArray;
+	}
+
+	/**
+	 * @static
+	 * @param string $name
+	 * @param mixed $value
+	 * @return PHPParser_Node_Const
+	 */
+	public static function getConstantNodeFromNameValue($name, $value) {
+		$constantNode = new PHPParser_Node_Stmt_ClassConst(array(new PHPParser_Node_Const($name, self::getNodeFromValue($value))));
+		return $constantNode;
 	}
 
 }
