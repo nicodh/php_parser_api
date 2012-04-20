@@ -41,7 +41,6 @@ class  Tx_PhpParser_Tests_Function_BuildObjectsTest extends Tx_PhpParser_Tests_B
 		$newClass = new Tx_PhpParser_Domain_Model_Class($newClassName, TRUE);
 		$newClass->setDocComment("This is a class created\nfrom scratch");
 		$newClass->setTag('author','John Doe');
-		$constantNode = Tx_PhpParser_Parser_Utility_NodeConverter::getConstantNodeFromNameValue(array('TEST' => 123));
 		$newClassFile->addClass($newClass);
 		$newClassFilePath = $this->testDir . 'NewClassFile.php';
 		t3lib_div::writeFile($newClassFilePath,"<?php\n\n" . $this->printer->renderFileObject($newClassFile) . "\n?>");

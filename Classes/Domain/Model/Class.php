@@ -419,11 +419,9 @@ class Tx_PhpParser_Domain_Model_Class extends Tx_PhpParser_Domain_Model_Containe
 		}
         //ksort($properties);
         //ksort($methods);
-		debug($this->constants);
 		foreach ($this->constants as $name => $value) {
 			$stmts[] = Tx_PhpParser_Parser_Utility_NodeConverter::getConstantNodeFromNameValue($name, $value);
 		}
-		t3lib_utility_Debug::debugInPopUpWindow($stmts);
 
 	    foreach ($properties as $property) {
 	         $stmts[] = $property;

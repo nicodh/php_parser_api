@@ -38,7 +38,6 @@ class Tx_PhpParser_Tests_Unit_ParserTest extends Tx_PhpParser_Tests_BaseTest {
 	function parseSimpleProperty() {
 		$this->parser->setTraverser(new Tx_PhpParser_Parser_Traverser);
 		$classFileObject = $this->parseFile('SimpleProperty.php');
-		t3lib_utility_Debug::debugInPopUpWindow($classFileObject);
 		$this->assertEquals(count($classFileObject->getFirstClass()->getMethods()), 2);
 		$this->assertEquals(count($classFileObject->getFirstClass()->getProperties()), 2);
 		$this->assertEquals($classFileObject->getFirstClass()->getProperty('property')->getModifierNames(), array('protected'));
