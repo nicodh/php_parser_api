@@ -68,10 +68,12 @@ class Tx_PhpParser_Parser_ClassFactory implements Tx_PhpParser_Parser_ClassFacto
 		$propertyObject = new Tx_PhpParser_Domain_Model_Class_Property($propertyName);
 		$propertyObject->setModifiers($propertyNode->__get('type'));
 		$propertyObject->setNode($propertyNode);
-		if(NULL !== $propertyDefault) {
-			$propertyObject->setDefault($propertyDefault);
-		}
 		$propertyObject->initDocComment();
+		if(NULL !== $propertyDefault) {
+			var_dump(get_class($propertyDefault));
+			var_dump(Tx_PhpParser_Parser_Utility_NodeConverter::getValueFromNode(($propertyDefault)));
+			$propertyObject->setValue(Tx_PhpParser_Parser_Utility_NodeConverter::getValueFromNode($propertyDefault), FALSE);
+		}
 		return $propertyObject;
 	}
 

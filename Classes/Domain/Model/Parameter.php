@@ -214,7 +214,7 @@ class Tx_PhpParser_Domain_Model_Parameter extends Tx_PhpParser_Domain_Model_Abst
 		}
 		$this->typeHint = $typeHint;
 		if($updateNodeTypeHint) {
-			$this->node->__set('type',Tx_PhpParser_Parser_Utility_NodeConverter::getNodeFromName($typeHint));
+			$this->node->__set('type',Tx_PhpParser_Parser_NodeFactory::buildNodeFromName($typeHint));
 		}
 	}
 

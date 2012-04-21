@@ -40,6 +40,16 @@ class Tx_PhpParser_Tests_Unit_PrinterTest extends Tx_PhpParser_Tests_BaseTest {
 	/**
 	 * @test
 	 */
+	public function printClassWithMultipleProperties() {
+		$fileName = 'ClassWithMultipleProperties.php';
+		$classFileObject = $this->parseAndWrite($fileName);
+		$this->compareClasses($classFileObject, $this->testDir . $fileName);
+		die();
+	}
+
+	/**
+	 * @test
+	 */
 	public function printSimpleClassMethodWithManyParameter() {
 		$fileName = 'ClassMethodWithManyParameter.php';
 		$classFileObject = $this->parseAndWrite($fileName);

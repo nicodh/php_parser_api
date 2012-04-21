@@ -57,7 +57,7 @@ abstract class Tx_PhpParser_Tests_BaseTest extends Tx_Extbase_Tests_Unit_BaseTes
 		$tmpFiles = t3lib_div::getFilesInDir($this->testDir);
 		foreach($tmpFiles as $tmpFile) {
 			// uncomment this to have a look at the generated files
-			unlink($this->testDir . $tmpFile);
+			//unlink($this->testDir . $tmpFile);
 		}
 	}
 

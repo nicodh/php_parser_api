@@ -33,28 +33,6 @@
  */
 class Tx_PhpParser_Domain_Model_Class_Property extends Tx_PhpParser_Domain_Model_AbstractObject {
 
-	/**
-	 * if there is a domain object property associated
-	 * with this ClassProperty this object holds all extbase related information
-	 * (like SQL, TYPO3 related stuff)
-	 *
-	 * @var object associatedDomainObjectProperty
-	 */
-	protected $associatedDomainObjectProperty = NULL;
-
-	/**
-	 * varType
-	 *
-	 * @var string
-	 */
-	protected $type;
-
-	/**
-	 * default
-	 *
-	 * @var string
-	 */
-	protected $default;
 
 	/**
 	 * value
@@ -64,76 +42,22 @@ class Tx_PhpParser_Domain_Model_Class_Property extends Tx_PhpParser_Domain_Model
 	protected $value;
 
 	/**
+	 * @var string
+	 */
+	protected $varType = '';
+
+	/**
 	 * __construct
 	 *
 	 * @param string name
 	 * @return void
 	 */
-	public function __construct($name) {
+	public function __construct($name, $createNode = TRUE) {
 		$this->name = $name;
-	}
-
-
-	/**
-	 * Returns $associatedDomainObjectProperty.
-	 *
-	 * @return object associatedDomainObjectProperty
-	 */
-	public function getAssociatedDomainObjectProperty() {
-		return $this->associatedDomainObjectProperty;
-	}
-
-	/**
-	 * Sets $associatedDomainObjectProperty.
-	 *
-	 * @param object $associatedDomainObjectProperty
-	 * @return
-	 */
-	public function setAssociatedDomainObjectProperty($associatedDomainObjectProperty) {
-		$this->associatedDomainObjectProperty = $associatedDomainObjectProperty;
-		if (empty($this->description)) {
-			$this->description = $associatedDomainObjectProperty->getDescription();
-			if (empty($this->description)) {
-				$this->description = $this->name;
-			}
+		if($createNode) {
+			$this->node = Tx_PhpParser_Parser_NodeFactory::buildPropertyNode($name);
+			$this->initDocComment();
 		}
-	}
-
-	/**
-	 * hasAssociatedDomainObjectProperty
-	 *
-	 * @return
-	 */
-	public function hasAssociatedDomainObjectProperty() {
-		return !is_null($this->associatedDomainObjectProperty);
-	}
-
-	/**
-	 * isDefault
-	 *
-	 * @return boolean
-	 */
-	public function isDefault() {
-		return $this->default;
-	}
-
-	/**
-	 * setDefault
-	 *
-	 * @param boolean $default
-	 * @return
-	 */
-	public function setDefault($default) {
-		$this->default = $default;
-	}
-
-	/**
-	 * getDefault
-	 *
-	 * @return boolean
-	 */
-	public function getDefault() {
-		return $this->default;
 	}
 
 	/**
@@ -151,34 +75,16 @@ class Tx_PhpParser_Domain_Model_Class_Property extends Tx_PhpParser_Domain_Model
 	 * @param mixed
 	 * @return
 	 */
-	public function setValue($value) {
+	public function setValue($value, $updateNode = TRUE) {
 		$this->value = $value;
-	}
-
-	/**
-	 * This is a helper function to be called in fluid if conditions
-	 * it returns TRUE even if the default value is 0 or an empty string or "FALSE"
-	 *
-	 * @return bool
-	 */
-	public function getHasDefaultValue() {
-		if(isset($this->default) && $this->default !== NULL) {
-			return TRUE;
+		if($updateNode) {
+			$props = $this->node->__get('props');
+			$valueNode = Tx_PhpParser_Parser_NodeFactory::buildNodeFromValue($value);
+			$props[0]->__set('default',$valueNode);
+			$this->node->__set('props',$props);
 		}
-		return FALSE;
-	}
-
-	/**
-	 * This is a helper function to be called in fluid if conditions
-	 * it returns TRUE even if the value is 0 or an empty string or "FALSE"
-	 *
-	 * @return bool
-	 */
-	public function getHasValue() {
-		if(isset($this->value) && $this->value !== NULL) {
-			return TRUE;
-		}
-		return FALSE;
+		$this->setTag('var', gettype($value));
+		return $this;
 	}
 
 	/**
@@ -193,6 +99,21 @@ class Tx_PhpParser_Domain_Model_Class_Property extends Tx_PhpParser_Domain_Model
 			$props =  array(new PHPParser_Node_Stmt_PropertyProperty($this->name, $this->default));
 			$this->node->__set('props',$props);
 		}
+		return $this;
+	}
+
+	/**
+	 * @param string $varType
+	 */
+	public function setVarType($varType) {
+		$this->varType = $varType;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getVarType() {
+		return $this->varType;
 	}
 
 }

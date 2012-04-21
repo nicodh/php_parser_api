@@ -78,7 +78,6 @@ class Tx_PhpParser_Parser_Visitor_ClassFileVisitor extends PHPParser_NodeVisitor
 	}
 
 	public function enterNode(PHPParser_Node $node) {
-
 		if($node instanceof PHPParser_Node_Stmt_Namespace) {
 			$this->contextStack[] = $node;
 			$this->currentNamespace = $this->classFactory->buildNamespaceObjectFromNode($node);
@@ -107,10 +106,10 @@ class Tx_PhpParser_Parser_Visitor_ClassFileVisitor extends PHPParser_NodeVisitor
 			$method = $this->classFactory->buildClassMethodObjectFromNode($node);
 			$this->currentClassObject->addMethod($method);
 		} elseif($node instanceof PHPParser_Node_Stmt_Function) {
-				$this->contextStack[] = $node;
-				$method = $this->classFactory->buildFunctionObjectFromNode($node);
-				$this->currentContainer->addFunction($method);
-			}
+			$this->contextStack[] = $node;
+			$method = $this->classFactory->buildFunctionObjectFromNode($node);
+			$this->currentContainer->addFunction($method);
+		}
 
 	}
 

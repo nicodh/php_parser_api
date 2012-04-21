@@ -28,8 +28,22 @@
  * @author Nico de Haen
  */
 
-abstract class Tx_PhpParser_Tests_SimplePropertyTest {
+abstract class Tx_PhpParser_Tests_ClassWithMultipleProperties {
 
+	private $test = array(
+		'test' 	=> 123,
+		'test5'	=> 456,
+		'arr' 	=> array(
+			'sieben' => 7
+		)
+	);
+
+	protected $testBoolean = FALSE;
+		
+	const TEST = 'MyConstant';const TEST4 = 'MyConstant2';
+	// just a single line comment
+	const TEST2 = 890;
+	
 	/**
 	 * @var string
 	 */

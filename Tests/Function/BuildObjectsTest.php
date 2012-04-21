@@ -38,11 +38,43 @@ class  Tx_PhpParser_Tests_Function_BuildObjectsTest extends Tx_PhpParser_Tests_B
 	public function createSimpleClass() {
 		$newClassFileObject = new Tx_PhpParser_Domain_Model_File;
 		$newClassName = 'Tx_PhpParser_Test_NewClass';
-		$newClass = new Tx_PhpParser_Domain_Model_Class($newClassName, TRUE);
+		$newClass = new Tx_PhpParser_Domain_Model_Class($newClassName);
 		$newClass->setDocComment("This is a class created\nfrom scratch");
 		$newClass->setTag('author','John Doe');
 		$newClassFileObject->addClass($newClass);
-		$newClassFilePath = $this->testDir . 'NewClassFile.php';
+		$newClassFilePath = $this->testDir . 'NewClass.php';
+		t3lib_div::writeFile($newClassFilePath,"<?php\n\n" . $this->printer->renderFileObject($newClassFileObject) . "\n?>");
+		$this->assertTrue(file_exists($newClassFilePath));
+		require_once($newClassFilePath);
+		$this->assertTrue(class_exists($newClassName));
+		$this->compareClasses($newClassFileObject, $newClassFilePath);
+	}
+
+	/**
+	 * @test
+	 */
+	public function createClassWithProperties() {
+		$newClassFileObject = new Tx_PhpParser_Domain_Model_File;
+		$newClassName = 'Tx_PhpParser_Test_NewClassWithProperties';
+		$newClass = new Tx_PhpParser_Domain_Model_Class($newClassName);
+		$newClass->setDocComment("This is a class created\nfrom scratch");
+		$newClass->setTag('author','John Doe');
+
+		$newProperty1 = new Tx_PhpParser_Domain_Model_Class_Property('property1');
+		$newProperty1->setDescription('example property2')
+				->setValue('example')
+				->setTag('var', 'string $property1');
+
+		$newProperty2 = new Tx_PhpParser_Domain_Model_Class_Property('property2');
+		$newProperty2->setDescription('example property2')
+				->setValue(array('test'=>123))
+				->setTag('var', 'array $property2');
+
+
+		$newClass->addProperty($newProperty1);
+		$newClass->addProperty($newProperty2);
+		$newClassFileObject->addClass($newClass);
+		$newClassFilePath = $this->testDir . 'NewClassWithProperties.php';
 		t3lib_div::writeFile($newClassFilePath,"<?php\n\n" . $this->printer->renderFileObject($newClassFileObject) . "\n?>");
 		$this->assertTrue(file_exists($newClassFilePath));
 		require_once($newClassFilePath);
@@ -59,12 +91,12 @@ class  Tx_PhpParser_Tests_Function_BuildObjectsTest extends Tx_PhpParser_Tests_B
 		$newNamespace = new Tx_PhpParser_Domain_Model_Namespace($nameSpaceName, TRUE);
 		$newClassName = 'Tx_PhpParser_Test_NewNamespacedClass';
 		$newClass = new Tx_PhpParser_Domain_Model_Class($newClassName, TRUE);
-		$newClass->setDocComment("This is a class created\nfrom scratch");
+		$newClass->setDescription("This is a class created\nfrom scratch");
 		$newClass->setTag('author','John Doe');
 		$newClass->setNamespaceName($nameSpaceName);
 		$newNamespace->addClass($newClass);
 		$newClassFileObject->addNamespace($newNamespace);
-		$newClassFilePath = $this->testDir . 'NewNamespacedClassFile.php';
+		$newClassFilePath = $this->testDir . 'NewNamespacedClass.php';
 		t3lib_div::writeFile($newClassFilePath,"<?php\n\n" . $this->printer->renderFileObject($newClassFileObject) . "\n?>");
 		$this->assertTrue(file_exists($newClassFilePath));
 		require_once($newClassFilePath);

@@ -65,7 +65,7 @@ class Tx_PhpParser_Domain_Model_Class extends Tx_PhpParser_Domain_Model_Containe
 	 * @param string $name
 	 * @return unknown_type
 	 */
-	public function __construct($name, $createNode = FALSE) {
+	public function __construct($name, $createNode = TRUE) {
 		$this->name = $name;
 		if($createNode) {
 			$this->node = Tx_PhpParser_Parser_NodeFactory::buildClassNode($name);
@@ -340,7 +340,7 @@ class Tx_PhpParser_Domain_Model_Class extends Tx_PhpParser_Domain_Model_Containe
 			$this->interfaceNames[] = $interfaceName;
 			if($updateNode) {
 				$interfaceNodes = $this->node->__get('implements');
-				$interfaceNodes[] = Tx_PhpParser_Parser_Utility_NodeConverter::getNodeFromName($interfaceName);
+				$interfaceNodes[] = Tx_PhpParser_Parser_NodeFactory::buildNodeFromName($interfaceName);
 				$this->node->__set('implements',$interfaceNodes);
 			}
 		}
@@ -371,7 +371,7 @@ class Tx_PhpParser_Domain_Model_Class extends Tx_PhpParser_Domain_Model_Containe
 		foreach($this->interfaceNames as $interfaceName) {
 			if($interfaceName != $interfaceNameToRemove){
 				$interfaceNames[] = $interfaceName;
-				$interfaceNodes[] = Tx_PhpParser_Parser_Utility_NodeConverter::getNodeFromName($interfaceName);
+				$interfaceNodes[] = Tx_PhpParser_Parser_NodeFactory::buildNodeFromName($interfaceName);
 			}
 		}
 		$this->node->__set('implements', $interfaceNodes);
@@ -386,7 +386,7 @@ class Tx_PhpParser_Domain_Model_Class extends Tx_PhpParser_Domain_Model_Containe
 	public function setParentClassName($parentClassName, $updateNode = TRUE) {
 		$this->parentClassName = $parentClassName;
 		if($updateNode) {
-			$this->node->__set('extends',Tx_PhpParser_Parser_Utility_NodeConverter::getNodeFromName($parentClassName));
+			$this->node->__set('extends',Tx_PhpParser_Parser_NodeFactory::buildNodeFromName($parentClassName));
 		}
 	}
 
@@ -422,7 +422,7 @@ class Tx_PhpParser_Domain_Model_Class extends Tx_PhpParser_Domain_Model_Containe
         //ksort($methods);
 
 		foreach ($this->constants as $name => $value) {
-			$stmts[] = Tx_PhpParser_Parser_Utility_NodeConverter::getConstantNodeFromNameValue($name, $value);
+			$stmts[] = Tx_PhpParser_Parser_NodeFactory::buildConstantNode($name, $value);
 		}
 
 	    foreach ($properties as $property) {

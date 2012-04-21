@@ -114,6 +114,7 @@ class Tx_PhpParser_Domain_Model_AbstractObject {
 		if($updateNodeName) {
 			$this->node->__set('name',$name);
 		}
+		return $this;
 	}
 
 	/**
@@ -190,6 +191,7 @@ class Tx_PhpParser_Domain_Model_AbstractObject {
 	 */
 	public function setModifiers($modifiers) {
 		$this->modifiers = $modifiers;
+		return $this;
 	}
 
 	/**
@@ -258,6 +260,9 @@ class Tx_PhpParser_Domain_Model_AbstractObject {
 					$this->docComment = $ignorable->__get('value');
 				}
 			}
+			if(empty($this->docComment)) {
+				$this->node->setIgnorables(array(new PHPParser_Node_Ignorable_DocComment('')));
+			}
 		}
 		if(!is_object($this->docCommentParser)) {
 		    // we don't use injection since the class parser might run before
@@ -306,8 +311,8 @@ class Tx_PhpParser_Domain_Model_AbstractObject {
 			} else {
 				$this->node->setIgnorables(array(new PHPParser_Node_Ignorable_DocComment($docComment)));
 			}
-
 		}
+		return $this;
 	}
 
 	/**
@@ -367,18 +372,10 @@ class Tx_PhpParser_Domain_Model_AbstractObject {
 	 * @param mixed $tagValue
 	 * @return void
 	 */
-	public function setTag($tagName, $tagValue, $override = TRUE) {
-		if (!$override && isset($this->tags[$tagName])) {
-			if (!is_array($this->tags[$tagName])) {
-				// build an array with the existing value as first element
-				$this->tags[$tagName] = array($this->tags[$tagName]);
-			}
-			$this->tags[$tagName][] = $tagValue;
-		}
-		else {
-			$this->tags[$tagName] = $tagValue;
-		}
+	public function setTag($tagName, $tagValue) {
+		$this->tags[$tagName] = $tagValue;
 		$this->updateDocComment();
+		return $this;
 	}
 
 	/**
@@ -424,6 +421,7 @@ class Tx_PhpParser_Domain_Model_AbstractObject {
 	public function setDescription($description) {
 		$this->description = $description;
 		$this->updateDocComment();
+		return $this;
 	}
 
 	/**
@@ -438,6 +436,7 @@ class Tx_PhpParser_Domain_Model_AbstractObject {
 	 */
 	public function setNamespaceName($namespace) {
 		$this->namespace = $namespace;
+		return $this;
 	}
 
 	/**
