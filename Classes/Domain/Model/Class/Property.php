@@ -112,6 +112,9 @@ class Tx_PhpParser_Domain_Model_Class_Property extends Tx_PhpParser_Domain_Model
 	 */
 	public function setVarType($varType) {
 		$this->varType = $varType;
+		if(is_array($this->tags['var'])) {
+			var_dump($this->tags['var']);
+		}
 		if(!isset($this->tags['var']) || strpos(strtolower($varType),strtolower($this->tags['var'])) === FALSE) {
 			// we use strpos since there might a a var annotation like "array $propertyName" or "array" or "Array"
 			$this->tags['var'] = $varType;

@@ -50,10 +50,10 @@ class Tx_PhpParser_Parser_DocCommentParser {
 	}
 
 	public function renderDocComment($tags, $description) {
-		$docComment = '/**' . LF;
+		$docComment = "/**\n";
 		if(!empty($description)) {
-			$docComment .= ' * ' . implode(LF . ' * ', t3lib_div::trimExplode(LF,$description, TRUE));
-			$docComment .= LF . ' *' . LF;
+			$docComment .= ' * ' . implode("\n" . ' * ', t3lib_div::trimExplode(LF,$description, TRUE));
+			$docComment .= "\n *\n";
 		}
 
 		$annotations = array();
@@ -72,7 +72,7 @@ class Tx_PhpParser_Parser_DocCommentParser {
 			}
 		}
 		foreach($annotations as $annotation) {
-			$docComment .= ' * @'.$annotation . LF;
+			$docComment .= ' * @'.$annotation . "\n";
 		}
 		$docComment .= ' */';
 		return $docComment;

@@ -141,7 +141,7 @@ class Tx_PhpParser_Parser_Visitor_FileVisitor extends PHPParser_NodeVisitorAbstr
 			$this->currentNamespace = NULL;
 			$this->currentContainer = $this->fileObject;
 		}
-		if(get_class($node) == get_class(end($this->contextStack))) {
+		if(count($this->contextStack) > 0 && get_class($node) == get_class(end($this->contextStack))) {
 			array_pop($this->contextStack);
 		}
 	}

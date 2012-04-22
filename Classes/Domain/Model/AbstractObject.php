@@ -295,9 +295,12 @@ class Tx_PhpParser_Domain_Model_AbstractObject {
 	 */
 	public function initDocComment() {
 		if(empty($this->docComment)) {
-			foreach($this->node->getIgnorables() as $ignorable) {
-				if($ignorable instanceof PHPParser_Node_Ignorable_DocComment) {
-					$this->docComment = $ignorable->__get('value');
+			$ignorables = $this->node->getIgnorables();
+			if(is_array($ignorables)) {
+				foreach($ignorables as $ignorable) {
+					if($ignorable instanceof PHPParser_Node_Ignorable_DocComment) {
+						$this->docComment = $ignorable->__get('value');
+					}
 				}
 			}
 			if(empty($this->docComment)) {
@@ -307,7 +310,7 @@ class Tx_PhpParser_Domain_Model_AbstractObject {
 		if(!is_object($this->docCommentParser)) {
 		    // we don't use injection since the class parser might run before
 			// any extbase object manager is loadable
-			$this->docCommentParser = t3lib_div::makeInstance('Tx_PhpParser_Parser_DocCommentParser');
+			$this->docCommentParser = new Tx_PhpParser_Parser_DocCommentParser;
 		}
 		$this->docCommentParser->parseDocComment($this->docComment);
 		$this->tags = $this->docCommentParser->getTags();

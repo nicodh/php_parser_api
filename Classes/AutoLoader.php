@@ -48,19 +48,17 @@ class Tx_PhpParser_Utility_AutoLoader {
     * @param string $class A class name.
     */
     static public function autoload($class){
-		//debug('Try to autoload ' . $class);
-	    if(0 === strpos($class, 'Tx_PhpParser_')) {
-		    $file = t3lib_extMgm::extPath('php_parser') . 'Classes/'  . strtr(str_replace('Tx_PhpParser_', '', $class), '_', '/') . '.php';
-		    if (is_file($file)) {
-			    require $file;
-		    }
-			//debug('Require ' . $file);
-	    } elseif(0 === strpos($class, 'PHPParser_')) {
-		    $file = t3lib_extMgm::extPath('php_parser') . 'Resources/Private/PHP/PHP-Parser/lib/'  . strtr($class, '_', '/') . '.php';
-		    if (is_file($file)) {
-			    require $file;
-		    }
-	    }
+	if(0 === strpos($class, 'Tx_PhpParser_')) {
+		$file = dirname(__FILE__) . '/'  . strtr(str_replace('Tx_PhpParser_', '', $class), '_', '/') . '.php';
+		if (is_file($file)) {
+			require $file;
+		}
+	} elseif(0 === strpos($class, 'PHPParser_')) {
+		$file =  str_replace('Classes', '', dirname(__FILE__)) . 'Resources/Private/PHP/PHP-Parser/lib/'  . strtr($class, '_', '/') . '.php';
+		if (is_file($file)) {
+			require $file;
+		}
+	}
     }
 }
 

@@ -45,7 +45,7 @@ class Tx_PhpParser_Domain_Model_Class extends Tx_PhpParser_Domain_Model_Containe
 	/**
 	 * methods
 	 *
-	 * @var string
+	 * @var array
 	 */
 	protected $methods = array();
 
@@ -56,6 +56,13 @@ class Tx_PhpParser_Domain_Model_Class extends Tx_PhpParser_Domain_Model_Containe
 	 * @var  string parentClassName
 	 */
 	protected $parentClassName = '';
+	
+	/**
+	 * properties
+	 *
+	 * @var array
+	 */
+	protected $properties = array();
 
 
 	/**

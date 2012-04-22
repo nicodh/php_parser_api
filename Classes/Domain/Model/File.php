@@ -138,7 +138,7 @@ class Tx_PhpParser_Domain_Model_File extends Tx_PhpParser_Domain_Model_Container
 	 * @param $parentObject either a file object or a namespace object
 	 */
 	protected function addSubStatements($parentObject) {
-		foreach ($parentObject->getConstants as $name => $value) {
+		foreach ($parentObject->getConstants() as $name => $value) {
 			$stmts[] = Tx_PhpParser_Parser_Utility_NodeConverter::getConstantNodeFromNameValue($name, $value);
 		}
 
