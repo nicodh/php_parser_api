@@ -44,7 +44,6 @@ class Tx_PhpParser_Service_Printer extends PHPParser_PrettyPrinter_TYPO3CGL {
 		if(!is_array($stmts)) {
 			$stmts = array($stmts);
 		}
-		//t3lib_utility_Debug::debugInPopUpWindow($stmts);
 		return $this->prettyPrint($stmts);
 	}
 

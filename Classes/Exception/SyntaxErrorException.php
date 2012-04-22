@@ -27,7 +27,7 @@
  *
  * @package php_parser
  */
-class Tx_PhpParser_Exception_SyntaxErrorException extends Tx_Extbase_Exception {
+class Tx_PhpParser_Exception_SyntaxErrorException extends Exception {
 
 }
 

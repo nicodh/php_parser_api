@@ -57,7 +57,7 @@ class Tx_PhpParser_Parser_Utility_NodeConverter {
              . ($modifiers & PHPParser_Node_Stmt_Class::MODIFIER_STATIC    ? 'static '    : '')
              . ($modifiers & PHPParser_Node_Stmt_Class::MODIFIER_ABSTRACT  ? 'abstract '  : '')
              . ($modifiers & PHPParser_Node_Stmt_Class::MODIFIER_FINAL     ? 'final '     : '');
-		return t3lib_div::trimExplode(' ',trim($modifierString));
+		return explode(' ',trim($modifierString));
     }
 
 

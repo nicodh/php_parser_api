@@ -28,6 +28,7 @@
  * @author Nico de Haen
  */
 
+
 require_once(dirname(__FILE__) . '/DummyIncludeFile1.php');
 
 abstract class Tx_PhpParser_Tests_ClassWithIncludeStatement {

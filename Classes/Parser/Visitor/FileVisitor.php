@@ -121,9 +121,6 @@ class Tx_PhpParser_Parser_Visitor_FileVisitor extends PHPParser_NodeVisitorAbstr
 					$currentNamespaceName = Tx_PhpParser_Parser_Utility_NodeConverter::getValueFromNode(end($this->contextStack));
 					$this->currentClassObject->setNamespaceName($currentNamespaceName);
 					$this->currentNamespace->addClass($this->currentClassObject);
-					$this->fileObject->addNamespace($this->currentNamespace);
-					$this->currentNamespace = NULL;
-					$this->currentContainer = $this->fileObject;
 				}
 			} else {
 				$this->fileObject->addClass($this->currentClassObject);
@@ -138,7 +135,12 @@ class Tx_PhpParser_Parser_Visitor_FileVisitor extends PHPParser_NodeVisitorAbstr
 				$this->currentContainer->addPostInclude($node);
 			}
 
-		} 
+		} elseif($node instanceof PHPParser_Node_Stmt_Namespace) {
+			array_pop($this->contextStack);
+			$this->fileObject->addNamespace($this->currentNamespace);
+			$this->currentNamespace = NULL;
+			$this->currentContainer = $this->fileObject;
+		}
 		if(get_class($node) == get_class(end($this->contextStack))) {
 			array_pop($this->contextStack);
 		}

@@ -119,7 +119,7 @@ class  Tx_PhpParser_Tests_Function_ModifyObjectsTest extends Tx_PhpParser_Tests_
 		$newName = 'Tx_PhpParser_Tests_NewName';
 		$classFileObject = $this->parseFile('SimpleProperty.php');
 		$classFileObject->getFirstClass()->setName($newName);
-		$newClassFilePath = $this->testDir . $newName . '.php';
+		$newClassFilePath = $this->testDir . 'RenamedClass.php';
 		t3lib_div::writeFile($newClassFilePath,"<?php\n\n" . $this->printer->renderFileObject($classFileObject) . "\n?>");
 		$reflectedClass = $this->compareClasses($classFileObject, $newClassFilePath);
 		$this->assertEquals($reflectedClass->getName(), $newName);
@@ -130,7 +130,7 @@ class  Tx_PhpParser_Tests_Function_ModifyObjectsTest extends Tx_PhpParser_Tests_
 	 *
 	 */
 	function renameClassMethodTest() {
-		$newFileName = 'renameClassMethodTest';
+		$newFileName = 'ClassWithRenamedMethod';
 		$classFileObject = $this->parseFile('SimplePropertyWithGetterAndSetter.php');
 		$classFileObject->getFirstClass()->getMethod('getProperty')->setName('getNewName');
 		$newClassFilePath = $this->testDir . $newFileName . '.php';

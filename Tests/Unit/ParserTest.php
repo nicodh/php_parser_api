@@ -36,12 +36,16 @@ class Tx_PhpParser_Tests_Unit_ParserTest extends Tx_PhpParser_Tests_BaseTest {
 	 * @test
 	 */
 	function parseSimpleProperty() {
-		$this->parser->setTraverser(new Tx_PhpParser_Parser_Traverser);
 		$classFileObject = $this->parseFile('SimpleProperty.php');
-		$this->assertEquals(count($classFileObject->getFirstClass()->getMethods()), 0);
-		$this->assertEquals(count($classFileObject->getFirstClass()->getProperties()), 1);
-		$this->assertEquals($classFileObject->getFirstClass()->getProperty('property')->getValue(),'foo');
-		$this->assertEquals($classFileObject->getFirstClass()->getProperty('property')->getModifierNames(), array('protected'));
+		$this->assertEquals(count($classFileObject->getClasses()),1);
+		$classObject = $classFileObject->getFirstClass();
+		$this->assertEquals(count($classObject->getMethods()), 0);
+		$this->assertEquals(count($classObject->getProperties()), 1);
+		$this->assertEquals($classObject->getProperty('property')->getValue(),'foo');
+		$this->assertEquals($classObject->getProperty('property')->getModifierNames(), array('protected'));
+		$this->assertTrue($classObject->isTaggedWith('author'));
+		$this->assertTrue($classObject->getProperty('property')->isTaggedWith('var'));
+
 	}
 
 	/**

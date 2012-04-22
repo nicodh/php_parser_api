@@ -42,7 +42,7 @@ class  Tx_PhpParser_Tests_Function_BuildObjectsTest extends Tx_PhpParser_Tests_B
 		$newClass->setDescription("This is a class created\nfrom scratch")
 			->setTag('author','John Doe');
 		$newClassFileObject->addClass($newClass);
-		$newClassFilePath = $this->testDir . 'NewClass.php';
+		$newClassFilePath = $this->testDir . 'NewClassFromScratch.php';
 		t3lib_div::writeFile($newClassFilePath,"<?php\n\n" . $this->printer->renderFileObject($newClassFileObject) . "\n?>");
 		$this->assertTrue(file_exists($newClassFilePath));
 		require_once($newClassFilePath);
@@ -139,7 +139,7 @@ class  Tx_PhpParser_Tests_Function_BuildObjectsTest extends Tx_PhpParser_Tests_B
 		$newClass = new Tx_PhpParser_Domain_Model_Class($newClassName, TRUE);
 		$newClass->addMethod($getPropertyMethod);
 		$newClassFileObject->addClass($newClass);
-		$newClassFilePath = $this->testDir . $newClassName . '.php';
+		$newClassFilePath = $this->testDir . 'NewClassWithTemplateMethod.php';
 		t3lib_div::writeFile($newClassFilePath,"<?php\n\n" . $this->printer->renderFileObject($newClassFileObject) . "\n?>");
 		$this->assertTrue(file_exists($newClassFilePath));
 		require_once($newClassFilePath);
