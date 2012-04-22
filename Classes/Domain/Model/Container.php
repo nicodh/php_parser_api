@@ -35,9 +35,9 @@ class Tx_PhpParser_Domain_Model_Container extends Tx_PhpParser_Domain_Model_Abst
 	/**
 	 * constants
 	 *
-	 * @var string
+	 * @var array
 	 */
-	protected $constants;
+	protected $constants = array();
 
 	/**
 	 * @var array
@@ -82,6 +82,7 @@ class Tx_PhpParser_Domain_Model_Container extends Tx_PhpParser_Domain_Model_Abst
 	 */
 	public function setClasses($classes) {
 		$this->classes = $classes;
+		return $this;
 	}
 
 	/**
@@ -95,11 +96,13 @@ class Tx_PhpParser_Domain_Model_Container extends Tx_PhpParser_Domain_Model_Abst
 	/**
 	 * Setter for a single constant
 	 *
-	 * @param string $constant constant
+	 * @param string $name
+	 * @param mixed $value
 	 * @return void
 	 */
 	public function setConstant($name, $value) {
 		$this->constants[$name] = $value;
+		return $this;
 	}
 
 
@@ -148,7 +151,7 @@ class Tx_PhpParser_Domain_Model_Container extends Tx_PhpParser_Domain_Model_Abst
 	}
 
 	public function addPreInclude($preInclude) {
-		$this->preInclude[] = $preInclude;
+		$this->preIncludes[] = $preInclude;
 	}
 
 	public function getPreIncludes() {

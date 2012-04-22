@@ -99,6 +99,7 @@ class Tx_PhpParser_Domain_Model_Class extends Tx_PhpParser_Domain_Model_Containe
 	 */
 	public function setMethods(array $methods) {
 		$this->methods = $methods;
+		return $this;
 	}
 
 	/**
@@ -109,6 +110,7 @@ class Tx_PhpParser_Domain_Model_Class extends Tx_PhpParser_Domain_Model_Containe
 	 */
 	public function setMethod(Tx_PhpParser_Domain_Model_Class_Method $classMethod) {
 		$this->methods[$classMethod->getName()] = $classMethod;
+		return $this;
 	}
 
 	/**
@@ -143,6 +145,7 @@ class Tx_PhpParser_Domain_Model_Class extends Tx_PhpParser_Domain_Model_Containe
 		if (!$this->methodExists($classMethod->getName())) {
 			$this->methods[$classMethod->getName()] = $classMethod;
 		}
+		return $this;
 	}
 
 	/**
@@ -237,6 +240,7 @@ class Tx_PhpParser_Domain_Model_Class extends Tx_PhpParser_Domain_Model_Containe
 	 */
 	public function setProperties($properties) {
 		$this->properties = $properties;
+		return $this;
 	}
 
 	/**
@@ -327,6 +331,7 @@ class Tx_PhpParser_Domain_Model_Class extends Tx_PhpParser_Domain_Model_Containe
 	 */
 	public function setProperty($classProperty) {
 		$this->properties[$classProperty->getName()] = $classProperty;
+		return $this;
 	}
 
 
@@ -365,6 +370,9 @@ class Tx_PhpParser_Domain_Model_Class extends Tx_PhpParser_Domain_Model_Containe
 		return in_array($interfaceName, $this->interfaceNames);
 	}
 
+	/**
+	 * @param $interfaceNameToRemove
+	 */
 	public function removeInterface( $interfaceNameToRemove) {
 		$interfaceNames = array();
 		$interfaceNodes = array();
@@ -388,6 +396,7 @@ class Tx_PhpParser_Domain_Model_Class extends Tx_PhpParser_Domain_Model_Containe
 		if($updateNode) {
 			$this->node->__set('extends',Tx_PhpParser_Parser_NodeFactory::buildNodeFromName($parentClassName));
 		}
+		return $this;
 	}
 
 	/**
@@ -437,34 +446,29 @@ class Tx_PhpParser_Domain_Model_Class extends Tx_PhpParser_Domain_Model_Containe
 	}
 
 	/**
-	 * getInfo
-	 *
-	 * @return
+	 * @param string $modifierName
+	 * @return Tx_PhpParser_Domain_Model_AbstractObject (for fluid interface)
+	 * @throws Tx_PhpParser_Exception_SyntaxErrorException
 	 */
-	public function getInfo() {
-		$infoArray = array();
-		$infoArray['className'] = $this->getName();
-		$infoArray['fileName'] = $this->getFileName();
-
-		$methodArray = array();
-		foreach ($this->getMethods() as $method) {
-			$methodArray[$method->getName()] = array(
-				'parameter' => $method->getParameters()
-			);
-			//'body'=>$method->getBody()
+	public function addModifier($modifierName) {
+		if(!in_array($modifierName, array('final','abstract'))) {
+			throw new Tx_PhpParser_Exception_SyntaxErrorException($modifierName . ' modifier can\'t be applied to classes');
+		} else {
+			return parent::addModifier($modifierName);
 		}
-		$infoArray['Methods'] = $methodArray;
-		//$infoArray['Inherited Methods'] = count($this->getInheritedMethods());
-		//$infoArray['Not inherited Methods'] = count($this->getNotInheritedMethods());
-		$infoArray['Properties'] = $this->getProperties();
-		//$infoArray['Inherited Properties'] = count($this->getInheritedProperties());
-		//$infoArray['Not inherited Properties'] = count($this->getNotInheritedProperties());
-		$infoArray['Constants'] = $this->getConstants();
-		$infoArray['Modifiers'] = $this->getModifierNames();
-		$infoArray['Tags'] = $this->tags;
-		//$infoArray['Methods'] = count($this->getMethods());
-		$infoArray['node'] = $this->getNode();
-		return $infoArray;
+	}
+
+	/**
+	 * @param string $modifierName
+	 * @return Tx_PhpParser_Domain_Model_AbstractObject (for fluid interface)
+	 * @throws Tx_PhpParser_Exception_SyntaxErrorException
+	 */
+	public function setModifier($modifierName) {
+		if(!in_array($modifierName, array('final','abstract'))) {
+			throw new Tx_PhpParser_Exception_SyntaxErrorException($modifierName . ' modifier can\'t be applied to classes');
+		} else {
+			return parent::setModifier($modifierName);
+		}
 	}
 
 }

@@ -30,6 +30,12 @@
 
 class Tx_PhpParser_Parser_Utility_NodeConverter {
 
+	public static $accessorModifiers = array(
+		PHPParser_Node_Stmt_Class::MODIFIER_PUBLIC,
+		PHPParser_Node_Stmt_Class::MODIFIER_PROTECTED,
+		PHPParser_Node_Stmt_Class::MODIFIER_PRIVATE
+	);
+
 	public static function getTypeHintFromVarType ($varType) {
 		if(in_array(strtolower($varType), array('int', 'double', 'float', 'boolean', 'bool', 'string'))) {
 			return '';
@@ -55,6 +61,14 @@ class Tx_PhpParser_Parser_Utility_NodeConverter {
     }
 
 
+	/**
+	 * Convert various PHPParser_Nodes to the value they represent
+	 * //TODO: support more node types?
+	 *
+	 * @static
+	 * @param $node
+	 * @return array|null|string
+	 */
 	public static function getValueFromNode($node) {
 		if($node instanceof PHPParser_Node_Stmt_Namespace) {
 			return implode('\\',$node->__get('name')->__get('parts'));
@@ -62,16 +76,36 @@ class Tx_PhpParser_Parser_Utility_NodeConverter {
 			return implode(' ',$node->__get('parts'));
 		} elseif($node instanceof PHPParser_Node_Expr_ConstFetch) {
 			return self::getValueFromNode($node->__get('name'));
+		} elseif($node instanceof PHPParser_Node_Expr_Array) {
+			$value = array();
+			$arrayItems = $node->__get('items');
+			foreach($arrayItems as $arrayItemNode) {
+				$itemKey = $arrayItemNode->__get('key');
+				$itemValue = $arrayItemNode->__get('value');
+				if(is_null($itemKey)) {
+					$value[] = self::getValueFromNode($itemValue);
+				} else {
+					$value[self::getValueFromNode($itemKey)] = self::getValueFromNode($itemValue);
+				}
+			}
+			return $value;
 		} elseif($node instanceof PHPParser_Node) {
 			return $node->__get('value');
 		} else {
 			return NULL;
 		}
-		//TODO: support more node types
 	}
 
 
-	public static function convertClassConstantNodeToArray(PHPParser_Node_Stmt_ClassConst $node) {
+	/**
+	 * Constants consist of a simple key => value array in the API
+	 * This methods converts ClassConst
+	 *
+	 * @static
+	 * @param PHPParser_Node_Stmt_ClassConst or PHPParser_Node_Stmt_Const $node
+	 * @return array
+	 */
+	public static function convertClassConstantNodeToArray(PHPParser_Node_Stmt $node) {
 		$constantsArray = array();
 		$consts = $node->__get('consts');
 		foreach($consts as $const) {

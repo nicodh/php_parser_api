@@ -38,8 +38,33 @@ class Tx_PhpParser_Tests_Unit_ParserTest extends Tx_PhpParser_Tests_BaseTest {
 	function parseSimpleProperty() {
 		$this->parser->setTraverser(new Tx_PhpParser_Parser_Traverser);
 		$classFileObject = $this->parseFile('SimpleProperty.php');
+		$this->assertEquals(count($classFileObject->getFirstClass()->getMethods()), 0);
+		$this->assertEquals(count($classFileObject->getFirstClass()->getProperties()), 1);
+		$this->assertEquals($classFileObject->getFirstClass()->getProperty('property')->getValue(),'foo');
+		$this->assertEquals($classFileObject->getFirstClass()->getProperty('property')->getModifierNames(), array('protected'));
+	}
+
+	/**
+	 * @test
+	 */
+	function parseSimplePropertyWithGetterAndSetter() {
+		$this->parser->setTraverser(new Tx_PhpParser_Parser_Traverser);
+		$classFileObject = $this->parseFile('SimplePropertyWithGetterAndSetter.php');
 		$this->assertEquals(count($classFileObject->getFirstClass()->getMethods()), 2);
-		$this->assertEquals(count($classFileObject->getFirstClass()->getProperties()), 2);
+		$this->assertEquals(count($classFileObject->getFirstClass()->getProperties()), 1);
+		$this->assertEquals($classFileObject->getFirstClass()->getProperty('property')->getValue(),'foo');
+		$this->assertEquals($classFileObject->getFirstClass()->getProperty('property')->getModifierNames(), array('protected'));
+	}
+
+	/**
+	 * @test
+	 */
+	function parseArrayProperty() {
+		$this->parser->setTraverser(new Tx_PhpParser_Parser_Traverser);
+		$classFileObject = $this->parseFile('ClassWithArrayProperty.php');
+		$this->assertEquals(count($classFileObject->getFirstClass()->getProperties()), 1);
+		$this->assertNotEquals($classFileObject->getFirstClass()->getProperty('property')->getValue(),array('a' => 'b','5' => 1223,'foo' => array('foo' => 'bar'),array(1,4,3)));
+		$this->assertEquals($classFileObject->getFirstClass()->getProperty('property')->getValue(),array('a' => 'b','5' => 1223,'foo' => array('foo' => 'bar'),array(1,2,3)));
 		$this->assertEquals($classFileObject->getFirstClass()->getProperty('property')->getModifierNames(), array('protected'));
 	}
 
@@ -66,22 +91,32 @@ class Tx_PhpParser_Tests_Unit_ParserTest extends Tx_PhpParser_Tests_BaseTest {
 	/**
 	 * @test
 	 */
-	function findClassModifier() {
-		$classFileObject = $this->parseFile('SimpleProperty.php');
+	function parseClassWithVariousModifiers() {
+		$classFileObject = $this->parseFile('ClassWithVariousModifiers.php');
 		$classObject = $classFileObject->getFirstClass();
 		$this->assertTrue($classObject->isAbstract());
 
-		$this->assertTrue($classObject->getProperty('test')->isPrivate());
-		$this->assertFalse($classObject->getProperty('test')->isPublic());
-
-		$this->assertTrue($classObject->getProperty('property')->isProtected());
-		$this->assertFalse($classObject->getProperty('property')->isPublic());
-		$this->assertTrue($classObject->getMethod('getProperty')->isPublic());
-		$this->assertFalse($classObject->getMethod('getProperty')->isPrivate());
-		$this->assertFalse($classObject->getMethod('getProperty')->isStatic());
+		$this->assertTrue($classObject->getProperty('publicProperty')->isPublic());
+		$this->assertTrue($classObject->getProperty('protectedProperty')->isProtected());
+		$this->assertTrue($classObject->getProperty('privateProperty')->isPrivate());
+		$this->assertFalse($classObject->getProperty('publicProperty')->isProtected());
+		$this->assertFalse($classObject->getProperty('privateProperty')->isPublic());
+		$this->assertTrue($classObject->getMethod('abstractMethod')->isAbstract());
+		$this->assertTrue($classObject->getMethod('staticFinalFunction')->isStatic());
+		$this->assertTrue($classObject->getMethod('staticFinalFunction')->isFinal());
 	}
 
-
+	/**
+	 * @test
+	 */
+	function parserFindsFunction() {
+		$fileObject = $this->parseFile('FunctionsWithoutClasses.php');
+		$functions = $fileObject->getFunctions();
+		$this->assertEquals(count($functions),2);
+		$this->assertTrue(isset($functions['simpleFunction']));
+		$this->assertEquals(count($fileObject->getFunction('functionWithParameter')->getParameters()),2);
+		$this->assertEquals($fileObject->getFunction('functionWithParameter')->getParameterByPosition(1)->getName(),'bar');
+	}
 }
 
 ?>

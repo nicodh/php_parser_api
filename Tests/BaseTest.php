@@ -77,7 +77,7 @@ abstract class Tx_PhpParser_Tests_BaseTest extends Tx_Extbase_Tests_Unit_BaseTes
 		}
 		$this->assertTrue(class_exists($className), 'Class "' . $className . '" does not exist! Tried ' . $classFilePath);
 		$reflectedClass = new ReflectionClass($className);
-		$this->assertEquals(count($reflectedClass->getMethods()), count($classObject->getMethods()));
+		$this->assertEquals(count($reflectedClass->getMethods()), count($classObject->getMethods()), 'Method count does not match');
 		$this->assertEquals(count($reflectedClass->getProperties()), count($classObject->getProperties()));
 		$this->assertEquals(count($reflectedClass->getConstants()), count($classObject->getConstants()));
 		if(strlen($classObject->getNamespaceName()) > 0 ) {

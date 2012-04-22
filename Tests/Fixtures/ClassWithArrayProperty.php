@@ -27,25 +27,20 @@
  * @package
  * @author Nico de Haen
  */
-namespace Test\Model;
 
-require_once(dirname(dirname(__FILE__)) . '/DummyIncludeFile1.php');
+abstract class Tx_PhpParser_Tests_ArrayProperty {
 
-class Tx_PhpParser_Tests_MultipleNamespaces {
+	/**
+	 * @var array
+	 */
+	protected $property = array(
+								'a' => 'b',
+								'5' => 1223,
+								'foo' => array(
+									'foo' => 'bar'
+								),
+								array(1,2,3)
+						);
 
-}
-
-/**
- * This is another namespace
- */
-namespace Test\Model2;
-require_once dirname(dirname(__FILE__)) . '/DummyIncludeFile1.php';
-/**
- * This is my doc comment
- *
- * @author Nico de Haen
- *
- */
-class Tx_PhpParser_Tests_MultipleNamespaces {
 
 }

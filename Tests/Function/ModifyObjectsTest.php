@@ -36,11 +36,79 @@ class  Tx_PhpParser_Tests_Function_ModifyObjectsTest extends Tx_PhpParser_Tests_
 	 * @test
 	 */
 	function changeClassModifier() {
+		$classFileObject = $this->parseFile('SimpleProperty.php');
+		$classObject = $classFileObject->getFirstClass();
+		$classObject->setName('Tx_PhpParser_Tests_ClassWithChangedModifiers');
+		$this->assertTrue($classObject->isAbstract());
+		$classObject->removeModifier('abstract');
+		$this->assertFalse($classObject->isAbstract());
+		$classObject->addModifier('final');
+		$this->assertTrue($classObject->isFinal());
+		$this->assertTrue($classObject->getProperty('property')->isProtected());
+		$classObject->getProperty('property')->setModifier('public');
+		$this->assertTrue($classObject->getProperty('property')->isPublic());
+		$newClassFilePath = $this->testDir . 'SimplePropertyWithChangedModifiers.php';
+		t3lib_div::writeFile($newClassFilePath,"<?php\n\n" . $this->printer->renderFileObject($classFileObject) . "\n?>");
+		$reflectedClass = $this->compareClasses($classFileObject, $newClassFilePath);
+		$this->assertTrue($reflectedClass->isFinal());
+		$this->assertTrue($reflectedClass->getProperty('property')->isPublic());
+	}
+
+	/**
+	 * @test
+	 *  @expectedException Tx_PhpParser_Exception_SyntaxErrorException
+	 */
+	function addStaticModifierToClassThrowsException() {
+		$classFileObject = $this->parseFile('SimpleProperty.php');
+		$classObject = $classFileObject->getFirstClass();
+		$classObject->addModifier('static');
+	}
+
+	/**
+	 * @test
+	 *  @expectedException Tx_PhpParser_Exception_SyntaxErrorException
+	 */
+	function addPublicModifierToClassThrowsException() {
+		$classFileObject = $this->parseFile('SimpleProperty.php');
+		$classObject = $classFileObject->getFirstClass();
+		$classObject->addModifier('public');
+	}
+
+	/**
+	 * @test
+	 * @expectedException Tx_PhpParser_Exception_SyntaxErrorException
+	 */
+	function addingAbstractModifierToFinalClassThrowsException() {
 		$classObject = $this->parseFile('SimpleProperty.php')->getFirstClass();
 		$this->assertTrue($classObject->isAbstract());
-		$classObject->addModifier('static');
-		$this->assertTrue($classObject->isStatic());
-		$this->assertTrue($classObject->getProperty('test')->isPrivate());
+		$classObject->setModifier('final');
+	}
+
+	/**
+	 * @test
+	 *
+	 * @expectedRuntimeException PHPParser_Error
+	 * @expectedException Tx_PhpParser_Exception_SyntaxErrorException
+	 */
+	function addingMultipleAccessModifiersThrowsException() {
+		$classObject = $this->parseFile('SimpleProperty.php')->getFirstClass();
+		$this->assertTrue($classObject->getProperty('property')->isProtected());
+		$classObject->getProperty('property')->addModifier('public');
+	}
+
+	/**
+	 * @test
+	 *
+	 */
+	function removeAllModifiersFromClass() {
+		$newName = 'ClassWithoutModifiers';
+		$classFileObject = $this->parseFile('SimplePropertyWithGetterAndSetter.php');
+		$classFileObject->getFirstClass()->setName('Tx_PhpParser_Tests_ClassWithRemovedModifiers');
+		$classFileObject->getFirstClass()->removeAllModifiers();
+		$newClassFilePath = $this->testDir . $newName . '.php';
+		t3lib_div::writeFile($newClassFilePath,"<?php\n\n" . $this->printer->renderFileObject($classFileObject) . "\n?>");
+		$reflectedClass = $this->compareClasses($classFileObject, $newClassFilePath);
+		$this->assertFalse($reflectedClass->isAbstract());
 	}
 
 	/**
@@ -62,26 +130,13 @@ class  Tx_PhpParser_Tests_Function_ModifyObjectsTest extends Tx_PhpParser_Tests_
 	 *
 	 */
 	function renameClassMethodTest() {
-		$newFileName = 'Tx_PhpParser_Tests_CopyAndRenameClassMethodTest';
-		$classFileObject = $this->parseFile('SimpleProperty.php');
+		$newFileName = 'renameClassMethodTest';
+		$classFileObject = $this->parseFile('SimplePropertyWithGetterAndSetter.php');
 		$classFileObject->getFirstClass()->getMethod('getProperty')->setName('getNewName');
 		$newClassFilePath = $this->testDir . $newFileName . '.php';
 		t3lib_div::writeFile($newClassFilePath,"<?php\n\n" . $this->printer->renderFileObject($classFileObject) . "\n?>");
 		$reflectedClass = $this->compareClasses($classFileObject, $newClassFilePath);
 		$this->assertTrue($reflectedClass->hasMethod('getNewName'));
-	}
-
-
-	/**
-	 * @test
-	 *
-	 * @expectedRuntimeException PHPParser_Error
-	 * @expectedException Tx_PhpParser_Exception_SyntaxErrorException
-	 */
-	function addingMultipleAccessModifiersThrowsException() {
-		$classObject = $this->parseFile('SimpleProperty.php')->getFirstClass();
-		$this->assertTrue($classObject->getProperty('test')->isPrivate());
-		$classObject->getProperty('test')->addModifier('public');
 	}
 
 

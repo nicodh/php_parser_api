@@ -44,7 +44,6 @@ class Tx_PhpParser_Tests_Unit_PrinterTest extends Tx_PhpParser_Tests_BaseTest {
 		$fileName = 'ClassWithMultipleProperties.php';
 		$classFileObject = $this->parseAndWrite($fileName);
 		$this->compareClasses($classFileObject, $this->testDir . $fileName);
-		die();
 	}
 
 	/**
@@ -77,6 +76,18 @@ class Tx_PhpParser_Tests_Unit_PrinterTest extends Tx_PhpParser_Tests_BaseTest {
 		// No way to detect the typeHint with Reflection...
 
 	}
+
+	/**
+	 * @test
+	 */
+	public function printClassWithIncludeStatement() {
+		$fileName = 'ClassWithIncludeStatement.php';
+		//$this->assertTrue(copy($this->testDir.'DummyIncludeFile.php',$this->testDir.'tmp/DummyIncludeFile.php'));
+		$classFileObject = $this->parseAndWrite($fileName);
+		$reflectedClass = $this->compareClasses($classFileObject, $this->testDir . $fileName);
+
+	}
+
 
 	/**
 	 * @test
@@ -124,6 +135,24 @@ class Tx_PhpParser_Tests_Unit_PrinterTest extends Tx_PhpParser_Tests_BaseTest {
 		$newClassFilePath = $this->testDir . $fileName;
 		t3lib_div::writeFile($newClassFilePath,"<?php\n\n" . $this->printer->renderFileObject($classFileObject) . "\n?>");
 		return $classFileObject;
+	}
+
+	/**
+	 * @test
+	 */
+	function printFileWithFunction() {
+		$fileObject = $this->parseFile('FunctionsWithoutClasses.php');
+		$newFilePath = $this->testDir . 'FunctionsWithoutClasses.php';
+		t3lib_div::writeFile($newFilePath,"<?php\n\n" . $this->printer->renderFileObject($fileObject) . "\n?>");
+	}
+
+	/**
+	 * @test
+	 */
+	function printFileWithNamespacedFunction() {
+		$fileObject = $this->parseFile('Namespaces/FunctionsWithoutClasses.php');
+		$newFilePath = $this->testDir . 'NamespacedFunctions.php';
+		t3lib_div::writeFile($newFilePath,"<?php\n\n" . $this->printer->renderFileObject($fileObject) . "\n?>");
 	}
 
 }

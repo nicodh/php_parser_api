@@ -149,6 +149,11 @@ class Tx_PhpParser_Domain_Model_File extends Tx_PhpParser_Domain_Model_Container
 		foreach($parentObject->getClasses() as $class) {
 			$this->stmts[] = $class->getNode();
 		}
+
+		foreach($parentObject->getFunctions() as $function) {
+			$this->stmts[] = $function->getNode();
+		}
+
 		foreach($this->getPostIncludes() as $postInclude) {
 			$this->stmts[] = $postInclude;
 		}

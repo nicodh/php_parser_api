@@ -75,7 +75,7 @@ class Tx_PhpParser_Domain_Model_Class_Property extends Tx_PhpParser_Domain_Model
 	 * @param mixed
 	 * @return
 	 */
-	public function setValue($value, $updateNode = TRUE) {
+	public function setValue($value, $updateNode = TRUE, $updateVarType = TRUE) {
 		$this->value = $value;
 		if($updateNode) {
 			$props = $this->node->__get('props');
@@ -83,7 +83,12 @@ class Tx_PhpParser_Domain_Model_Class_Property extends Tx_PhpParser_Domain_Model
 			$props[0]->__set('default',$valueNode);
 			$this->node->__set('props',$props);
 		}
-		$this->setTag('var', gettype($value));
+		if($updateVarType) {
+			$varType = Tx_PhpParser_Parser_Utility_NodeConverter::getVarTypeFromValue($value);
+			if(!empty($varType)) {
+				$this->setVarType($varType);
+			}
+		}
 		return $this;
 	}
 
@@ -107,6 +112,11 @@ class Tx_PhpParser_Domain_Model_Class_Property extends Tx_PhpParser_Domain_Model
 	 */
 	public function setVarType($varType) {
 		$this->varType = $varType;
+		if(!isset($this->tags['var']) || strpos(strtolower($varType),strtolower($this->tags['var'])) === FALSE) {
+			// we use strpos since there might a a var annotation like "array $propertyName" or "array" or "Array"
+			$this->tags['var'] = $varType;
+		}
+		return $this;
 	}
 
 	/**

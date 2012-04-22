@@ -27,25 +27,15 @@
  * @package
  * @author Nico de Haen
  */
-namespace Test\Model;
 
-require_once(dirname(dirname(__FILE__)) . '/DummyIncludeFile1.php');
+interface Tx_PhpParser_Parser_Visitor_FileVisitorInterface {
 
-class Tx_PhpParser_Tests_MultipleNamespaces {
 
-}
+	public function getFileObject();
 
-/**
- * This is another namespace
- */
-namespace Test\Model2;
-require_once dirname(dirname(__FILE__)) . '/DummyIncludeFile1.php';
-/**
- * This is my doc comment
- *
- * @author Nico de Haen
- *
- */
-class Tx_PhpParser_Tests_MultipleNamespaces {
+	/**
+	 * @param \Tx_PhpParser_Parser_ClassFactoryInterface $classFactory
+	 */
+	public function setClassFactory($classFactory);
 
 }

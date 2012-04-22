@@ -28,14 +28,40 @@
  * @author Nico de Haen
  */
 
-interface Tx_PhpParser_Parser_Visitor_ClassFileVisitorInterface {
-
-
-	public function getFileObject();
+abstract class Tx_PhpParser_Tests_ClassWithVariousModifiers {
 
 	/**
-	 * @param \Tx_PhpParser_Parser_ClassFactoryInterface $classFactory
+	 * @var string
 	 */
-	public function setClassFactory($classFactory);
+	public $publicProperty;
+
+	/**
+	 * @var string
+	 */
+	protected $protectedProperty;
+
+	/**
+	 * @var string
+	 */
+	private $privateProperty;
+
+	/**
+	 * @var string
+	 */
+	static $staticProperty;
+
+	/**
+	 * @abstract
+	 * @return mixed
+	 */
+	abstract function abstractMethod();
+
+	/**
+	 * @static
+	 *
+	 */
+	static final function staticFinalFunction() {
+
+	}
 
 }

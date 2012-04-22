@@ -70,9 +70,7 @@ class Tx_PhpParser_Parser_ClassFactory implements Tx_PhpParser_Parser_ClassFacto
 		$propertyObject->setNode($propertyNode);
 		$propertyObject->initDocComment();
 		if(NULL !== $propertyDefault) {
-			var_dump(get_class($propertyDefault));
-			var_dump(Tx_PhpParser_Parser_Utility_NodeConverter::getValueFromNode(($propertyDefault)));
-			$propertyObject->setValue(Tx_PhpParser_Parser_Utility_NodeConverter::getValueFromNode($propertyDefault), FALSE);
+			$propertyObject->setValue(Tx_PhpParser_Parser_Utility_NodeConverter::getValueFromNode($propertyDefault), FALSE, $propertyObject->isTaggedWith('var'));
 		}
 		return $propertyObject;
 	}

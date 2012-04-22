@@ -40,9 +40,9 @@
 class Tx_PhpParser_Service_Parser extends PHPParser_Parser {
 
 	/**
-	 * @var PHPParser_NodeVisitor
+	 * @var Tx_PhpParser_Parser_Visitor_FileVisitorInterface
 	 */
-	protected $classFileVisitor = NULL;
+	protected $fileVisitor = NULL;
 
 	/**
 	 * @var Tx_Php_Parser_TraverserInterface
@@ -66,16 +66,16 @@ class Tx_PhpParser_Service_Parser extends PHPParser_Parser {
 		if(NULL === $this->traverser) {
 			$this->traverser = new Tx_PhpParser_Parser_Traverser;
 		}
-		if(NULL === $this->classFileVisitor) {
-			$this->classFileVisitor = new Tx_PhpParser_Parser_Visitor_ClassFileVisitor;
+		if(NULL === $this->fileVisitor) {
+			$this->fileVisitor = new Tx_PhpParser_Parser_Visitor_FileVisitor;
 		}
 		if(NULL === $this->classFactory) {
 			$this->classFactory = new Tx_PhpParser_Parser_ClassFactory;
 		}
-		$this->classFileVisitor->setClassFactory($this->classFactory);
-		$this->traverser->addVisitor($this->classFileVisitor);
+		$this->fileVisitor->setClassFactory($this->classFactory);
+		$this->traverser->addVisitor($this->fileVisitor);
 		$this->traverser->traverse(array($stmts));
-		$fileObject = $this->classFileVisitor->getFileObject();
+		$fileObject = $this->fileVisitor->getFileObject();
 		return $fileObject;
 	}
 
@@ -104,9 +104,9 @@ class Tx_PhpParser_Service_Parser extends PHPParser_Parser {
 	}
 
 	/**
-	 * @param Tx_PhpParser_Parser_Visitor_ClassFileVisitorInterface $visitor
+	 * @param Tx_PhpParser_Parser_Visitor_FileVisitorInterface $visitor
 	 */
-	public function setClassFileVisitor(Tx_PhpParser_Parser_Visitor_ClassFileVisitor $visitor) {
+	public function setFileVisitor(Tx_PhpParser_Parser_Visitor_FileVisitorInterface $visitor) {
 		$this->classFileVisitor = $visitor;
 	}
 

@@ -27,25 +27,11 @@
  * @package
  * @author Nico de Haen
  */
-namespace Test\Model;
 
-require_once(dirname(dirname(__FILE__)) . '/DummyIncludeFile1.php');
+require_once(dirname(__FILE__) . '/DummyIncludeFile1.php');
 
-class Tx_PhpParser_Tests_MultipleNamespaces {
-
-}
-
-/**
- * This is another namespace
- */
-namespace Test\Model2;
-require_once dirname(dirname(__FILE__)) . '/DummyIncludeFile1.php';
-/**
- * This is my doc comment
- *
- * @author Nico de Haen
- *
- */
-class Tx_PhpParser_Tests_MultipleNamespaces {
+abstract class Tx_PhpParser_Tests_ClassWithIncludeStatement {
 
 }
+
+require_once dirname(__FILE__) . '/DummyIncludeFile2.php';

@@ -39,8 +39,8 @@ class  Tx_PhpParser_Tests_Function_BuildObjectsTest extends Tx_PhpParser_Tests_B
 		$newClassFileObject = new Tx_PhpParser_Domain_Model_File;
 		$newClassName = 'Tx_PhpParser_Test_NewClass';
 		$newClass = new Tx_PhpParser_Domain_Model_Class($newClassName);
-		$newClass->setDocComment("This is a class created\nfrom scratch");
-		$newClass->setTag('author','John Doe');
+		$newClass->setDescription("This is a class created\nfrom scratch")
+			->setTag('author','John Doe');
 		$newClassFileObject->addClass($newClass);
 		$newClassFilePath = $this->testDir . 'NewClass.php';
 		t3lib_div::writeFile($newClassFilePath,"<?php\n\n" . $this->printer->renderFileObject($newClassFileObject) . "\n?>");
@@ -56,30 +56,51 @@ class  Tx_PhpParser_Tests_Function_BuildObjectsTest extends Tx_PhpParser_Tests_B
 	public function createClassWithProperties() {
 		$newClassFileObject = new Tx_PhpParser_Domain_Model_File;
 		$newClassName = 'Tx_PhpParser_Test_NewClassWithProperties';
-		$newClass = new Tx_PhpParser_Domain_Model_Class($newClassName);
-		$newClass->setDocComment("This is a class created\nfrom scratch");
-		$newClass->setTag('author','John Doe');
+
 
 		$newProperty1 = new Tx_PhpParser_Domain_Model_Class_Property('property1');
 		$newProperty1->setDescription('example property2')
-				->setValue('example')
-				->setTag('var', 'string $property1');
+			->setValue('example')
+			->setTag('var', 'string $property1');
 
 		$newProperty2 = new Tx_PhpParser_Domain_Model_Class_Property('property2');
 		$newProperty2->setDescription('example property2')
-				->setValue(array('test'=>123))
-				->setTag('var', 'array $property2');
+			->setValue(array('test'=>123))
+			->setTag('var', 'array $property2')
+			->setModifier('private');
 
+		$newClass = new Tx_PhpParser_Domain_Model_Class($newClassName);
+		$newClass->setDescription("This is a class created\nfrom scratch")
+			->setTag('author','John Doe')
+			->setProperty($newProperty1)
+			->setProperty($newProperty2);
 
-		$newClass->addProperty($newProperty1);
-		$newClass->addProperty($newProperty2);
 		$newClassFileObject->addClass($newClass);
 		$newClassFilePath = $this->testDir . 'NewClassWithProperties.php';
 		t3lib_div::writeFile($newClassFilePath,"<?php\n\n" . $this->printer->renderFileObject($newClassFileObject) . "\n?>");
-		$this->assertTrue(file_exists($newClassFilePath));
-		require_once($newClassFilePath);
-		$this->assertTrue(class_exists($newClassName));
 		$this->compareClasses($newClassFileObject, $newClassFilePath);
+	}
+
+	/**
+	 * @test
+	 */
+	public function createClassWithConstants() {
+		$newClassFileObject = new Tx_PhpParser_Domain_Model_File;
+		$newClassName = 'Tx_PhpParser_Test_NewClassWithConstants';
+
+		$newClass = new Tx_PhpParser_Domain_Model_Class($newClassName);
+		$newClass->setConstant('CONST1','FOO')
+			->setConstant('CONST2','BAR')
+			->setConstant('CONST3',0.432)
+			->setConstant('CONST4',123);
+		$newClassFileObject->addClass($newClass);
+		$newClassFilePath = $this->testDir . 'NewClassWithConstants.php';
+		t3lib_div::writeFile($newClassFilePath,"<?php\n\n" . $this->printer->renderFileObject($newClassFileObject) . "\n?>");
+		$reflecedClass = $this->compareClasses($newClassFileObject, $newClassFilePath);
+		$this->assertEquals($reflecedClass->getConstant('CONST1'),'FOO');
+		$this->assertEquals($reflecedClass->getConstant('CONST2'),'BAR');
+		$this->assertEquals($reflecedClass->getConstant('CONST3'),0.432);
+		$this->assertEquals($reflecedClass->getConstant('CONST4'),123);
 	}
 
 	/**
@@ -91,9 +112,9 @@ class  Tx_PhpParser_Tests_Function_BuildObjectsTest extends Tx_PhpParser_Tests_B
 		$newNamespace = new Tx_PhpParser_Domain_Model_Namespace($nameSpaceName, TRUE);
 		$newClassName = 'Tx_PhpParser_Test_NewNamespacedClass';
 		$newClass = new Tx_PhpParser_Domain_Model_Class($newClassName, TRUE);
-		$newClass->setDescription("This is a class created\nfrom scratch");
-		$newClass->setTag('author','John Doe');
-		$newClass->setNamespaceName($nameSpaceName);
+		$newClass->setDescription("This is a class created\nfrom scratch")
+			->setTag('author','John Doe')
+			->setNamespaceName($nameSpaceName);
 		$newNamespace->addClass($newClass);
 		$newClassFileObject->addNamespace($newNamespace);
 		$newClassFilePath = $this->testDir . 'NewNamespacedClass.php';

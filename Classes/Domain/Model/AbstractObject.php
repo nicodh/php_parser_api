@@ -187,7 +187,7 @@ class Tx_PhpParser_Domain_Model_AbstractObject {
 	 * since modifiers are claculated bitwise)
 	 *
 	 * @param int $modifiers modifiers
-	 * @return void
+	 * @return Tx_PhpParser_Domain_Model_AbstractObject (for fluid interface)
 	 */
 	public function setModifiers($modifiers) {
 		$this->modifiers = $modifiers;
@@ -197,23 +197,63 @@ class Tx_PhpParser_Domain_Model_AbstractObject {
 	/**
 	 * adds a modifier
 	 *
-	 * @param string $modifiers
-	 * @return boolean TRUE if modifier could be added
+	 * @param string $modifierName
+	 * @return Tx_PhpParser_Domain_Model_AbstractObject (for fluid interface)
 	 */
-	public function addModifier($modifier) {
-		if(!in_array($modifier, $this->getModifierNames())) {
-			try{
-				PHPParser_Node_Stmt_Class::verifyModifier($this->modifiers, $this->mapModifierNames[$modifier]);
-				$this->modifiers |= $this->mapModifierNames[$modifier];
-				$this->node->__set('type',$this->modifiers);
-				return TRUE;
-			} catch(Exception $e) {
-				//debug('Error: ' . $e->getMessage(), 'Error');
-				throw new Tx_PhpParser_Exception_SyntaxErrorException($e->getMessage());
-				//return FALSE;
-			}
-
+	public function addModifier($modifierName) {
+		$modifier = $this->mapModifierNames[$modifierName];
+		if(!in_array($modifierName, $this->getModifierNames())) {
+			$this->validateModifier($modifier);
+			$this->modifiers |= $this->mapModifierNames[$modifierName];
+			$this->node->__set('type',$this->modifiers);
 		}
+		return $this;
+	}
+
+	/**
+	 * Use this method to set an accessor modifier,
+	 * it will care for removing existing ones to avoid syntax errors
+	 *
+	 * @param string $modifierName
+	 * @throws Tx_PhpParser_Exception_SyntaxErrorException
+	 *
+	 * @return Tx_PhpParser_Domain_Model_AbstractObject (for fluid interface)
+	 */
+	public function setModifier($modifierName) {
+		if(in_array($modifierName, $this->getModifierNames())) {
+			return $this; // modifier is already present
+		}
+		$modifier = $this->mapModifierNames[$modifierName];
+		if(in_array($modifier, Tx_PhpParser_Parser_Utility_NodeConverter::$accessorModifiers)) {
+			foreach(Tx_PhpParser_Parser_Utility_NodeConverter::$accessorModifiers as $accessorModifier) {
+				// unset all accessorModifier
+				if($this->modifiers & $accessorModifier) {
+					$this->modifiers ^= $accessorModifier;
+				}
+			}
+		}
+		$this->validateModifier($modifier);
+		$this->modifiers |= $modifier;
+		$this->node->__set('type',$this->modifiers);
+		return $this;
+	}
+
+	/**
+	 * @param string $modifierName
+	 * @return Tx_PhpParser_Domain_Model_AbstractObject (for fluid interface)
+	 */
+	public function removeModifier($modifierName) {
+		$this->modifiers ^= $this->mapModifierNames[$modifierName];
+		return $this;
+	}
+
+	/**
+	 * @return Tx_PhpParser_Domain_Model_AbstractObject (for fluid interface)
+	 */
+	public function removeAllModifiers() {
+		$this->modifiers = 0;
+		$this->node->__set('type',$this->modifiers);
+		return $this;
 	}
 
 	/**
@@ -460,6 +500,24 @@ class Tx_PhpParser_Domain_Model_AbstractObject {
 	public function inNamespace($namespace) {
 		if($this->getNamespaceName() == $namespace) {
 			return TRUE;
+		}
+	}
+
+	protected function validateModifier($modifier) {
+		if($modifier == PHPParser_Node_Stmt_Class::MODIFIER_FINAL && $this->isAbstract() ||
+				$modifier == PHPParser_Node_Stmt_Class::MODIFIER_ABSTRACT && $this->isFinal()){
+			throw new Tx_PhpParser_Exception_SyntaxErrorException('Abstract and Final can\'t be applied both to same object');
+		} elseif($modifier == PHPParser_Node_Stmt_Class::MODIFIER_STATIC && $this->isAbstract() ||
+				$modifier == PHPParser_Node_Stmt_Class::MODIFIER_ABSTRACT && $this->isStatic()
+		) {
+			throw new Tx_PhpParser_Exception_SyntaxErrorException('Abstract and Static can\'t be applied both to same object');
+		}
+		try{
+			PHPParser_Node_Stmt_Class::verifyModifier($this->modifiers, $modifier);
+		} catch(Exception $e) {
+			//debug('Error: ' . $e->getMessage(), 'Error');
+			throw new Tx_PhpParser_Exception_SyntaxErrorException('Only one access modifier can be applied to one object. Use setModifier to avoid this exception');
+			//return FALSE;
 		}
 	}
 

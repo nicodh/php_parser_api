@@ -27,25 +27,29 @@
  * @package
  * @author Nico de Haen
  */
-namespace Test\Model;
 
-require_once(dirname(dirname(__FILE__)) . '/DummyIncludeFile1.php');
+abstract class Tx_PhpParser_Tests_SimplePropertyTest {
 
-class Tx_PhpParser_Tests_MultipleNamespaces {
+	/**
+	 * @var string
+	 */
+	protected $property = 'foo';
 
-}
+	/**
+	 * @param string $property
+	 */
+	public function setProperty($property) {
+		// comment in a new line
+		if(strlen($property)>50) { // some comment here
+			$property = substr($property,0,49); // some comment there
+		}
+		$this->property = $property;
+	}
 
-/**
- * This is another namespace
- */
-namespace Test\Model2;
-require_once dirname(dirname(__FILE__)) . '/DummyIncludeFile1.php';
-/**
- * This is my doc comment
- *
- * @author Nico de Haen
- *
- */
-class Tx_PhpParser_Tests_MultipleNamespaces {
-
+	/**
+	 * @return string
+	 */
+	public function getProperty() {
+		return $this->property;
+	}
 }

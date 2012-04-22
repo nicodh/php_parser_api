@@ -36,7 +36,7 @@
 * @version $ID:$
 */
 
-class Tx_PhpParser_Parser_Visitor_ClassFileVisitor extends PHPParser_NodeVisitorAbstract {
+class Tx_PhpParser_Parser_Visitor_FileVisitor extends PHPParser_NodeVisitorAbstract implements Tx_PhpParser_Parser_Visitor_FileVisitorInterface{
 
 	protected $properties = array();
 
@@ -107,8 +107,8 @@ class Tx_PhpParser_Parser_Visitor_ClassFileVisitor extends PHPParser_NodeVisitor
 			$this->currentClassObject->addMethod($method);
 		} elseif($node instanceof PHPParser_Node_Stmt_Function) {
 			$this->contextStack[] = $node;
-			$method = $this->classFactory->buildFunctionObjectFromNode($node);
-			$this->currentContainer->addFunction($method);
+			$function = $this->classFactory->buildFunctionObjectFromNode($node);
+			$this->currentContainer->addFunction($function);
 		}
 
 	}
@@ -130,16 +130,15 @@ class Tx_PhpParser_Parser_Visitor_ClassFileVisitor extends PHPParser_NodeVisitor
 				$this->currentClassObject = NULL;
 				$this->currentContainer = $this->fileObject;
 			}
-		}
-		if($node instanceof PHPParser_Node_Expr_Include) {
+		} elseif($node instanceof PHPParser_Node_Expr_Include) {
 			array_pop($this->contextStack);
-			if($this->currentContainer->getFirstClass() === NULL) {
+			if($this->currentContainer->getFirstClass() === FALSE) {
 				$this->currentContainer->addPreInclude($node);
 			} else {
 				$this->currentContainer->addPostInclude($node);
 			}
 
-		}
+		} 
 		if(get_class($node) == get_class(end($this->contextStack))) {
 			array_pop($this->contextStack);
 		}
