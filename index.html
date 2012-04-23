@@ -1,0 +1,99 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Php Parser API by nicodh</title>
+    
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Php Parser API</h1>
+        <p>API for the php-parser</p>
+        <p class="view"><a href="https://github.com/nicodh/php_parser_api">View the Project on GitHub <small>nicodh/php_parser_api</small></a></p>
+        <ul>
+          <li><a href="https://github.com/nicodh/php_parser_api/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/nicodh/php_parser_api/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/nicodh/php_parser_api">Fork On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h1>PHP Parser API</h1>
+
+<p>This project provides an API for the PHPParser<a href="https://github.com/nikic/PHP-Parser/">1</a> written by <a href="https://github.com/nikic">nikic</a>.
+It's implemented as a TYPO3 extension but can be easily used as a stand-alone library.
+The PHP Parser is included as sub module. Actually it's a fork of the Parser of nikic, since we needed more support for whitespaces and single line comments.</p>
+
+<p>Documentation can be found in the <a href="https://github.com/nikic/PHP-Parser/">1</a> directory.</p>
+
+<p><strong><em>Note: This is still in alpha state, so the API is subject to change.</em></strong></p>
+
+<h2>What is this for?</h2>
+
+<p>This library provides an API to parse, "understand", manipulate and rewrite PHP classes, functions, methods etc.</p>
+
+<p>For example:</p>
+
+<div class="highlight">
+<pre><span class="cp">&lt;?php</span>
+<span class="nv">$phpFileObject</span> <span class="o">=</span> <span class="nv">$ParserService</span><span class="o">-&gt;</span><span class="na">parseFile</span><span class="p">(</span><span class="s1">'path/To/File.php'</span><span class="p">);</span>
+<span class="nv">$classObjects</span> <span class="o">=</span> <span class="nv">$phpFileObject</span><span class="o">-&gt;</span><span class="na">getClasses</span><span class="p">();</span>
+
+<span class="k">foreach</span><span class="p">(</span><span class="nv">$classObjects</span> <span class="k">as</span> <span class="nv">$classObject</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span><span class="p">(</span><span class="nv">$classObject</span><span class="o">-&gt;</span><span class="na">hasMethod</span><span class="p">(</span><span class="s1">'foo'</span><span class="p">))</span> <span class="p">{</span>
+        <span class="nv">$classObject</span><span class="o">-&gt;</span><span class="na">getMethod</span><span class="p">(</span><span class="s1">'foo'</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">setName</span><span class="p">(</span><span class="s1">'bar'</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="nv">$PHPCode</span> <span class="o">=</span> <span class="nv">$PrinterService</span><span class="o">-&gt;</span><span class="na">renderFileObject</span><span class="p">(</span><span class="nv">$phpFileObject</span><span class="p">);</span>
+</pre>
+</div>
+
+
+<p>It can also create classes or merge methods from various classes into one etc.</p>
+
+<div class="highlight">
+<pre><span class="cp">&lt;?php</span>
+
+<span class="nv">$newClass</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Tx_PhpParser_Domain_Model_Class</span><span class="p">(</span><span class="s1">'MyNewClassName'</span><span class="p">);</span>
+<span class="nv">$newClass</span><span class="o">-&gt;</span><span class="na">setDescription</span><span class="p">(</span><span class="s2">"This is a class created</span><span class="se">\n</span><span class="s2">from scratch"</span><span class="p">)</span>
+    <span class="o">-&gt;</span><span class="na">setTag</span><span class="p">(</span><span class="s1">'author'</span><span class="p">,</span><span class="s1">'John Doe'</span><span class="p">)</span>
+    <span class="o">-&gt;</span><span class="na">setMethod</span><span class="p">(</span><span class="nv">$existingClass</span><span class="o">-&gt;</span><span class="na">getMethod</span><span class="p">(</span><span class="s1">'getFoo'</span><span class="p">))</span>
+    <span class="o">-&gt;</span><span class="na">setMethod</span><span class="p">(</span><span class="nv">$existingClass</span><span class="o">-&gt;</span><span class="na">getMethod</span><span class="p">(</span><span class="s1">'setFoo'</span><span class="p">));</span>
+
+<span class="nv">$newProperty2</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Tx_PhpParser_Domain_Model_Class_Property</span><span class="p">(</span><span class="s1">'foo'</span><span class="p">);</span>
+<span class="nv">$newProperty2</span><span class="o">-&gt;</span><span class="na">setDescription</span><span class="p">(</span><span class="s1">'foo'</span><span class="p">)</span>
+    <span class="o">-&gt;</span><span class="na">setValue</span><span class="p">(</span><span class="k">array</span><span class="p">(</span><span class="s1">'foo'</span><span class="o">=&gt;</span><span class="mi">123</span><span class="p">))</span>
+    <span class="o">-&gt;</span><span class="na">setTag</span><span class="p">(</span><span class="s1">'var'</span><span class="p">,</span> <span class="s1">'array $foo'</span><span class="p">)</span>
+    <span class="o">-&gt;</span><span class="na">setModifier</span><span class="p">(</span><span class="s1">'private'</span><span class="p">);</span>
+
+<span class="nv">$PHPCode</span> <span class="o">=</span> <span class="nx">PrinterService</span><span class="o">-&gt;</span><span class="na">renderClassObject</span><span class="p">(</span><span class="nv">$newClass</span><span class="p">);</span>
+</pre>
+</div>
+
+
+<h2>What else can it do?</h2>
+
+<p>The library is extendable with your own class factories or Node-Visitors.
+Currently the printer tries to render TYPO3 CGL compliant code.
+The library also provides methods to add, remove or change annotations in the doc comments.
+For example it adds <a href="https://github.com/Param" class="user-mention">@Param</a> tags in methods (if they are missing) according to the parameter type hints.</p>
+
+<p>Have a look at the Unit and Function tests in the <a href="https://github.com/nicodh/php_parser_api/Tests/">Tests</a> directory to see some examples or read the documentation<a href="https://github.com/nicodh/php_parser_api/doc/1_Inspect_Objects.markdown">4</a></p>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/nicodh">nicodh</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+    
+  </body>
+</html>
