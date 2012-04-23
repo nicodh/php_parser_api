@@ -1,7 +1,7 @@
 PHP Parser API
 ==============
 
-This project is a wrapper or facade of the PHP Parser[1] written by [nikic][2].
+This project provides an API for the PHPParser[1] written by [nikic][2].
 It's implemented as a TYPO3 extension but can be easily used as a stand-alone library.
 The PHP Parser is included as sub module. Actually it's a fork of the Parser of nikic, since we needed more support for whitespaces and single line comments.
 
@@ -17,7 +17,7 @@ This library provides an API to parse, "understand", manipulate and rewrite PHP 
 For example:
 ```php
 <?php
-$phpFileObject = ParserService->parseFile('pathToFile');
+$phpFileObject = $ParserService->parseFile('path/To/File.php');
 $classObjects = $phpFileObject->getClasses();
 
 foreach($classObjects as $classObject) {
@@ -26,7 +26,7 @@ foreach($classObjects as $classObject) {
 	}
 }
 
-$PHPCode = PrinterService->renderFileObject($phpFileObject);
+$PHPCode = $PrinterService->renderFileObject($phpFileObject);
 ```
 
 It can also create classes or merge methods from various classes into one etc.
@@ -52,14 +52,16 @@ $PHPCode = PrinterService->renderClassObject($newClass);
 What else can it do?
 --------------------
 The library is extendable with your own class factories or Node-Visitors.
-Currently the printer tries to render TYPO3 CGL compliant code. The library also provides methods to add, remove or change annotations in the doc comments.
+Currently the printer tries to render TYPO3 CGL compliant code.
+The library also provides methods to add, remove or change annotations in the doc comments.
 For example it adds @param tags in methods (if they are missing) according to the parameter type hints.
 
-Have a look at the Unit and Function tests in the [Tests][3] directory to see some examples.
+Have a look at the Unit and Function tests in the [Tests][3] directory to see some examples or read the documentation[4]
 
 
 
 
  [1]: https://github.com/nikic/PHP-Parser/
  [2]: https://github.com/nikic
- [3]: https://github.com/nikic
+ [3]: https://github.com/nicodh/php_parser_api/Tests/
+ [4]: https://github.com/nicodh/php_parser_api/doc/1_Inspect_Objects.markdown

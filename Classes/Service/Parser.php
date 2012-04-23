@@ -24,16 +24,10 @@
  ***************************************************************/
 
 /**
- * @package
- * @author Nico de Haen
- */
-
-
-/**
  * provides methods to generate classes from PHP code
  *
- * @package php_parser_api
- * @version $ID:$
+ * @package PhpParserApi
+ * @author Nico de Haen
  */
 
 

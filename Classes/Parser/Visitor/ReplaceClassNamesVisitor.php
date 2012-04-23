@@ -28,7 +28,7 @@
  * Example Visitor
  * replaces all occurances of new "className" and static class calls like "className::"
  *
- * @package php_parser_api
+ * @package PhpParserApi
  * @author Nico de Haen
  */
 

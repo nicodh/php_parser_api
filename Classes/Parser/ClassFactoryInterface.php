@@ -24,7 +24,7 @@
  ***************************************************************/
 
 /**
- * @package
+ * @package  PhpParserApi
  * @author Nico de Haen
  */
 

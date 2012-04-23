@@ -24,7 +24,7 @@
  ***************************************************************/
 
 /**
- * @package
+ * @package PhpParserApi
  * @author Nico de Haen
  */
 
@@ -47,13 +47,16 @@ class Tx_PhpParser_Domain_Model_Function extends Tx_PhpParser_Domain_Model_Abstr
 	/**
 	 * __construct
 	 *
-	 * @param PHPParser_Node $functionNode
+	 * @param string $name
 	 * @return
 	 */
 	public function __construct($name) {
 		$this->name = $name;
 	}
 
+	/**
+	 * generate parameter objects and update param tags
+	 */
 	public function initializeParameters() {
 		$position = 0;
 		$getVarTypeFromParamTag = FALSE;
@@ -179,15 +182,14 @@ class Tx_PhpParser_Domain_Model_Function extends Tx_PhpParser_Domain_Model_Abstr
 		$this->parameters[$parameter->getPosition()] = $parameter;
 	}
 
-	/**debug($oldName, $newName);
+	/**
 	 * removes a parameter
 	 *
 	 * @param $parameterName
-	 * @param $parameterSortingIndex
+	 * @param $parameterPosition
 	 * @return boolean TRUE (if successfull removed)
 	 */
 	public function removeParameter($parameterName, $parameterPosition) {
-		//TODO: Not yet tested
 		if (isset($this->parameters[$parameterPosition]) && $this->parameters[$parameterPosition]->getName() == $parameterName) {
 			unset($this->parameters[$parameterPosition]);
 			$params = $this->node->__get('params');
@@ -202,8 +204,9 @@ class Tx_PhpParser_Domain_Model_Function extends Tx_PhpParser_Domain_Model_Abstr
 	/**
 	 * renameParameter
 	 *
-	 * @param $parameterName
-	 * @param $parameterSortingIndex
+	 * @param $oldName
+	 * @param $newName
+	 * @param $parameterPosition
 	 * @return boolean TRUE (if successfull removed)
 	 */
 	public function renameParameter($oldName, $newName, $parameterPosition) {
@@ -239,6 +242,9 @@ class Tx_PhpParser_Domain_Model_Function extends Tx_PhpParser_Domain_Model_Abstr
 		return $annotations;
 	}
 
+	/**
+	 * set param tags according to the existing parameters
+	 */
 	protected function updateParamTags() {
 		$paramTags = array();
 		foreach($this->parameters as $position => $parameter) {

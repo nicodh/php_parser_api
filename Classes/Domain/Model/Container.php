@@ -26,7 +26,7 @@
 /**
  * Provides methods that are common to Class, File and Namespace objects
  *
- * @package php_parser_api
+ * @package PhpParserApi
  * @author Nico de Haen
  */
 

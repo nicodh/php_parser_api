@@ -23,9 +23,10 @@
  ***************************************************************/
 
 /**
- * An exception thrown if an error occured during parsing a php file
+ * An exception thrown if an operation was performed that is not allowed in PHP syntax
  *
- * @package php_parser_api
+ * @author Nico de Haen
+ * @package PhpParserApi
  */
 class Tx_PhpParser_Exception_SyntaxErrorException extends Exception {
 

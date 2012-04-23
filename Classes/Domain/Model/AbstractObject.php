@@ -27,7 +27,7 @@
 /**
  *
  * @author Nico de Haen
- * @package php_parser_api_api
+ * @package PhpParserApi
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
@@ -383,7 +383,7 @@ class Tx_PhpParser_Domain_Model_AbstractObject {
 	 * Checks if the doc comment of this method is tagged with
 	 * the specified tag
 	 *
-	 * @param  string $tag: Tag name to check for
+	 * @param  string $tagName: Tag name to check for
 	 * @return boolean TRUE if such a tag has been defined, otherwise FALSE
 	 */
 	public function isTaggedWith($tagName) {

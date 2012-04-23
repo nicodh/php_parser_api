@@ -1,0 +1,1458 @@
+<!DOCTYPE html><html xmlns:date="http://exslt.org/dates-and-times" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+<meta charset="utf-8">
+<title>phpDocumentor</title>
+<meta name="author" content="Mike van Riel">
+<meta name="description" content="">
+<link href="css/template.css" rel="stylesheet" media="all">
+<script src="js/jquery-1.7.1.min.js" type="text/javascript"></script><script src="js/jquery-ui-1.8.2.custom.min.js" type="text/javascript"></script><script src="js/jquery.mousewheel.min.js" type="text/javascript"></script><script src="js/bootstrap.js" type="text/javascript"></script><script src="js/template.js" type="text/javascript"></script><script src="js/prettify/prettify.min.js" type="text/javascript"></script><link rel="shortcut icon" href="img/favicon.ico">
+<link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="72x72" href="img/apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="114x114" href="img/apple-touch-icon-114x114.png">
+</head>
+<body>
+<div class="navbar navbar-fixed-top">
+<div class="navbar-inner"><div class="container">
+<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></a><a class="brand" href="index.html">phpDocumentor</a><div class="nav-collapse"><ul class="nav">
+<li class="dropdown">
+<a href="#api" class="dropdown-toggle" data-toggle="dropdown">
+                                    API Documentation <b class="caret"></b></a><ul class="dropdown-menu">
+<li><a>Packages</a></li>
+<li><a href="packages/PhpParserApi.html"><i class="icon-folder-open"></i> PhpParserApi</a></li>
+</ul>
+</li>
+<li class="dropdown" id="charts-menu">
+<a href="#charts" class="dropdown-toggle" data-toggle="dropdown">
+                                    Charts <b class="caret"></b></a><ul class="dropdown-menu"><li><a href="graph_class.html"><i class="icon-list-alt"></i> Class hierarchy diagram</a></li></ul>
+</li>
+<li class="dropdown" id="reports-menu">
+<a href="#reports" class="dropdown-toggle" data-toggle="dropdown">
+                                    Reports <b class="caret"></b></a><ul class="dropdown-menu">
+<li><a href="errors.html"><i class="icon-remove-sign"></i> Errors 
+                <span class="label label-info">207</span></a></li>
+<li><a href="markers.html"><i class="icon-map-marker"></i> Markers 
+                <ul><li>todo 
+                <span class="label label-info">2</span>
+</li></ul></a></li>
+<li><a href="deprecated.html"><i class="icon-stop"></i> Deprecated elements 
+                <span class="label label-info">0</span></a></li>
+</ul>
+</li>
+</ul></div>
+</div></div>
+<div class="go_to_top"><a href="#___" style="color: inherit">Back to top  <i class="icon-upload icon-white"></i></a></div>
+</div>
+<div id="___" class="container">
+<noscript><div class="alert alert-warning">
+                            Javascript is disabled; several features are only available
+                            if Javascript is enabled.
+                        </div></noscript>
+<div class="row">
+<div class="span4"><ul class="side-nav nav nav-list">
+<li class="nav-header">Filter type</li>
+<li><div class="btn-group type-filter" data-toggle="buttons-checkbox">
+<button class="btn critical">Critical</button><button class="btn error">Error</button><button class="btn notice">Notice</button>
+</div></li>
+<li class="nav-header">Navigation</li>
+<li><a href="#Service/Printer.php"><i class="icon-file"></i>Service/Printer.php</a></li>
+<li><a href="#Service/Parser.php"><i class="icon-file"></i>Service/Parser.php</a></li>
+<li><a href="#Parser/Traverser.php"><i class="icon-file"></i>Parser/Traverser.php</a></li>
+<li><a href="#Parser/DocCommentParser.php"><i class="icon-file"></i>Parser/DocCommentParser.php</a></li>
+<li><a href="#Parser/ClassFactoryInterface.php"><i class="icon-file"></i>Parser/ClassFactoryInterface.php</a></li>
+<li><a href="#Parser/NodeFactory.php"><i class="icon-file"></i>Parser/NodeFactory.php</a></li>
+<li><a href="#Parser/Visitor/ReplaceVisitor.php"><i class="icon-file"></i>Parser/Visitor/ReplaceVisitor.php</a></li>
+<li><a href="#Parser/Visitor/FileVisitor.php"><i class="icon-file"></i>Parser/Visitor/FileVisitor.php</a></li>
+<li><a href="#Parser/Visitor/FileVisitorInterface.php"><i class="icon-file"></i>Parser/Visitor/FileVisitorInterface.php</a></li>
+<li><a href="#Parser/Visitor/ReplaceClassNamesVisitor.php"><i class="icon-file"></i>Parser/Visitor/ReplaceClassNamesVisitor.php</a></li>
+<li><a href="#Parser/Utility/NodeConverter.php"><i class="icon-file"></i>Parser/Utility/NodeConverter.php</a></li>
+<li><a href="#Parser/TraverserInterface.php"><i class="icon-file"></i>Parser/TraverserInterface.php</a></li>
+<li><a href="#Parser/ClassFactory.php"><i class="icon-file"></i>Parser/ClassFactory.php</a></li>
+<li><a href="#AutoLoader.php"><i class="icon-file"></i>AutoLoader.php</a></li>
+<li><a href="#Domain/Model/Class/Property.php"><i class="icon-file"></i>Domain/Model/Class/Property.php</a></li>
+<li><a href="#Domain/Model/Class/Method.php"><i class="icon-file"></i>Domain/Model/Class/Method.php</a></li>
+<li><a href="#Domain/Model/Parameter.php"><i class="icon-file"></i>Domain/Model/Parameter.php</a></li>
+<li><a href="#Domain/Model/Function.php"><i class="icon-file"></i>Domain/Model/Function.php</a></li>
+<li><a href="#Domain/Model/AbstractObject.php"><i class="icon-file"></i>Domain/Model/AbstractObject.php</a></li>
+<li><a href="#Domain/Model/File.php"><i class="icon-file"></i>Domain/Model/File.php</a></li>
+<li><a href="#Domain/Model/Container.php"><i class="icon-file"></i>Domain/Model/Container.php</a></li>
+<li><a href="#Domain/Model/Namespace.php"><i class="icon-file"></i>Domain/Model/Namespace.php</a></li>
+<li><a href="#Domain/Model/Class.php"><i class="icon-file"></i>Domain/Model/Class.php</a></li>
+</ul></div>
+<div class="span8">
+<ul class="breadcrumb">
+<li>
+<a href=""><i class="icon-remove-sign"></i></a><span class="divider">\</span>
+</li>
+<li>Compilation Errors</li>
+</ul>
+<div class="package-contents">
+<a name="Service/Printer.php" id="Service/Printer.php"></a><h3>
+<i class="icon-file"></i>Service/Printer.php<small style="float: right;padding-right: 10px;">3</small>
+</h3>
+<div><table class="table markers table-bordered">
+<thead><tr>
+<th>Type</th>
+<th>Line</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr class="error">
+<td>error</td>
+<td>35</td>
+<td>No short description for method render()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>45</td>
+<td>No DocBlock was found for method renderClassObject()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>50</td>
+<td>No DocBlock was found for method renderFileObject()</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="package-contents">
+<a name="Service/Parser.php" id="Service/Parser.php"></a><h3>
+<i class="icon-file"></i>Service/Parser.php<small style="float: right;padding-right: 10px;">10</small>
+</h3>
+<div><table class="table markers table-bordered">
+<thead><tr>
+<th>Type</th>
+<th>Line</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr class="critical">
+<td>critical</td>
+<td>36</td>
+<td>No short description for property $fileVisitor</td>
+</tr>
+<tr class="critical">
+<td>critical</td>
+<td>41</td>
+<td>No short description for property $traverser</td>
+</tr>
+<tr class="critical">
+<td>critical</td>
+<td>46</td>
+<td>No short description for property $classFactory</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>52</td>
+<td>No short description for method parse()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>76</td>
+<td>No short description for method parseFile()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>92</td>
+<td>No short description for method parseRawStatements()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>100</td>
+<td>No short description for method setFileVisitor()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>107</td>
+<td>No short description for method setTraverser()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>114</td>
+<td>No short description for method setClassFactory()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>121</td>
+<td>No short description for method replaceNodeProperty()</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="package-contents">
+<a name="Parser/Traverser.php" id="Parser/Traverser.php"></a><h3>
+<i class="icon-file"></i>Parser/Traverser.php<small style="float: right;padding-right: 10px;">3</small>
+</h3>
+<div><table class="table markers table-bordered">
+<thead><tr>
+<th>Type</th>
+<th>Line</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr class="critical">
+<td>critical</td>
+<td>26</td>
+<td>No short description for class Tx_PhpParser_Parser_Traverser</td>
+</tr>
+<tr class="critical">
+<td>critical</td>
+<td>26</td>
+<td>No short description for file Parser/Traverser.php</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>33</td>
+<td>No DocBlock was found for method resetVisitors()</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="package-contents">
+<a name="Parser/DocCommentParser.php" id="Parser/DocCommentParser.php"></a><h3>
+<i class="icon-file"></i>Parser/DocCommentParser.php<small style="float: right;padding-right: 10px;">7</small>
+</h3>
+<div><table class="table markers table-bordered">
+<thead><tr>
+<th>Type</th>
+<th>Line</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr class="critical">
+<td>critical</td>
+<td>26</td>
+<td>No short description for class Tx_PhpParser_Parser_DocCommentParser</td>
+</tr>
+<tr class="critical">
+<td>critical</td>
+<td>26</td>
+<td>No short description for file Parser/DocCommentParser.php</td>
+</tr>
+<tr class="critical">
+<td>critical</td>
+<td>33</td>
+<td>No short description for property $description</td>
+</tr>
+<tr class="critical">
+<td>critical</td>
+<td>38</td>
+<td>No short description for property $tags</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>43</td>
+<td>No DocBlock was found for method parse()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>48</td>
+<td>No DocBlock was found for method getTags()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>52</td>
+<td>No DocBlock was found for method renderDocComment()</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="package-contents">
+<a name="Parser/ClassFactoryInterface.php" id="Parser/ClassFactoryInterface.php"></a><h3>
+<i class="icon-file"></i>Parser/ClassFactoryInterface.php<small style="float: right;padding-right: 10px;">6</small>
+</h3>
+<div><table class="table markers table-bordered">
+<thead><tr>
+<th>Type</th>
+<th>Line</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr class="critical">
+<td>critical</td>
+<td>26</td>
+<td>No short description for file Parser/ClassFactoryInterface.php</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>33</td>
+<td>No DocBlock was found for method buildClassObjectFromNode()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>35</td>
+<td>No DocBlock was found for method buildClassMethodObjectFromNode()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>37</td>
+<td>No DocBlock was found for method buildPropertyObjectFromNode()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>39</td>
+<td>No DocBlock was found for method buildFunctionObjectFromNode()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>41</td>
+<td>No DocBlock was found for method buildNamespaceObjectFromNode()</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="package-contents">
+<a name="Parser/NodeFactory.php" id="Parser/NodeFactory.php"></a><h3>
+<i class="icon-file"></i>Parser/NodeFactory.php<small style="float: right;padding-right: 10px;">7</small>
+</h3>
+<div><table class="table markers table-bordered">
+<thead><tr>
+<th>Type</th>
+<th>Line</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr class="critical">
+<td>critical</td>
+<td>26</td>
+<td>No short description for class Tx_PhpParser_Parser_NodeFactory</td>
+</tr>
+<tr class="critical">
+<td>critical</td>
+<td>26</td>
+<td>No short description for file Parser/NodeFactory.php</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>33</td>
+<td>No short description for method buildClassNode()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>43</td>
+<td>No short description for method buildNamespaceNode()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>53</td>
+<td>No short description for method buildPropertyNode()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>63</td>
+<td>No short description for method buildConstantNode()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>74</td>
+<td>No short description for method buildClassConstantNode()</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="package-contents">
+<a name="Parser/Visitor/ReplaceVisitor.php" id="Parser/Visitor/ReplaceVisitor.php"></a><h3>
+<i class="icon-file"></i>Parser/Visitor/ReplaceVisitor.php<small style="float: right;padding-right: 10px;">10</small>
+</h3>
+<div><table class="table markers table-bordered">
+<thead><tr>
+<th>Type</th>
+<th>Line</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr class="critical">
+<td>critical</td>
+<td>39</td>
+<td>No short description for property $nodeType</td>
+</tr>
+<tr class="critical">
+<td>critical</td>
+<td>44</td>
+<td>No short description for property $nodeProperty</td>
+</tr>
+<tr class="critical">
+<td>critical</td>
+<td>49</td>
+<td>No short description for property $replacements</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>54</td>
+<td>No DocBlock was found for method getClassObject()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>58</td>
+<td>No short description for method leaveNode()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>83</td>
+<td>No DocBlock was found for method beforeTraverse()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>84</td>
+<td>No DocBlock was found for method enterNode()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>85</td>
+<td>No DocBlock was found for method afterTraverse()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>87</td>
+<td>No short description for method setReplacements()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>106</td>
+<td>No DocBlock was found for method setNodeType()</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="package-contents">
+<a name="Parser/Visitor/FileVisitor.php" id="Parser/Visitor/FileVisitor.php"></a><h3>
+<i class="icon-file"></i>Parser/Visitor/FileVisitor.php<small style="float: right;padding-right: 10px;">13</small>
+</h3>
+<div><table class="table markers table-bordered">
+<thead><tr>
+<th>Type</th>
+<th>Line</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr class="critical">
+<td>critical</td>
+<td>26</td>
+<td>No short description for file Parser/Visitor/FileVisitor.php</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>41</td>
+<td>No DocBlock was found for property $properties</td>
+</tr>
+<tr class="critical">
+<td>critical</td>
+<td>43</td>
+<td>No short description for property $currentClassObject</td>
+</tr>
+<tr class="critical">
+<td>critical</td>
+<td>48</td>
+<td>No short description for property $currentNamespace</td>
+</tr>
+<tr class="critical">
+<td>critical</td>
+<td>53</td>
+<td>No short description for property $currentContainer</td>
+</tr>
+<tr class="critical">
+<td>critical</td>
+<td>58</td>
+<td>No short description for property $fileObject</td>
+</tr>
+<tr class="critical">
+<td>critical</td>
+<td>63</td>
+<td>No short description for property $classFactory</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>76</td>
+<td>No DocBlock was found for method getFileObject()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>134</td>
+<td>No DocBlock was found for method onUnsupportedStatementFound()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>138</td>
+<td>No DocBlock was found for method leaveNode()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>171</td>
+<td>No DocBlock was found for method beforeTraverse()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>176</td>
+<td>No DocBlock was found for method afterTraverse()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>179</td>
+<td>No short description for method setClassFactory()</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="package-contents">
+<a name="Parser/Visitor/FileVisitorInterface.php" id="Parser/Visitor/FileVisitorInterface.php"></a><h3>
+<i class="icon-file"></i>Parser/Visitor/FileVisitorInterface.php<small style="float: right;padding-right: 10px;">3</small>
+</h3>
+<div><table class="table markers table-bordered">
+<thead><tr>
+<th>Type</th>
+<th>Line</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr class="critical">
+<td>critical</td>
+<td>26</td>
+<td>No short description for file Parser/Visitor/FileVisitorInterface.php</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>34</td>
+<td>No DocBlock was found for method getFileObject()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>36</td>
+<td>No short description for method setClassFactory()</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="package-contents">
+<a name="Parser/Visitor/ReplaceClassNamesVisitor.php" id="Parser/Visitor/ReplaceClassNamesVisitor.php"></a><h3>
+<i class="icon-file"></i>Parser/Visitor/ReplaceClassNamesVisitor.php<small style="float: right;padding-right: 10px;">12</small>
+</h3>
+<div><table class="table markers table-bordered">
+<thead><tr>
+<th>Type</th>
+<th>Line</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr class="error">
+<td>error</td>
+<td>38</td>
+<td>No DocBlock was found for property $nodeType</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>40</td>
+<td>No DocBlock was found for property $nodeProperty</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>42</td>
+<td>No DocBlock was found for property $oldClassPrefix</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>44</td>
+<td>No DocBlock was found for property $newClassPrefix</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>46</td>
+<td>No DocBlock was found for method getClassObject()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>50</td>
+<td>No short description for method leaveNode()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>50</td>
+<td>The type hint of the argument is incorrect for the type definition of the @param tag with argument $node in leaveNode()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>65</td>
+<td>No DocBlock was found for method beforeTraverse()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>66</td>
+<td>No DocBlock was found for method enterNode()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>67</td>
+<td>No DocBlock was found for method afterTraverse()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>69</td>
+<td>No DocBlock was found for method setNewClassPrefix()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>73</td>
+<td>No DocBlock was found for method setOldClassPrefix()</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="package-contents">
+<a name="Parser/Utility/NodeConverter.php" id="Parser/Utility/NodeConverter.php"></a><h3>
+<i class="icon-file"></i>Parser/Utility/NodeConverter.php<small style="float: right;padding-right: 10px;">7</small>
+</h3>
+<div><table class="table markers table-bordered">
+<thead><tr>
+<th>Type</th>
+<th>Line</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr class="critical">
+<td>critical</td>
+<td>26</td>
+<td>No short description for class Tx_PhpParser_Parser_Utility_NodeConverter</td>
+</tr>
+<tr class="critical">
+<td>critical</td>
+<td>26</td>
+<td>No short description for file Parser/Utility/NodeConverter.php</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>33</td>
+<td>No DocBlock was found for property $accessorModifiers</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>39</td>
+<td>No DocBlock was found for method getTypeHintFromVarType()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>48</td>
+<td>No short description for method modifierToNames()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>100</td>
+<td>The type hint of the argument is incorrect for the type definition of the @param tag with argument $node in convertClassConstantNodeToArray()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>117</td>
+<td>No DocBlock was found for method getVarTypeFromValue()</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="package-contents">
+<a name="Parser/TraverserInterface.php" id="Parser/TraverserInterface.php"></a><h3>
+<i class="icon-file"></i>Parser/TraverserInterface.php<small style="float: right;padding-right: 10px;">2</small>
+</h3>
+<div><table class="table markers table-bordered">
+<thead><tr>
+<th>Type</th>
+<th>Line</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr class="critical">
+<td>critical</td>
+<td>26</td>
+<td>No short description for file Parser/TraverserInterface.php</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>32</td>
+<td>No DocBlock was found for method resetVisitors()</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="package-contents">
+<a name="Parser/ClassFactory.php" id="Parser/ClassFactory.php"></a><h3>
+<i class="icon-file"></i>Parser/ClassFactory.php<small style="float: right;padding-right: 10px;">8</small>
+</h3>
+<div><table class="table markers table-bordered">
+<thead><tr>
+<th>Type</th>
+<th>Line</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr class="critical">
+<td>critical</td>
+<td>26</td>
+<td>No short description for class Tx_PhpParser_Parser_ClassFactory</td>
+</tr>
+<tr class="critical">
+<td>critical</td>
+<td>26</td>
+<td>No short description for file Parser/ClassFactory.php</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>33</td>
+<td>No DocBlock was found for method buildClassObjectFromNode()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>45</td>
+<td>No DocBlock was found for method buildClassMethodObjectFromNode()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>51</td>
+<td>No DocBlock was found for method buildFunctionObjectFromNode()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>57</td>
+<td>No DocBlock was found for method buildPropertyObjectFromNode()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>78</td>
+<td>No DocBlock was found for method buildNamespaceObjectFromNode()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>85</td>
+<td>No DocBlock was found for method setPropertiesFromNode()</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="package-contents">
+<a name="AutoLoader.php" id="AutoLoader.php"></a><h3>
+<i class="icon-file"></i>AutoLoader.php<small style="float: right;padding-right: 10px;">3</small>
+</h3>
+<div><table class="table markers table-bordered">
+<thead><tr>
+<th>Type</th>
+<th>Line</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr class="critical">
+<td>critical</td>
+<td>26</td>
+<td>No short description for class Tx_PhpParser_Utility_AutoLoader</td>
+</tr>
+<tr class="critical">
+<td>critical</td>
+<td>26</td>
+<td>No short description for file AutoLoader.php</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>35</td>
+<td>No DocBlock was found for property $autoloadRegistry</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="package-contents"></div>
+<div class="package-contents"></div>
+<div class="package-contents"></div>
+<div class="package-contents">
+<a name="Domain/Model/Class/Property.php" id="Domain/Model/Class/Property.php"></a><h3>
+<i class="icon-file"></i>Domain/Model/Class/Property.php<small style="float: right;padding-right: 10px;">9</small>
+</h3>
+<div><table class="table markers table-bordered">
+<thead><tr>
+<th>Type</th>
+<th>Line</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr class="critical">
+<td>critical</td>
+<td>27</td>
+<td>No short description for class Tx_PhpParser_Domain_Model_Class_Property</td>
+</tr>
+<tr class="critical">
+<td>critical</td>
+<td>27</td>
+<td>No short description for file Domain/Model/Class/Property.php</td>
+</tr>
+<tr class="critical">
+<td>critical</td>
+<td>44</td>
+<td>No short description for property $varType</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>49</td>
+<td>Argument $createNode is missing from the Docblock of __construct()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>72</td>
+<td>Argument $updateNode is missing from the Docblock of setValue()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>72</td>
+<td>Argument $updateVarType is missing from the Docblock of setValue()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>95</td>
+<td>Argument $updateNodeName is missing from the Docblock of setName()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>110</td>
+<td>No short description for method setVarType()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>125</td>
+<td>No short description for method getVarType()</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="package-contents">
+<a name="Domain/Model/Class/Method.php" id="Domain/Model/Class/Method.php"></a><h3>
+<i class="icon-file"></i>Domain/Model/Class/Method.php<small style="float: right;padding-right: 10px;">2</small>
+</h3>
+<div><table class="table markers table-bordered">
+<thead><tr>
+<th>Type</th>
+<th>Line</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr class="critical">
+<td>critical</td>
+<td>27</td>
+<td>No short description for class Tx_PhpParser_Domain_Model_Class_Method</td>
+</tr>
+<tr class="critical">
+<td>critical</td>
+<td>27</td>
+<td>No short description for file Domain/Model/Class/Method.php</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="package-contents">
+<a name="Domain/Model/Parameter.php" id="Domain/Model/Parameter.php"></a><h3>
+<i class="icon-file"></i>Domain/Model/Parameter.php<small style="float: right;padding-right: 10px;">9</small>
+</h3>
+<div><table class="table markers table-bordered">
+<thead><tr>
+<th>Type</th>
+<th>Line</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr class="critical">
+<td>critical</td>
+<td>27</td>
+<td>No short description for class Tx_PhpParser_Domain_Model_Parameter</td>
+</tr>
+<tr class="critical">
+<td>critical</td>
+<td>27</td>
+<td>No short description for file Domain/Model/Parameter.php</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>107</td>
+<td>Argument $updateNodeType is missing from the Docblock of setType()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>148</td>
+<td>Argument $updateNodeDefault is missing from the Docblock of setDefault()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>189</td>
+<td>No DocBlock was found for method setPassedByReference()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>205</td>
+<td>Argument $updateNodeTypeHint is missing from the Docblock of setTypeHint()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>221</td>
+<td>No short description for method setVarType()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>221</td>
+<td>Argument $updateNodeType is missing from the Docblock of setVarType()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>231</td>
+<td>No short description for method getVarType()</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="package-contents">
+<a name="Domain/Model/Function.php" id="Domain/Model/Function.php"></a><h3>
+<i class="icon-file"></i>Domain/Model/Function.php<small style="float: right;padding-right: 10px;">3</small>
+</h3>
+<div><table class="table markers table-bordered">
+<thead><tr>
+<th>Type</th>
+<th>Line</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr class="critical">
+<td>critical</td>
+<td>26</td>
+<td>No short description for class Tx_PhpParser_Domain_Model_Function</td>
+</tr>
+<tr class="critical">
+<td>critical</td>
+<td>26</td>
+<td>No short description for file Domain/Model/Function.php</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>131</td>
+<td>No short description for method getParameterByPosition()</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="package-contents">
+<a name="Domain/Model/AbstractObject.php" id="Domain/Model/AbstractObject.php"></a><h3>
+<i class="icon-file"></i>Domain/Model/AbstractObject.php<small style="float: right;padding-right: 10px;">27</small>
+</h3>
+<div><table class="table markers table-bordered">
+<thead><tr>
+<th>Type</th>
+<th>Line</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr class="critical">
+<td>critical</td>
+<td>27</td>
+<td>No short description for class Tx_PhpParser_Domain_Model_AbstractObject</td>
+</tr>
+<tr class="critical">
+<td>critical</td>
+<td>27</td>
+<td>No short description for file Domain/Model/AbstractObject.php</td>
+</tr>
+<tr class="critical">
+<td>critical</td>
+<td>90</td>
+<td>No short description for property $docCommentParser</td>
+</tr>
+<tr class="critical">
+<td>critical</td>
+<td>95</td>
+<td>No short description for property $namespace</td>
+</tr>
+<tr class="critical">
+<td>critical</td>
+<td>101</td>
+<td>No short description for property $node</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>106</td>
+<td>Argument $updateNodeName is missing from the Docblock of setName()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>142</td>
+<td>No short description for method isPublic()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>149</td>
+<td>No short description for method isProtected()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>157</td>
+<td>No short description for method isPrivate()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>164</td>
+<td>No short description for method isStatic()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>171</td>
+<td>No short description for method isAbstract()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>178</td>
+<td>No short description for method isFinal()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>241</td>
+<td>No short description for method removeModifier()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>250</td>
+<td>No short description for method removeAllModifiers()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>278</td>
+<td>No short description for method setNode()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>285</td>
+<td>No short description for method getNode()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>382</td>
+<td>Name of argument $tagName does not match with the DocBlock's name $tagName: in isTaggedWith()</td>
+</tr>
+<tr class="notice">
+<td>notice</td>
+<td>382</td>
+<td>Parameter $tagName: could not be found in isTaggedWith()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>394</td>
+<td>Argument $tagName is missing from the Docblock of getTagValues()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>424</td>
+<td>No short description for method addTag()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>461</td>
+<td>No short description for method setDescription()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>470</td>
+<td>No short description for method getDescription()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>477</td>
+<td>No short description for method setNamespaceName()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>485</td>
+<td>No short description for method getNamespaceName()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>492</td>
+<td>No short description for method isNamespaced()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>503</td>
+<td>No DocBlock was found for method inNamespace()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>509</td>
+<td>No DocBlock was found for method validateModifier()</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="package-contents">
+<a name="Domain/Model/File.php" id="Domain/Model/File.php"></a><h3>
+<i class="icon-file"></i>Domain/Model/File.php<small style="float: right;padding-right: 10px;">18</small>
+</h3>
+<div><table class="table markers table-bordered">
+<thead><tr>
+<th>Type</th>
+<th>Line</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr class="critical">
+<td>critical</td>
+<td>27</td>
+<td>No short description for class Tx_PhpParser_Domain_Model_File</td>
+</tr>
+<tr class="critical">
+<td>critical</td>
+<td>27</td>
+<td>No short description for file Domain/Model/File.php</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>36</td>
+<td>No DocBlock was found for property $filePathAndName</td>
+</tr>
+<tr class="critical">
+<td>critical</td>
+<td>38</td>
+<td>No short description for property $namespaces</td>
+</tr>
+<tr class="critical">
+<td>critical</td>
+<td>44</td>
+<td>No short description for property $stmts</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>49</td>
+<td>No DocBlock was found for property $aliasDeclarations</td>
+</tr>
+<tr class="critical">
+<td>critical</td>
+<td>51</td>
+<td>No short description for property $functions</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>56</td>
+<td>No short description for method addClass()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>63</td>
+<td>No short description for method getClassByName()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>75</td>
+<td>No short description for method getClasses()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>87</td>
+<td>No short description for method addNamespace()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>94</td>
+<td>No short description for method getNamespaces()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>101</td>
+<td>No DocBlock was found for method hasNamespaces()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>106</td>
+<td>No short description for method setFilePathAndName()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>113</td>
+<td>No DocBlock was found for method getFilePathAndName()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>137</td>
+<td>No short description for method addSubStatements()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>162</td>
+<td>No DocBlock was found for method addAliasDeclarations()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>166</td>
+<td>No DocBlock was found for method getAliasDeclarations()</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="package-contents">
+<a name="Domain/Model/Container.php" id="Domain/Model/Container.php"></a><h3>
+<i class="icon-file"></i>Domain/Model/Container.php<small style="float: right;padding-right: 10px;">16</small>
+</h3>
+<div><table class="table markers table-bordered">
+<thead><tr>
+<th>Type</th>
+<th>Line</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr class="critical">
+<td>critical</td>
+<td>42</td>
+<td>No short description for property $preIncludes</td>
+</tr>
+<tr class="critical">
+<td>critical</td>
+<td>47</td>
+<td>No short description for property $postIncludes</td>
+</tr>
+<tr class="critical">
+<td>critical</td>
+<td>52</td>
+<td>No short description for property $functions</td>
+</tr>
+<tr class="critical">
+<td>critical</td>
+<td>58</td>
+<td>No short description for property $classes</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>64</td>
+<td>No short description for method getFirstClass()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>73</td>
+<td>No short description for method addClass()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>80</td>
+<td>No short description for method setClasses()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>88</td>
+<td>No short description for method getClasses()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>145</td>
+<td>No DocBlock was found for method addPostInclude()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>149</td>
+<td>No DocBlock was found for method getPostIncludes()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>153</td>
+<td>No DocBlock was found for method addPreInclude()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>157</td>
+<td>No DocBlock was found for method getPreIncludes()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>161</td>
+<td>No short description for method setFunctions()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>168</td>
+<td>No short description for method addFunction()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>175</td>
+<td>No short description for method getFunctions()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>182</td>
+<td>No short description for method getFunction()</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="package-contents">
+<a name="Domain/Model/Namespace.php" id="Domain/Model/Namespace.php"></a><h3>
+<i class="icon-file"></i>Domain/Model/Namespace.php<small style="float: right;padding-right: 10px;">18</small>
+</h3>
+<div><table class="table markers table-bordered">
+<thead><tr>
+<th>Type</th>
+<th>Line</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr class="critical">
+<td>critical</td>
+<td>27</td>
+<td>No short description for class Tx_PhpParser_Domain_Model_Namespace</td>
+</tr>
+<tr class="critical">
+<td>critical</td>
+<td>27</td>
+<td>No short description for file Domain/Model/Namespace.php</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>36</td>
+<td>No DocBlock was found for property $constants</td>
+</tr>
+<tr class="critical">
+<td>critical</td>
+<td>38</td>
+<td>No short description for property $aliasDeclarations</td>
+</tr>
+<tr class="critical">
+<td>critical</td>
+<td>44</td>
+<td>No short description for property $classes</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>49</td>
+<td>No DocBlock was found for property $functions</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>51</td>
+<td>No short description for method __construct()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>58</td>
+<td>No DocBlock was found for method setFunctions()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>62</td>
+<td>No DocBlock was found for method getFunctions()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>66</td>
+<td>No DocBlock was found for method addAliasDeclaration()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>70</td>
+<td>No DocBlock was found for method getAliasDeclarations()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>74</td>
+<td>No DocBlock was found for method getAliasNames()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>78</td>
+<td>No short description for method setPreIncludes()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>85</td>
+<td>No short description for method getPreIncludes()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>92</td>
+<td>No DocBlock was found for method addPreInclude()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>96</td>
+<td>No DocBlock was found for method setPostIncludes()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>100</td>
+<td>No DocBlock was found for method getPostIncludes()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>105</td>
+<td>No DocBlock was found for method addPostInclude()</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="package-contents">
+<a name="Domain/Model/Class.php" id="Domain/Model/Class.php"></a><h3>
+<i class="icon-file"></i>Domain/Model/Class.php<small style="float: right;padding-right: 10px;">11</small>
+</h3>
+<div><table class="table markers table-bordered">
+<thead><tr>
+<th>Type</th>
+<th>Line</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr class="error">
+<td>error</td>
+<td>69</td>
+<td>Name of argument $name does not match with the DocBlock's name $createNode in __construct()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>69</td>
+<td>Name of argument $createNode does not match with the DocBlock's name $name in __construct()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>113</td>
+<td>Name of argument $classMethod does not match with the DocBlock's name $method in setMethod()</td>
+</tr>
+<tr class="notice">
+<td>notice</td>
+<td>113</td>
+<td>Parameter $method could not be found in setMethod()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>346</td>
+<td>No short description for method setInterfaces()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>359</td>
+<td>Argument $updateNode is missing from the Docblock of addInterfaceName()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>386</td>
+<td>No short description for method hasInterface()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>394</td>
+<td>No short description for method removeInterface()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>410</td>
+<td>No DocBlock was found for method removeAllInterfaces()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>483</td>
+<td>No short description for method addModifier()</td>
+</tr>
+<tr class="error">
+<td>error</td>
+<td>496</td>
+<td>No short description for method setModifier()</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="row"><footer class="span12">
+            Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by <a href="http://glyphicons.com/">Glyphicons</a>.<br>
+            Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor 2.0.0a2</a> and<br>
+            generated on 2012-04-23T11:17:47+02:00.<br></footer></div>
+</div>
+</body>
+</html>

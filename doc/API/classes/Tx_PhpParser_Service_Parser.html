@@ -1,0 +1,252 @@
+<!DOCTYPE html><html xmlns:date="http://exslt.org/dates-and-times" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+<meta charset="utf-8">
+<title>phpDocumentor » \Tx_PhpParser_Service_Parser</title>
+<meta name="author" content="Mike van Riel">
+<meta name="description" content="">
+<link href="../css/template.css" rel="stylesheet" media="all">
+<script src="../js/jquery-1.7.1.min.js" type="text/javascript"></script><script src="../js/jquery-ui-1.8.2.custom.min.js" type="text/javascript"></script><script src="../js/jquery.mousewheel.min.js" type="text/javascript"></script><script src="../js/bootstrap.js" type="text/javascript"></script><script src="../js/template.js" type="text/javascript"></script><script src="../js/prettify/prettify.min.js" type="text/javascript"></script><link rel="shortcut icon" href="../img/favicon.ico">
+<link rel="apple-touch-icon" href="../img/apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="72x72" href="../img/apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="114x114" href="../img/apple-touch-icon-114x114.png">
+</head>
+<body>
+<div class="navbar navbar-fixed-top">
+<div class="navbar-inner"><div class="container">
+<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></a><a class="brand" href="../index.html">phpDocumentor</a><div class="nav-collapse"><ul class="nav">
+<li class="dropdown">
+<a href="#api" class="dropdown-toggle" data-toggle="dropdown">
+                                    API Documentation <b class="caret"></b></a><ul class="dropdown-menu">
+<li><a>Packages</a></li>
+<li><a href="../packages/PhpParserApi.html"><i class="icon-folder-open"></i> PhpParserApi</a></li>
+</ul>
+</li>
+<li class="dropdown" id="charts-menu">
+<a href="#charts" class="dropdown-toggle" data-toggle="dropdown">
+                                    Charts <b class="caret"></b></a><ul class="dropdown-menu"><li><a href="../graph_class.html"><i class="icon-list-alt"></i> Class hierarchy diagram</a></li></ul>
+</li>
+<li class="dropdown" id="reports-menu">
+<a href="#reports" class="dropdown-toggle" data-toggle="dropdown">
+                                    Reports <b class="caret"></b></a><ul class="dropdown-menu">
+<li><a href="../errors.html"><i class="icon-remove-sign"></i> Errors 
+                <span class="label label-info">207</span></a></li>
+<li><a href="../markers.html"><i class="icon-map-marker"></i> Markers 
+                <ul><li>todo 
+                <span class="label label-info">2</span>
+</li></ul></a></li>
+<li><a href="../deprecated.html"><i class="icon-stop"></i> Deprecated elements 
+                <span class="label label-info">0</span></a></li>
+</ul>
+</li>
+</ul></div>
+</div></div>
+<div class="go_to_top"><a href="#___" style="color: inherit">Back to top  <i class="icon-upload icon-white"></i></a></div>
+</div>
+<div id="___" class="container">
+<noscript><div class="alert alert-warning">
+                            Javascript is disabled; several features are only available
+                            if Javascript is enabled.
+                        </div></noscript>
+<div class="row">
+<div class="span4">
+<span class="btn-group visibility" data-toggle="buttons-checkbox"><button class="btn public active" title="Show public elements">Public</button><button class="btn protected" title="Show protected elements">Protected</button><button class="btn private" title="Show private elements">Private</button><button class="btn inherited active" title="Show inherited elements">Inherited</button></span><div class="btn-group view pull-right" data-toggle="buttons-radio">
+<button class="btn details" title="Show descriptions and method names"><i class="icon-list"></i></button><button class="btn simple" title="Show only method names"><i class="icon-align-justify"></i></button>
+</div>
+<ul class="side-nav nav nav-list">
+<li class="nav-header">
+<i class="icon-custom icon-method"></i> Methods</li>
+<li class="method public "><a href="#parse" title="parse :: "><span class="description">parse()
+        </span><pre>parse()</pre></a></li>
+<li class="method public "><a href="#parseFile" title="parseFile :: "><span class="description">parseFile()
+        </span><pre>parseFile()</pre></a></li>
+<li class="method public "><a href="#parseRawStatements" title="parseRawStatements :: "><span class="description">parseRawStatements()
+        </span><pre>parseRawStatements()</pre></a></li>
+<li class="method public "><a href="#replaceNodeProperty" title="replaceNodeProperty :: "><span class="description">replaceNodeProperty()
+        </span><pre>replaceNodeProperty()</pre></a></li>
+<li class="method public "><a href="#setClassFactory" title="setClassFactory :: "><span class="description">setClassFactory()
+        </span><pre>setClassFactory()</pre></a></li>
+<li class="method public "><a href="#setFileVisitor" title="setFileVisitor :: "><span class="description">setFileVisitor()
+        </span><pre>setFileVisitor()</pre></a></li>
+<li class="method public "><a href="#setTraverser" title="setTraverser :: "><span class="description">setTraverser()
+        </span><pre>setTraverser()</pre></a></li>
+<li class="nav-header">
+<i class="icon-custom icon-property"></i> Properties</li>
+<li class="nav-header protected">» Protected</li>
+<li class="property protected "><a href="#%24classFactory" title="$classFactory :: "><span class="description">$classFactory</span><pre>$classFactory</pre></a></li>
+<li class="property protected "><a href="#%24fileVisitor" title="$fileVisitor :: "><span class="description">$fileVisitor</span><pre>$fileVisitor</pre></a></li>
+<li class="property protected "><a href="#%24traverser" title="$traverser :: "><span class="description">$traverser</span><pre>$traverser</pre></a></li>
+</ul>
+</div>
+<div class="span8">
+<a name="%5CTx_PhpParser_Service_Parser" id="\Tx_PhpParser_Service_Parser"></a><div href="../classes/Tx_PhpParser_Service_Parser.html" class="element class">
+<p class="short_description">provides methods to generate classes from PHP code</p>
+<div class="details">
+<p class="long_description"></p>
+<table class="table table-bordered">
+<tr>
+<th>package</th>
+<td><a href="..//packages/PhpParserApi.html">PhpParserApi</a></td>
+</tr>
+<tr>
+<th>author</th>
+<td><a href="">Nico de Haen</a></td>
+</tr>
+</table>
+<h3>
+<i class="icon-custom icon-method"></i> Methods</h3>
+<a name="parse" id="parse"></a><div class="element clickable method public parse" data-toggle="collapse" data-target=".parse .collapse">
+<h2>parse()
+        </h2>
+<pre>parse(string $code) : <a href="../classes/Tx_PhpParser_Domain_Model_File.html">\Tx_PhpParser_Domain_Model_File</a></pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="span8">
+<p class="long_description"></p>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$code</h4>
+<code>string</code>
+</div>
+<h3>Returns</h3>
+<div class="subelement response"><code><a href="../classes/Tx_PhpParser_Domain_Model_File.html">\Tx_PhpParser_Domain_Model_File</a></code></div>
+</div></div>
+</div>
+<a name="parseFile" id="parseFile"></a><div class="element clickable method public parseFile" data-toggle="collapse" data-target=".parseFile .collapse">
+<h2>parseFile()
+        </h2>
+<pre>parseFile(string $fileName) : <a href="../classes/Tx_PhpParser_Domain_Model_File.html">\Tx_PhpParser_Domain_Model_File</a></pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="span8">
+<p class="long_description"></p>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$fileName</h4>
+<code>string</code>
+</div>
+<h3>Exceptions</h3>
+<table class="table table-bordered"><tr>
+<th><code><a href="http://php.net/manual/en/class.exception.php">\Exception</a></code></th>
+<td></td>
+</tr></table>
+<h3>Returns</h3>
+<div class="subelement response"><code><a href="../classes/Tx_PhpParser_Domain_Model_File.html">\Tx_PhpParser_Domain_Model_File</a></code></div>
+</div></div>
+</div>
+<a name="parseRawStatements" id="parseRawStatements"></a><div class="element clickable method public parseRawStatements" data-toggle="collapse" data-target=".parseRawStatements .collapse">
+<h2>parseRawStatements()
+        </h2>
+<pre>parseRawStatements(string $code) : array</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="span8">
+<p class="long_description"></p>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$code</h4>
+<code>string</code>
+</div>
+<h3>Returns</h3>
+<div class="subelement response"><code>array</code></div>
+</div></div>
+</div>
+<a name="replaceNodeProperty" id="replaceNodeProperty"></a><div class="element clickable method public replaceNodeProperty" data-toggle="collapse" data-target=".replaceNodeProperty .collapse">
+<h2>replaceNodeProperty()
+        </h2>
+<pre>replaceNodeProperty(array $stmts, array $replacements, string $nodeType, string $nodeProperty) : \PHPParser_Node</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="span8">
+<p class="long_description"></p>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$stmts</h4>
+<code>array</code>
+</div>
+<div class="subelement argument">
+<h4>$replacements</h4>
+<code>array</code>
+</div>
+<div class="subelement argument">
+<h4>$nodeType</h4>
+<code>string</code>
+</div>
+<div class="subelement argument">
+<h4>$nodeProperty</h4>
+<code>string</code>
+</div>
+<h3>Returns</h3>
+<div class="subelement response"><code>\PHPParser_Node</code></div>
+</div></div>
+</div>
+<a name="setClassFactory" id="setClassFactory"></a><div class="element clickable method public setClassFactory" data-toggle="collapse" data-target=".setClassFactory .collapse">
+<h2>setClassFactory()
+        </h2>
+<pre>setClassFactory(Tx_PhpParser_Parser_ClassFactoryInterface $classFactory) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="span8">
+<p class="long_description"></p>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$classFactory</h4>
+<code><a href="../classes/Tx_PhpParser_Parser_ClassFactoryInterface.html">\Tx_PhpParser_Parser_ClassFactoryInterface</a></code>
+</div>
+</div></div>
+</div>
+<a name="setFileVisitor" id="setFileVisitor"></a><div class="element clickable method public setFileVisitor" data-toggle="collapse" data-target=".setFileVisitor .collapse">
+<h2>setFileVisitor()
+        </h2>
+<pre>setFileVisitor(Tx_PhpParser_Parser_Visitor_FileVisitorInterface $visitor) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="span8">
+<p class="long_description"></p>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$visitor</h4>
+<code><a href="../classes/Tx_PhpParser_Parser_Visitor_FileVisitorInterface.html">\Tx_PhpParser_Parser_Visitor_FileVisitorInterface</a></code>
+</div>
+</div></div>
+</div>
+<a name="setTraverser" id="setTraverser"></a><div class="element clickable method public setTraverser" data-toggle="collapse" data-target=".setTraverser .collapse">
+<h2>setTraverser()
+        </h2>
+<pre>setTraverser(Tx_PhpParser_Parser_TraverserInterface $traverser) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="span8">
+<p class="long_description"></p>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$traverser</h4>
+<code><a href="../classes/Tx_PhpParser_Parser_TraverserInterface.html">\Tx_PhpParser_Parser_TraverserInterface</a></code>
+</div>
+</div></div>
+</div>
+<h3>
+<i class="icon-custom icon-property"></i> Properties</h3>
+<a name="%24classFactory" id="$classFactory"> </a><div class="element clickable property protected $classFactory" data-toggle="collapse" data-target=".$classFactory .collapse">
+<h2>$classFactory</h2>
+<pre>$classFactory : <a href="../classes/Tx_PhpParser_Parser_ClassFactoryInterface.html">\Tx_PhpParser_Parser_ClassFactoryInterface</a></pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="span8"><p class="long_description"></p></div></div>
+</div>
+<a name="%24fileVisitor" id="$fileVisitor"> </a><div class="element clickable property protected $fileVisitor" data-toggle="collapse" data-target=".$fileVisitor .collapse">
+<h2>$fileVisitor</h2>
+<pre>$fileVisitor : <a href="../classes/Tx_PhpParser_Parser_Visitor_FileVisitorInterface.html">\Tx_PhpParser_Parser_Visitor_FileVisitorInterface</a></pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="span8"><p class="long_description"></p></div></div>
+</div>
+<a name="%24traverser" id="$traverser"> </a><div class="element clickable property protected $traverser" data-toggle="collapse" data-target=".$traverser .collapse">
+<h2>$traverser</h2>
+<pre>$traverser : \Tx_Php_Parser_TraverserInterface</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="span8"><p class="long_description"></p></div></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="row"><footer class="span12">
+            Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by <a href="http://glyphicons.com/">Glyphicons</a>.<br>
+            Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor 2.0.0a2</a> and<br>
+            generated on 2012-04-23T11:17:47+02:00.<br></footer></div>
+</div>
+</body>
+</html>

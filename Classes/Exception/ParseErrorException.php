@@ -25,7 +25,8 @@
 /**
  * An exception thrown if an error occured during parsing a php file
  *
- * @package php_parser_api
+ * @author Nico de Haen
+ * @package PhpParserApi
  */
 class Tx_PhpParser_Exception_ParseErrorException extends Exception {
 

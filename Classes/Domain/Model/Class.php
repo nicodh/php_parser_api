@@ -27,7 +27,8 @@
 /**
  * TODO: enable declares
  *
- * @package php_parser_api
+ * @author Nico de Haen
+ * @package PhpParserApi
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
@@ -310,13 +311,14 @@ class Tx_PhpParser_Domain_Model_Class extends Tx_PhpParser_Domain_Model_Containe
 	/**
 	 * add a property (returns TRUE if successfull added)
 	 *
-	 * @param Tx_PhpParser_Domain_Model_Class_Property
+	 * @param Tx_PhpParser_Domain_Model_Class_Property $classProperty
 	 * @return boolean success
 	 */
 	public function addProperty(Tx_PhpParser_Domain_Model_Class_Property $classProperty) {
 		if (!$this->propertyExists($classProperty->getName())) {
 			$this->propertyNames[] = $classProperty->getName();
 			$this->properties[$classProperty->getName()] = $classProperty;
+			return TRUE;
 		}
 		else return FALSE;
 	}
@@ -413,7 +415,8 @@ class Tx_PhpParser_Domain_Model_Class extends Tx_PhpParser_Domain_Model_Containe
 	/**
 	 * Setter for parentClassName
 	 *
-	 * @param string $parentClass
+	 * @param string $parentClassName
+	 * @param boolean $updateNode
 	 * @return void
 	 */
 	public function setParentClassName($parentClassName, $updateNode = TRUE) {
@@ -433,11 +436,18 @@ class Tx_PhpParser_Domain_Model_Class extends Tx_PhpParser_Domain_Model_Containe
 		return $this->parentClassName;
 	}
 
+	/**
+	 * removes the parent class
+	 */
 	public function removeParentClassName() {
 		$this->parentClass = '';
 		$this->node->__set('extends',NULL);
 	}
 
+	/**
+	 * This methods is respsible for generating a statement array in the correct
+	 * order and to include all method and property nodes
+	 */
 	public function updateStmts() {
 		$stmts = array();
 

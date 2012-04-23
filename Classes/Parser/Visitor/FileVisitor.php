@@ -24,7 +24,7 @@
 ***************************************************************/
 
 /**
-* @package php_parser_api
+* @package PhpParserApi
 * @author Nico de Haen
 */
 
@@ -32,8 +32,8 @@
 /**
 * provides methods to import a class object and methods and properties
 *
-* @package php_parser_api
-* @version $ID:$
+* @package PhpParserApi
+* @author Nico de Haen
 */
 
 class Tx_PhpParser_Parser_Visitor_FileVisitor extends PHPParser_NodeVisitorAbstract implements Tx_PhpParser_Parser_Visitor_FileVisitorInterface{

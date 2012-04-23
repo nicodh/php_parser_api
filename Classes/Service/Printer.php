@@ -23,16 +23,11 @@
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
-/**
-* @package
-* @author Nico de Haen
-*/
-
 
 /**
 * provides methods to render the sourcecode for statements
-* @package php_parser
-* @version $ID:$
+ * @package PhpParserApi
+ * @author Nico de Haen
 */
 class Tx_PhpParser_Service_Printer extends PHPParser_PrettyPrinter_TYPO3CGL {
 

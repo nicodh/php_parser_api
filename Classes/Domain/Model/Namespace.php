@@ -26,8 +26,8 @@
 
 /**
  *
- *
- * @package php_parser_api
+ * @author Nico de Haen
+ * @package PhpParserApi
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
@@ -51,32 +51,8 @@ class Tx_PhpParser_Domain_Model_Namespace extends Tx_PhpParser_Domain_Model_Cont
 	/**
 	 * @param string $name
 	 */
-	public function __construct( $name, $createNode = FALSE) {
+	public function __construct($name) {
 		$this->name = $name;
-		if($createNode) {
-			$this->node = Tx_PhpParser_Parser_NodeFactory::buildNamespaceNode($name);
-			$this->initDocComment();
-		}
-	}
-
-
-
-	/**
-	 * Setter for a single constant
-	 *
-	 * @param string $constant constant
-	 * @return void
-	 */
-	public function setConstant($name, $value) {
-		$this->constants[$name] = $value;
-	}
-
-	public function setConstants($constants) {
-		$this->constants = $constants;
-	}
-
-	public function getConstants() {
-		return $this->constants;
 	}
 
 	public function setFunctions($functions) {

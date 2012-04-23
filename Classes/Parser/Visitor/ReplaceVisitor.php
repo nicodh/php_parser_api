@@ -28,7 +28,7 @@
  * a generic visitor to replace node properties in statements
  * (Usage see: Tests/Function/ModifyObjects renameMethodParameterAndUpdateMethodBody)
  *
- * @package php_parser_api
+ * @package PhpParserApi
  * @author Nico de Haen
  */
 
@@ -56,7 +56,7 @@ class Tx_PhpParser_Parser_Visitor_ReplaceVisitor extends PHPParser_NodeVisitorAb
 	}
 
 	/**
-	 * @param \PHPParser_Node $node
+	 * @param PHPParser_Node $node
 	 * @return PHPParser_Node|void
 	 */
 	public function leaveNode(PHPParser_Node $node) {

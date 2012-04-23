@@ -24,7 +24,7 @@
  ***************************************************************/
 
 /**
- * @package
+ * @package  PhpParserApi
  * @author Nico de Haen
  */
 
@@ -99,10 +99,10 @@ class Tx_PhpParser_Parser_Utility_NodeConverter {
 
 	/**
 	 * Constants consist of a simple key => value array in the API
-	 * This methods converts ClassConst
+	 * This methods converts  PHPParser_Node_Stmt_ClassConst or PHPParser_Node_Stmt_Const
 	 *
 	 * @static
-	 * @param PHPParser_Node_Stmt_ClassConst or PHPParser_Node_Stmt_Const $node or
+	 * @param PHPParser_Node
 	 * @return array
 	 */
 	public static function convertClassConstantNodeToArray(PHPParser_Node $node) {

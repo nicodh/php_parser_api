@@ -26,8 +26,8 @@
 
 /**
  *
- *
- * @package php_parser_api
+ * @author Nico de Haen
+ * @package PhpParserApi
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
