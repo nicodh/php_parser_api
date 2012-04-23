@@ -60,7 +60,7 @@ For example it adds @param tags in methods (if they are missing) according to th
 
 Have a look at the Unit and Function tests in the [Tests][3] directory to see some examples or read the [documentation][4]
 
-
+But there are also some [limitations][8] which we might overcome in the future...
 
 
  [1]: https://github.com/nikic/PHP-Parser/
@@ -70,3 +70,4 @@ Have a look at the Unit and Function tests in the [Tests][3] directory to see so
  [5]: http://nicodh.github.com/php_parser_api/phpdoc/packages/PhpParserApi.html
  [6]: https://github.com/tmaroschik/PHP-Parser
  [7]: https://github.com/tmaroschik
+ [8]: https://github.com/nicodh/php_parser_api/tree/master/doc/5_Limitations.markdown
