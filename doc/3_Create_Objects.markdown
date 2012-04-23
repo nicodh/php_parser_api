@@ -22,4 +22,4 @@ See the [function tests][1] for more examples.
 [Stand alone usage][2]
 
 [1]: https://github.com/nicodh/php_parser_api/blob/master/Tests/Function/BuildObjects.php
-[2]: https://github.com/nicodh/php_parser_api/tree/master/doc/2_Standalone_Usage.markdown
+[2]: https://github.com/nicodh/php_parser_api/tree/master/doc/4_Standalone_Usage.markdown

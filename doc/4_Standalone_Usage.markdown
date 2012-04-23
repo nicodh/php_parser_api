@@ -16,4 +16,4 @@ The usage is straight forward:
 Many Thanks to [nikic][1] for providing the php-parser and to [Tom Maroschik][2] for the additional improvements to support whitespaces and comments.
 
  [1]: https://github.com/nikic
- [2] https://github.com/tmaroschik
+ [2]: https://github.com/tmaroschik

@@ -30,6 +30,10 @@ Besides that, the docComment is also parsed, so there is a posiibility to get (a
 See some examples in the [parser unit tests][2]
 
 [Modify Objects][1]
+[Create Objects][3]
+[Stand alone usage][4]
 
 [1]: https://github.com/nicodh/php_parser_api/tree/master/doc/2_Modify_Objects.markdown
 [2]: https://github.com/nicodh/php_parser_api/blob/master/Tests/Unit/ParserTest.php
+[3]: https://github.com/nicodh/php_parser_api/tree/master/doc/3_Create_Objects.markdown
+[2]: https://github.com/nicodh/php_parser_api/tree/master/doc/4_Standalone_Usage.markdown

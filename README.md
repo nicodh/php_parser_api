@@ -67,4 +67,4 @@ Have a look at the Unit and Function tests in the [Tests][3] directory to see so
  [2]: https://github.com/nikic
  [3]: https://github.com/nicodh/php_parser_api/tree/master/Tests/
  [4]: https://github.com/nicodh/php_parser_api/tree/master/doc/1_Inspect_Objects.markdown
- [5]: http://nicodh.github.com/php_parser_api/phpdoc/
+ [5]: http://nicodh.github.com/php_parser_api/phpdoc/packages/PhpParserApi.html
