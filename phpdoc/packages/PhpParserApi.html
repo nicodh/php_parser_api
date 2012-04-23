@@ -1,0 +1,300 @@
+<!DOCTYPE html><html xmlns:date="http://exslt.org/dates-and-times" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+<meta charset="utf-8">
+<title>phpDocumentor » PhpParserApi</title>
+<meta name="author" content="Mike van Riel">
+<meta name="description" content="">
+<link href="../css/template.css" rel="stylesheet" media="all">
+<script src="../js/jquery-1.7.1.min.js" type="text/javascript"></script><script src="../js/jquery-ui-1.8.2.custom.min.js" type="text/javascript"></script><script src="../js/jquery.mousewheel.min.js" type="text/javascript"></script><script src="../js/bootstrap.js" type="text/javascript"></script><script src="../js/template.js" type="text/javascript"></script><script src="../js/prettify/prettify.min.js" type="text/javascript"></script><link rel="shortcut icon" href="../img/favicon.ico">
+<link rel="apple-touch-icon" href="../img/apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="72x72" href="../img/apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="114x114" href="../img/apple-touch-icon-114x114.png">
+</head>
+<body>
+<div class="navbar navbar-fixed-top">
+<div class="navbar-inner"><div class="container">
+<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></a><a class="brand" href="../index.html">phpDocumentor</a><div class="nav-collapse"><ul class="nav">
+<li class="dropdown">
+<a href="#api" class="dropdown-toggle" data-toggle="dropdown">
+                                    API Documentation <b class="caret"></b></a><ul class="dropdown-menu">
+<li><a>Packages</a></li>
+<li><a href="../packages/PhpParserApi.html"><i class="icon-folder-open"></i> PhpParserApi</a></li>
+</ul>
+</li>
+<li class="dropdown" id="charts-menu">
+<a href="#charts" class="dropdown-toggle" data-toggle="dropdown">
+                                    Charts <b class="caret"></b></a><ul class="dropdown-menu"><li><a href="../graph_class.html"><i class="icon-list-alt"></i> Class hierarchy diagram</a></li></ul>
+</li>
+<li class="dropdown" id="reports-menu">
+<a href="#reports" class="dropdown-toggle" data-toggle="dropdown">
+                                    Reports <b class="caret"></b></a><ul class="dropdown-menu">
+<li><a href="../errors.html"><i class="icon-remove-sign"></i> Errors 
+                <span class="label label-info">207</span></a></li>
+<li><a href="../markers.html"><i class="icon-map-marker"></i> Markers 
+                <ul><li>todo 
+                <span class="label label-info">2</span>
+</li></ul></a></li>
+<li><a href="../deprecated.html"><i class="icon-stop"></i> Deprecated elements 
+                <span class="label label-info">0</span></a></li>
+</ul>
+</li>
+</ul></div>
+</div></div>
+<div class="go_to_top"><a href="#___" style="color: inherit">Back to top  <i class="icon-upload icon-white"></i></a></div>
+</div>
+<div id="___" class="container">
+<noscript><div class="alert alert-warning">
+                            Javascript is disabled; several features are only available
+                            if Javascript is enabled.
+                        </div></noscript>
+<div class="row">
+<div class="span4">
+<div class="btn-group view pull-right" data-toggle="buttons-radio">
+<button class="btn details" title="Show descriptions and method names"><i class="icon-list"></i></button><button class="btn simple" title="Show only method names"><i class="icon-align-justify"></i></button>
+</div>
+<ul class="side-nav nav nav-list">
+<li class="nav-header">
+<i class="icon-map-marker"></i> Packages</li>
+<li>
+<a href="../packages/PhpParserApi.html" title="PhpParserApi"><i class="icon-folder-open"></i>PhpParserApi</a><ul class="nav nav-list nav-packages"></ul>
+</li>
+<li class="nav-header">
+<i class="icon-custom icon-interface"></i> Interfaces</li>
+<li><a href="#Tx_PhpParser_Parser_ClassFactoryInterface" title="">Tx_PhpParser_Parser_ClassFactoryInterface</a></li>
+<li><a href="#Tx_PhpParser_Parser_Visitor_FileVisitorInterface" title="">Tx_PhpParser_Parser_Visitor_FileVisitorInterface</a></li>
+<li><a href="#Tx_PhpParser_Parser_TraverserInterface" title="">Tx_PhpParser_Parser_TraverserInterface</a></li>
+<li class="nav-header">
+<i class="icon-custom icon-class"></i> Classes</li>
+<li><a href="#Tx_PhpParser_Service_Printer" title="provides methods to render the sourcecode for statements">Tx_PhpParser_Service_Printer</a></li>
+<li><a href="#Tx_PhpParser_Service_Parser" title="provides methods to generate classes from PHP code">Tx_PhpParser_Service_Parser</a></li>
+<li><a href="#Tx_PhpParser_Parser_Traverser" title="">Tx_PhpParser_Parser_Traverser</a></li>
+<li><a href="#Tx_PhpParser_Parser_DocCommentParser" title="">Tx_PhpParser_Parser_DocCommentParser</a></li>
+<li><a href="#Tx_PhpParser_Parser_NodeFactory" title="">Tx_PhpParser_Parser_NodeFactory</a></li>
+<li><a href="#Tx_PhpParser_Parser_Visitor_ReplaceVisitor" title="a generic visitor to replace node properties in statements
+(Usage see: Tests/Function/ModifyObjects renameMethodParameterAndUpdateMethodBody)">Tx_PhpParser_Parser_Visitor_ReplaceVisitor</a></li>
+<li><a href="#Tx_PhpParser_Parser_Visitor_FileVisitor" title="provides methods to import a class object and methods and properties">Tx_PhpParser_Parser_Visitor_FileVisitor</a></li>
+<li><a href="#Tx_PhpParser_Parser_Visitor_ReplaceClassNamesVisitor" title='Example Visitor
+replaces all occurances of new "className" and static class calls like "className::"'>Tx_PhpParser_Parser_Visitor_ReplaceClassNamesVisitor</a></li>
+<li><a href="#Tx_PhpParser_Parser_Utility_NodeConverter" title="">Tx_PhpParser_Parser_Utility_NodeConverter</a></li>
+<li><a href="#Tx_PhpParser_Parser_ClassFactory" title="">Tx_PhpParser_Parser_ClassFactory</a></li>
+<li><a href="#Tx_PhpParser_Utility_AutoLoader" title="">Tx_PhpParser_Utility_AutoLoader</a></li>
+<li><a href="#Tx_PhpParser_Exception_FileNotFoundException" title="An exception thrown if an error occured during parsing a php file">Tx_PhpParser_Exception_FileNotFoundException</a></li>
+<li><a href="#Tx_PhpParser_Exception_SyntaxErrorException" title="An exception thrown if an operation was performed that is not allowed in PHP syntax">Tx_PhpParser_Exception_SyntaxErrorException</a></li>
+<li><a href="#Tx_PhpParser_Exception_ParseErrorException" title="An exception thrown if an error occured during parsing a php file">Tx_PhpParser_Exception_ParseErrorException</a></li>
+<li><a href="#Tx_PhpParser_Domain_Model_Class_Property" title="">Tx_PhpParser_Domain_Model_Class_Property</a></li>
+<li><a href="#Tx_PhpParser_Domain_Model_Class_Method" title="">Tx_PhpParser_Domain_Model_Class_Method</a></li>
+<li><a href="#Tx_PhpParser_Domain_Model_Parameter" title="">Tx_PhpParser_Domain_Model_Parameter</a></li>
+<li><a href="#Tx_PhpParser_Domain_Model_Function" title="">Tx_PhpParser_Domain_Model_Function</a></li>
+<li><a href="#Tx_PhpParser_Domain_Model_AbstractObject" title="">Tx_PhpParser_Domain_Model_AbstractObject</a></li>
+<li><a href="#Tx_PhpParser_Domain_Model_File" title="Provides methods that are common to Class, File and Namespace objects">Tx_PhpParser_Domain_Model_File</a></li>
+<li><a href="#Tx_PhpParser_Domain_Model_Container" title="Provides methods that are common to Class, File and Namespace objects">Tx_PhpParser_Domain_Model_Container</a></li>
+<li><a href="#Tx_PhpParser_Domain_Model_Namespace" title="Provides methods that are common to Class, File and Namespace objects">Tx_PhpParser_Domain_Model_Namespace</a></li>
+<li><a href="#Tx_PhpParser_Domain_Model_Class" title="TODO: enable declares">Tx_PhpParser_Domain_Model_Class</a></li>
+</ul>
+</div>
+<div class="span8 package-contents">
+<ul class="breadcrumb">
+<li>
+<a href="../index.html"><i class="icon-folder-open"></i></a><span class="divider">\</span>
+</li>
+<li class="active"><a href="../packages/PhpParserApi.html">PhpParserApi</a></li>
+</ul>
+<div class="package-indent">
+<h3>
+<i class="icon-custom icon-class"></i> Classes and interfaces</h3>
+<a name="Tx_PhpParser_Parser_ClassFactoryInterface" id="Tx_PhpParser_Parser_ClassFactoryInterface"></a><div class="element ajax clickable interface" href="../classes/Tx_PhpParser_Parser_ClassFactoryInterface.html">
+<h1>Tx_PhpParser_Parser_ClassFactoryInterface<a href="../classes/Tx_PhpParser_Parser_ClassFactoryInterface.html">¶</a>
+</h1>
+<p class="short_description"></p>
+<div class="details collapse"></div>
+<a href="../classes/Tx_PhpParser_Parser_ClassFactoryInterface.html" class="more">« More »</a>
+</div>
+<a name="Tx_PhpParser_Parser_TraverserInterface" id="Tx_PhpParser_Parser_TraverserInterface"></a><div class="element ajax clickable interface" href="../classes/Tx_PhpParser_Parser_TraverserInterface.html">
+<h1>Tx_PhpParser_Parser_TraverserInterface<a href="../classes/Tx_PhpParser_Parser_TraverserInterface.html">¶</a>
+</h1>
+<p class="short_description"></p>
+<div class="details collapse"></div>
+<a href="../classes/Tx_PhpParser_Parser_TraverserInterface.html" class="more">« More »</a>
+</div>
+<a name="Tx_PhpParser_Parser_Visitor_FileVisitorInterface" id="Tx_PhpParser_Parser_Visitor_FileVisitorInterface"></a><div class="element ajax clickable interface" href="../classes/Tx_PhpParser_Parser_Visitor_FileVisitorInterface.html">
+<h1>Tx_PhpParser_Parser_Visitor_FileVisitorInterface<a href="../classes/Tx_PhpParser_Parser_Visitor_FileVisitorInterface.html">¶</a>
+</h1>
+<p class="short_description"></p>
+<div class="details collapse"></div>
+<a href="../classes/Tx_PhpParser_Parser_Visitor_FileVisitorInterface.html" class="more">« More »</a>
+</div>
+<a name="Tx_PhpParser_Domain_Model_AbstractObject" id="Tx_PhpParser_Domain_Model_AbstractObject"></a><div class="element ajax clickable class" href="../classes/Tx_PhpParser_Domain_Model_AbstractObject.html">
+<h1>Tx_PhpParser_Domain_Model_AbstractObject<a href="../classes/Tx_PhpParser_Domain_Model_AbstractObject.html">¶</a>
+</h1>
+<p class="short_description"></p>
+<div class="details collapse"></div>
+<a href="../classes/Tx_PhpParser_Domain_Model_AbstractObject.html" class="more">« More »</a>
+</div>
+<a name="Tx_PhpParser_Domain_Model_Class" id="Tx_PhpParser_Domain_Model_Class"></a><div class="element ajax clickable class" href="../classes/Tx_PhpParser_Domain_Model_Class.html">
+<h1>Tx_PhpParser_Domain_Model_Class<a href="../classes/Tx_PhpParser_Domain_Model_Class.html">¶</a>
+</h1>
+<p class="short_description">TODO: enable declares</p>
+<div class="details collapse"></div>
+<a href="../classes/Tx_PhpParser_Domain_Model_Class.html" class="more">« More »</a>
+</div>
+<a name="Tx_PhpParser_Domain_Model_Class_Method" id="Tx_PhpParser_Domain_Model_Class_Method"></a><div class="element ajax clickable class" href="../classes/Tx_PhpParser_Domain_Model_Class_Method.html">
+<h1>Tx_PhpParser_Domain_Model_Class_Method<a href="../classes/Tx_PhpParser_Domain_Model_Class_Method.html">¶</a>
+</h1>
+<p class="short_description"></p>
+<div class="details collapse"></div>
+<a href="../classes/Tx_PhpParser_Domain_Model_Class_Method.html" class="more">« More »</a>
+</div>
+<a name="Tx_PhpParser_Domain_Model_Class_Property" id="Tx_PhpParser_Domain_Model_Class_Property"></a><div class="element ajax clickable class" href="../classes/Tx_PhpParser_Domain_Model_Class_Property.html">
+<h1>Tx_PhpParser_Domain_Model_Class_Property<a href="../classes/Tx_PhpParser_Domain_Model_Class_Property.html">¶</a>
+</h1>
+<p class="short_description"></p>
+<div class="details collapse"></div>
+<a href="../classes/Tx_PhpParser_Domain_Model_Class_Property.html" class="more">« More »</a>
+</div>
+<a name="Tx_PhpParser_Domain_Model_Container" id="Tx_PhpParser_Domain_Model_Container"></a><div class="element ajax clickable class" href="../classes/Tx_PhpParser_Domain_Model_Container.html">
+<h1>Tx_PhpParser_Domain_Model_Container<a href="../classes/Tx_PhpParser_Domain_Model_Container.html">¶</a>
+</h1>
+<p class="short_description">Provides methods that are common to Class, File and Namespace objects</p>
+<div class="details collapse"></div>
+<a href="../classes/Tx_PhpParser_Domain_Model_Container.html" class="more">« More »</a>
+</div>
+<a name="Tx_PhpParser_Domain_Model_File" id="Tx_PhpParser_Domain_Model_File"></a><div class="element ajax clickable class" href="../classes/Tx_PhpParser_Domain_Model_File.html">
+<h1>Tx_PhpParser_Domain_Model_File<a href="../classes/Tx_PhpParser_Domain_Model_File.html">¶</a>
+</h1>
+<p class="short_description">Provides methods that are common to Class, File and Namespace objects</p>
+<div class="details collapse"></div>
+<a href="../classes/Tx_PhpParser_Domain_Model_File.html" class="more">« More »</a>
+</div>
+<a name="Tx_PhpParser_Domain_Model_Function" id="Tx_PhpParser_Domain_Model_Function"></a><div class="element ajax clickable class" href="../classes/Tx_PhpParser_Domain_Model_Function.html">
+<h1>Tx_PhpParser_Domain_Model_Function<a href="../classes/Tx_PhpParser_Domain_Model_Function.html">¶</a>
+</h1>
+<p class="short_description"></p>
+<div class="details collapse"></div>
+<a href="../classes/Tx_PhpParser_Domain_Model_Function.html" class="more">« More »</a>
+</div>
+<a name="Tx_PhpParser_Domain_Model_Namespace" id="Tx_PhpParser_Domain_Model_Namespace"></a><div class="element ajax clickable class" href="../classes/Tx_PhpParser_Domain_Model_Namespace.html">
+<h1>Tx_PhpParser_Domain_Model_Namespace<a href="../classes/Tx_PhpParser_Domain_Model_Namespace.html">¶</a>
+</h1>
+<p class="short_description">Provides methods that are common to Class, File and Namespace objects</p>
+<div class="details collapse"></div>
+<a href="../classes/Tx_PhpParser_Domain_Model_Namespace.html" class="more">« More »</a>
+</div>
+<a name="Tx_PhpParser_Domain_Model_Parameter" id="Tx_PhpParser_Domain_Model_Parameter"></a><div class="element ajax clickable class" href="../classes/Tx_PhpParser_Domain_Model_Parameter.html">
+<h1>Tx_PhpParser_Domain_Model_Parameter<a href="../classes/Tx_PhpParser_Domain_Model_Parameter.html">¶</a>
+</h1>
+<p class="short_description"></p>
+<div class="details collapse"></div>
+<a href="../classes/Tx_PhpParser_Domain_Model_Parameter.html" class="more">« More »</a>
+</div>
+<a name="Tx_PhpParser_Exception_FileNotFoundException" id="Tx_PhpParser_Exception_FileNotFoundException"></a><div class="element ajax clickable class" href="../classes/Tx_PhpParser_Exception_FileNotFoundException.html">
+<h1>Tx_PhpParser_Exception_FileNotFoundException<a href="../classes/Tx_PhpParser_Exception_FileNotFoundException.html">¶</a>
+</h1>
+<p class="short_description">An exception thrown if an error occured during parsing a php file</p>
+<div class="details collapse"></div>
+<a href="../classes/Tx_PhpParser_Exception_FileNotFoundException.html" class="more">« More »</a>
+</div>
+<a name="Tx_PhpParser_Exception_ParseErrorException" id="Tx_PhpParser_Exception_ParseErrorException"></a><div class="element ajax clickable class" href="../classes/Tx_PhpParser_Exception_ParseErrorException.html">
+<h1>Tx_PhpParser_Exception_ParseErrorException<a href="../classes/Tx_PhpParser_Exception_ParseErrorException.html">¶</a>
+</h1>
+<p class="short_description">An exception thrown if an error occured during parsing a php file</p>
+<div class="details collapse"></div>
+<a href="../classes/Tx_PhpParser_Exception_ParseErrorException.html" class="more">« More »</a>
+</div>
+<a name="Tx_PhpParser_Exception_SyntaxErrorException" id="Tx_PhpParser_Exception_SyntaxErrorException"></a><div class="element ajax clickable class" href="../classes/Tx_PhpParser_Exception_SyntaxErrorException.html">
+<h1>Tx_PhpParser_Exception_SyntaxErrorException<a href="../classes/Tx_PhpParser_Exception_SyntaxErrorException.html">¶</a>
+</h1>
+<p class="short_description">An exception thrown if an operation was performed that is not allowed in PHP syntax</p>
+<div class="details collapse"></div>
+<a href="../classes/Tx_PhpParser_Exception_SyntaxErrorException.html" class="more">« More »</a>
+</div>
+<a name="Tx_PhpParser_Parser_ClassFactory" id="Tx_PhpParser_Parser_ClassFactory"></a><div class="element ajax clickable class" href="../classes/Tx_PhpParser_Parser_ClassFactory.html">
+<h1>Tx_PhpParser_Parser_ClassFactory<a href="../classes/Tx_PhpParser_Parser_ClassFactory.html">¶</a>
+</h1>
+<p class="short_description"></p>
+<div class="details collapse"></div>
+<a href="../classes/Tx_PhpParser_Parser_ClassFactory.html" class="more">« More »</a>
+</div>
+<a name="Tx_PhpParser_Parser_DocCommentParser" id="Tx_PhpParser_Parser_DocCommentParser"></a><div class="element ajax clickable class" href="../classes/Tx_PhpParser_Parser_DocCommentParser.html">
+<h1>Tx_PhpParser_Parser_DocCommentParser<a href="../classes/Tx_PhpParser_Parser_DocCommentParser.html">¶</a>
+</h1>
+<p class="short_description"></p>
+<div class="details collapse"></div>
+<a href="../classes/Tx_PhpParser_Parser_DocCommentParser.html" class="more">« More »</a>
+</div>
+<a name="Tx_PhpParser_Parser_NodeFactory" id="Tx_PhpParser_Parser_NodeFactory"></a><div class="element ajax clickable class" href="../classes/Tx_PhpParser_Parser_NodeFactory.html">
+<h1>Tx_PhpParser_Parser_NodeFactory<a href="../classes/Tx_PhpParser_Parser_NodeFactory.html">¶</a>
+</h1>
+<p class="short_description"></p>
+<div class="details collapse"></div>
+<a href="../classes/Tx_PhpParser_Parser_NodeFactory.html" class="more">« More »</a>
+</div>
+<a name="Tx_PhpParser_Parser_Traverser" id="Tx_PhpParser_Parser_Traverser"></a><div class="element ajax clickable class" href="../classes/Tx_PhpParser_Parser_Traverser.html">
+<h1>Tx_PhpParser_Parser_Traverser<a href="../classes/Tx_PhpParser_Parser_Traverser.html">¶</a>
+</h1>
+<p class="short_description"></p>
+<div class="details collapse"></div>
+<a href="../classes/Tx_PhpParser_Parser_Traverser.html" class="more">« More »</a>
+</div>
+<a name="Tx_PhpParser_Parser_Utility_NodeConverter" id="Tx_PhpParser_Parser_Utility_NodeConverter"></a><div class="element ajax clickable class" href="../classes/Tx_PhpParser_Parser_Utility_NodeConverter.html">
+<h1>Tx_PhpParser_Parser_Utility_NodeConverter<a href="../classes/Tx_PhpParser_Parser_Utility_NodeConverter.html">¶</a>
+</h1>
+<p class="short_description"></p>
+<div class="details collapse"></div>
+<a href="../classes/Tx_PhpParser_Parser_Utility_NodeConverter.html" class="more">« More »</a>
+</div>
+<a name="Tx_PhpParser_Parser_Visitor_FileVisitor" id="Tx_PhpParser_Parser_Visitor_FileVisitor"></a><div class="element ajax clickable class" href="../classes/Tx_PhpParser_Parser_Visitor_FileVisitor.html">
+<h1>Tx_PhpParser_Parser_Visitor_FileVisitor<a href="../classes/Tx_PhpParser_Parser_Visitor_FileVisitor.html">¶</a>
+</h1>
+<p class="short_description">provides methods to import a class object and methods and properties</p>
+<div class="details collapse"></div>
+<a href="../classes/Tx_PhpParser_Parser_Visitor_FileVisitor.html" class="more">« More »</a>
+</div>
+<a name="Tx_PhpParser_Parser_Visitor_ReplaceClassNamesVisitor" id="Tx_PhpParser_Parser_Visitor_ReplaceClassNamesVisitor"></a><div class="element ajax clickable class" href="../classes/Tx_PhpParser_Parser_Visitor_ReplaceClassNamesVisitor.html">
+<h1>Tx_PhpParser_Parser_Visitor_ReplaceClassNamesVisitor<a href="../classes/Tx_PhpParser_Parser_Visitor_ReplaceClassNamesVisitor.html">¶</a>
+</h1>
+<p class="short_description">Example Visitor
+replaces all occurances of new "className" and static class calls like "className::"</p>
+<div class="details collapse"></div>
+<a href="../classes/Tx_PhpParser_Parser_Visitor_ReplaceClassNamesVisitor.html" class="more">« More »</a>
+</div>
+<a name="Tx_PhpParser_Parser_Visitor_ReplaceVisitor" id="Tx_PhpParser_Parser_Visitor_ReplaceVisitor"></a><div class="element ajax clickable class" href="../classes/Tx_PhpParser_Parser_Visitor_ReplaceVisitor.html">
+<h1>Tx_PhpParser_Parser_Visitor_ReplaceVisitor<a href="../classes/Tx_PhpParser_Parser_Visitor_ReplaceVisitor.html">¶</a>
+</h1>
+<p class="short_description">a generic visitor to replace node properties in statements
+(Usage see: Tests/Function/ModifyObjects renameMethodParameterAndUpdateMethodBody)</p>
+<div class="details collapse"></div>
+<a href="../classes/Tx_PhpParser_Parser_Visitor_ReplaceVisitor.html" class="more">« More »</a>
+</div>
+<a name="Tx_PhpParser_Service_Parser" id="Tx_PhpParser_Service_Parser"></a><div class="element ajax clickable class" href="../classes/Tx_PhpParser_Service_Parser.html">
+<h1>Tx_PhpParser_Service_Parser<a href="../classes/Tx_PhpParser_Service_Parser.html">¶</a>
+</h1>
+<p class="short_description">provides methods to generate classes from PHP code</p>
+<div class="details collapse"></div>
+<a href="../classes/Tx_PhpParser_Service_Parser.html" class="more">« More »</a>
+</div>
+<a name="Tx_PhpParser_Service_Printer" id="Tx_PhpParser_Service_Printer"></a><div class="element ajax clickable class" href="../classes/Tx_PhpParser_Service_Printer.html">
+<h1>Tx_PhpParser_Service_Printer<a href="../classes/Tx_PhpParser_Service_Printer.html">¶</a>
+</h1>
+<p class="short_description">provides methods to render the sourcecode for statements</p>
+<div class="details collapse"></div>
+<a href="../classes/Tx_PhpParser_Service_Printer.html" class="more">« More »</a>
+</div>
+<a name="Tx_PhpParser_Utility_AutoLoader" id="Tx_PhpParser_Utility_AutoLoader"></a><div class="element ajax clickable class" href="../classes/Tx_PhpParser_Utility_AutoLoader.html">
+<h1>Tx_PhpParser_Utility_AutoLoader<a href="../classes/Tx_PhpParser_Utility_AutoLoader.html">¶</a>
+</h1>
+<p class="short_description"></p>
+<div class="details collapse"></div>
+<a href="../classes/Tx_PhpParser_Utility_AutoLoader.html" class="more">« More »</a>
+</div>
+</div>
+</div>
+</div>
+<div class="row"><footer class="span12">
+            Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by <a href="http://glyphicons.com/">Glyphicons</a>.<br>
+            Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor 2.0.0a2</a> and<br>
+            generated on 2012-04-23T11:17:47+02:00.<br></footer></div>
+</div>
+</body>
+</html>
