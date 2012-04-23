@@ -1,11 +1,13 @@
 PHP Parser API
 ==============
 
-This project provides an API for the PHPParser[1] written by [nikic][2].
+This project provides an API for the [PHPParser][1] written by [nikic][2].
 It's implemented as a TYPO3 extension but can be easily used as a stand-alone library.
 The PHP Parser is included as sub module. Actually it's a fork of the Parser of nikic, since we needed more support for whitespaces and single line comments.
 
-Documentation can be found in the [1] directory.
+Documentation can be found in the [docs][4] directory.
+
+There is also a [PhpDoc][5] available.
 
 ***Note: This is still in alpha state, so the API is subject to change.***
 
@@ -63,5 +65,6 @@ Have a look at the Unit and Function tests in the [Tests][3] directory to see so
 
  [1]: https://github.com/nikic/PHP-Parser/
  [2]: https://github.com/nikic
- [3]: https://github.com/nicodh/php_parser_api/Tests/
- [4]: https://github.com/nicodh/php_parser_api/doc/1_Inspect_Objects.markdown
+ [3]: https://github.com/nicodh/php_parser_api/tree/master/Tests/
+ [4]: https://github.com/nicodh/php_parser_api/tree/master/doc/1_Inspect_Objects.markdown
+ [5]: http://nicodh.github.com/php_parser_api/phpdoc/
