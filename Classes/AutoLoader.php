@@ -30,7 +30,7 @@
 
 
 
-class Tx_PhpParser_Utility_AutoLoader {
+class Tx_PhpParser_AutoLoader {
 
 	static public $autoloadRegistry;
 

@@ -36,6 +36,7 @@ class  Tx_PhpParser_Tests_Function_BuildObjectsTest extends Tx_PhpParser_Tests_B
 	 * @test
 	 */
 	public function createSimpleClass() {
+		$this->assertTrue(is_writable($this->testDir), 'Directory not writable: Tests/Fixtures/tmp. Can\'t compare rendered files');
 		$newClassFileObject = new Tx_PhpParser_Domain_Model_File;
 		$newClassName = 'Tx_PhpParser_Test_NewClass';
 		$newClass = new Tx_PhpParser_Domain_Model_Class($newClassName);

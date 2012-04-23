@@ -32,6 +32,7 @@ class Tx_PhpParser_Tests_Unit_PrinterTest extends Tx_PhpParser_Tests_BaseTest {
 	 * @test
 	 */
 	public function printSimplePropertyClass() {
+		$this->assertTrue(is_writable($this->testDir), 'Directory not writable: Tests/Fixtures/tmp. Can\'t compare rendered files');
 		$fileName = 'SimpleProperty.php';
 		$classFileObject = $this->parseAndWrite($fileName);
 		$this->compareClasses($classFileObject, $this->testDir . $fileName);

@@ -4,5 +4,5 @@ if (!defined('TYPO3_MODE')) {
 }
 
 require_once(t3lib_extMgm::extPath('php_parser_api') . 'Classes/AutoLoader.php');
-Tx_PhpParser_Utility_AutoLoader::register();
+Tx_PhpParser_AutoLoader::register();
 ?>
