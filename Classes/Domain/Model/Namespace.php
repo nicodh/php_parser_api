@@ -50,9 +50,14 @@ class Tx_PhpParser_Domain_Model_Namespace extends Tx_PhpParser_Domain_Model_Cont
 
 	/**
 	 * @param string $name
+	 * @param boolean
 	 */
-	public function __construct($name) {
+	public function __construct($name, $createNode = TRUE) {
 		$this->name = $name;
+		if($createNode) {
+			$this->node = Tx_PhpParser_Parser_NodeFactory::buildNamespaceNode($name);
+			$this->initDocComment();
+		}
 	}
 
 	public function setFunctions($functions) {

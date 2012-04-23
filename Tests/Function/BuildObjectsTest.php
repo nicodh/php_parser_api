@@ -109,9 +109,9 @@ class  Tx_PhpParser_Tests_Function_BuildObjectsTest extends Tx_PhpParser_Tests_B
 	public function createSimpleNamespacedClass() {
 		$nameSpaceName = 'Test\\MyNamespace';
 		$newClassFileObject = new Tx_PhpParser_Domain_Model_File;
-		$newNamespace = new Tx_PhpParser_Domain_Model_Namespace($nameSpaceName, TRUE);
+		$newNamespace = new Tx_PhpParser_Domain_Model_Namespace($nameSpaceName);
 		$newClassName = 'Tx_PhpParser_Test_NewNamespacedClass';
-		$newClass = new Tx_PhpParser_Domain_Model_Class($newClassName, TRUE);
+		$newClass = new Tx_PhpParser_Domain_Model_Class($newClassName);
 		$newClass->setDescription("This is a class created\nfrom scratch")
 			->setTag('author','John Doe')
 			->setNamespaceName($nameSpaceName);
@@ -136,7 +136,7 @@ class  Tx_PhpParser_Tests_Function_BuildObjectsTest extends Tx_PhpParser_Tests_B
 
 		$newClassFileObject = new Tx_PhpParser_Domain_Model_File;
 		$newClassName = 'Tx_PhpParser_Test_NewClassWithTemplateMethod';
-		$newClass = new Tx_PhpParser_Domain_Model_Class($newClassName, TRUE);
+		$newClass = new Tx_PhpParser_Domain_Model_Class($newClassName);
 		$newClass->addMethod($getPropertyMethod);
 		$newClassFileObject->addClass($newClass);
 		$newClassFilePath = $this->testDir . 'NewClassWithTemplateMethod.php';
