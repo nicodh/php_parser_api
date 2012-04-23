@@ -5,7 +5,7 @@
  * with multiple lines
  *
  *
- * @package php_parser
+ * @package php_parser_api
  * @API
  * @author John Doe
  * @author Bob & ALice

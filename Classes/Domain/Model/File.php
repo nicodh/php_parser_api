@@ -27,7 +27,7 @@
 /**
  *
  *
- * @package php_parser
+ * @package php_parser_api
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */

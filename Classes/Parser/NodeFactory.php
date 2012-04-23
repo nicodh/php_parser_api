@@ -67,6 +67,17 @@ class Tx_PhpParser_Parser_NodeFactory {
 	 * @return PHPParser_Node_Const
 	 */
 	public static function buildConstantNode($name, $value) {
+		$constantNode = new PHPParser_Node_Const($name, self::buildNodeFromValue($value));
+		return $constantNode;
+	}
+
+	/**
+	 * @static
+	 * @param string $name
+	 * @param mixed $value
+	 * @return PHPParser_Node_Const
+	 */
+	public static function buildClassConstantNode($name, $value) {
 		$constantNode = new PHPParser_Node_Stmt_ClassConst(array(new PHPParser_Node_Const($name, self::buildNodeFromValue($value))));
 		return $constantNode;
 	}

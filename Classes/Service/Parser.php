@@ -32,7 +32,7 @@
 /**
  * provides methods to generate classes from PHP code
  *
- * @package php_parser
+ * @package php_parser_api
  * @version $ID:$
  */
 
@@ -135,6 +135,7 @@ class Tx_PhpParser_Service_Parser extends PHPParser_Parser {
 		if(NULL === $this->traverser) {
 			$this->traverser = new Tx_PhpParser_Parser_Traverser;
 		}
+		$this->traverser->resetVisitors();
 		$visitor = new Tx_PhpParser_Parser_Visitor_ReplaceVisitor;
 		$visitor->setNodeType($nodeType)
 				->setNodeProperty($nodeProperty)

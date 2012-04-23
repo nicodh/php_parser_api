@@ -28,7 +28,7 @@
  * @author Nico de Haen
  */
 
-require_once(t3lib_extmgm::extPath('php_parser') . 'Tests/BaseTest.php');
+require_once(t3lib_extmgm::extPath('php_parser_api') . 'Tests/BaseTest.php');
 
 class  Tx_PhpParser_Tests_Function_ModifyObjectsTest extends Tx_PhpParser_Tests_BaseTest{
 

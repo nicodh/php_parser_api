@@ -50,7 +50,7 @@ abstract class Tx_PhpParser_Tests_BaseTest extends Tx_Extbase_Tests_Unit_BaseTes
 		$this->printer = t3lib_div::makeInstance('Tx_PhpParser_Service_Printer');
 		//vfsStream::setup('testDir');
 		//$this->testDir = vfsStream::url('testDir').'/';
-		$this->testDir = t3lib_extmgm::extPath('php_parser') . 'Tests/Fixtures/tmp/';
+		$this->testDir = t3lib_extmgm::extPath('php_parser_api') . 'Tests/Fixtures/tmp/';
 	}
 
 	public function tearDown() {
@@ -62,7 +62,7 @@ abstract class Tx_PhpParser_Tests_BaseTest extends Tx_Extbase_Tests_Unit_BaseTes
 	}
 
 	protected function parseFile($fileName) {
-		$classFilePath = t3lib_extmgm::extPath('php_parser') . 'Tests/Fixtures/' . $fileName;
+		$classFilePath = t3lib_extmgm::extPath('php_parser_api') . 'Tests/Fixtures/' . $fileName;
 		$classFileObject = $this->parser->parseFile($classFilePath);
 		return $classFileObject;
 	}

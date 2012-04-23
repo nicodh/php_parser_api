@@ -24,26 +24,32 @@
 ***************************************************************/
 
 /**
-* @package php_parser
-* @author Nico de Haen
-*/
+ *
+ * a generic visitor to replace node properties in statements
+ * (Usage see: Tests/Function/ModifyObjects renameMethodParameterAndUpdateMethodBody)
+ *
+ * @package php_parser_api
+ * @author Nico de Haen
+ */
 
-
-/**
-* provides methods to import a class object and methods and properties
-*
-* @package php_parser
-* @version $ID:$
-*/
 
 class Tx_PhpParser_Parser_Visitor_ReplaceVisitor extends PHPParser_NodeVisitorAbstract {
 
 
-	protected $nodeType;
+	/**
+	 * @var string
+	 */
+	protected $nodeType = '';
 
-	protected $nodeProperty;
+	/**
+	 * @var string
+	 */
+	protected $nodeProperty = '';
 
-	protected $replacements;
+	/**
+	 * @var array
+	 */
+	protected $replacements = array();
 
 	public function getClassObject() {
 		return $this->classObject;
@@ -56,7 +62,7 @@ class Tx_PhpParser_Parser_Visitor_ReplaceVisitor extends PHPParser_NodeVisitorAb
 	public function leaveNode(PHPParser_Node $node) {
 		$nodeProperty = $this->nodeProperty;
 		$nodeTypeMatch = FALSE;
-		if($this->nodeType) {
+		if(!empty($this->nodeType)) {
 			if($node instanceof $this->nodeType) {
 				$nodeTypeMatch = TRUE;
  			}
@@ -78,11 +84,20 @@ class Tx_PhpParser_Parser_Visitor_ReplaceVisitor extends PHPParser_NodeVisitorAb
 	public function enterNode(PHPParser_Node $node){}
 	public function afterTraverse(array $nodes){}
 
+	/**
+	 * @param array $replacements $oldValue => $newValue
+	 * @return Tx_PhpParser_Parser_Visitor_ReplaceVisitor
+	 */
 	public function setReplacements(array $replacements) {
 		$this->replacements = $replacements;
 		return $this;
 	}
 
+	/**
+	 * The property of a node that should be changed (defaults to 'name')
+	 * @param $nodeProperty
+	 * @return Tx_PhpParser_Parser_Visitor_ReplaceVisitor
+	 */
 	public function setNodeProperty($nodeProperty) {
 		$this->nodeProperty = $nodeProperty;
 		return $this;

@@ -1,5 +1,5 @@
 <?php
-$extensionClassesPath = t3lib_extMgm::extPath('php_parser') . 'Classes/';
+$extensionClassesPath = t3lib_extMgm::extPath('php_parser_api') . 'Classes/';
 
 $default = array(
 	'Tx_PhpParser_Service_Printer' => $extensionClassesPath . 'Service/Printer.php',

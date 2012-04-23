@@ -102,10 +102,10 @@ class Tx_PhpParser_Parser_Utility_NodeConverter {
 	 * This methods converts ClassConst
 	 *
 	 * @static
-	 * @param PHPParser_Node_Stmt_ClassConst or PHPParser_Node_Stmt_Const $node
+	 * @param PHPParser_Node_Stmt_ClassConst or PHPParser_Node_Stmt_Const $node or
 	 * @return array
 	 */
-	public static function convertClassConstantNodeToArray(PHPParser_Node_Stmt $node) {
+	public static function convertClassConstantNodeToArray(PHPParser_Node $node) {
 		$constantsArray = array();
 		$consts = $node->__get('consts');
 		foreach($consts as $const) {

@@ -28,7 +28,7 @@
  * @author Nico de Haen
  */
 
-require_once(t3lib_extmgm::extPath('php_parser') . 'Tests/BaseTest.php');
+require_once(t3lib_extmgm::extPath('php_parser_api') . 'Tests/BaseTest.php');
 
 class  Tx_PhpParser_Tests_Function_BuildObjectsTest extends Tx_PhpParser_Tests_BaseTest {
 
@@ -131,7 +131,7 @@ class  Tx_PhpParser_Tests_Function_BuildObjectsTest extends Tx_PhpParser_Tests_B
 	 * @test
 	 */
 	function addMethodFromTemplateToNewClass() {
-		$templateClassFileObject = $this->parser->parseFile(t3lib_extmgm::extPath('php_parser') . 'Resources/Private/Templates/MethodTemplates.php');
+		$templateClassFileObject = $this->parser->parseFile(t3lib_extmgm::extPath('php_parser_api') . 'Resources/Private/Templates/MethodTemplates.php');
 		$getPropertyMethod = $templateClassFileObject->getFirstClass()->getMethod('getPropertyName');
 
 		$newClassFileObject = new Tx_PhpParser_Domain_Model_File;

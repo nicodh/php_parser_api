@@ -25,7 +25,7 @@
 /**
  * An exception thrown if an error occured during parsing a php file
  *
- * @package php_parser
+ * @package php_parser_api
  */
 class Tx_PhpParser_Exception_SyntaxErrorException extends Exception {
 

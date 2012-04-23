@@ -57,10 +57,13 @@ class Tx_PhpParser_Domain_Model_Function extends Tx_PhpParser_Domain_Model_Abstr
 	public function initializeParameters() {
 		$position = 0;
 		$getVarTypeFromParamTag = FALSE;
-		$paramTags = $this->tags['param'];
-		if(count($paramTags) == count($this->node->__get('params'))) {
-			$getVarTypeFromParamTag = TRUE;
+		if (isset($this->tags['param']) && is_array($this->tags['param'])){
+			$paramTags = $this->tags['param'];
+			if(count($paramTags) == count($this->node->__get('params'))) {
+				$getVarTypeFromParamTag = TRUE;
+			}
 		}
+
 		foreach($this->node->__get('params') as $param) {
 			$parameter = new Tx_PhpParser_Domain_Model_Parameter($param);
 			$parameter->setPosition($position);

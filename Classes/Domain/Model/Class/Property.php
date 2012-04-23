@@ -27,7 +27,7 @@
 /**
  *
  *ClassSchema
- * @package php_parser
+ * @package php_parser_api
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
@@ -113,7 +113,7 @@ class Tx_PhpParser_Domain_Model_Class_Property extends Tx_PhpParser_Domain_Model
 	public function setVarType($varType) {
 		$this->varType = $varType;
 		if(is_array($this->tags['var'])) {
-			var_dump($this->tags['var']);
+			$this->tags['var'] = $this->tags['var'][0];
 		}
 		if(!isset($this->tags['var']) || strpos(strtolower($varType),strtolower($this->tags['var'])) === FALSE) {
 			// we use strpos since there might a a var annotation like "array $propertyName" or "array" or "Array"

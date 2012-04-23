@@ -27,7 +27,7 @@
 /**
  * TODO: enable declares
  *
- * @package php_parser
+ * @package php_parser_api
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
@@ -39,7 +39,7 @@ class Tx_PhpParser_Domain_Model_Class extends Tx_PhpParser_Domain_Model_Containe
 	 *
 	 * @var  array of string
 	 */
-	protected $interfaceNames;
+	protected $interfaceNames = array();
 
 
 	/**
@@ -341,6 +341,18 @@ class Tx_PhpParser_Domain_Model_Class extends Tx_PhpParser_Domain_Model_Containe
 		return $this;
 	}
 
+	/**
+	 * @param array of strings $interfaceNames
+	 */
+	public function setInterfaces(array $interfaceNames) {
+		$this->interfaceNames = $interfaceNames;
+		$interfaceNodes = array();
+		foreach($interfaceNames as $interfaceName) {
+			$interfaceNodes[] = Tx_PhpParser_Parser_NodeFactory::buildNodeFromName($interfaceName);
+		}
+		$this->node->__set('implements', $interfaceNodes);
+	}
+
 
 	/**
 	 * Adds a interface node, based on a string
@@ -389,7 +401,13 @@ class Tx_PhpParser_Domain_Model_Class extends Tx_PhpParser_Domain_Model_Containe
 				$interfaceNodes[] = Tx_PhpParser_Parser_NodeFactory::buildNodeFromName($interfaceName);
 			}
 		}
+		$this->interfaceNames = $interfaceNames;
 		$this->node->__set('implements', $interfaceNodes);
+	}
+
+	public function removeAllInterfaces() {
+		$this->interfaceNames = array();
+		$this->node->__set('implements', array());
 	}
 
 	/**
@@ -438,7 +456,7 @@ class Tx_PhpParser_Domain_Model_Class extends Tx_PhpParser_Domain_Model_Containe
         //ksort($methods);
 
 		foreach ($this->constants as $name => $value) {
-			$stmts[] = Tx_PhpParser_Parser_NodeFactory::buildConstantNode($name, $value);
+			$stmts[] = Tx_PhpParser_Parser_NodeFactory::buildClassConstantNode($name, $value);
 		}
 
 	    foreach ($properties as $property) {

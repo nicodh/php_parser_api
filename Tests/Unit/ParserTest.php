@@ -23,7 +23,7 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-require_once(t3lib_extmgm::extPath('php_parser') . 'Tests/BaseTest.php');
+require_once(t3lib_extmgm::extPath('php_parser_api') . 'Tests/BaseTest.php');
 
 class Tx_PhpParser_Tests_Unit_ParserTest extends Tx_PhpParser_Tests_BaseTest {
 

@@ -24,7 +24,7 @@
 ***************************************************************/
 
 /**
-* @package php_parser
+* @package php_parser_api
 * @author Nico de Haen
 */
 
@@ -32,7 +32,7 @@
 /**
 * provides methods to import a class object and methods and properties
 *
-* @package php_parser
+* @package php_parser_api
 * @version $ID:$
 */
 
@@ -77,6 +77,22 @@ class Tx_PhpParser_Parser_Visitor_FileVisitor extends PHPParser_NodeVisitorAbstr
 		return $this->fileObject;
 	}
 
+	/**
+	 *
+	 * only these node types are currently supported, except if we
+	 * are not in a method or function body:
+	 * Stmt_Namespace
+	 * Stmt_Use
+	 * Expr_Include
+	 * Stmt_Class
+	 * Stmt_ClassConst
+	 * Stmt_Const
+	 * Stmt_Property
+	 * Stmt_ClassMethod
+	 * Stmt_Function
+	 *
+	 * @param PHPParser_Node $node
+	 */
 	public function enterNode(PHPParser_Node $node) {
 		if($node instanceof PHPParser_Node_Stmt_Namespace) {
 			$this->contextStack[] = $node;
@@ -109,8 +125,14 @@ class Tx_PhpParser_Parser_Visitor_FileVisitor extends PHPParser_NodeVisitorAbstr
 			$this->contextStack[] = $node;
 			$function = $this->classFactory->buildFunctionObjectFromNode($node);
 			$this->currentContainer->addFunction($function);
+		} elseif(count($this->contextStack) == 0 || current($this->contextStack) instanceof Tx_PhpParser_Domain_Model_Container) {
+			$this->onUnsupportedStatementFound($node);
 		}
 
+	}
+
+	protected function onUnsupportedStatementFound($node) {
+		throw new Exception($node->getType() . ' not yet supported if not in method or function body ');
 	}
 
 	public function leaveNode(PHPParser_Node $node){
