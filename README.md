@@ -3,7 +3,7 @@ PHP Parser API
 
 This project provides an API for the [PHPParser][1] written by [nikic][2].
 It's implemented as a TYPO3 extension but can be easily used as a stand-alone library.
-The PHP Parser is included as sub module. Actually it's a fork of the Parser of nikic, since we needed more support for whitespaces and single line comments.
+The PHP Parser is included as sub module. Actually it's a [fork][6] of the Parser of [nikic][2], since we needed more support for whitespaces and single line comments which was implemented by [Tom Maroschik][7].
 
 Documentation can be found in the [docs][4] directory.
 
@@ -58,7 +58,7 @@ Currently the printer tries to render TYPO3 CGL compliant code.
 The library also provides methods to add, remove or change annotations in the doc comments.
 For example it adds @param tags in methods (if they are missing) according to the parameter type hints.
 
-Have a look at the Unit and Function tests in the [Tests][3] directory to see some examples or read the documentation[4]
+Have a look at the Unit and Function tests in the [Tests][3] directory to see some examples or read the [documentation][4]
 
 
 
@@ -68,3 +68,5 @@ Have a look at the Unit and Function tests in the [Tests][3] directory to see so
  [3]: https://github.com/nicodh/php_parser_api/tree/master/Tests/
  [4]: https://github.com/nicodh/php_parser_api/tree/master/doc/1_Inspect_Objects.markdown
  [5]: http://nicodh.github.com/php_parser_api/phpdoc/packages/PhpParserApi.html
+ [6]: https://github.com/tmaroschik/PHP-Parser
+ [7]: https://github.com/tmaroschik
