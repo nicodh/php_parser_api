@@ -30,17 +30,23 @@
 
 class Tx_PhpParser_Parser_Utility_NodeConverter {
 
+
 	public static $accessorModifiers = array(
 		PHPParser_Node_Stmt_Class::MODIFIER_PUBLIC,
 		PHPParser_Node_Stmt_Class::MODIFIER_PROTECTED,
 		PHPParser_Node_Stmt_Class::MODIFIER_PRIVATE
+
 	);
 
 	public static function getTypeHintFromVarType ($varType) {
-		if(in_array(strtolower($varType), array('int', 'double', 'float', 'boolean', 'bool', 'string'))) {
+		if(in_array(strtolower($varType), array('integer', 'int', 'double', 'float', 'boolean', 'bool', 'string'))) {
 			return '';
 		} else {
-			return $varType;
+			if(preg_match_all('/^[^a-zA-Z]|[^\w_]/',$varType,$matches) === 0) {
+				// has to be an allowed classname or 'array'
+				return $varType;
+			}
+			return '';
 		}
 	}
 
