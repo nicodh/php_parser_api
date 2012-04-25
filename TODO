@@ -1,3 +1,1 @@
 1. Container objects need some kind of order management. The order of includes, class declarations, constant declarations etc. should be preserved. Only the include statements are separated in pre-includes i.e. includes that occur before the declaring of classes and post-includes that are found after the declaring of classes.
-
-2. The API does not yet support any other statements outside of classes, namespaces and functions than includes!! Also not supported yet: Traits, Mixins
