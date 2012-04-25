@@ -51,7 +51,7 @@ class Tx_PhpParser_Parser_Visitor_FileVisitor extends PHPParser_NodeVisitorAbstr
 	protected $currentNamespace = NULL;
 
 	/**
-	 * @var
+	 * @var Tx_PhpParser_Domain_Model_Container
 	 */
 	protected $currentContainer = NULL;
 
@@ -65,6 +65,8 @@ class Tx_PhpParser_Parser_Visitor_FileVisitor extends PHPParser_NodeVisitorAbstr
 	 */
 	protected $classFactory = NULL;
 
+	protected $onFirstLevel = TRUE;
+
 	/**
 	 * currently not used, might be useful for filtering etc.
 	 * it keeps a reference to the current "first level" node
@@ -73,97 +75,79 @@ class Tx_PhpParser_Parser_Visitor_FileVisitor extends PHPParser_NodeVisitorAbstr
 	 */
 	protected $contextStack = array();
 
+	protected $lastNode = NULL;
+
 	public function getFileObject() {
 		return $this->fileObject;
 	}
 
 	/**
 	 *
-	 * only these node types are currently supported, except if we
-	 * are not in a method or function body:
-	 * Stmt_Namespace
-	 * Stmt_Use
-	 * Expr_Include
-	 * Stmt_Class
-	 * Stmt_ClassConst
-	 * Stmt_Const
-	 * Stmt_Property
-	 * Stmt_ClassMethod
-	 * Stmt_Function
 	 *
 	 * @param PHPParser_Node $node
 	 */
 	public function enterNode(PHPParser_Node $node) {
+		$this->contextStack[] = $node;
 		if($node instanceof PHPParser_Node_Stmt_Namespace) {
-			$this->contextStack[] = $node;
 			$this->currentNamespace = $this->classFactory->buildNamespaceObjectFromNode($node);
 			$this->currentContainer = $this->currentNamespace;
-			//$this->fileObject->addNamespace($currentNamespace);
-		} elseif($node instanceof PHPParser_Node_Stmt_Use) {
-			$this->currentContainer->addAliasDeclaration($node);
-		} elseif($node instanceof PHPParser_Node_Expr_Include) {
-			$this->contextStack[] = $node;
-			// will be added onLeave
 		} elseif($node instanceof PHPParser_Node_Stmt_Class) {
-			$this->contextStack[] = $node;
 			$this->currentClassObject = $this->classFactory->buildClassObjectFromNode($node);
 			$this->currentContainer = $this->currentClassObject;
-		} elseif($node instanceof PHPParser_Node_Stmt_ClassConst || $node instanceof PHPParser_Node_Stmt_Const) {
-			$constants = Tx_PhpParser_Parser_Utility_NodeConverter::convertClassConstantNodeToArray($node);
-			foreach($constants as $constant) {
-				$this->currentContainer->setConstant($constant['name'],$constant['value']);
-			}
-		} elseif($node instanceof PHPParser_Node_Stmt_Property) {
-			$this->contextStack[] = $node;
-			$property = $this->classFactory->buildPropertyObjectFromNode($node);
-			$this->currentClassObject->addProperty($property);
-		} elseif($node instanceof PHPParser_Node_Stmt_ClassMethod) {
-			$this->contextStack[] = $node;
-			$method = $this->classFactory->buildClassMethodObjectFromNode($node);
-			$this->currentClassObject->addMethod($method);
-		} elseif($node instanceof PHPParser_Node_Stmt_Function) {
-			$this->contextStack[] = $node;
-			$function = $this->classFactory->buildFunctionObjectFromNode($node);
-			$this->currentContainer->addFunction($function);
-		} elseif(count($this->contextStack) == 0 || current($this->contextStack) instanceof Tx_PhpParser_Domain_Model_Container) {
-			$this->onUnsupportedStatementFound($node);
 		}
 
 	}
 
-	protected function onUnsupportedStatementFound($node) {
-		throw new Exception($node->getType() . ' not yet supported if not in method or function body ');
-	}
-
+	/**
+	 * @param PHPParser_Node $node
+	 */
 	public function leaveNode(PHPParser_Node $node){
-		if($node instanceof PHPParser_Node_Stmt_Class) {
-			array_pop($this->contextStack);
-			if(count($this->contextStack) > 0) {
-				if(end($this->contextStack)->getType() == 'Stmt_Namespace') {
-					$currentNamespaceName = Tx_PhpParser_Parser_Utility_NodeConverter::getValueFromNode(end($this->contextStack));
-					$this->currentClassObject->setNamespaceName($currentNamespaceName);
-					$this->currentNamespace->addClass($this->currentClassObject);
+		array_pop($this->contextStack);
+		if($this->isContainerNode(end($this->contextStack)) || count($this->contextStack) === 0) {
+			// we are on the first level
+			if($node instanceof PHPParser_Node_Stmt_Class) {
+				if(count($this->contextStack) > 0) {
+					if(end($this->contextStack)->getType() == 'Stmt_Namespace') {
+						$currentNamespaceName = Tx_PhpParser_Parser_Utility_NodeConverter::getValueFromNode(end($this->contextStack));
+						$this->currentClassObject->setNamespaceName($currentNamespaceName);
+						$this->currentNamespace->addClass($this->currentClassObject);
+					}
+				} else {
+					$this->fileObject->addClass($this->currentClassObject);
+					$this->currentClassObject = NULL;
+					$this->currentContainer = $this->fileObject;
 				}
-			} else {
-				$this->fileObject->addClass($this->currentClassObject);
-				$this->currentClassObject = NULL;
+			} elseif($node instanceof PHPParser_Node_Stmt_Namespace) {
+				$this->fileObject->addNamespace($this->currentNamespace);
+				$this->currentNamespace = NULL;
 				$this->currentContainer = $this->fileObject;
+			} elseif($node instanceof PHPParser_Node_Stmt_Use) {
+				$this->currentContainer->addAliasDeclaration($node);
+			} elseif($node instanceof PHPParser_Node_Stmt_ClassConst) {
+				$constants = Tx_PhpParser_Parser_Utility_NodeConverter::convertClassConstantNodeToArray($node);
+				foreach($constants as $constant) {
+					$this->currentContainer->setConstant($constant['name'],$constant['value']);
+				}
+			} elseif($node instanceof PHPParser_Node_Stmt_ClassMethod) {
+				$this->onFirstLevel = TRUE;
+				$method = $this->classFactory->buildClassMethodObjectFromNode($node);
+				$this->currentClassObject->addMethod($method);
+			} elseif($node instanceof PHPParser_Node_Stmt_Property) {
+				$property = $this->classFactory->buildPropertyObjectFromNode($node);
+				$this->currentClassObject->addProperty($property);
+			} elseif($node instanceof PHPParser_Node_Stmt_Function) {
+				$this->onFirstLevel = TRUE;
+				$function = $this->classFactory->buildFunctionObjectFromNode($node);
+				$this->currentContainer->addFunction($function);
+			} elseif(!$node instanceof PHPParser_Node_Name) {
+				// any other nodes (except the name node of the current container node)
+				// go into statements container
+				if($this->currentContainer->getFirstClass() === FALSE) {
+					$this->currentContainer->addPreClassStatements($node);
+				} else {
+					$this->currentContainer->addPostClassStatements($node);
+				}
 			}
-		} elseif($node instanceof PHPParser_Node_Expr_Include) {
-			array_pop($this->contextStack);
-			if($this->currentContainer->getFirstClass() === FALSE) {
-				$this->currentContainer->addPreInclude($node);
-			} else {
-				$this->currentContainer->addPostInclude($node);
-			}
-
-		} elseif($node instanceof PHPParser_Node_Stmt_Namespace) {
-			array_pop($this->contextStack);
-			$this->fileObject->addNamespace($this->currentNamespace);
-			$this->currentNamespace = NULL;
-			$this->currentContainer = $this->fileObject;
-		} elseif (count($this->contextStack) > 0 && get_class($node) == get_class(end($this->contextStack))) {
-			array_pop($this->contextStack);
 		}
 	}
 
@@ -181,4 +165,22 @@ class Tx_PhpParser_Parser_Visitor_FileVisitor extends PHPParser_NodeVisitorAbstr
 	public function setClassFactory($classFactory) {
 		$this->classFactory = $classFactory;
 	}
+
+	protected function isContainerNode($node) {
+		return ($node instanceof PHPParser_Node_Stmt_Namespace || $node instanceof PHPParser_Node_Stmt_Class);
+	}
+
+	protected function addLastNode() {
+		if($this->lastNode === NULL) {
+			return;
+		}
+		//var_dump($this->lastNode);
+		if($this->currentContainer->getFirstClass() === FALSE) {
+			$this->currentContainer->addPreClassStatements($this->lastNode);
+		} else {
+			$this->currentContainer->addPostClassStatements($this->lastNode);
+		}
+		$this->lastNode = NULL;
+	}
+
 }

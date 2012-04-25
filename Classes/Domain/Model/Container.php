@@ -54,6 +54,21 @@ class Tx_PhpParser_Domain_Model_Container extends Tx_PhpParser_Domain_Model_Abst
 	 */
 	protected $functions = array();
 
+	/**
+	 * contains all statements that occurred before the first class statement
+	 *
+	 * @var array
+	 */
+	protected $preClassStatements = array();
+
+	/**
+	 * contains all statements that occurred after the first class statement
+	 * they will be rewritten after the last class!!
+	 *
+	 * @var array
+	 */
+	protected $postClassStatements = array();
+
 
 	/**
 	 * @var array Tx_PhpParser_Domain_Model_Class
@@ -189,6 +204,33 @@ class Tx_PhpParser_Domain_Model_Container extends Tx_PhpParser_Domain_Model_Abst
 		} else {
 			return NULL;
 		}
+	}
 
+	/**
+	 * @param array $postClassStatements
+	 */
+	public function addPostClassStatements($postClassStatements) {
+		$this->postClassStatements[] = $postClassStatements;
+	}
+
+	/**
+	 * @return array
+	 */
+	public function getPostClassStatements() {
+		return $this->postClassStatements;
+	}
+
+	/**
+	 * @param array $preClassStatements
+	 */
+	public function addPreClassStatements($preClassStatements) {
+		$this->preClassStatements[] = $preClassStatements;
+	}
+
+	/**
+	 * @return array
+	 */
+	public function getPreClassStatements() {
+		return $this->preClassStatements;
 	}
 }

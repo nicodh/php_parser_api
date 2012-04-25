@@ -103,6 +103,7 @@ class Tx_PhpParser_Domain_Model_AbstractObject {
 	 */
 	protected $node;
 
+
 	/**
 	 * Setter for name
 	 *
@@ -500,12 +501,22 @@ class Tx_PhpParser_Domain_Model_AbstractObject {
 		}
 	}
 
+	/**
+	 * @param $namespace
+	 * @return bool
+	 */
 	public function inNamespace($namespace) {
 		if($this->getNamespaceName() == $namespace) {
 			return TRUE;
 		}
 	}
 
+	/**
+	 * validate if the modifier can be added to the current modifiers or not
+	 *
+	 * @param $modifier
+	 * @throws Tx_PhpParser_Exception_SyntaxErrorException
+	 */
 	protected function validateModifier($modifier) {
 		if($modifier == PHPParser_Node_Stmt_Class::MODIFIER_FINAL && $this->isAbstract() ||
 				$modifier == PHPParser_Node_Stmt_Class::MODIFIER_ABSTRACT && $this->isFinal()){
@@ -522,6 +533,14 @@ class Tx_PhpParser_Domain_Model_AbstractObject {
 			throw new Tx_PhpParser_Exception_SyntaxErrorException('Only one access modifier can be applied to one object. Use setModifier to avoid this exception');
 			//return FALSE;
 		}
+	}
+
+
+	/**
+	 * @return int
+	 */
+	public function getLine() {
+		return $this->node->getLine();
 	}
 
 }

@@ -46,6 +46,9 @@ class Tx_PhpParser_Domain_Model_File extends Tx_PhpParser_Domain_Model_Container
 	 */
 	protected $stmts = array();
 
+	/**
+	 * @var array with PHPParser_Node_Stmts !!
+	 */
 	protected $aliasDeclarations = array();
 
 	/**
@@ -92,7 +95,7 @@ class Tx_PhpParser_Domain_Model_File extends Tx_PhpParser_Domain_Model_Container
 	}
 
 	/**
-	 * @return array
+	 * @return array Tx_PhpParser_Domain_Model_Namespace
 	 */
 	public function getNamespaces() {
 		return $this->namespaces;
@@ -110,12 +113,14 @@ class Tx_PhpParser_Domain_Model_File extends Tx_PhpParser_Domain_Model_Container
 		$this->filePathAndName = $filePathAndName;
 	}
 
+	/**
+	 * @return string
+	 */
 	public function getFilePathAndName() {
 		return $this->filePathAndName;
 	}
 
 	/**
-	 * TODO: include all kind of statements that can occur in a php file
 	 * @return array
 	 */
 	public function getStmts() {
@@ -138,11 +143,8 @@ class Tx_PhpParser_Domain_Model_File extends Tx_PhpParser_Domain_Model_Container
 	 * @param $parentObject either a file object or a namespace object
 	 */
 	protected function addSubStatements($parentObject) {
-		foreach ($parentObject->getConstants() as $name => $value) {
-			$stmts[] = Tx_PhpParser_Parser_Utility_NodeConverter::getConstantNodeFromNameValue($name, $value);
-		}
 
-		foreach($parentObject->getPreIncludes() as $preInclude) {
+		foreach($parentObject->getPreClassStatements() as $preInclude) {
 			$this->stmts[] = $preInclude;
 		}
 
@@ -154,15 +156,21 @@ class Tx_PhpParser_Domain_Model_File extends Tx_PhpParser_Domain_Model_Container
 			$this->stmts[] = $function->getNode();
 		}
 
-		foreach($this->getPostIncludes() as $postInclude) {
+		foreach($this->getPostClassStatements() as $postInclude) {
 			$this->stmts[] = $postInclude;
 		}
 	}
 
+	/**
+	 * @param array $aliasDeclarations PHPParser_Node_Stmt
+	 */
 	public function addAliasDeclarations($aliasDeclarations) {
 		$this->aliasDeclarations = $aliasDeclarations;
 	}
 
+	/**
+	 * @return array PHPParser_Node_Stmt
+	 */
 	public function getAliasDeclarations() {
 		return $this->aliasDeclarations;
 	}

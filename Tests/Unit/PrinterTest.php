@@ -85,8 +85,44 @@ class Tx_PhpParser_Tests_Unit_PrinterTest extends Tx_PhpParser_Tests_BaseTest {
 		$fileName = 'ClassWithIncludeStatement.php';
 		//$this->assertTrue(copy($this->testDir.'DummyIncludeFile.php',$this->testDir.'tmp/DummyIncludeFile.php'));
 		$classFileObject = $this->parseAndWrite($fileName);
-		$reflectedClass = $this->compareClasses($classFileObject, $this->testDir . $fileName);
+		$this->compareClasses($classFileObject, $this->testDir . $fileName);
 
+	}
+
+	/**
+	 * @test
+	 *
+	 */
+	public function printClassWithPreStatements() {
+		$fileName = 'ClassWithPreStatements.php';
+		$classFileObject = $this->parseAndWrite($fileName);
+		$this->compareClasses($classFileObject, $this->testDir . $fileName);
+		$this->assertEquals(TX_PHPPARSER_TEST_FOO,'BAR');
+		$this->assertEquals('FOO',TX_PHPPARSER_TEST_BAR);
+	}
+
+	/**
+	 * @test
+	 *
+	 */
+	public function printClassWithPostStatements() {
+		$fileName = 'ClassWithPostStatements.php';
+		$classFileObject = $this->parseAndWrite($fileName);
+		$this->compareClasses($classFileObject, $this->testDir . $fileName);
+		$this->assertEquals(TX_PHPPARSER_TEST_FOO_POST,'BAR');
+		$this->assertEquals('FOO',TX_PHPPARSER_TEST_BAR_POST);
+	}
+
+	/**
+	 * @test
+	 *
+	 */
+	public function printClassWithPreAndPostStatements() {
+		$fileName = 'ClassWithPreAndPostStatements.php';
+		$classFileObject = $this->parseAndWrite($fileName);
+		$this->compareClasses($classFileObject, $this->testDir . $fileName);
+		$this->assertEquals(TX_PHPPARSER_TEST_FOO_PRE2,'BAR');
+		$this->assertEquals('FOO',TX_PHPPARSER_TEST_BAR_POST2);
 	}
 
 

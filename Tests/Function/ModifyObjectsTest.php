@@ -56,7 +56,7 @@ class  Tx_PhpParser_Tests_Function_ModifyObjectsTest extends Tx_PhpParser_Tests_
 
 	/**
 	 * @test
-	 *  @expectedException Tx_PhpParser_Exception_SyntaxErrorException
+	 * @expectedException Tx_PhpParser_Exception_SyntaxErrorException
 	 */
 	function addStaticModifierToClassThrowsException() {
 		$classFileObject = $this->parseFile('SimpleProperty.php');
@@ -66,7 +66,7 @@ class  Tx_PhpParser_Tests_Function_ModifyObjectsTest extends Tx_PhpParser_Tests_
 
 	/**
 	 * @test
-	 *  @expectedException Tx_PhpParser_Exception_SyntaxErrorException
+	 * @expectedException Tx_PhpParser_Exception_SyntaxErrorException
 	 */
 	function addPublicModifierToClassThrowsException() {
 		$classFileObject = $this->parseFile('SimpleProperty.php');
