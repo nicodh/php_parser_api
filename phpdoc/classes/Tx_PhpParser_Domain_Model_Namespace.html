@@ -31,7 +31,7 @@
 <a href="#reports" class="dropdown-toggle" data-toggle="dropdown">
                                     Reports <b class="caret"></b></a><ul class="dropdown-menu">
 <li><a href="../errors.html"><i class="icon-remove-sign"></i> Errors 
-                <span class="label label-info">207</span></a></li>
+                <span class="label label-info">216</span></a></li>
 <li><a href="../markers.html"><i class="icon-map-marker"></i> Markers 
                 <ul><li>todo 
                 <span class="label label-info">2</span>
@@ -66,8 +66,12 @@
 <li class="method public inherited"><a href="#addFunction" title="addFunction :: "><span class="description">addFunction()
         </span><pre>addFunction()</pre></a></li>
 <li class="method public inherited"><a href="#addModifier" title="addModifier :: adds a modifier"><span class="description">adds a modifier</span><pre>addModifier()</pre></a></li>
+<li class="method public inherited"><a href="#addPostClassStatements" title="addPostClassStatements :: "><span class="description">addPostClassStatements()
+        </span><pre>addPostClassStatements()</pre></a></li>
 <li class="method public "><a href="#addPostInclude" title="addPostInclude :: "><span class="description">addPostInclude()
         </span><pre>addPostInclude()</pre></a></li>
+<li class="method public inherited"><a href="#addPreClassStatements" title="addPreClassStatements :: "><span class="description">addPreClassStatements()
+        </span><pre>addPreClassStatements()</pre></a></li>
 <li class="method public "><a href="#addPreInclude" title="addPreInclude :: "><span class="description">addPreInclude()
         </span><pre>addPreInclude()</pre></a></li>
 <li class="method public inherited"><a href="#addTag" title="addTag :: "><span class="description">addTag()
@@ -89,6 +93,8 @@
         </span><pre>getFunction()</pre></a></li>
 <li class="method public "><a href="#getFunctions" title="getFunctions :: "><span class="description">getFunctions()
         </span><pre>getFunctions()</pre></a></li>
+<li class="method public inherited"><a href="#getLine" title="getLine :: "><span class="description">getLine()
+        </span><pre>getLine()</pre></a></li>
 <li class="method public inherited"><a href="#getModifierNames" title="getModifierNames :: getModifierNames"><span class="description">getModifierNames</span><pre>getModifierNames()</pre></a></li>
 <li class="method public inherited"><a href="#getModifiers" title="getModifiers :: Getter for modifiers"><span class="description">Getter for modifiers</span><pre>getModifiers()</pre></a></li>
 <li class="method public inherited"><a href="#getName" title="getName :: Getter for name"><span class="description">Getter for name</span><pre>getName()</pre></a></li>
@@ -96,8 +102,12 @@
         </span><pre>getNamespaceName()</pre></a></li>
 <li class="method public inherited"><a href="#getNode" title="getNode :: "><span class="description">getNode()
         </span><pre>getNode()</pre></a></li>
+<li class="method public inherited"><a href="#getPostClassStatements" title="getPostClassStatements :: "><span class="description">getPostClassStatements()
+        </span><pre>getPostClassStatements()</pre></a></li>
 <li class="method public "><a href="#getPostIncludes" title="getPostIncludes :: "><span class="description">getPostIncludes()
         </span><pre>getPostIncludes()</pre></a></li>
+<li class="method public inherited"><a href="#getPreClassStatements" title="getPreClassStatements :: "><span class="description">getPreClassStatements()
+        </span><pre>getPreClassStatements()</pre></a></li>
 <li class="method public "><a href="#getPreIncludes" title="getPreIncludes :: "><span class="description">getPreIncludes()
         </span><pre>getPreIncludes()</pre></a></li>
 <li class="method public inherited"><a href="#getShortName" title="getShortName :: Getter for short name (without namespace"><span class="description">Getter for short name (without namespace</span><pre>getShortName()</pre></a></li>
@@ -156,8 +166,7 @@ since modifiers are claculated bitwise)</span><pre>setModifiers()</pre></a></li>
 <li class="method public inherited"><a href="#setTag" title="setTag :: sets a tags"><span class="description">sets a tags</span><pre>setTag()</pre></a></li>
 <li class="nav-header protected">» Protected</li>
 <li class="method protected inherited"><a href="#updateDocComment" title="updateDocComment :: for internal use"><span class="description">for internal use</span><pre>updateDocComment()</pre></a></li>
-<li class="method protected inherited"><a href="#validateModifier" title="validateModifier :: "><span class="description">validateModifier()
-        </span><pre>validateModifier()</pre></a></li>
+<li class="method protected inherited"><a href="#validateModifier" title="validateModifier :: validate if the modifier can be added to the current modifiers or not"><span class="description">validate if the modifier can be added to the current modifiers or not</span><pre>validateModifier()</pre></a></li>
 <li class="nav-header">
 <i class="icon-custom icon-property"></i> Properties</li>
 <li class="nav-header protected">» Protected</li>
@@ -172,7 +181,11 @@ since modifiers are claculated bitwise)</span><pre>setModifiers()</pre></a></li>
 <li class="property protected inherited"><a href="#%24name" title="$name :: name"><span class="description">name</span><pre>$name</pre></a></li>
 <li class="property protected inherited"><a href="#%24namespace" title="$namespace :: "><span class="description">$namespace</span><pre>$namespace</pre></a></li>
 <li class="property protected inherited"><a href="#%24node" title="$node :: "><span class="description">$node</span><pre>$node</pre></a></li>
+<li class="property protected inherited"><a href="#%24postClassStatements" title="$postClassStatements :: contains all statements that occurred after the first class statement
+they will be rewritten after the last class!!"><span class="description">contains all statements that occurred after the first class statement
+they will be rewritten after the last class!!</span><pre>$postClassStatements</pre></a></li>
 <li class="property protected inherited"><a href="#%24postIncludes" title="$postIncludes :: "><span class="description">$postIncludes</span><pre>$postIncludes</pre></a></li>
+<li class="property protected inherited"><a href="#%24preClassStatements" title="$preClassStatements :: contains all statements that occurred before the first class statement"><span class="description">contains all statements that occurred before the first class statement</span><pre>$preClassStatements</pre></a></li>
 <li class="property protected inherited"><a href="#%24preIncludes" title="$preIncludes :: "><span class="description">$preIncludes</span><pre>$preIncludes</pre></a></li>
 <li class="property protected inherited"><a href="#%24tags" title="$tags :: array"><span class="description">array</span><pre>$tags</pre></a></li>
 <li class="nav-header private">» Private</li>
@@ -213,7 +226,7 @@ since modifiers are claculated bitwise)</span><pre>setModifiers()</pre></a></li>
 <a name="__construct" id="__construct"></a><div class="element clickable method public __construct" data-toggle="collapse" data-target=".__construct .collapse">
 <h2>__construct()
         </h2>
-<pre>__construct(string $name) </pre>
+<pre>__construct(string $name, $createNode) </pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="span8">
 <p class="long_description"></p>
@@ -222,6 +235,9 @@ since modifiers are claculated bitwise)</span><pre>setModifiers()</pre></a></li>
 <h4>$name</h4>
 <code>string</code>
 </div>
+<div class="subelement argument">
+<h4>$createNode</h4>
+<code></code><p>boolean</p></div>
 </div></div>
 </div>
 <a name="addAliasDeclaration" id="addAliasDeclaration"></a><div class="element clickable method public addAliasDeclaration" data-toggle="collapse" data-target=".addAliasDeclaration .collapse">
@@ -300,6 +316,24 @@ since modifiers are claculated bitwise)</span><pre>setModifiers()</pre></a></li>
 <code><a href="../classes/Tx_PhpParser_Domain_Model_AbstractObject.html">\Tx_PhpParser_Domain_Model_AbstractObject</a></code>(for fluid interface)</div>
 </div></div>
 </div>
+<a name="addPostClassStatements" id="addPostClassStatements"></a><div class="element clickable method public addPostClassStatements" data-toggle="collapse" data-target=".addPostClassStatements .collapse">
+<h2>addPostClassStatements()
+        </h2>
+<pre>addPostClassStatements(array $postClassStatements) </pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="span8">
+<p class="long_description"></p>
+<table class="table table-bordered"><tr>
+<th>inherited_from</th>
+<td>\Tx_PhpParser_Domain_Model_Container::addPostClassStatements()</td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$postClassStatements</h4>
+<code>array</code>
+</div>
+</div></div>
+</div>
 <a name="addPostInclude" id="addPostInclude"></a><div class="element clickable method public addPostInclude" data-toggle="collapse" data-target=".addPostInclude .collapse">
 <h2>addPostInclude()
         </h2>
@@ -311,6 +345,24 @@ since modifiers are claculated bitwise)</span><pre>setModifiers()</pre></a></li>
 <div class="subelement argument">
 <h4>$postInclude</h4>
 <code></code>
+</div>
+</div></div>
+</div>
+<a name="addPreClassStatements" id="addPreClassStatements"></a><div class="element clickable method public addPreClassStatements" data-toggle="collapse" data-target=".addPreClassStatements .collapse">
+<h2>addPreClassStatements()
+        </h2>
+<pre>addPreClassStatements(array $preClassStatements) </pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="span8">
+<p class="long_description"></p>
+<table class="table table-bordered"><tr>
+<th>inherited_from</th>
+<td>\Tx_PhpParser_Domain_Model_Container::addPreClassStatements()</td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$preClassStatements</h4>
+<code>array</code>
 </div>
 </div></div>
 </div>
@@ -510,6 +562,27 @@ since modifiers are claculated bitwise)</span><pre>setModifiers()</pre></a></li>
 <div class="subelement response"><code>array</code></div>
 </div></div>
 </div>
+<a name="getLine" id="getLine"></a><div class="element clickable method public getLine" data-toggle="collapse" data-target=".getLine .collapse">
+<h2>getLine()
+        </h2>
+<pre>getLine() : int</pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="span8">
+<p class="long_description"></p>
+<table class="table table-bordered">
+<tr>
+<th>inherited_from</th>
+<td>\Tx_PhpParser_Domain_Model_AbstractObject::getLine()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Tx_PhpParser_Domain_Model_Container::getLine()</td>
+</tr>
+</table>
+<h3>Returns</h3>
+<div class="subelement response"><code>int</code></div>
+</div></div>
+</div>
 <a name="getModifierNames" id="getModifierNames"></a><div class="element clickable method public getModifierNames" data-toggle="collapse" data-target=".getModifierNames .collapse">
 <h2>getModifierNames</h2>
 <pre>getModifierNames() : </pre>
@@ -614,12 +687,42 @@ since modifiers are claculated bitwise)</span><pre>setModifiers()</pre></a></li>
 <div class="subelement response"><code>\PHPParser_Node</code></div>
 </div></div>
 </div>
+<a name="getPostClassStatements" id="getPostClassStatements"></a><div class="element clickable method public getPostClassStatements" data-toggle="collapse" data-target=".getPostClassStatements .collapse">
+<h2>getPostClassStatements()
+        </h2>
+<pre>getPostClassStatements() : array</pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="span8">
+<p class="long_description"></p>
+<table class="table table-bordered"><tr>
+<th>inherited_from</th>
+<td>\Tx_PhpParser_Domain_Model_Container::getPostClassStatements()</td>
+</tr></table>
+<h3>Returns</h3>
+<div class="subelement response"><code>array</code></div>
+</div></div>
+</div>
 <a name="getPostIncludes" id="getPostIncludes"></a><div class="element clickable method public getPostIncludes" data-toggle="collapse" data-target=".getPostIncludes .collapse">
 <h2>getPostIncludes()
         </h2>
 <pre>getPostIncludes() </pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="span8"><p class="long_description"></p></div></div>
+</div>
+<a name="getPreClassStatements" id="getPreClassStatements"></a><div class="element clickable method public getPreClassStatements" data-toggle="collapse" data-target=".getPreClassStatements .collapse">
+<h2>getPreClassStatements()
+        </h2>
+<pre>getPreClassStatements() : array</pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="span8">
+<p class="long_description"></p>
+<table class="table table-bordered"><tr>
+<th>inherited_from</th>
+<td>\Tx_PhpParser_Domain_Model_Container::getPreClassStatements()</td>
+</tr></table>
+<h3>Returns</h3>
+<div class="subelement response"><code>array</code></div>
+</div></div>
 </div>
 <a name="getPreIncludes" id="getPreIncludes"></a><div class="element clickable method public getPreIncludes" data-toggle="collapse" data-target=".getPreIncludes .collapse">
 <h2>getPreIncludes()
@@ -723,7 +826,7 @@ since modifiers are claculated bitwise)</span><pre>setModifiers()</pre></a></li>
 <a name="inNamespace" id="inNamespace"></a><div class="element clickable method public inNamespace" data-toggle="collapse" data-target=".inNamespace .collapse">
 <h2>inNamespace()
         </h2>
-<pre>inNamespace($namespace) </pre>
+<pre>inNamespace($namespace) : bool</pre>
 <div class="labels"><span class="label">Inherited</span></div>
 <div class="row collapse"><div class="span8">
 <p class="long_description"></p>
@@ -742,6 +845,8 @@ since modifiers are claculated bitwise)</span><pre>setModifiers()</pre></a></li>
 <h4>$namespace</h4>
 <code></code>
 </div>
+<h3>Returns</h3>
+<div class="subelement response"><code>bool</code></div>
 </div></div>
 </div>
 <a name="initDocComment" id="initDocComment"></a><div class="element clickable method public initDocComment" data-toggle="collapse" data-target=".initDocComment .collapse">
@@ -1341,8 +1446,7 @@ since modifiers are claculated bitwise)</h2>
 </div></div>
 </div>
 <a name="validateModifier" id="validateModifier"></a><div class="element clickable method protected validateModifier" data-toggle="collapse" data-target=".validateModifier .collapse">
-<h2>validateModifier()
-        </h2>
+<h2>validate if the modifier can be added to the current modifiers or not</h2>
 <pre>validateModifier($modifier) </pre>
 <div class="labels"><span class="label">Inherited</span></div>
 <div class="row collapse"><div class="span8">
@@ -1362,6 +1466,11 @@ since modifiers are claculated bitwise)</h2>
 <h4>$modifier</h4>
 <code></code>
 </div>
+<h3>Exceptions</h3>
+<table class="table table-bordered"><tr>
+<th><code><a href="../classes/Tx_PhpParser_Exception_SyntaxErrorException.html">\Tx_PhpParser_Exception_SyntaxErrorException</a></code></th>
+<td></td>
+</tr></table>
 </div></div>
 </div>
 <h3>
@@ -1516,6 +1625,19 @@ since modifiers are claculated bitwise)</h2>
 </table>
 </div></div>
 </div>
+<a name="%24postClassStatements" id="$postClassStatements"> </a><div class="element clickable property protected $postClassStatements" data-toggle="collapse" data-target=".$postClassStatements .collapse">
+<h2>contains all statements that occurred after the first class statement
+they will be rewritten after the last class!!</h2>
+<pre>$postClassStatements : array</pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="span8">
+<p class="long_description"></p>
+<table class="table table-bordered"><tr>
+<th>inherited_from</th>
+<td>\Tx_PhpParser_Domain_Model_Container::$$postClassStatements</td>
+</tr></table>
+</div></div>
+</div>
 <a name="%24postIncludes" id="$postIncludes"> </a><div class="element clickable property protected $postIncludes" data-toggle="collapse" data-target=".$postIncludes .collapse">
 <h2>$postIncludes</h2>
 <pre>$postIncludes : array</pre>
@@ -1525,6 +1647,18 @@ since modifiers are claculated bitwise)</h2>
 <table class="table table-bordered"><tr>
 <th>inherited_from</th>
 <td>\Tx_PhpParser_Domain_Model_Container::$$postIncludes</td>
+</tr></table>
+</div></div>
+</div>
+<a name="%24preClassStatements" id="$preClassStatements"> </a><div class="element clickable property protected $preClassStatements" data-toggle="collapse" data-target=".$preClassStatements .collapse">
+<h2>contains all statements that occurred before the first class statement</h2>
+<pre>$preClassStatements : array</pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="span8">
+<p class="long_description"></p>
+<table class="table table-bordered"><tr>
+<th>inherited_from</th>
+<td>\Tx_PhpParser_Domain_Model_Container::$$preClassStatements</td>
 </tr></table>
 </div></div>
 </div>
@@ -1588,7 +1722,7 @@ since modifiers are claculated bitwise)</h2>
 <div class="row"><footer class="span12">
             Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by <a href="http://glyphicons.com/">Glyphicons</a>.<br>
             Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor 2.0.0a2</a> and<br>
-            generated on 2012-04-23T11:17:47+02:00.<br></footer></div>
+            generated on 2012-04-25T11:02:52+02:00.<br></footer></div>
 </div>
 </body>
 </html>

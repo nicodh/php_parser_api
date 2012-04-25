@@ -31,7 +31,7 @@
 <a href="#reports" class="dropdown-toggle" data-toggle="dropdown">
                                     Reports <b class="caret"></b></a><ul class="dropdown-menu">
 <li><a href="../errors.html"><i class="icon-remove-sign"></i> Errors 
-                <span class="label label-info">207</span></a></li>
+                <span class="label label-info">216</span></a></li>
 <li><a href="../markers.html"><i class="icon-map-marker"></i> Markers 
                 <ul><li>todo 
                 <span class="label label-info">2</span>
@@ -61,27 +61,8 @@
         </span><pre>afterTraverse()</pre></a></li>
 <li class="method public "><a href="#beforeTraverse" title="beforeTraverse :: "><span class="description">beforeTraverse()
         </span><pre>beforeTraverse()</pre></a></li>
-<li class="method public "><a href="#enterNode" title="enterNode :: only these node types are currently supported, except if we
-are not in a method or function body:
-Stmt_Namespace
-Stmt_Use
-Expr_Include
-Stmt_Class
-Stmt_ClassConst
-Stmt_Const
-Stmt_Property
-Stmt_ClassMethod
-Stmt_Function"><span class="description">only these node types are currently supported, except if we
-are not in a method or function body:
-Stmt_Namespace
-Stmt_Use
-Expr_Include
-Stmt_Class
-Stmt_ClassConst
-Stmt_Const
-Stmt_Property
-Stmt_ClassMethod
-Stmt_Function</span><pre>enterNode()</pre></a></li>
+<li class="method public "><a href="#enterNode" title="enterNode :: "><span class="description">enterNode()
+        </span><pre>enterNode()</pre></a></li>
 <li class="method public "><a href="#getFileObject" title="getFileObject :: "><span class="description">getFileObject()
         </span><pre>getFileObject()</pre></a></li>
 <li class="method public "><a href="#leaveNode" title="leaveNode :: "><span class="description">leaveNode()
@@ -89,8 +70,10 @@ Stmt_Function</span><pre>enterNode()</pre></a></li>
 <li class="method public "><a href="#setClassFactory" title="setClassFactory :: "><span class="description">setClassFactory()
         </span><pre>setClassFactory()</pre></a></li>
 <li class="nav-header protected">» Protected</li>
-<li class="method protected "><a href="#onUnsupportedStatementFound" title="onUnsupportedStatementFound :: "><span class="description">onUnsupportedStatementFound()
-        </span><pre>onUnsupportedStatementFound()</pre></a></li>
+<li class="method protected "><a href="#addLastNode" title="addLastNode :: "><span class="description">addLastNode()
+        </span><pre>addLastNode()</pre></a></li>
+<li class="method protected "><a href="#isContainerNode" title="isContainerNode :: "><span class="description">isContainerNode()
+        </span><pre>isContainerNode()</pre></a></li>
 <li class="nav-header">
 <i class="icon-custom icon-property"></i> Properties</li>
 <li class="nav-header protected">» Protected</li>
@@ -100,6 +83,8 @@ Stmt_Function</span><pre>enterNode()</pre></a></li>
 <li class="property protected "><a href="#%24currentContainer" title="$currentContainer :: "><span class="description">$currentContainer</span><pre>$currentContainer</pre></a></li>
 <li class="property protected "><a href="#%24currentNamespace" title="$currentNamespace :: "><span class="description">$currentNamespace</span><pre>$currentNamespace</pre></a></li>
 <li class="property protected "><a href="#%24fileObject" title="$fileObject :: "><span class="description">$fileObject</span><pre>$fileObject</pre></a></li>
+<li class="property protected "><a href="#%24lastNode" title="$lastNode :: "><span class="description">$lastNode</span><pre>$lastNode</pre></a></li>
+<li class="property protected "><a href="#%24onFirstLevel" title="$onFirstLevel :: "><span class="description">$onFirstLevel</span><pre>$onFirstLevel</pre></a></li>
 <li class="property protected "><a href="#%24properties" title="$properties :: "><span class="description">$properties</span><pre>$properties</pre></a></li>
 </ul>
 </div>
@@ -149,17 +134,8 @@ Stmt_Function</span><pre>enterNode()</pre></a></li>
 </div></div>
 </div>
 <a name="enterNode" id="enterNode"></a><div class="element clickable method public enterNode" data-toggle="collapse" data-target=".enterNode .collapse">
-<h2>only these node types are currently supported, except if we
-are not in a method or function body:
-Stmt_Namespace
-Stmt_Use
-Expr_Include
-Stmt_Class
-Stmt_ClassConst
-Stmt_Const
-Stmt_Property
-Stmt_ClassMethod
-Stmt_Function</h2>
+<h2>enterNode()
+        </h2>
 <pre>enterNode(PHPParser_Node $node) </pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="span8">
@@ -188,7 +164,7 @@ Stmt_Function</h2>
 <h3>Parameters</h3>
 <div class="subelement argument">
 <h4>$node</h4>
-<code></code>
+<code>\PHPParser_Node</code>
 </div>
 </div></div>
 </div>
@@ -206,10 +182,17 @@ Stmt_Function</h2>
 </div>
 </div></div>
 </div>
-<a name="onUnsupportedStatementFound" id="onUnsupportedStatementFound"></a><div class="element clickable method protected onUnsupportedStatementFound" data-toggle="collapse" data-target=".onUnsupportedStatementFound .collapse">
-<h2>onUnsupportedStatementFound()
+<a name="addLastNode" id="addLastNode"></a><div class="element clickable method protected addLastNode" data-toggle="collapse" data-target=".addLastNode .collapse">
+<h2>addLastNode()
         </h2>
-<pre>onUnsupportedStatementFound($node) </pre>
+<pre>addLastNode() </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="span8"><p class="long_description"></p></div></div>
+</div>
+<a name="isContainerNode" id="isContainerNode"></a><div class="element clickable method protected isContainerNode" data-toggle="collapse" data-target=".isContainerNode .collapse">
+<h2>isContainerNode()
+        </h2>
+<pre>isContainerNode($node) </pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="span8">
 <p class="long_description"></p>
@@ -242,7 +225,7 @@ Stmt_Function</h2>
 </div>
 <a name="%24currentContainer" id="$currentContainer"> </a><div class="element clickable property protected $currentContainer" data-toggle="collapse" data-target=".$currentContainer .collapse">
 <h2>$currentContainer</h2>
-<pre>$currentContainer : </pre>
+<pre>$currentContainer : <a href="../classes/Tx_PhpParser_Domain_Model_Container.html">\Tx_PhpParser_Domain_Model_Container</a></pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="span8"><p class="long_description"></p></div></div>
 </div>
@@ -255,6 +238,18 @@ Stmt_Function</h2>
 <a name="%24fileObject" id="$fileObject"> </a><div class="element clickable property protected $fileObject" data-toggle="collapse" data-target=".$fileObject .collapse">
 <h2>$fileObject</h2>
 <pre>$fileObject : <a href="../classes/Tx_PhpParser_Domain_Model_File.html">\Tx_PhpParser_Domain_Model_File</a></pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="span8"><p class="long_description"></p></div></div>
+</div>
+<a name="%24lastNode" id="$lastNode"> </a><div class="element clickable property protected $lastNode" data-toggle="collapse" data-target=".$lastNode .collapse">
+<h2>$lastNode</h2>
+<pre>$lastNode </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="span8"><p class="long_description"></p></div></div>
+</div>
+<a name="%24onFirstLevel" id="$onFirstLevel"> </a><div class="element clickable property protected $onFirstLevel" data-toggle="collapse" data-target=".$onFirstLevel .collapse">
+<h2>$onFirstLevel</h2>
+<pre>$onFirstLevel </pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="span8"><p class="long_description"></p></div></div>
 </div>
@@ -271,7 +266,7 @@ Stmt_Function</h2>
 <div class="row"><footer class="span12">
             Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by <a href="http://glyphicons.com/">Glyphicons</a>.<br>
             Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor 2.0.0a2</a> and<br>
-            generated on 2012-04-23T11:17:47+02:00.<br></footer></div>
+            generated on 2012-04-25T11:02:52+02:00.<br></footer></div>
 </div>
 </body>
 </html>

@@ -175,11 +175,11 @@
 <path fill="none" stroke="black" stroke-dasharray="1,5" d="M905.27,-1204C851.114,-1204 785.953,-1204 727.601,-1204"/>
 <polygon fill="none" stroke="black" points="727.545,-1200.5 717.545,-1204 727.545,-1207.5 727.545,-1200.5"/>
 </g>
-<!-- \\Tx_PhpParser_Utility_AutoLoader -->
-<g id="node15" class="node"><title>\\Tx_PhpParser_Utility_AutoLoader</title>
-<a xlink:href="AutoLoader.html" xlink:title="Tx_PhpParser_Utility_AutoLoader" target="_parent">
-<polygon fill="none" stroke="black" points="1135,-682 909,-682 909,-646 1135,-646 1135,-682"/>
-<text text-anchor="middle" x="1022" y="-661.1" font-family="Courier,monospace" font-size="11.00">Tx_PhpParser_Utility_AutoLoader</text>
+<!-- \\Tx_PhpParser_AutoLoader -->
+<g id="node15" class="node"><title>\\Tx_PhpParser_AutoLoader</title>
+<a xlink:href="AutoLoader.html" xlink:title="Tx_PhpParser_AutoLoader" target="_parent">
+<polygon fill="none" stroke="black" points="1108,-682 936,-682 936,-646 1108,-646 1108,-682"/>
+<text text-anchor="middle" x="1022" y="-661.1" font-family="Courier,monospace" font-size="11.00">Tx_PhpParser_AutoLoader</text>
 </a>
 </g>
 <!-- \\Tx_PhpParser_Exception_FileNotFoundException -->
