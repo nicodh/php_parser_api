@@ -3,7 +3,8 @@ PHP Parser API
 
 This project provides an API for the [PHPParser][1] written by [nikic][2].
 It's implemented as a TYPO3 extension but can be easily used as a stand-alone library.
-The PHP Parser is included as sub module. Actually it's a [fork][6] of the Parser of [nikic][2], since we needed more support for whitespaces and single line comments which was implemented by [Tom Maroschik][7].
+The PHP Parser is included as sub module. Actually it's a [fork][6] of the Parser of [nikic][2],
+since we needed more support for whitespaces and single line comments which was implemented by [Tom Maroschik][7].
 
 Documentation can be found in the [docs][4] directory.
 
