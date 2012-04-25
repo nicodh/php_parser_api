@@ -52,7 +52,7 @@ class Tx_PhpParser_Parser_DocCommentParser {
 	public function renderDocComment($tags, $description) {
 		$docComment = "/**\n";
 		if(!empty($description)) {
-			$docComment .= ' * ' . implode("\n" . ' * ', t3lib_div::trimExplode(LF,$description, TRUE));
+			$docComment .= ' * ' . implode("\n" . ' * ', explode("\n",$description, TRUE));
 			$docComment .= "\n *\n";
 		}
 
