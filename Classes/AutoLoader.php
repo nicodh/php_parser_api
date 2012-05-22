@@ -23,6 +23,8 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+namespace PHPParser;
+
 /**
  * @package  PhpParserApi
  * @author Nico de Haen
@@ -30,7 +32,7 @@
 
 
 
-class Tx_PhpParser_AutoLoader {
+class AutoLoader {
 
 	static public $autoloadRegistry;
 

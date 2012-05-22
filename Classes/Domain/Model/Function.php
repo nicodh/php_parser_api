@@ -90,8 +90,11 @@ class Tx_PhpParser_Domain_Model_Function extends Tx_PhpParser_Domain_Model_Abstr
 	 * @return void
 	 */
 	public function setBodyStmts($stmts) {
+		if(!is_array($stmts)) {
+			$stmts = array();
+		}
 		$this->bodyStmts = $stmts;
-		$this->node->__set('stmts',$stmts);
+		$this->node->setStmts($stmts);
 		return $this;
 	}
 
@@ -153,7 +156,7 @@ class Tx_PhpParser_Domain_Model_Function extends Tx_PhpParser_Domain_Model_Abstr
 			$this->parameters[$methodParameter->getPosition()] = $methodParameter;
 			$parameterNodes[] = $parameter->getNode();
 		}
-		$this->node->__set('params',$parameterNodes);
+		$this->node->setParams($parameterNodes);
 		return $this;
 	}
 
@@ -167,7 +170,7 @@ class Tx_PhpParser_Domain_Model_Function extends Tx_PhpParser_Domain_Model_Abstr
 		$this->parameters[$parameter->getPosition()] = $parameter;
 		$parameterNodes = $this->node->__get('params');
 		$parameterNodes[$parameter->getPosition()] = $parameter->getNode();
-		$this->node->__set('params', $parameterNodes);
+		$this->node->setParams($parameterNodes);
 		$this->updateParamTags();
 		return $this;
 	}
@@ -194,7 +197,7 @@ class Tx_PhpParser_Domain_Model_Function extends Tx_PhpParser_Domain_Model_Abstr
 			unset($this->parameters[$parameterPosition]);
 			$params = $this->node->__get('params');
 			unset($params[$parameterPosition]);
-			$this->node->__set('params',$params);
+			$this->node->setParams($params);
 			$this->updateParamTags();
 			return TRUE;
 		}

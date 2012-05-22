@@ -56,7 +56,7 @@ class Tx_PhpParser_Parser_Visitor_ReplaceClassNamesVisitor extends PHPParser_Nod
 			$oldClassName = Tx_PhpParser_Parser_Utility_NodeConverter::getValueFromNode($node->__get('class'));
 			if(strpos($oldClassName,$this->oldClassPrefix) !== FALSE) {
 				$newClassName = str_replace($this->oldClassPrefix,$this->newClassPrefix,$oldClassName);
-				$node->__set('class',Tx_PhpParser_Parser_NodeFactory::buildNodeFromName($newClassName));
+				$node->setClass(Tx_PhpParser_Parser_NodeFactory::buildNodeFromName($newClassName));
 				return $node;
 			}
 		}

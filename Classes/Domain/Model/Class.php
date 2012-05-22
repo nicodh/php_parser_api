@@ -352,7 +352,7 @@ class Tx_PhpParser_Domain_Model_Class extends Tx_PhpParser_Domain_Model_Containe
 		foreach($interfaceNames as $interfaceName) {
 			$interfaceNodes[] = Tx_PhpParser_Parser_NodeFactory::buildNodeFromName($interfaceName);
 		}
-		$this->node->__set('implements', $interfaceNodes);
+		$this->node->setImplements($interfaceNodes);
 	}
 
 
@@ -365,9 +365,9 @@ class Tx_PhpParser_Domain_Model_Class extends Tx_PhpParser_Domain_Model_Containe
 		if(!in_array($interfaceName, $this->interfaceNames)) {
 			$this->interfaceNames[] = $interfaceName;
 			if($updateNode) {
-				$interfaceNodes = $this->node->__get('implements');
+				$interfaceNodes = $this->node->getImplements();
 				$interfaceNodes[] = Tx_PhpParser_Parser_NodeFactory::buildNodeFromName($interfaceName);
-				$this->node->__set('implements',$interfaceNodes);
+				$this->node->setImplements($interfaceNodes);
 			}
 		}
 		return $this;
@@ -404,12 +404,12 @@ class Tx_PhpParser_Domain_Model_Class extends Tx_PhpParser_Domain_Model_Containe
 			}
 		}
 		$this->interfaceNames = $interfaceNames;
-		$this->node->__set('implements', $interfaceNodes);
+		$this->node->setImplements($interfaceNodes);
 	}
 
 	public function removeAllInterfaces() {
 		$this->interfaceNames = array();
-		$this->node->__set('implements', array());
+		$this->node->setImplements( array());
 	}
 
 	/**
@@ -422,7 +422,7 @@ class Tx_PhpParser_Domain_Model_Class extends Tx_PhpParser_Domain_Model_Containe
 	public function setParentClassName($parentClassName, $updateNode = TRUE) {
 		$this->parentClassName = $parentClassName;
 		if($updateNode) {
-			$this->node->__set('extends',Tx_PhpParser_Parser_NodeFactory::buildNodeFromName($parentClassName));
+			$this->node->setExtends(Tx_PhpParser_Parser_NodeFactory::buildNodeFromName($parentClassName));
 		}
 		return $this;
 	}
@@ -441,7 +441,7 @@ class Tx_PhpParser_Domain_Model_Class extends Tx_PhpParser_Domain_Model_Containe
 	 */
 	public function removeParentClassName() {
 		$this->parentClass = '';
-		$this->node->__set('extends',NULL);
+		$this->node->setExtends(NULL);
 	}
 
 	/**

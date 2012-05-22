@@ -80,8 +80,8 @@ class Tx_PhpParser_Domain_Model_Class_Property extends Tx_PhpParser_Domain_Model
 		if($updateNode) {
 			$props = $this->node->__get('props');
 			$valueNode = Tx_PhpParser_Parser_NodeFactory::buildNodeFromValue($value);
-			$props[0]->__set('default',$valueNode);
-			$this->node->__set('props',$props);
+			$props[0]->setDefault($valueNode);
+			$this->node->setProps($props);
 		}
 		if($updateVarType) {
 			$varType = Tx_PhpParser_Parser_Utility_NodeConverter::getVarTypeFromValue($value);
@@ -102,7 +102,7 @@ class Tx_PhpParser_Domain_Model_Class_Property extends Tx_PhpParser_Domain_Model
 		$this->name = $name;
 		if($updateNodeName) {
 			$props =  array(new PHPParser_Node_Stmt_PropertyProperty($this->name, $this->default));
-			$this->node->__set('props',$props);
+			$this->node->setProps($props);
 		}
 		return $this;
 	}
