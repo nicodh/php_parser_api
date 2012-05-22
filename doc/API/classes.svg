@@ -82,11 +82,11 @@
 <path fill="none" stroke="black" d="M915.973,-832.762C887.203,-829.168 858.404,-819.689 838,-799 667.056,-625.668 939.811,-426.457 766,-256 745.493,-235.888 717.343,-226.637 688.809,-223.275"/>
 <polygon fill="none" stroke="black" points="688.996,-219.777 678.712,-222.323 688.339,-226.746 688.996,-219.777"/>
 </g>
-<!-- \\Tx_PhpParser_Parser_DocCommentParser -->
-<g id="node5" class="node"><title>\\Tx_PhpParser_Parser_DocCommentParser</title>
-<a xlink:href="Parser.DocCommentParser.html" xlink:title="Tx_PhpParser_Parser_DocCommentParser" target="_parent">
+<!-- \\Tx_PhpParser_Parser_ -->
+<g id="node5" class="node"><title>\\Tx_PhpParser_Parser_</title>
+<a xlink:href="Parser..html" xlink:title="Tx_PhpParser_Parser_" target="_parent">
 <polygon fill="none" stroke="black" points="1152,-1060 892,-1060 892,-1024 1152,-1024 1152,-1060"/>
-<text text-anchor="middle" x="1022" y="-1039.1" font-family="Courier,monospace" font-size="11.00">Tx_PhpParser_Parser_DocCommentParser</text>
+<text text-anchor="middle" x="1022" y="-1039.1" font-family="Courier,monospace" font-size="11.00">Tx_PhpParser_Parser_</text>
 </a>
 </g>
 <!-- \\Tx_PhpParser_Parser_ClassFactoryInterface -->

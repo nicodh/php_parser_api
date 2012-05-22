@@ -113,7 +113,7 @@ class Tx_PhpParser_Domain_Model_Parameter extends Tx_PhpParser_Domain_Model_Abst
 	public function setType($type, $updateNodeType = TRUE) {
 		$this->type = $type;
 		if($updateNodeType) {
-			$this->node->__set('type',$type);
+			$this->node->setType($type);
 		}
 	}
 
@@ -154,7 +154,7 @@ class Tx_PhpParser_Domain_Model_Parameter extends Tx_PhpParser_Domain_Model_Abst
 	public function setDefault($default, $updateNodeDefault = TRUE) {
 		$this->default = $default;
 		if($updateNodeDefault) {
-			$this->node->__set('default',Tx_PhpParser_Parser_Utility_NodeConverter::getNodeFromvalue($default));
+			$this->node->setDefault(Tx_PhpParser_Parser_Utility_NodeConverter::getNodeFromvalue($default));
 		}
 	}
 
@@ -189,7 +189,7 @@ class Tx_PhpParser_Domain_Model_Parameter extends Tx_PhpParser_Domain_Model_Abst
 	public function setPassedByReference( $passedByReference, $updateNodeByRef = TRUE ) {
 		$this->passedByReference = $passedByReference;
 		if($updateNodeByRef) {
-			$this->node->__set('byRef',$passedByReference);
+			$this->node->setByRef($passedByReference);
 		}
 	}
 
@@ -214,7 +214,7 @@ class Tx_PhpParser_Domain_Model_Parameter extends Tx_PhpParser_Domain_Model_Abst
 		}
 		$this->typeHint = $typeHint;
 		if($updateNodeTypeHint) {
-			$this->node->__set('type',Tx_PhpParser_Parser_NodeFactory::buildNodeFromName($typeHint));
+			$this->node->setType(Tx_PhpParser_Parser_NodeFactory::buildNodeFromName($typeHint));
 		}
 	}
 

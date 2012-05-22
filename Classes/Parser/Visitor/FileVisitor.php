@@ -107,7 +107,7 @@ class Tx_PhpParser_Parser_Visitor_FileVisitor extends PHPParser_NodeVisitorAbstr
 			// we are on the first level
 			if($node instanceof PHPParser_Node_Stmt_Class) {
 				if(count($this->contextStack) > 0) {
-					if(end($this->contextStack)->getType() == 'Stmt_Namespace') {
+					if(end($this->contextStack)->getNodeType() == 'Stmt_Namespace') {
 						$currentNamespaceName = Tx_PhpParser_Parser_Utility_NodeConverter::getValueFromNode(end($this->contextStack));
 						$this->currentClassObject->setNamespaceName($currentNamespaceName);
 						$this->currentNamespace->addClass($this->currentClassObject);

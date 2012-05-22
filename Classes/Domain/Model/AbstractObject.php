@@ -88,11 +88,6 @@ class Tx_PhpParser_Domain_Model_AbstractObject {
 	protected $docComment;
 
 	/**
-	 * @var Tx_PhpParser_Parser_DocCommentParser
-	 */
-	protected $docCommentParser;
-
-	/**
 	 * @var string
 	 */
 	protected $namespace;
@@ -113,7 +108,7 @@ class Tx_PhpParser_Domain_Model_AbstractObject {
 	public function setName($name, $updateNodeName = TRUE) {
 		$this->name = $name;
 		if($updateNodeName) {
-			$this->node->__set('name',$name);
+			$this->node->setName($name);
 		}
 		return $this;
 	}
@@ -206,7 +201,7 @@ class Tx_PhpParser_Domain_Model_AbstractObject {
 		if(!in_array($modifierName, $this->getModifierNames())) {
 			$this->validateModifier($modifier);
 			$this->modifiers |= $this->mapModifierNames[$modifierName];
-			$this->node->__set('type',$this->modifiers);
+			$this->node->setType($this->modifiers);
 		}
 		return $this;
 	}
@@ -235,7 +230,7 @@ class Tx_PhpParser_Domain_Model_AbstractObject {
 		}
 		$this->validateModifier($modifier);
 		$this->modifiers |= $modifier;
-		$this->node->__set('type',$this->modifiers);
+		$this->node->setType($this->modifiers);
 		return $this;
 	}
 
@@ -253,7 +248,7 @@ class Tx_PhpParser_Domain_Model_AbstractObject {
 	 */
 	public function removeAllModifiers() {
 		$this->modifiers = 0;
-		$this->node->__set('type',$this->modifiers);
+		$this->node->setType($this->modifiers);
 		return $this;
 	}
 
@@ -300,22 +295,18 @@ class Tx_PhpParser_Domain_Model_AbstractObject {
 			if(is_array($ignorables)) {
 				foreach($ignorables as $ignorable) {
 					if($ignorable instanceof PHPParser_Node_Ignorable_DocComment) {
-						$this->docComment = $ignorable->__get('value');
+						$this->docComment = $ignorable;
 					}
 				}
 			}
 			if(empty($this->docComment)) {
-				$this->node->setIgnorables(array(new PHPParser_Node_Ignorable_DocComment('')));
+				$this->docComment = new PHPParser_Node_Ignorable_DocComment('');
+				$this->node->setIgnorables(array($this->docComment));
 			}
 		}
-		if(!is_object($this->docCommentParser)) {
-		    // we don't use injection since the class parser might run before
-			// any extbase object manager is loadable
-			$this->docCommentParser = new Tx_PhpParser_Parser_DocCommentParser;
-		}
-		$this->docCommentParser->parseDocComment($this->docComment);
-		$this->tags = $this->docCommentParser->getTags();
-		$this->description = $this->docCommentParser->getDescription();
+
+		$this->tags = $this->docComment->getTags();
+		$this->description = $this->docComment->getDescription();
 	}
 
 	/**
@@ -328,12 +319,8 @@ class Tx_PhpParser_Domain_Model_AbstractObject {
 			unset($this->tags['return']);
 			$this->tags['return'] = $returnTagValue;
 		}
-		$this->docComment = $this->docCommentParser->renderDocComment($this->tags, $this->description);
-		foreach($this->node->getIgnorables() as $ignorable) {
-			if($ignorable instanceof PHPParser_Node_Ignorable_DocComment) {
-				$ignorable->__set('value', $this->docComment);
-			}
-		}
+		$this->docComment->setTags($this->tags);
+		$this->docComment->setDescription($this->description);
 	}
 
 	/**
@@ -349,7 +336,7 @@ class Tx_PhpParser_Domain_Model_AbstractObject {
 			if(is_array($this->node->getIgnorables())) {
 				foreach($this->node->getIgnorables() as $ignorable) {
 					if($ignorable instanceof PHPParser_Node_Ignorable_DocComment) {
-						$ignorable->__set('value', $this->docComment);
+						$ignorable->setValue($this->docComment);
 					}
 				}
 			} else {
