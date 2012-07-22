@@ -67,7 +67,7 @@ class Tx_PhpParser_Service_Parser extends PHPParser_Parser {
 			$this->classFactory = new Tx_PhpParser_Parser_ClassFactory;
 		}
 		$this->fileVisitor->setClassFactory($this->classFactory);
-		$this->traverser->addVisitor($this->fileVisitor);
+		$this->traverser->appendVisitor($this->fileVisitor);
 		$this->traverser->traverse(array($stmts));
 		$fileObject = $this->fileVisitor->getFileObject();
 		return $fileObject;
@@ -134,7 +134,7 @@ class Tx_PhpParser_Service_Parser extends PHPParser_Parser {
 		$visitor->setNodeType($nodeType)
 				->setNodeProperty($nodeProperty)
 				->setReplacements($replacements);
-		$this->traverser->addVisitor($visitor);
+		$this->traverser->appendVisitor($visitor);
 		$stmts = $this->traverser->traverse($stmts);
 		$this->traverser->resetVisitors();
 		return $stmts;

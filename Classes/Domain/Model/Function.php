@@ -62,19 +62,19 @@ class Tx_PhpParser_Domain_Model_Function extends Tx_PhpParser_Domain_Model_Abstr
 		$getVarTypeFromParamTag = FALSE;
 		if (isset($this->tags['param']) && is_array($this->tags['param'])){
 			$paramTags = $this->tags['param'];
-			if(count($paramTags) == count($this->node->__get('params'))) {
+			if(count($paramTags) == count($this->node->getParams())) {
 				$getVarTypeFromParamTag = TRUE;
 			}
 		}
 
-		foreach($this->node->__get('params') as $param) {
+		foreach($this->node->getParams() as $param) {
 			$parameter = new Tx_PhpParser_Domain_Model_Parameter($param);
 			$parameter->setPosition($position);
 			if(strlen($parameter->getTypeHint()) < 1 && $getVarTypeFromParamTag) {
 				// if there is not type hint but a varType in the param tag, we set the varType of the parameter
 				// this will result in the typeHint being set
 				$paramTag = explode(' ',$paramTags[$position]);
-				if($paramTag[0] !== '$' . $param->__get('name')) {
+				if($paramTag[0] !== '$' . $param->getName()) {
 					$parameter->setVarType($paramTag[0]);
 				}
 			}
@@ -168,7 +168,7 @@ class Tx_PhpParser_Domain_Model_Function extends Tx_PhpParser_Domain_Model_Abstr
 	 */
 	public function setParameter($parameter) {
 		$this->parameters[$parameter->getPosition()] = $parameter;
-		$parameterNodes = $this->node->__get('params');
+		$parameterNodes = $this->node->getParams();
 		$parameterNodes[$parameter->getPosition()] = $parameter->getNode();
 		$this->node->setParams($parameterNodes);
 		$this->updateParamTags();
@@ -195,7 +195,7 @@ class Tx_PhpParser_Domain_Model_Function extends Tx_PhpParser_Domain_Model_Abstr
 	public function removeParameter($parameterName, $parameterPosition) {
 		if (isset($this->parameters[$parameterPosition]) && $this->parameters[$parameterPosition]->getName() == $parameterName) {
 			unset($this->parameters[$parameterPosition]);
-			$params = $this->node->__get('params');
+			$params = $this->node->getParams();
 			unset($params[$parameterPosition]);
 			$this->node->setParams($params);
 			$this->updateParamTags();

@@ -78,7 +78,7 @@ class Tx_PhpParser_Domain_Model_Class_Property extends Tx_PhpParser_Domain_Model
 	public function setValue($value, $updateNode = TRUE, $updateVarType = TRUE) {
 		$this->value = $value;
 		if($updateNode) {
-			$props = $this->node->__get('props');
+			$props = $this->node->getProps();
 			$valueNode = Tx_PhpParser_Parser_NodeFactory::buildNodeFromValue($value);
 			$props[0]->setDefault($valueNode);
 			$this->node->setProps($props);

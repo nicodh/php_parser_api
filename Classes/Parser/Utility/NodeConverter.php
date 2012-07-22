@@ -77,17 +77,17 @@ class Tx_PhpParser_Parser_Utility_NodeConverter {
 	 */
 	public static function getValueFromNode($node) {
 		if($node instanceof PHPParser_Node_Stmt_Namespace) {
-			return implode('\\',$node->__get('name')->__get('parts'));
+			return implode('\\',$node->getName()->getParts());
 		} elseif($node instanceof PHPParser_Node_Name) {
-			return implode(' ',$node->__get('parts'));
+			return implode(' ',$node->getParts());
 		} elseif($node instanceof PHPParser_Node_Expr_ConstFetch) {
-			return self::getValueFromNode($node->__get('name'));
+			return self::getValueFromNode($node->getName());
 		} elseif($node instanceof PHPParser_Node_Expr_Array) {
 			$value = array();
-			$arrayItems = $node->__get('items');
+			$arrayItems = $node->getItems();
 			foreach($arrayItems as $arrayItemNode) {
-				$itemKey = $arrayItemNode->__get('key');
-				$itemValue = $arrayItemNode->__get('value');
+				$itemKey = $arrayItemNode->getKey();
+				$itemValue = $arrayItemNode->getValue();
 				if(is_null($itemKey)) {
 					$value[] = self::getValueFromNode($itemValue);
 				} else {
@@ -96,7 +96,7 @@ class Tx_PhpParser_Parser_Utility_NodeConverter {
 			}
 			return $value;
 		} elseif($node instanceof PHPParser_Node) {
-			return $node->__get('value');
+			return $node->getValue();
 		} else {
 			return NULL;
 		}
@@ -113,9 +113,9 @@ class Tx_PhpParser_Parser_Utility_NodeConverter {
 	 */
 	public static function convertClassConstantNodeToArray(PHPParser_Node $node) {
 		$constantsArray = array();
-		$consts = $node->__get('consts');
+		$consts = $node->getConsts();
 		foreach($consts as $const) {
-			$constantsArray[] = array('name' => $const->__get('name'),'value' => self::getValueFromNode($const->__get('value')));
+			$constantsArray[] = array('name' => $const->getName(),'value' => self::getValueFromNode($const->getValue()));
 		}
 		return $constantsArray;
 	}

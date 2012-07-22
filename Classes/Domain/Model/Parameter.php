@@ -84,12 +84,12 @@ class Tx_PhpParser_Domain_Model_Parameter extends Tx_PhpParser_Domain_Model_Abst
 	 */
 	public function __construct($parameterNode = NULL) {
 		if($parameterNode) {
-			$this->setName($parameterNode->__get('name'), FALSE);
+			$this->setName($parameterNode->getName(), FALSE);
 			$this->setNode($parameterNode);
 			$this->setType($parameterNode->getType(), FALSE);
-			$this->setTypeHint($parameterNode->__get('type'), FALSE);
-			$this->setDefault($parameterNode->__get('default'), FALSE);
-			$this->setPassedByReference($parameterNode->__get('byRef'), FALSE);
+			$this->setTypeHint($parameterNode->getType(), FALSE);
+			$this->setDefault($parameterNode->getDefault(), FALSE);
+			$this->setPassedByReference($parameterNode->getByRef(), FALSE);
 		} else {
 			$this->setNode(new PHPParser_Node_Param(''));
 		}

@@ -63,7 +63,7 @@ class Tx_PhpParser_Service_Printer extends PHPParser_PrettyPrinter_TYPO3CGL {
 	 * @return string
 	 */
 	public function pStmt_Namespace(PHPParser_Node_Stmt_Namespace $node) {
-    	return 'namespace' . (null !== $node->name ? ' ' . $this->p($node->name) : '') . ';';
+    	return 'namespace' . (null !== $node->getName() ? ' ' . $this->p($node->getName()) : '') . ';';
 	}
 }
 

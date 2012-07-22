@@ -72,9 +72,15 @@ class Tx_PhpParser_Parser_Visitor_ReplaceVisitor extends PHPParser_NodeVisitorAb
 		}
 		if($nodeTypeMatch) {
 			foreach($this->replacements as $oldValue => $newValue) {
-				if($node->$nodeProperty == $oldValue) {
-					$node->$nodeProperty = $newValue;
+				if(method_exists($node,'get' . strtoupper($nodeProperty))) {
+					$nodePropertyValue = NULL;
+					eval('$nodePropertyValue = $node->get' . strtoupper($nodeProperty) . '();');
+					if($nodePropertyValue == $oldValue) {
+						eval('$node->set' . strtoupper($nodeProperty) . '($newValue);');
+						//$node->$nodeProperty = $newValue;
+					}
 				}
+
 			}
 			return $node;
 		}

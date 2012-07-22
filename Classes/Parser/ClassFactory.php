@@ -31,25 +31,25 @@
 class Tx_PhpParser_Parser_ClassFactory implements Tx_PhpParser_Parser_ClassFactoryInterface{
 
 	public function buildClassObjectFromNode(PHPParser_Node_Stmt_Class $classNode) {
-		$classObject = new Tx_PhpParser_Domain_Model_Class($classNode->__get('name'));
+		$classObject = new Tx_PhpParser_Domain_Model_Class($classNode->getName());
 		$classObject->setNode($classNode);
-		foreach($classNode->__get('implements') as $interfaceNode) {
+		foreach($classNode->getImplements() as $interfaceNode) {
 			$classObject->addInterfaceName(Tx_PhpParser_Parser_Utility_NodeConverter::getValueFromNode($interfaceNode), FALSE);
 		}
-		$classObject->setParentClassName(Tx_PhpParser_Parser_Utility_NodeConverter::getValueFromNode($classNode->__get('extends')), FALSE);
-		$classObject->setModifiers($classNode->__get('type'));
+		$classObject->setParentClassName(Tx_PhpParser_Parser_Utility_NodeConverter::getValueFromNode($classNode->getExtends()), FALSE);
+		$classObject->setModifiers($classNode->getType());
 		$classObject->initDocComment();
 		return $classObject;
 	}
 
 	public function buildClassMethodObjectFromNode (PHPParser_Node_Stmt_ClassMethod $methodNode) {
-		$methodObject = new Tx_PhpParser_Domain_Model_Class_Method($methodNode->__get('name'));
+		$methodObject = new Tx_PhpParser_Domain_Model_Class_Method($methodNode->getName());
 		$this->setPropertiesFromNode($methodNode, $methodObject);
 		return $methodObject;
 	}
 
 	public function buildFunctionObjectFromNode (PHPParser_Node_Stmt_Function $functionNode) {
-		$functionObject = new Tx_PhpParser_Domain_Model_Function($functionNode->__get('name'));
+		$functionObject = new Tx_PhpParser_Domain_Model_Function($functionNode->getName());
 		$this->setPropertiesFromNode($functionNode, $functionObject);
 		return $functionObject;
 	}
@@ -57,16 +57,16 @@ class Tx_PhpParser_Parser_ClassFactory implements Tx_PhpParser_Parser_ClassFacto
 	public function buildPropertyObjectFromNode(PHPParser_Node_Stmt_Property $propertyNode) {
 		$propertyName = '';
 		$propertyDefault = NULL;
-		foreach($propertyNode->__get('props') as $subNode) {
+		foreach($propertyNode->getProps() as $subNode) {
 			if($subNode instanceof PHPParser_Node_Stmt_PropertyProperty) {
-				$propertyName = $subNode->__get('name');
-				if($subNode->__get('default')) {
-					$propertyDefault = $subNode->__get('default');
+				$propertyName = $subNode->getName();
+				if($subNode->getDefault()) {
+					$propertyDefault = $subNode->getDefault();
 				}
 			}
 		}
 		$propertyObject = new Tx_PhpParser_Domain_Model_Class_Property($propertyName);
-		$propertyObject->setModifiers($propertyNode->__get('type'));
+		$propertyObject->setModifiers($propertyNode->getType());
 		$propertyObject->setNode($propertyNode);
 		$propertyObject->initDocComment();
 		if(NULL !== $propertyDefault) {
@@ -76,7 +76,7 @@ class Tx_PhpParser_Parser_ClassFactory implements Tx_PhpParser_Parser_ClassFacto
 	}
 
 	public function buildNamespaceObjectFromNode(PHPParser_Node_Stmt_Namespace $node) {
-		$nameSpaceObject = new Tx_PhpParser_Domain_Model_Namespace(Tx_PhpParser_Parser_Utility_NodeConverter::getValueFromNode($node->__get('name')));
+		$nameSpaceObject = new Tx_PhpParser_Domain_Model_Namespace(Tx_PhpParser_Parser_Utility_NodeConverter::getValueFromNode($node->getName()));
 		$nameSpaceObject->setNode($node);
 		$nameSpaceObject->initDocComment();
 		return $nameSpaceObject;
@@ -84,8 +84,10 @@ class Tx_PhpParser_Parser_ClassFactory implements Tx_PhpParser_Parser_ClassFacto
 
 	protected function setPropertiesFromNode(PHPParser_Node_Stmt $functionNode, $object) {
 		$object->setNode($functionNode);
-		$object->setModifiers($functionNode->__get('type'));
-		$object->setBodyStmts($functionNode->__get('stmts'));
+		if(method_exists($functionNode,'getType')) {
+			$object->setModifiers($functionNode->getType());
+		}
+		$object->setBodyStmts($functionNode->getStmts());
 		$object->initDocComment();
 		$object->initializeParameters();
 		return $object;

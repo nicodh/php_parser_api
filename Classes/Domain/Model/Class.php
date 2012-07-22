@@ -477,7 +477,7 @@ class Tx_PhpParser_Domain_Model_Class extends Tx_PhpParser_Domain_Model_Containe
             $stmts[] = $method;
         }
 
-	    $this->node->stmts = $stmts;
+	    $this->node->setStmts($stmts);
 	}
 
 	/**
