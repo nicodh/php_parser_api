@@ -1,5 +1,5 @@
 <?php
-
+namespace TYPO3\ParserApi\Domain\Model;
 /***************************************************************
  *  Copyright notice
  *
@@ -31,7 +31,7 @@
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class Tx_PhpParser_Domain_Model_AbstractObject {
+class AbstractObject {
 
 	/**
 	 *  const MODIFIER_PUBLIC    =  1;
@@ -44,12 +44,12 @@ class Tx_PhpParser_Domain_Model_AbstractObject {
 	 * @var array
 	 */
 	private $mapModifierNames = array(
-		'public'    => PHPParser_Node_Stmt_Class::MODIFIER_PUBLIC,
-		'protected' => PHPParser_Node_Stmt_Class::MODIFIER_PROTECTED,
-		'private'   => PHPParser_Node_Stmt_Class::MODIFIER_PRIVATE,
-		'static'    => PHPParser_Node_Stmt_Class::MODIFIER_STATIC,
-		'abstract'  => PHPParser_Node_Stmt_Class::MODIFIER_ABSTRACT,
-		'final'     => PHPParser_Node_Stmt_Class::MODIFIER_FINAL
+		'public'    => \PHPParser_Node_Stmt_Class::MODIFIER_PUBLIC,
+		'protected' => \PHPParser_Node_Stmt_Class::MODIFIER_PROTECTED,
+		'private'   => \PHPParser_Node_Stmt_Class::MODIFIER_PRIVATE,
+		'static'    => \PHPParser_Node_Stmt_Class::MODIFIER_STATIC,
+		'abstract'  => \PHPParser_Node_Stmt_Class::MODIFIER_ABSTRACT,
+		'final'     => \PHPParser_Node_Stmt_Class::MODIFIER_FINAL
 	);
 
 	/**
@@ -94,7 +94,7 @@ class Tx_PhpParser_Domain_Model_AbstractObject {
 
 
 	/**
-	 * @var PHPParser_Node
+	 * @var \PHPParser_Node
 	 */
 	protected $node;
 
@@ -139,7 +139,7 @@ class Tx_PhpParser_Domain_Model_AbstractObject {
 	 * @return bool
 	 */
 	public function isPublic() {
-		return (($this->modifiers & PHPParser_Node_Stmt_Class::MODIFIER_PUBLIC) !==0);
+		return (($this->modifiers & \PHPParser_Node_Stmt_Class::MODIFIER_PUBLIC) !==0);
 	}
 
 	/**
@@ -147,35 +147,35 @@ class Tx_PhpParser_Domain_Model_AbstractObject {
 	 */
 
 	public function isProtected() {
-		return (($this->modifiers & PHPParser_Node_Stmt_Class::MODIFIER_PROTECTED) !==0);
+		return (($this->modifiers & \PHPParser_Node_Stmt_Class::MODIFIER_PROTECTED) !==0);
 	}
 
 	/**
 	 * @return bool
 	 */
 	public function isPrivate() {
-		return (($this->modifiers & PHPParser_Node_Stmt_Class::MODIFIER_PRIVATE) !==0);
+		return (($this->modifiers & \PHPParser_Node_Stmt_Class::MODIFIER_PRIVATE) !==0);
 	}
 
 	/**
 	 * @return bool
 	 */
 	public function isStatic() {
-		return (($this->modifiers & PHPParser_Node_Stmt_Class::MODIFIER_STATIC) !==0);
+		return (($this->modifiers & \PHPParser_Node_Stmt_Class::MODIFIER_STATIC) !==0);
 	}
 
 	/**
 	 * @return bool
 	 */
 	public function isAbstract() {
-		return (($this->modifiers & PHPParser_Node_Stmt_Class::MODIFIER_ABSTRACT) !==0);
+		return (($this->modifiers & \PHPParser_Node_Stmt_Class::MODIFIER_ABSTRACT) !==0);
 	}
 
 	/**
 	 * @return bool
 	 */
 	public function isFinal() {
-		return (($this->modifiers & PHPParser_Node_Stmt_Class::MODIFIER_FINAL) !==0);
+		return (($this->modifiers & \PHPParser_Node_Stmt_Class::MODIFIER_FINAL) !==0);
 	}
 
 	/**
@@ -183,7 +183,7 @@ class Tx_PhpParser_Domain_Model_AbstractObject {
 	 * since modifiers are claculated bitwise)
 	 *
 	 * @param int $modifiers modifiers
-	 * @return Tx_PhpParser_Domain_Model_AbstractObject (for fluid interface)
+	 * @return AbstractObject (for fluid interface)
 	 */
 	public function setModifiers($modifiers) {
 		$this->modifiers = $modifiers;
@@ -194,7 +194,7 @@ class Tx_PhpParser_Domain_Model_AbstractObject {
 	 * adds a modifier
 	 *
 	 * @param string $modifierName
-	 * @return Tx_PhpParser_Domain_Model_AbstractObject (for fluid interface)
+	 * @return AbstractObject (for fluid interface)
 	 */
 	public function addModifier($modifierName) {
 		$modifier = $this->mapModifierNames[$modifierName];
@@ -211,17 +211,17 @@ class Tx_PhpParser_Domain_Model_AbstractObject {
 	 * it will care for removing existing ones to avoid syntax errors
 	 *
 	 * @param string $modifierName
-	 * @throws Tx_PhpParser_Exception_SyntaxErrorException
+	 * @throws \TYPO3\ParserApi\Exception\SyntaxErrorException
 	 *
-	 * @return Tx_PhpParser_Domain_Model_AbstractObject (for fluid interface)
+	 * @return AbstractObject (for fluid interface)
 	 */
 	public function setModifier($modifierName) {
 		if(in_array($modifierName, $this->getModifierNames())) {
 			return $this; // modifier is already present
 		}
 		$modifier = $this->mapModifierNames[$modifierName];
-		if(in_array($modifier, Tx_PhpParser_Parser_Utility_NodeConverter::$accessorModifiers)) {
-			foreach(Tx_PhpParser_Parser_Utility_NodeConverter::$accessorModifiers as $accessorModifier) {
+		if(in_array($modifier, \TYPO3\ParserApi\Parser\Utility\NodeConverter::$accessorModifiers)) {
+			foreach(\TYPO3\ParserApi\Parser\Utility\NodeConverter::$accessorModifiers as $accessorModifier) {
 				// unset all accessorModifier
 				if($this->modifiers & $accessorModifier) {
 					$this->modifiers ^= $accessorModifier;
@@ -236,7 +236,7 @@ class Tx_PhpParser_Domain_Model_AbstractObject {
 
 	/**
 	 * @param string $modifierName
-	 * @return Tx_PhpParser_Domain_Model_AbstractObject (for fluid interface)
+	 * @return AbstractObject (for fluid interface)
 	 */
 	public function removeModifier($modifierName) {
 		$this->modifiers ^= $this->mapModifierNames[$modifierName];
@@ -244,7 +244,7 @@ class Tx_PhpParser_Domain_Model_AbstractObject {
 	}
 
 	/**
-	 * @return Tx_PhpParser_Domain_Model_AbstractObject (for fluid interface)
+	 * @return AbstractObject (for fluid interface)
 	 */
 	public function removeAllModifiers() {
 		$this->modifiers = 0;
@@ -268,18 +268,18 @@ class Tx_PhpParser_Domain_Model_AbstractObject {
 	 */
 	public function getModifierNames() {
 		$modifiers = $this->getModifiers();
-		return Tx_PhpParser_Parser_Utility_NodeConverter::modifierToNames($modifiers);
+		return \TYPO3\ParserApi\Parser\Utility\NodeConverter::modifierToNames($modifiers);
 	}
 
 	/**
-	 * @param PHPParser_Node $node
+	 * @param \PHPParser_Node $node
 	 */
-	public function setNode(PHPParser_Node $node) {
+	public function setNode(\PHPParser_Node $node) {
 		$this->node = $node;
 	}
 
 	/**
-	 * @return PHPParser_Node
+	 * @return \PHPParser_Node
 	 */
 	public function getNode() {
 		return $this->node;
@@ -294,13 +294,13 @@ class Tx_PhpParser_Domain_Model_AbstractObject {
 			$ignorables = $this->node->getIgnorables();
 			if(is_array($ignorables)) {
 				foreach($ignorables as $ignorable) {
-					if($ignorable instanceof PHPParser_Node_Ignorable_DocComment) {
+					if($ignorable instanceof \PHPParser_Node_Ignorable_DocComment) {
 						$this->docComment = $ignorable;
 					}
 				}
 			}
 			if(empty($this->docComment)) {
-				$this->docComment = new PHPParser_Node_Ignorable_DocComment('');
+				$this->docComment = new \PHPParser_Node_Ignorable_DocComment('');
 				$this->node->setIgnorables(array($this->docComment));
 			}
 		}
@@ -335,12 +335,12 @@ class Tx_PhpParser_Domain_Model_AbstractObject {
 		if($updateNodeDocComment){
 			if(is_array($this->node->getIgnorables())) {
 				foreach($this->node->getIgnorables() as $ignorable) {
-					if($ignorable instanceof PHPParser_Node_Ignorable_DocComment) {
+					if($ignorable instanceof \PHPParser_Node_Ignorable_DocComment) {
 						$ignorable->setValue($this->docComment);
 					}
 				}
 			} else {
-				$this->node->setIgnorables(array(new PHPParser_Node_Ignorable_DocComment($docComment)));
+				$this->node->setIgnorables(array(new \PHPParser_Node_Ignorable_DocComment($docComment)));
 			}
 		}
 		return $this;
@@ -413,7 +413,7 @@ class Tx_PhpParser_Domain_Model_AbstractObject {
 	 *
 	 * @param $tagName
 	 * @param $tagValue
-	 * @return Tx_PhpParser_Domain_Model_AbstractObject
+	 * @return AbstractObject
 	 */
 	public function addTag($tagName, $tagValue) {
 		if(isset($this->tags[$tagName])) {
@@ -502,22 +502,22 @@ class Tx_PhpParser_Domain_Model_AbstractObject {
 	 * validate if the modifier can be added to the current modifiers or not
 	 *
 	 * @param $modifier
-	 * @throws Tx_PhpParser_Exception_SyntaxErrorException
+	 * @throws \TYPO3\ParserApi\Exception\SyntaxErrorException
 	 */
 	protected function validateModifier($modifier) {
-		if($modifier == PHPParser_Node_Stmt_Class::MODIFIER_FINAL && $this->isAbstract() ||
-				$modifier == PHPParser_Node_Stmt_Class::MODIFIER_ABSTRACT && $this->isFinal()){
-			throw new Tx_PhpParser_Exception_SyntaxErrorException('Abstract and Final can\'t be applied both to same object');
-		} elseif($modifier == PHPParser_Node_Stmt_Class::MODIFIER_STATIC && $this->isAbstract() ||
-				$modifier == PHPParser_Node_Stmt_Class::MODIFIER_ABSTRACT && $this->isStatic()
+		if($modifier == \PHPParser_Node_Stmt_Class::MODIFIER_FINAL && $this->isAbstract() ||
+				$modifier == \PHPParser_Node_Stmt_Class::MODIFIER_ABSTRACT && $this->isFinal()){
+			throw new \TYPO3\ParserApi\Exception\SyntaxErrorException ('Abstract and Final can\'t be applied both to same object');
+		} elseif($modifier == \PHPParser_Node_Stmt_Class::MODIFIER_STATIC && $this->isAbstract() ||
+				$modifier == \PHPParser_Node_Stmt_Class::MODIFIER_ABSTRACT && $this->isStatic()
 		) {
-			throw new Tx_PhpParser_Exception_SyntaxErrorException('Abstract and Static can\'t be applied both to same object');
+			throw new \TYPO3\ParserApi\Exception\FileNotFoundException('Abstract and Static can\'t be applied both to same object');
 		}
 		try{
-			PHPParser_Node_Stmt_Class::verifyModifier($this->modifiers, $modifier);
-		} catch(Exception $e) {
+			\PHPParser_Node_Stmt_Class::verifyModifier($this->modifiers, $modifier);
+		} catch(\PHPParser_Error $e) {
 			//debug('Error: ' . $e->getMessage(), 'Error');
-			throw new Tx_PhpParser_Exception_SyntaxErrorException('Only one access modifier can be applied to one object. Use setModifier to avoid this exception');
+			throw new \TYPO3\ParserApi\Exception\SyntaxErrorException('Only one access modifier can be applied to one object. Use setModifier to avoid this exception');
 			//return FALSE;
 		}
 	}

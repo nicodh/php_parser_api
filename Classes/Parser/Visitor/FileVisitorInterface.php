@@ -1,4 +1,5 @@
 <?php
+namespace TYPO3\ParserApi\Parser\Visitor;
 /***************************************************************
  *  Copyright notice
  *
@@ -28,13 +29,13 @@
  * @author Nico de Haen
  */
 
-interface Tx_PhpParser_Parser_Visitor_FileVisitorInterface {
+interface FileVisitorInterface {
 
 
 	public function getFileObject();
 
 	/**
-	 * @param \Tx_PhpParser_Parser_ClassFactoryInterface $classFactory
+	 * @param \TYPO3\ParserApi\Parser\ClassFactoryInterface $classFactory
 	 */
 	public function setClassFactory($classFactory);
 

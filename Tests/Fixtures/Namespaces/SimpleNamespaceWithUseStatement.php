@@ -27,13 +27,13 @@
  * @package
  * @author Nico de Haen
  */
-namespace Test\Model;
+namespace PhpParser\Test\Model;
 
 use blah\blah as foo;
 
 /**
  * some comment
  */
-class Tx_PhpParser_Tests_SimpleNamepaceWithUseTest {
+class SimpleNamepaceWithUseTest {
 
 }

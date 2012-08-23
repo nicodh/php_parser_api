@@ -29,10 +29,10 @@
  */
 
 
-require_once(dirname(__FILE__) . '/../DummyIncludeFile1.php');
+require_once('DummyIncludeFile1.php');
 
 abstract class Tx_PhpParser_Tests_ClassWithIncludeStatement {
 
 }
 
-include_once dirname(__FILE__) . '/../DummyIncludeFile2.php';
+include_once 'DummyIncludeFile2.php';

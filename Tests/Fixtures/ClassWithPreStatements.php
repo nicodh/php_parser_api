@@ -30,7 +30,7 @@
 
 // just some stuff for testing
 
-const TX_PHPPARSER_TEST_FOO = 'BAR';
+define('TX_PHPPARSER_TEST_FOO','BAR');
 
 
 if(!isset($foo) && !isset($bar)) {
@@ -40,7 +40,7 @@ if(!isset($foo) && !isset($bar)) {
 
 if($bar > $foo) {
 	if($foo == 23) {
-		define(TX_PHPPARSER_TEST_BAR,'FOO');
+		define('TX_PHPPARSER_TEST_BAR','FOO');
 	}
 }
 

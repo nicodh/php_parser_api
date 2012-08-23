@@ -1,4 +1,5 @@
 <?php
+namespace TYPO3\ParserApi\Parser;
 /***************************************************************
  *  Copyright notice
  *
@@ -28,64 +29,66 @@
  * @author Nico de Haen
  */
 
-class Tx_PhpParser_Parser_ClassFactory implements Tx_PhpParser_Parser_ClassFactoryInterface{
+class ClassFactory implements ClassFactoryInterface{
 
-	public function buildClassObjectFromNode(PHPParser_Node_Stmt_Class $classNode) {
-		$classObject = new Tx_PhpParser_Domain_Model_Class($classNode->__get('name'));
+	public function buildClassObjectFromNode(\PHPParser_Node_Stmt_Class $classNode) {
+		$classObject = new \TYPO3\ParserApi\Domain\Model\ClassObject($classNode->getName());
 		$classObject->setNode($classNode);
-		foreach($classNode->__get('implements') as $interfaceNode) {
-			$classObject->addInterfaceName(Tx_PhpParser_Parser_Utility_NodeConverter::getValueFromNode($interfaceNode), FALSE);
+		foreach($classNode->getImplements() as $interfaceNode) {
+			$classObject->addInterfaceName(Utility\NodeConverter::getValueFromNode($interfaceNode), FALSE);
 		}
-		$classObject->setParentClassName(Tx_PhpParser_Parser_Utility_NodeConverter::getValueFromNode($classNode->__get('extends')), FALSE);
-		$classObject->setModifiers($classNode->__get('type'));
+		$classObject->setParentClassName(Utility\NodeConverter::getValueFromNode($classNode->getExtends()), FALSE);
+		$classObject->setModifiers($classNode->getType());
 		$classObject->initDocComment();
 		return $classObject;
 	}
 
-	public function buildClassMethodObjectFromNode (PHPParser_Node_Stmt_ClassMethod $methodNode) {
-		$methodObject = new Tx_PhpParser_Domain_Model_Class_Method($methodNode->__get('name'));
+	public function buildClassMethodObjectFromNode (\PHPParser_Node_Stmt_ClassMethod $methodNode) {
+		$methodObject = new \TYPO3\ParserApi\Domain\Model\ClassObject\Method($methodNode->getName());
 		$this->setPropertiesFromNode($methodNode, $methodObject);
 		return $methodObject;
 	}
 
-	public function buildFunctionObjectFromNode (PHPParser_Node_Stmt_Function $functionNode) {
-		$functionObject = new Tx_PhpParser_Domain_Model_Function($functionNode->__get('name'));
+	public function buildFunctionObjectFromNode (\PHPParser_Node_Stmt_Function $functionNode) {
+		$functionObject = new\TYPO3\ParserApi\Domain\Model\FunctionObject($functionNode->getName());
 		$this->setPropertiesFromNode($functionNode, $functionObject);
 		return $functionObject;
 	}
 
-	public function buildPropertyObjectFromNode(PHPParser_Node_Stmt_Property $propertyNode) {
+	public function buildPropertyObjectFromNode(\PHPParser_Node_Stmt_Property $propertyNode) {
 		$propertyName = '';
 		$propertyDefault = NULL;
-		foreach($propertyNode->__get('props') as $subNode) {
-			if($subNode instanceof PHPParser_Node_Stmt_PropertyProperty) {
-				$propertyName = $subNode->__get('name');
-				if($subNode->__get('default')) {
-					$propertyDefault = $subNode->__get('default');
+		foreach($propertyNode->getProps() as $subNode) {
+			if($subNode instanceof \PHPParser_Node_Stmt_PropertyProperty) {
+				$propertyName = $subNode->getName();
+				if($subNode->getDefault()) {
+					$propertyDefault = $subNode->getDefault();
 				}
 			}
 		}
-		$propertyObject = new Tx_PhpParser_Domain_Model_Class_Property($propertyName);
-		$propertyObject->setModifiers($propertyNode->__get('type'));
+		$propertyObject = new \TYPO3\ParserApi\Domain\Model\ClassObject\Property($propertyName);
+		$propertyObject->setModifiers($propertyNode->getType());
 		$propertyObject->setNode($propertyNode);
 		$propertyObject->initDocComment();
 		if(NULL !== $propertyDefault) {
-			$propertyObject->setValue(Tx_PhpParser_Parser_Utility_NodeConverter::getValueFromNode($propertyDefault), FALSE, $propertyObject->isTaggedWith('var'));
+			$propertyObject->setValue(\TYPO3\ParserApi\Parser\Utility\NodeConverter::getValueFromNode($propertyDefault), FALSE, $propertyObject->isTaggedWith('var'));
 		}
 		return $propertyObject;
 	}
 
-	public function buildNamespaceObjectFromNode(PHPParser_Node_Stmt_Namespace $node) {
-		$nameSpaceObject = new Tx_PhpParser_Domain_Model_Namespace(Tx_PhpParser_Parser_Utility_NodeConverter::getValueFromNode($node->__get('name')));
+	public function buildNamespaceObjectFromNode(\PHPParser_Node_Stmt_Namespace $node) {
+		$nameSpaceObject = new \TYPO3\ParserApi\Domain\Model\NamespaceObject(\TYPO3\ParserApi\Parser\Utility\NodeConverter::getValueFromNode($node->getName()));
 		$nameSpaceObject->setNode($node);
 		$nameSpaceObject->initDocComment();
 		return $nameSpaceObject;
 	}
 
-	protected function setPropertiesFromNode(PHPParser_Node_Stmt $functionNode, $object) {
+	protected function setPropertiesFromNode(\PHPParser_Node_Stmt $functionNode, $object) {
 		$object->setNode($functionNode);
-		$object->setModifiers($functionNode->__get('type'));
-		$object->setBodyStmts($functionNode->__get('stmts'));
+		if(method_exists($functionNode,'getType')) {
+			$object->setModifiers($functionNode->getType());
+		}
+		$object->setBodyStmts($functionNode->getStmts());
 		$object->initDocComment();
 		$object->initializeParameters();
 		return $object;

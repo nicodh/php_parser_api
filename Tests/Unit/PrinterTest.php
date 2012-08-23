@@ -1,4 +1,5 @@
 <?php
+namespace TYPO3\ParserApi\Tests;
 /***************************************************************
  *  Copyright notice
  *
@@ -22,10 +23,11 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+if(!class_exists('\\TYPO3\\ParserApi\\Tests\\BaseTest')) {
+	require_once('../BaseTest.php');
+}
 
-require_once(t3lib_extmgm::extPath('php_parser_api') . 'Tests/BaseTest.php');
-
-class Tx_PhpParser_Tests_Unit_PrinterTest extends Tx_PhpParser_Tests_BaseTest {
+class PrinterTest extends BaseTest {
 
 
 	/**
@@ -83,7 +85,8 @@ class Tx_PhpParser_Tests_Unit_PrinterTest extends Tx_PhpParser_Tests_BaseTest {
 	 */
 	public function printClassWithIncludeStatement() {
 		$fileName = 'ClassWithIncludeStatement.php';
-		//$this->assertTrue(copy($this->testDir.'DummyIncludeFile.php',$this->testDir.'tmp/DummyIncludeFile.php'));
+		$this->assertTrue(copy($this->fixturesPath.'DummyIncludeFile1.php',$this->testDir.'DummyIncludeFile1.php'));
+		$this->assertTrue(copy($this->fixturesPath.'DummyIncludeFile2.php',$this->testDir.'DummyIncludeFile2.php'));
 		$classFileObject = $this->parseAndWrite($fileName);
 		$this->compareClasses($classFileObject, $this->testDir . $fileName);
 
@@ -91,7 +94,6 @@ class Tx_PhpParser_Tests_Unit_PrinterTest extends Tx_PhpParser_Tests_BaseTest {
 
 	/**
 	 * @test
-	 *
 	 */
 	public function printClassWithPreStatements() {
 		$fileName = 'ClassWithPreStatements.php';
@@ -166,11 +168,11 @@ class Tx_PhpParser_Tests_Unit_PrinterTest extends Tx_PhpParser_Tests_BaseTest {
 
 
 	protected function parseAndWrite($fileName, $subFolder = '') {
-		$classFilePath = t3lib_extmgm::extPath('php_parser_api') . 'Tests/Fixtures/' . $subFolder . $fileName;
+		$classFilePath = $this->packagePath . 'Tests/Fixtures/' . $subFolder . $fileName;
 		$this->assertTrue(file_exists($classFilePath));
 		$classFileObject = $this->parser->parseFile($classFilePath);
 		$newClassFilePath = $this->testDir . $fileName;
-		t3lib_div::writeFile($newClassFilePath,"<?php\n\n" . $this->printer->renderFileObject($classFileObject) . "\n?>");
+		file_put_contents($newClassFilePath,"<?php\n\n" . $this->printer->renderFileObject($classFileObject) . "\n?>");
 		return $classFileObject;
 	}
 
@@ -180,7 +182,11 @@ class Tx_PhpParser_Tests_Unit_PrinterTest extends Tx_PhpParser_Tests_BaseTest {
 	function printFileWithFunction() {
 		$fileObject = $this->parseFile('FunctionsWithoutClasses.php');
 		$newFilePath = $this->testDir . 'FunctionsWithoutClasses.php';
-		t3lib_div::writeFile($newFilePath,"<?php\n\n" . $this->printer->renderFileObject($fileObject) . "\n?>");
+		file_put_contents($newFilePath,"<?php\n\n" . $this->printer->renderFileObject($fileObject) . "\n?>");
+		$this->markTestSkipped(
+		  'Ignorables in PHPParser are not yet printed correct'
+		);
+		$this->assertEquals(file_get_contents($this->fixturesPath . 'FunctionsWithoutClasses.php'), file_get_contents($newFilePath));
 	}
 
 	/**
@@ -189,7 +195,11 @@ class Tx_PhpParser_Tests_Unit_PrinterTest extends Tx_PhpParser_Tests_BaseTest {
 	function printFileWithNamespacedFunction() {
 		$fileObject = $this->parseFile('Namespaces/FunctionsWithoutClasses.php');
 		$newFilePath = $this->testDir . 'NamespacedFunctions.php';
-		t3lib_div::writeFile($newFilePath,"<?php\n\n" . $this->printer->renderFileObject($fileObject) . "\n?>");
+		file_put_contents($newFilePath,"<?php\n\n" . $this->printer->renderFileObject($fileObject) . "\n?>");
+		$this->markTestSkipped(
+		  'Ignorables in PHPParser are not yet printed correct'
+		);
+		$this->assertEquals(file_get_contents($this->fixturesPath . 'Namespaces/FunctionsWithoutClasses.php'), file_get_contents($newFilePath));
 	}
 
 }

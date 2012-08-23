@@ -1,4 +1,5 @@
 <?php
+namespace TYPO3\ParserApi\Parser;
 /***************************************************************
  *  Copyright notice
  *
@@ -28,6 +29,6 @@
  * @author Nico de Haen
  */
 
-interface Tx_PhpParser_Parser_TraverserInterface {
+interface TraverserInterface {
 	public function resetVisitors();
 }

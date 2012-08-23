@@ -1,5 +1,5 @@
 <?php
-
+namespace TYPO3\ParserApi\Domain\Model;
 /***************************************************************
  *  Copyright notice
  *
@@ -23,7 +23,6 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-
 /**
  *
  * @author Nico de Haen
@@ -31,7 +30,7 @@
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class Tx_PhpParser_Domain_Model_File extends Tx_PhpParser_Domain_Model_Container{
+class File extends Container{
 
 	protected $filePathAndName = '';
 
@@ -52,20 +51,20 @@ class Tx_PhpParser_Domain_Model_File extends Tx_PhpParser_Domain_Model_Container
 	protected $aliasDeclarations = array();
 
 	/**
-	 * @var array Tx_PhpParser_Domain_Model_Function
+	 * @var array of \TYPO3\ParserApi\Domain\Model\FunctionObject
 	 */
 	protected $functions = array();
 
 	/**
-	 * @param Tx_PhpParser_Domain_Model_Class $class
+	 * @param \TYPO3\ParserApi\Domain\Model\ClassObject $class
 	 */
-	public function addClass(Tx_PhpParser_Domain_Model_Class $class) {
+	public function addClass(\TYPO3\ParserApi\Domain\Model\ClassObject $class) {
 		$this->classes[] = $class;
 	}
 
 	/**
 	 * @param string $className
-	 * @return Tx_PhpParser_Domain_Model_Class
+	 * @return \TYPO3\ParserApi\Domain\Model\ClassObject
 	 */
 	public function getClassByName($className) {
 		foreach($this->getClasses() as $class) {
@@ -88,14 +87,14 @@ class Tx_PhpParser_Domain_Model_File extends Tx_PhpParser_Domain_Model_Container
 
 
 	/**
-	 * @param Tx_PhpParser_Domain_Model_Namespace $namespace
+	 * @param \TYPO3\ParserApi\Domain\Model\NamespaceObject $namespace
 	 */
-	public function addNamespace(Tx_PhpParser_Domain_Model_Namespace $namespace) {
+	public function addNamespace(\TYPO3\ParserApi\Domain\Model\NamespaceObject $namespace) {
 		$this->namespaces[] = $namespace;
 	}
 
 	/**
-	 * @return array Tx_PhpParser_Domain_Model_Namespace
+	 * @return array of \TYPO3\ParserApi\Domain\Model\NamespaceObject
 	 */
 	public function getNamespaces() {
 		return $this->namespaces;

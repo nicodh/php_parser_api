@@ -1,4 +1,5 @@
 <?php
+namespace TYPO3\ParserApi\Exception;
 /***************************************************************
  *  Copyright notice
  *
@@ -28,7 +29,7 @@
  * @author Nico de Haen
  * @package PhpParserApi
  */
-class Tx_PhpParser_Exception_FileNotFoundException extends Exception {
+class FileNotFoundException extends Exception	 {
 
 }
 

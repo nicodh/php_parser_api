@@ -1,5 +1,5 @@
 <?php
-
+namespace TYPO3\ParserApi\Domain\Model;
 /***************************************************************
  *  Copyright notice
  *
@@ -31,7 +31,7 @@
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class Tx_PhpParser_Domain_Model_Parameter extends Tx_PhpParser_Domain_Model_AbstractObject {
+class Parameter extends AbstractObject {
 
 
 	/**
@@ -84,14 +84,14 @@ class Tx_PhpParser_Domain_Model_Parameter extends Tx_PhpParser_Domain_Model_Abst
 	 */
 	public function __construct($parameterNode = NULL) {
 		if($parameterNode) {
-			$this->setName($parameterNode->__get('name'), FALSE);
+			$this->setName($parameterNode->getName(), FALSE);
 			$this->setNode($parameterNode);
 			$this->setType($parameterNode->getType(), FALSE);
-			$this->setTypeHint($parameterNode->__get('type'), FALSE);
-			$this->setDefault($parameterNode->__get('default'), FALSE);
-			$this->setPassedByReference($parameterNode->__get('byRef'), FALSE);
+			$this->setTypeHint($parameterNode->getType(), FALSE);
+			$this->setDefault($parameterNode->getDefault(), FALSE);
+			$this->setPassedByReference($parameterNode->getByRef(), FALSE);
 		} else {
-			$this->setNode(new PHPParser_Node_Param(''));
+			$this->setNode(new \PHPParser_Node_Param(''));
 		}
 	}
 
@@ -154,7 +154,7 @@ class Tx_PhpParser_Domain_Model_Parameter extends Tx_PhpParser_Domain_Model_Abst
 	public function setDefault($default, $updateNodeDefault = TRUE) {
 		$this->default = $default;
 		if($updateNodeDefault) {
-			$this->node->setDefault(Tx_PhpParser_Parser_Utility_NodeConverter::getNodeFromvalue($default));
+			$this->node->setDefault(\TYPO3\ParserApi\Parser\Utility\NodeConverter::getNodeFromvalue($default));
 		}
 	}
 
@@ -210,11 +210,11 @@ class Tx_PhpParser_Domain_Model_Parameter extends Tx_PhpParser_Domain_Model_Abst
 	 */
 	public function setTypeHint($typeHint, $updateNodeTypeHint = TRUE ) {
 		if(!is_string($typeHint) && !empty($typeHint)) {
-			$typeHint = Tx_PhpParser_Parser_Utility_NodeConverter::getValueFromNode($typeHint);
+			$typeHint = \TYPO3\ParserApi\Parser\Utility\NodeConverter::getValueFromNode($typeHint);
 		}
 		$this->typeHint = $typeHint;
 		if($updateNodeTypeHint) {
-			$this->node->setType(Tx_PhpParser_Parser_NodeFactory::buildNodeFromName($typeHint));
+			$this->node->setType(\TYPO3\ParserApi\Parser\NodeFactory::buildNodeFromName($typeHint));
 		}
 	}
 
@@ -223,7 +223,7 @@ class Tx_PhpParser_Domain_Model_Parameter extends Tx_PhpParser_Domain_Model_Abst
 	 */
 	public function setVarType($varType, $updateNodeType = TRUE) {
 		if($updateNodeType) {
-			$this->setTypeHint(Tx_PhpParser_Parser_Utility_NodeConverter::getTypeHintFromVarType($varType),TRUE);
+			$this->setTypeHint(\TYPO3\ParserApi\Parser\Utility\NodeConverter::getTypeHintFromVarType($varType),TRUE);
 		}
 		$this->varType = $varType;
 	}

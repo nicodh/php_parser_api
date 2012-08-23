@@ -1,4 +1,5 @@
 <?php
+namespace TYPO3\ParserApi\Domain\Model;
 /***************************************************************
  *  Copyright notice
  *
@@ -30,7 +31,7 @@
  * @author Nico de Haen
  */
 
-class Tx_PhpParser_Domain_Model_Container extends Tx_PhpParser_Domain_Model_AbstractObject {
+class Container extends AbstractObject {
 
 	/**
 	 * constants
@@ -86,9 +87,9 @@ class Tx_PhpParser_Domain_Model_Container extends Tx_PhpParser_Domain_Model_Abst
 	}
 
 	/**
-	 * @param Tx_PhpParser_Domain_Model_Class $class
+	 * @param ClassObject $class
 	 */
-	public function addClass(Tx_PhpParser_Domain_Model_Class $class) {
+	public function addClass(ClassObject $class) {
 		$this->classes[] = $class;
 	}
 
@@ -181,7 +182,7 @@ class Tx_PhpParser_Domain_Model_Container extends Tx_PhpParser_Domain_Model_Abst
 	}
 
 	/**
-	 * @param Tx_PhpParser_Domain_Model_Function $function
+	 * @param FunctionObject $function
 	 */
 	public function addFunction($function) {
 		$this->functions[$function->getName()] = $function;
@@ -196,7 +197,7 @@ class Tx_PhpParser_Domain_Model_Container extends Tx_PhpParser_Domain_Model_Abst
 
 	/**
 	 * @param string $name
-	 * @return Tx_PhpParser_Domain_Model_Function
+	 * @return FunctionObject
 	 */
 	public function getFunction($name) {
 		if(isset($this->functions[$name])) {

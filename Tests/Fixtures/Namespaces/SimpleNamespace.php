@@ -27,8 +27,8 @@
  * @package
  * @author Nico de Haen
  */
-namespace Test\Model;
+namespace PhpParser\Test\Model;
 
-class Tx_PhpParser_Tests_SimpleNamepaceTest {
+class SimpleNamepaceTest {
 
 }

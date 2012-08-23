@@ -1,4 +1,5 @@
 <?php
+namespace TYPO3\ParserApi\Parser;
 /***************************************************************
  *  Copyright notice
  *
@@ -28,15 +29,15 @@
  * @author Nico de Haen
  */
 
-interface Tx_PhpParser_Parser_ClassFactoryInterface {
+interface ClassFactoryInterface {
 
-	public function buildClassObjectFromNode(PHPParser_Node_Stmt_Class $node);
+	public function buildClassObjectFromNode(\PHPParser_Node_Stmt_Class $node);
 
-	public function buildClassMethodObjectFromNode(PHPParser_Node_Stmt_ClassMethod $node);
+	public function buildClassMethodObjectFromNode(\PHPParser_Node_Stmt_ClassMethod $node);
 
-	public function buildPropertyObjectFromNode(PHPParser_Node_Stmt_Property $node);
+	public function buildPropertyObjectFromNode(\PHPParser_Node_Stmt_Property $node);
 
-	public function buildFunctionObjectFromNode(PHPParser_Node_Stmt_Function $node);
+	public function buildFunctionObjectFromNode(\PHPParser_Node_Stmt_Function $node);
 
-	public function buildNamespaceObjectFromNode(PHPParser_Node_Stmt_Namespace $node);
+	public function buildNamespaceObjectFromNode(\PHPParser_Node_Stmt_Namespace $node);
 }

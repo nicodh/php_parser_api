@@ -1,4 +1,5 @@
 <?php
+namespace TYPO3\ParserApi\Parser\Visitor;
 /***************************************************************
 *  Copyright notice
 *
@@ -32,7 +33,7 @@
  * @author Nico de Haen
  */
 
-class Tx_PhpParser_Parser_Visitor_ReplaceClassNamesVisitor extends PHPParser_NodeVisitorAbstract {
+class ReplaceClassNamesVisitor extends \PHPParser_NodeVisitorAbstract {
 
 
 	protected $nodeType;
@@ -51,19 +52,19 @@ class Tx_PhpParser_Parser_Visitor_ReplaceClassNamesVisitor extends PHPParser_Nod
 	 * @param \PHPParser_Node $node
 	 * @return PHPParser_Node|void
 	 */
-	public function leaveNode(PHPParser_Node $node) {
+	public function leaveNode(\PHPParser_Node $node) {
 		if(NULL !== $node->__get('class')) {
-			$oldClassName = Tx_PhpParser_Parser_Utility_NodeConverter::getValueFromNode($node->__get('class'));
+			$oldClassName = namespace \TYPO3\ParserApi\Parser\Utility\NodeConverter::getValueFromNode($node->__get('class'));
 			if(strpos($oldClassName,$this->oldClassPrefix) !== FALSE) {
 				$newClassName = str_replace($this->oldClassPrefix,$this->newClassPrefix,$oldClassName);
-				$node->setClass(Tx_PhpParser_Parser_NodeFactory::buildNodeFromName($newClassName));
+				$node->setClass(namespace \TYPO3\ParserApi\Parser\NodeFactory::buildNodeFromName($newClassName));
 				return $node;
 			}
 		}
 	}
 
 	public function beforeTraverse(array $nodes){}
-	public function enterNode(PHPParser_Node $node){}
+	public function enterNode(\PHPParser_Node $node){}
 	public function afterTraverse(array $nodes){}
 
 	public function setNewClassPrefix($newClassPrefix) {

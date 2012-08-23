@@ -1,4 +1,5 @@
-	<?php
+<?php
+namespace TYPO3\ParserApi\Service;
 /***************************************************************
  *  Copyright notice
  *
@@ -31,43 +32,42 @@
  */
 
 
-class Tx_PhpParser_Service_Parser extends PHPParser_Parser {
+class Parser extends \PHPParser_Parser {
 
 	/**
-	 * @var Tx_PhpParser_Parser_Visitor_FileVisitorInterface
+	 * @var \TYPO3\ParserApi\Parser\Visitor\FileVisitorInterface
 	 */
 	protected $fileVisitor = NULL;
 
 	/**
-	 * @var Tx_Php_Parser_TraverserInterface
+	 * @var \TYPO3\ParserApi\Parser\TraverserInterface
 	 */
 	protected $traverser = NULL;
 
 	/**
-	 * @var Tx_PhpParser_Parser_ClassFactoryInterface
+	 * @var \TYPO3\ParserApi\Parser\ClassFactoryInterface
 	 */
 	protected $classFactory = NULL;
 
 
 	/**
 	 * @param string $code
-	 * @return Tx_PhpParser_Domain_Model_File
+	 * @return \TYPO3\ParserApi\Domain\Model\File
 	 */
-	public function parse($code) {
+	public function parseCode($code) {
 		$stmts = $this->parseRawStatements($code);
-
 		// set defaults
 		if(NULL === $this->traverser) {
-			$this->traverser = new Tx_PhpParser_Parser_Traverser;
+			$this->traverser = new \TYPO3\ParserApi\Parser\Traverser;
 		}
 		if(NULL === $this->fileVisitor) {
-			$this->fileVisitor = new Tx_PhpParser_Parser_Visitor_FileVisitor;
+			$this->fileVisitor = new \TYPO3\ParserApi\Parser\Visitor\FileVisitor;
 		}
 		if(NULL === $this->classFactory) {
-			$this->classFactory = new Tx_PhpParser_Parser_ClassFactory;
+			$this->classFactory = new \TYPO3\ParserApi\Parser\ClassFactory;
 		}
 		$this->fileVisitor->setClassFactory($this->classFactory);
-		$this->traverser->addVisitor($this->fileVisitor);
+		$this->traverser->appendVisitor($this->fileVisitor);
 		$this->traverser->traverse(array($stmts));
 		$fileObject = $this->fileVisitor->getFileObject();
 		return $fileObject;
@@ -75,16 +75,16 @@ class Tx_PhpParser_Service_Parser extends PHPParser_Parser {
 
 	/**
 	 * @param string $fileName
-	 * @return Tx_PhpParser_Domain_Model_File
+	 * @return \TYPO3\ParserApi\Domain\Model\File
 	 * @throws Exception
 	 */
 	public function parseFile($fileName) {
 		if(!file_exists($fileName)) {
-			throw new Tx_PhpParser_Exception_FileNotFoundException('File "'. $fileName . '" not found!');
+			throw new \TYPO3\ParserApi\Exception\FileNotFoundException('File "'. $fileName . '" not found!');
 		}
 		$fileHandler = fopen($fileName, 'r');
 		$code = fread($fileHandler, filesize($fileName));
-		$fileObject = $this->parse($code);
+		$fileObject = $this->parseCode($code);
 		$fileObject->setFilePathAndName($fileName);
 		return $fileObject;
 	}
@@ -94,27 +94,27 @@ class Tx_PhpParser_Service_Parser extends PHPParser_Parser {
 	 * @return array
 	 */
 	public function parseRawStatements($code) {
-		return parent::parse(new PHPParser_Lexer($code));
+		return parent::parse(new \PHPParser_Lexer($code));
 	}
 
 	/**
-	 * @param Tx_PhpParser_Parser_Visitor_FileVisitorInterface $visitor
+	 * @param \TYPO3\ParserApi\Parser\Visitor\FileVisitorInterface $visitor
 	 */
-	public function setFileVisitor(Tx_PhpParser_Parser_Visitor_FileVisitorInterface $visitor) {
+	public function setFileVisitor(\TYPO3\ParserApi\Parser\Visitor\FileVisitorInterface $visitor) {
 		$this->classFileVisitor = $visitor;
 	}
 
 	/**
 	 * @param Tx_PhpParser_Parser_TraverserInterface $traverser
 	 */
-	public function setTraverser(Tx_PhpParser_Parser_TraverserInterface $traverser) {
+	public function setTraverser(\TYPO3\ParserApi\Parser\TraverserInterface $traverser) {
 		$this->traverser = $traverser;
 	}
 
 	/**
-	 * @param Tx_PhpParser_Parser_ClassFactoryInterface $classFactory
+	 * @param \TYPO3\ParserApi\Parser\ClassFactoryInterface $classFactory
 	 */
-	public function setClassFactory(Tx_PhpParser_Parser_ClassFactoryInterface $classFactory) {
+	public function setClassFactory(\TYPO3\ParserApi\Parser\ClassFactoryInterface $classFactory) {
 		$this->classFactory = $classFactory;
 	}
 
@@ -127,14 +127,14 @@ class Tx_PhpParser_Service_Parser extends PHPParser_Parser {
 	 */
 	public function replaceNodeProperty($stmts, $replacements, $nodeType = NULL, $nodeProperty = 'name') {
 		if(NULL === $this->traverser) {
-			$this->traverser = new Tx_PhpParser_Parser_Traverser;
+			$this->traverser = new \TYPO3\ParserApi\Parser\Traverser;
 		}
 		$this->traverser->resetVisitors();
-		$visitor = new Tx_PhpParser_Parser_Visitor_ReplaceVisitor;
+		$visitor = new \TYPO3\ParserApi\Parser\Visitor\ReplaceVisitor;
 		$visitor->setNodeType($nodeType)
 				->setNodeProperty($nodeProperty)
 				->setReplacements($replacements);
-		$this->traverser->addVisitor($visitor);
+		$this->traverser->appendVisitor($visitor);
 		$stmts = $this->traverser->traverse($stmts);
 		$this->traverser->resetVisitors();
 		return $stmts;

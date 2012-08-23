@@ -1,4 +1,5 @@
 <?php
+namespace TYPO3\ParserApi\Parser\Utility;
 /***************************************************************
  *  Copyright notice
  *
@@ -28,13 +29,13 @@
  * @author Nico de Haen
  */
 
-class Tx_PhpParser_Parser_Utility_NodeConverter {
+class NodeConverter {
 
 
 	public static $accessorModifiers = array(
-		PHPParser_Node_Stmt_Class::MODIFIER_PUBLIC,
-		PHPParser_Node_Stmt_Class::MODIFIER_PROTECTED,
-		PHPParser_Node_Stmt_Class::MODIFIER_PRIVATE
+		\PHPParser_Node_Stmt_Class::MODIFIER_PUBLIC,
+		\PHPParser_Node_Stmt_Class::MODIFIER_PROTECTED,
+		\PHPParser_Node_Stmt_Class::MODIFIER_PRIVATE
 
 	);
 
@@ -57,18 +58,18 @@ class Tx_PhpParser_Parser_Utility_NodeConverter {
 	 * @return array with names as strings
 	 */
 	public static function modifierToNames($modifiers) {
-        $modifierString = ($modifiers & PHPParser_Node_Stmt_Class::MODIFIER_PUBLIC    ? 'public '    : '')
-             . ($modifiers & PHPParser_Node_Stmt_Class::MODIFIER_PROTECTED ? 'protected ' : '')
-             . ($modifiers & PHPParser_Node_Stmt_Class::MODIFIER_PRIVATE   ? 'private '   : '')
-             . ($modifiers & PHPParser_Node_Stmt_Class::MODIFIER_STATIC    ? 'static '    : '')
-             . ($modifiers & PHPParser_Node_Stmt_Class::MODIFIER_ABSTRACT  ? 'abstract '  : '')
-             . ($modifiers & PHPParser_Node_Stmt_Class::MODIFIER_FINAL     ? 'final '     : '');
+        $modifierString = ($modifiers & \PHPParser_Node_Stmt_Class::MODIFIER_PUBLIC    ? 'public '    : '')
+             . ($modifiers & \PHPParser_Node_Stmt_Class::MODIFIER_PROTECTED ? 'protected ' : '')
+             . ($modifiers & \PHPParser_Node_Stmt_Class::MODIFIER_PRIVATE   ? 'private '   : '')
+             . ($modifiers & \PHPParser_Node_Stmt_Class::MODIFIER_STATIC    ? 'static '    : '')
+             . ($modifiers & \PHPParser_Node_Stmt_Class::MODIFIER_ABSTRACT  ? 'abstract '  : '')
+             . ($modifiers & \PHPParser_Node_Stmt_Class::MODIFIER_FINAL     ? 'final '     : '');
 		return explode(' ',trim($modifierString));
     }
 
 
 	/**
-	 * Convert various PHPParser_Nodes to the value they represent
+	 * Convert various \PHPParser_Nodes to the value they represent
 	 * //TODO: support more node types?
 	 *
 	 * @static
@@ -76,18 +77,18 @@ class Tx_PhpParser_Parser_Utility_NodeConverter {
 	 * @return array|null|string
 	 */
 	public static function getValueFromNode($node) {
-		if($node instanceof PHPParser_Node_Stmt_Namespace) {
-			return implode('\\',$node->__get('name')->__get('parts'));
-		} elseif($node instanceof PHPParser_Node_Name) {
-			return implode(' ',$node->__get('parts'));
-		} elseif($node instanceof PHPParser_Node_Expr_ConstFetch) {
-			return self::getValueFromNode($node->__get('name'));
-		} elseif($node instanceof PHPParser_Node_Expr_Array) {
+		if($node instanceof \PHPParser_Node_Stmt_Namespace) {
+			return implode('\\',$node->getName()->getParts());
+		} elseif($node instanceof \PHPParser_Node_Name) {
+			return implode(' ',$node->getParts());
+		} elseif($node instanceof \PHPParser_Node_Expr_ConstFetch) {
+			return self::getValueFromNode($node->getName());
+		} elseif($node instanceof \PHPParser_Node_Expr_Array) {
 			$value = array();
-			$arrayItems = $node->__get('items');
+			$arrayItems = $node->getItems();
 			foreach($arrayItems as $arrayItemNode) {
-				$itemKey = $arrayItemNode->__get('key');
-				$itemValue = $arrayItemNode->__get('value');
+				$itemKey = $arrayItemNode->getKey();
+				$itemValue = $arrayItemNode->getValue();
 				if(is_null($itemKey)) {
 					$value[] = self::getValueFromNode($itemValue);
 				} else {
@@ -95,8 +96,8 @@ class Tx_PhpParser_Parser_Utility_NodeConverter {
 				}
 			}
 			return $value;
-		} elseif($node instanceof PHPParser_Node) {
-			return $node->__get('value');
+		} elseif($node instanceof \PHPParser_Node) {
+			return $node->getValue();
 		} else {
 			return NULL;
 		}
@@ -105,17 +106,17 @@ class Tx_PhpParser_Parser_Utility_NodeConverter {
 
 	/**
 	 * Constants consist of a simple key => value array in the API
-	 * This methods converts  PHPParser_Node_Stmt_ClassConst or PHPParser_Node_Stmt_Const
+	 * This methods converts  \PHPParser_Node_Stmt_ClassConst or \PHPParser_Node_Stmt_Const
 	 *
 	 * @static
-	 * @param PHPParser_Node
+	 * @param \PHPParser_Node
 	 * @return array
 	 */
-	public static function convertClassConstantNodeToArray(PHPParser_Node $node) {
+	public static function convertClassConstantNodeToArray(\PHPParser_Node $node) {
 		$constantsArray = array();
-		$consts = $node->__get('consts');
+		$consts = $node->getConsts();
 		foreach($consts as $const) {
-			$constantsArray[] = array('name' => $const->__get('name'),'value' => self::getValueFromNode($const->__get('value')));
+			$constantsArray[] = array('name' => $const->getName(),'value' => self::getValueFromNode($const->getValue()));
 		}
 		return $constantsArray;
 	}

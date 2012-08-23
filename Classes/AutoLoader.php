@@ -1,4 +1,5 @@
 <?php
+namespace TYPO3\ParserApi;
 /***************************************************************
  *  Copyright notice
  *
@@ -23,8 +24,6 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-namespace PHPParser;
-
 /**
  * @package  PhpParserApi
  * @author Nico de Haen
@@ -37,7 +36,7 @@ class AutoLoader {
 	static public $autoloadRegistry;
 
 	/**
-    * Registers PHPParser_Autoloader as an SPL autoloader.
+    * Registers \PHPParser_Autoloader as an SPL autoloader.
     */
     static public function register(){
         ini_set('unserialize_callback_func', 'spl_autoload_call');
@@ -50,8 +49,9 @@ class AutoLoader {
     * @param string $class A class name.
     */
     static public function autoload($class){
-		if(0 === strpos($class, 'Tx_PhpParser_')) {
-			$file = dirname(__FILE__) . '/'  . strtr(str_replace('Tx_PhpParser_', '', $class), '_', '/') . '.php';
+
+		if(0 === strpos($class, '\\TYPO3\\ParserApi')) {
+			$file = dirname(__FILE__) . '/'  . strtr(str_replace('TYPO3\\ParserApi', '', $class), '\\', '/') . '.php';
 			if (is_file($file)) {
 				require $file;
 			}

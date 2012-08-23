@@ -1,4 +1,5 @@
 <?php
+namespace TYPO3\ParserApi\Service;
 /***************************************************************
 *  Copyright notice
 *
@@ -29,7 +30,7 @@
  * @package PhpParserApi
  * @author Nico de Haen
 */
-class Tx_PhpParser_Service_Printer extends PHPParser_PrettyPrinter_TYPO3CGL {
+class Printer extends \PHPParser_PrettyPrinter_TYPO3CGL {
 
 
 	/**
@@ -59,11 +60,11 @@ class Tx_PhpParser_Service_Printer extends PHPParser_PrettyPrinter_TYPO3CGL {
 	 * we don't want to get all Namespace Statements here
 	 * Since namespace extends
 	 *
-	 * @param PHPParser_Node_Stmt_Namespace $node
+	 * @param \PHPParser_Node_Stmt_Namespace $node
 	 * @return string
 	 */
-	public function pStmt_Namespace(PHPParser_Node_Stmt_Namespace $node) {
-    	return 'namespace' . (null !== $node->name ? ' ' . $this->p($node->name) : '') . ';';
+	public function pStmt_Namespace(\PHPParser_Node_Stmt_Namespace $node) {
+    	return 'namespace' . (null !== $node->getName() ? ' ' . $this->p($node->getName()) : '') . ';';
 	}
 }
 

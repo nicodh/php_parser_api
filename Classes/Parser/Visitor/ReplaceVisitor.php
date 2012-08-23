@@ -1,4 +1,5 @@
 <?php
+namespace TYPO3\ParserApi\Parser\Visitor;
 /***************************************************************
 *  Copyright notice
 *
@@ -33,7 +34,7 @@
  */
 
 
-class Tx_PhpParser_Parser_Visitor_ReplaceVisitor extends PHPParser_NodeVisitorAbstract {
+class ReplaceVisitor extends \PHPParser_NodeVisitorAbstract {
 
 
 	/**
@@ -59,7 +60,7 @@ class Tx_PhpParser_Parser_Visitor_ReplaceVisitor extends PHPParser_NodeVisitorAb
 	 * @param PHPParser_Node $node
 	 * @return PHPParser_Node|void
 	 */
-	public function leaveNode(PHPParser_Node $node) {
+	public function leaveNode(\PHPParser_Node $node) {
 		$nodeProperty = $this->nodeProperty;
 		$nodeTypeMatch = FALSE;
 		if(!empty($this->nodeType)) {
@@ -72,16 +73,22 @@ class Tx_PhpParser_Parser_Visitor_ReplaceVisitor extends PHPParser_NodeVisitorAb
 		}
 		if($nodeTypeMatch) {
 			foreach($this->replacements as $oldValue => $newValue) {
-				if($node->$nodeProperty == $oldValue) {
-					$node->$nodeProperty = $newValue;
+				if(method_exists($node,'get' . strtoupper($nodeProperty))) {
+					$nodePropertyValue = NULL;
+					eval('$nodePropertyValue = $node->get' . strtoupper($nodeProperty) . '();');
+					if($nodePropertyValue == $oldValue) {
+						eval('$node->set' . strtoupper($nodeProperty) . '($newValue);');
+						//$node->$nodeProperty = $newValue;
+					}
 				}
+
 			}
 			return $node;
 		}
 	}
 
 	public function beforeTraverse(array $nodes){}
-	public function enterNode(PHPParser_Node $node){}
+	public function enterNode(\PHPParser_Node $node){}
 	public function afterTraverse(array $nodes){}
 
 	/**

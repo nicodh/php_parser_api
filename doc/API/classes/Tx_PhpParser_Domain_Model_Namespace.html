@@ -1,0 +1,1594 @@
+<!DOCTYPE html><html xmlns:date="http://exslt.org/dates-and-times" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+<meta charset="utf-8">
+<title>phpDocumentor » \Tx_PhpParser_Domain_Model_Namespace</title>
+<meta name="author" content="Mike van Riel">
+<meta name="description" content="">
+<link href="../css/template.css" rel="stylesheet" media="all">
+<script src="../js/jquery-1.7.1.min.js" type="text/javascript"></script><script src="../js/jquery-ui-1.8.2.custom.min.js" type="text/javascript"></script><script src="../js/jquery.mousewheel.min.js" type="text/javascript"></script><script src="../js/bootstrap.js" type="text/javascript"></script><script src="../js/template.js" type="text/javascript"></script><script src="../js/prettify/prettify.min.js" type="text/javascript"></script><link rel="shortcut icon" href="../img/favicon.ico">
+<link rel="apple-touch-icon" href="../img/apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="72x72" href="../img/apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="114x114" href="../img/apple-touch-icon-114x114.png">
+</head>
+<body>
+<div class="navbar navbar-fixed-top">
+<div class="navbar-inner"><div class="container">
+<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></a><a class="brand" href="../index.html">phpDocumentor</a><div class="nav-collapse"><ul class="nav">
+<li class="dropdown">
+<a href="#api" class="dropdown-toggle" data-toggle="dropdown">
+                                    API Documentation <b class="caret"></b></a><ul class="dropdown-menu">
+<li><a>Packages</a></li>
+<li><a href="../packages/PhpParserApi.html"><i class="icon-folder-open"></i> PhpParserApi</a></li>
+</ul>
+</li>
+<li class="dropdown" id="charts-menu">
+<a href="#charts" class="dropdown-toggle" data-toggle="dropdown">
+                                    Charts <b class="caret"></b></a><ul class="dropdown-menu"><li><a href="../graph_class.html"><i class="icon-list-alt"></i> Class hierarchy diagram</a></li></ul>
+</li>
+<li class="dropdown" id="reports-menu">
+<a href="#reports" class="dropdown-toggle" data-toggle="dropdown">
+                                    Reports <b class="caret"></b></a><ul class="dropdown-menu">
+<li><a href="../errors.html"><i class="icon-remove-sign"></i> Errors 
+                <span class="label label-info">207</span></a></li>
+<li><a href="../markers.html"><i class="icon-map-marker"></i> Markers 
+                <ul><li>todo 
+                <span class="label label-info">2</span>
+</li></ul></a></li>
+<li><a href="../deprecated.html"><i class="icon-stop"></i> Deprecated elements 
+                <span class="label label-info">0</span></a></li>
+</ul>
+</li>
+</ul></div>
+</div></div>
+<div class="go_to_top"><a href="#___" style="color: inherit">Back to top  <i class="icon-upload icon-white"></i></a></div>
+</div>
+<div id="___" class="container">
+<noscript><div class="alert alert-warning">
+                            Javascript is disabled; several features are only available
+                            if Javascript is enabled.
+                        </div></noscript>
+<div class="row">
+<div class="span4">
+<span class="btn-group visibility" data-toggle="buttons-checkbox"><button class="btn public active" title="Show public elements">Public</button><button class="btn protected" title="Show protected elements">Protected</button><button class="btn private" title="Show private elements">Private</button><button class="btn inherited active" title="Show inherited elements">Inherited</button></span><div class="btn-group view pull-right" data-toggle="buttons-radio">
+<button class="btn details" title="Show descriptions and method names"><i class="icon-list"></i></button><button class="btn simple" title="Show only method names"><i class="icon-align-justify"></i></button>
+</div>
+<ul class="side-nav nav nav-list">
+<li class="nav-header">
+<i class="icon-custom icon-method"></i> Methods</li>
+<li class="method public "><a href="#__construct" title="__construct :: "><span class="description">__construct()
+        </span><pre>__construct()</pre></a></li>
+<li class="method public "><a href="#addAliasDeclaration" title="addAliasDeclaration :: "><span class="description">addAliasDeclaration()
+        </span><pre>addAliasDeclaration()</pre></a></li>
+<li class="method public inherited"><a href="#addClass" title="addClass :: "><span class="description">addClass()
+        </span><pre>addClass()</pre></a></li>
+<li class="method public inherited"><a href="#addFunction" title="addFunction :: "><span class="description">addFunction()
+        </span><pre>addFunction()</pre></a></li>
+<li class="method public inherited"><a href="#addModifier" title="addModifier :: adds a modifier"><span class="description">adds a modifier</span><pre>addModifier()</pre></a></li>
+<li class="method public "><a href="#addPostInclude" title="addPostInclude :: "><span class="description">addPostInclude()
+        </span><pre>addPostInclude()</pre></a></li>
+<li class="method public "><a href="#addPreInclude" title="addPreInclude :: "><span class="description">addPreInclude()
+        </span><pre>addPreInclude()</pre></a></li>
+<li class="method public inherited"><a href="#addTag" title="addTag :: "><span class="description">addTag()
+        </span><pre>addTag()</pre></a></li>
+<li class="method public "><a href="#getAliasDeclarations" title="getAliasDeclarations :: "><span class="description">getAliasDeclarations()
+        </span><pre>getAliasDeclarations()</pre></a></li>
+<li class="method public "><a href="#getAliasNames" title="getAliasNames :: "><span class="description">getAliasNames()
+        </span><pre>getAliasNames()</pre></a></li>
+<li class="method public inherited"><a href="#getClasses" title="getClasses :: "><span class="description">getClasses()
+        </span><pre>getClasses()</pre></a></li>
+<li class="method public inherited"><a href="#getConstant" title="getConstant :: Getter for a single constant"><span class="description">Getter for a single constant</span><pre>getConstant()</pre></a></li>
+<li class="method public inherited"><a href="#getConstants" title="getConstants :: Getter for constants"><span class="description">Getter for constants</span><pre>getConstants()</pre></a></li>
+<li class="method public inherited"><a href="#getDescription" title="getDescription :: "><span class="description">getDescription()
+        </span><pre>getDescription()</pre></a></li>
+<li class="method public inherited"><a href="#getDocComment" title="getDocComment :: Getter for docComment"><span class="description">Getter for docComment</span><pre>getDocComment()</pre></a></li>
+<li class="method public inherited"><a href="#getFirstClass" title="getFirstClass :: "><span class="description">getFirstClass()
+        </span><pre>getFirstClass()</pre></a></li>
+<li class="method public inherited"><a href="#getFunction" title="getFunction :: "><span class="description">getFunction()
+        </span><pre>getFunction()</pre></a></li>
+<li class="method public "><a href="#getFunctions" title="getFunctions :: "><span class="description">getFunctions()
+        </span><pre>getFunctions()</pre></a></li>
+<li class="method public inherited"><a href="#getModifierNames" title="getModifierNames :: getModifierNames"><span class="description">getModifierNames</span><pre>getModifierNames()</pre></a></li>
+<li class="method public inherited"><a href="#getModifiers" title="getModifiers :: Getter for modifiers"><span class="description">Getter for modifiers</span><pre>getModifiers()</pre></a></li>
+<li class="method public inherited"><a href="#getName" title="getName :: Getter for name"><span class="description">Getter for name</span><pre>getName()</pre></a></li>
+<li class="method public inherited"><a href="#getNamespaceName" title="getNamespaceName :: "><span class="description">getNamespaceName()
+        </span><pre>getNamespaceName()</pre></a></li>
+<li class="method public inherited"><a href="#getNode" title="getNode :: "><span class="description">getNode()
+        </span><pre>getNode()</pre></a></li>
+<li class="method public "><a href="#getPostIncludes" title="getPostIncludes :: "><span class="description">getPostIncludes()
+        </span><pre>getPostIncludes()</pre></a></li>
+<li class="method public "><a href="#getPreIncludes" title="getPreIncludes :: "><span class="description">getPreIncludes()
+        </span><pre>getPreIncludes()</pre></a></li>
+<li class="method public inherited"><a href="#getShortName" title="getShortName :: Getter for short name (without namespace"><span class="description">Getter for short name (without namespace</span><pre>getShortName()</pre></a></li>
+<li class="method public inherited"><a href="#getTagValues" title="getTagValues :: Returns the values of the specified tag"><span class="description">Returns the values of the specified tag</span><pre>getTagValues()</pre></a></li>
+<li class="method public inherited"><a href="#getTags" title="getTags :: Returns an array of tags and their values"><span class="description">Returns an array of tags and their values</span><pre>getTags()</pre></a></li>
+<li class="method public inherited"><a href="#hasDocComment" title="hasDocComment :: is there a docComment"><span class="description">is there a docComment</span><pre>hasDocComment()</pre></a></li>
+<li class="method public inherited"><a href="#inNamespace" title="inNamespace :: "><span class="description">inNamespace()
+        </span><pre>inNamespace()</pre></a></li>
+<li class="method public inherited"><a href="#initDocComment" title="initDocComment :: for internal use only"><span class="description">for internal use only</span><pre>initDocComment()</pre></a></li>
+<li class="method public inherited"><a href="#isAbstract" title="isAbstract :: "><span class="description">isAbstract()
+        </span><pre>isAbstract()</pre></a></li>
+<li class="method public inherited"><a href="#isFinal" title="isFinal :: "><span class="description">isFinal()
+        </span><pre>isFinal()</pre></a></li>
+<li class="method public inherited"><a href="#isNamespaced" title="isNamespaced :: "><span class="description">isNamespaced()
+        </span><pre>isNamespaced()</pre></a></li>
+<li class="method public inherited"><a href="#isPrivate" title="isPrivate :: "><span class="description">isPrivate()
+        </span><pre>isPrivate()</pre></a></li>
+<li class="method public inherited"><a href="#isProtected" title="isProtected :: "><span class="description">isProtected()
+        </span><pre>isProtected()</pre></a></li>
+<li class="method public inherited"><a href="#isPublic" title="isPublic :: "><span class="description">isPublic()
+        </span><pre>isPublic()</pre></a></li>
+<li class="method public inherited"><a href="#isStatic" title="isStatic :: "><span class="description">isStatic()
+        </span><pre>isStatic()</pre></a></li>
+<li class="method public inherited"><a href="#isTaggedWith" title="isTaggedWith :: Checks if the doc comment of this method is tagged with
+the specified tag"><span class="description">Checks if the doc comment of this method is tagged with
+the specified tag</span><pre>isTaggedWith()</pre></a></li>
+<li class="method public inherited"><a href="#removeAllModifiers" title="removeAllModifiers :: "><span class="description">removeAllModifiers()
+        </span><pre>removeAllModifiers()</pre></a></li>
+<li class="method public inherited"><a href="#removeConstant" title="removeConstant :: removes a constant"><span class="description">removes a constant</span><pre>removeConstant()</pre></a></li>
+<li class="method public inherited"><a href="#removeModifier" title="removeModifier :: "><span class="description">removeModifier()
+        </span><pre>removeModifier()</pre></a></li>
+<li class="method public inherited"><a href="#removeTag" title="removeTag :: unsets a tag"><span class="description">unsets a tag</span><pre>removeTag()</pre></a></li>
+<li class="method public inherited"><a href="#setClasses" title="setClasses :: "><span class="description">setClasses()
+        </span><pre>setClasses()</pre></a></li>
+<li class="method public inherited"><a href="#setConstant" title="setConstant :: Setter for a single constant"><span class="description">Setter for a single constant</span><pre>setConstant()</pre></a></li>
+<li class="method public inherited"><a href="#setDescription" title="setDescription :: "><span class="description">setDescription()
+        </span><pre>setDescription()</pre></a></li>
+<li class="method public inherited"><a href="#setDocComment" title="setDocComment :: Setter for docComment"><span class="description">Setter for docComment</span><pre>setDocComment()</pre></a></li>
+<li class="method public "><a href="#setFunctions" title="setFunctions :: "><span class="description">setFunctions()
+        </span><pre>setFunctions()</pre></a></li>
+<li class="method public inherited"><a href="#setModifier" title="setModifier :: Use this method to set an accessor modifier,
+it will care for removing existing ones to avoid syntax errors"><span class="description">Use this method to set an accessor modifier,
+it will care for removing existing ones to avoid syntax errors</span><pre>setModifier()</pre></a></li>
+<li class="method public inherited"><a href="#setModifiers" title="setModifiers :: Setter for modifiers (will set all modifiers at once,
+since modifiers are claculated bitwise)"><span class="description">Setter for modifiers (will set all modifiers at once,
+since modifiers are claculated bitwise)</span><pre>setModifiers()</pre></a></li>
+<li class="method public inherited"><a href="#setName" title="setName :: Setter for name"><span class="description">Setter for name</span><pre>setName()</pre></a></li>
+<li class="method public inherited"><a href="#setNamespaceName" title="setNamespaceName :: "><span class="description">setNamespaceName()
+        </span><pre>setNamespaceName()</pre></a></li>
+<li class="method public inherited"><a href="#setNode" title="setNode :: "><span class="description">setNode()
+        </span><pre>setNode()</pre></a></li>
+<li class="method public "><a href="#setPostIncludes" title="setPostIncludes :: "><span class="description">setPostIncludes()
+        </span><pre>setPostIncludes()</pre></a></li>
+<li class="method public "><a href="#setPreIncludes" title="setPreIncludes :: "><span class="description">setPreIncludes()
+        </span><pre>setPreIncludes()</pre></a></li>
+<li class="method public inherited"><a href="#setTag" title="setTag :: sets a tags"><span class="description">sets a tags</span><pre>setTag()</pre></a></li>
+<li class="nav-header protected">» Protected</li>
+<li class="method protected inherited"><a href="#updateDocComment" title="updateDocComment :: for internal use"><span class="description">for internal use</span><pre>updateDocComment()</pre></a></li>
+<li class="method protected inherited"><a href="#validateModifier" title="validateModifier :: "><span class="description">validateModifier()
+        </span><pre>validateModifier()</pre></a></li>
+<li class="nav-header">
+<i class="icon-custom icon-property"></i> Properties</li>
+<li class="nav-header protected">» Protected</li>
+<li class="property protected "><a href="#%24aliasDeclarations" title="$aliasDeclarations :: "><span class="description">with nodes</span><pre>$aliasDeclarations</pre></a></li>
+<li class="property protected "><a href="#%24classes" title="$classes :: "><span class="description">Tx_PhpParser_Domain_Model_Class</span><pre>$classes</pre></a></li>
+<li class="property protected "><a href="#%24constants" title="$constants :: constants"><span class="description">constants</span><pre>$constants</pre></a></li>
+<li class="property protected inherited"><a href="#%24description" title="$description :: Description of property"><span class="description">Description of property</span><pre>$description</pre></a></li>
+<li class="property protected inherited"><a href="#%24docComment" title="$docComment :: docComment"><span class="description">docComment</span><pre>$docComment</pre></a></li>
+<li class="property protected inherited"><a href="#%24docCommentParser" title="$docCommentParser :: "><span class="description">$docCommentParser</span><pre>$docCommentParser</pre></a></li>
+<li class="property protected "><a href="#%24functions" title="$functions :: "><span class="description">Tx_PhpParser_Domain_Model_Function</span><pre>$functions</pre></a></li>
+<li class="property protected inherited"><a href="#%24modifiers" title="$modifiers :: array"><span class="description">array</span><pre>$modifiers</pre></a></li>
+<li class="property protected inherited"><a href="#%24name" title="$name :: name"><span class="description">name</span><pre>$name</pre></a></li>
+<li class="property protected inherited"><a href="#%24namespace" title="$namespace :: "><span class="description">$namespace</span><pre>$namespace</pre></a></li>
+<li class="property protected inherited"><a href="#%24node" title="$node :: "><span class="description">$node</span><pre>$node</pre></a></li>
+<li class="property protected inherited"><a href="#%24postIncludes" title="$postIncludes :: "><span class="description">$postIncludes</span><pre>$postIncludes</pre></a></li>
+<li class="property protected inherited"><a href="#%24preIncludes" title="$preIncludes :: "><span class="description">$preIncludes</span><pre>$preIncludes</pre></a></li>
+<li class="property protected inherited"><a href="#%24tags" title="$tags :: array"><span class="description">array</span><pre>$tags</pre></a></li>
+<li class="nav-header private">» Private</li>
+<li class="property private inherited"><a href="#%24mapModifierNames" title="$mapModifierNames :: const MODIFIER_PUBLIC    =  1;
+ const MODIFIER_PROTECTED =  2;
+ const MODIFIER_PRIVATE   =  4;
+ const MODIFIER_STATIC    =  8;
+ const MODIFIER_ABSTRACT  = 16;
+ const MODIFIER_FINAL     = 32;"><span class="description">const MODIFIER_PUBLIC    =  1;
+ const MODIFIER_PROTECTED =  2;
+ const MODIFIER_PRIVATE   =  4;
+ const MODIFIER_STATIC    =  8;
+ const MODIFIER_ABSTRACT  = 16;
+ const MODIFIER_FINAL     = 32;</span><pre>$mapModifierNames</pre></a></li>
+</ul>
+</div>
+<div class="span8">
+<a name="%5CTx_PhpParser_Domain_Model_Namespace" id="\Tx_PhpParser_Domain_Model_Namespace"></a><div href="../classes/Tx_PhpParser_Domain_Model_Namespace.html" class="element class">
+<p class="short_description">Provides methods that are common to Class, File and Namespace objects</p>
+<div class="details">
+<p class="long_description"></p>
+<table class="table table-bordered">
+<tr>
+<th>author</th>
+<td><a href="">Nico de Haen</a></td>
+</tr>
+<tr>
+<th>package</th>
+<td><a href="..//packages/PhpParserApi.html">PhpParserApi</a></td>
+</tr>
+<tr>
+<th>license</th>
+<td><a href="http://www.gnu.org/licenses/gpl.html">GNU General Public License, version 3 or later</a></td>
+</tr>
+</table>
+<h3>
+<i class="icon-custom icon-method"></i> Methods</h3>
+<a name="__construct" id="__construct"></a><div class="element clickable method public __construct" data-toggle="collapse" data-target=".__construct .collapse">
+<h2>__construct()
+        </h2>
+<pre>__construct(string $name) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="span8">
+<p class="long_description"></p>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$name</h4>
+<code>string</code>
+</div>
+</div></div>
+</div>
+<a name="addAliasDeclaration" id="addAliasDeclaration"></a><div class="element clickable method public addAliasDeclaration" data-toggle="collapse" data-target=".addAliasDeclaration .collapse">
+<h2>addAliasDeclaration()
+        </h2>
+<pre>addAliasDeclaration($aliasDeclaration) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="span8">
+<p class="long_description"></p>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$aliasDeclaration</h4>
+<code></code>
+</div>
+</div></div>
+</div>
+<a name="addClass" id="addClass"></a><div class="element clickable method public addClass" data-toggle="collapse" data-target=".addClass .collapse">
+<h2>addClass()
+        </h2>
+<pre>addClass(Tx_PhpParser_Domain_Model_Class $class) </pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="span8">
+<p class="long_description"></p>
+<table class="table table-bordered"><tr>
+<th>inherited_from</th>
+<td>\Tx_PhpParser_Domain_Model_Container::addClass()</td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$class</h4>
+<code><a href="Tx_PhpParser_Domain_Model_Class.html">\Tx_PhpParser_Domain_Model_Class</a></code>
+</div>
+</div></div>
+</div>
+<a name="addFunction" id="addFunction"></a><div class="element clickable method public addFunction" data-toggle="collapse" data-target=".addFunction .collapse">
+<h2>addFunction()
+        </h2>
+<pre>addFunction(<a href="Tx_PhpParser_Domain_Model_Function.html">\Tx_PhpParser_Domain_Model_Function</a> $function) </pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="span8">
+<p class="long_description"></p>
+<table class="table table-bordered"><tr>
+<th>inherited_from</th>
+<td>\Tx_PhpParser_Domain_Model_Container::addFunction()</td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$function</h4>
+<code><a href="Tx_PhpParser_Domain_Model_Function.html">\Tx_PhpParser_Domain_Model_Function</a></code>
+</div>
+</div></div>
+</div>
+<a name="addModifier" id="addModifier"></a><div class="element clickable method public addModifier" data-toggle="collapse" data-target=".addModifier .collapse">
+<h2>adds a modifier</h2>
+<pre>addModifier(string $modifierName) : <a href="Tx_PhpParser_Domain_Model_AbstractObject.html">\Tx_PhpParser_Domain_Model_AbstractObject</a></pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="span8">
+<p class="long_description"></p>
+<table class="table table-bordered">
+<tr>
+<th>inherited_from</th>
+<td>\Tx_PhpParser_Domain_Model_AbstractObject::addModifier()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Tx_PhpParser_Domain_Model_Container::addModifier()</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$modifierName</h4>
+<code>string</code>
+</div>
+<h3>Returns</h3>
+<div class="subelement response">
+<code><a href="Tx_PhpParser_Domain_Model_AbstractObject.html">\Tx_PhpParser_Domain_Model_AbstractObject</a></code>(for fluid interface)</div>
+</div></div>
+</div>
+<a name="addPostInclude" id="addPostInclude"></a><div class="element clickable method public addPostInclude" data-toggle="collapse" data-target=".addPostInclude .collapse">
+<h2>addPostInclude()
+        </h2>
+<pre>addPostInclude($postInclude) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="span8">
+<p class="long_description"></p>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$postInclude</h4>
+<code></code>
+</div>
+</div></div>
+</div>
+<a name="addPreInclude" id="addPreInclude"></a><div class="element clickable method public addPreInclude" data-toggle="collapse" data-target=".addPreInclude .collapse">
+<h2>addPreInclude()
+        </h2>
+<pre>addPreInclude($preInclude) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="span8">
+<p class="long_description"></p>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$preInclude</h4>
+<code></code>
+</div>
+</div></div>
+</div>
+<a name="addTag" id="addTag"></a><div class="element clickable method public addTag" data-toggle="collapse" data-target=".addTag .collapse">
+<h2>addTag()
+        </h2>
+<pre>addTag($tagName, $tagValue) : <a href="Tx_PhpParser_Domain_Model_AbstractObject.html">\Tx_PhpParser_Domain_Model_AbstractObject</a></pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="span8">
+<p class="long_description"></p>
+<table class="table table-bordered">
+<tr>
+<th>inherited_from</th>
+<td>\Tx_PhpParser_Domain_Model_AbstractObject::addTag()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Tx_PhpParser_Domain_Model_Container::addTag()</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$tagName</h4>
+<code></code>
+</div>
+<div class="subelement argument">
+<h4>$tagValue</h4>
+<code></code>
+</div>
+<h3>Returns</h3>
+<div class="subelement response"><code><a href="Tx_PhpParser_Domain_Model_AbstractObject.html">\Tx_PhpParser_Domain_Model_AbstractObject</a></code></div>
+</div></div>
+</div>
+<a name="getAliasDeclarations" id="getAliasDeclarations"></a><div class="element clickable method public getAliasDeclarations" data-toggle="collapse" data-target=".getAliasDeclarations .collapse">
+<h2>getAliasDeclarations()
+        </h2>
+<pre>getAliasDeclarations() </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="span8"><p class="long_description"></p></div></div>
+</div>
+<a name="getAliasNames" id="getAliasNames"></a><div class="element clickable method public getAliasNames" data-toggle="collapse" data-target=".getAliasNames .collapse">
+<h2>getAliasNames()
+        </h2>
+<pre>getAliasNames() </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="span8"><p class="long_description"></p></div></div>
+</div>
+<a name="getClasses" id="getClasses"></a><div class="element clickable method public getClasses" data-toggle="collapse" data-target=".getClasses .collapse">
+<h2>getClasses()
+        </h2>
+<pre>getClasses() : array</pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="span8">
+<p class="long_description"></p>
+<table class="table table-bordered"><tr>
+<th>inherited_from</th>
+<td>\Tx_PhpParser_Domain_Model_Container::getClasses()</td>
+</tr></table>
+<h3>Returns</h3>
+<div class="subelement response"><code>array</code></div>
+</div></div>
+</div>
+<a name="getConstant" id="getConstant"></a><div class="element clickable method public getConstant" data-toggle="collapse" data-target=".getConstant .collapse">
+<h2>Getter for a single constant</h2>
+<pre>getConstant($constantName) : mixed</pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="span8">
+<p class="long_description"></p>
+<table class="table table-bordered"><tr>
+<th>inherited_from</th>
+<td>\Tx_PhpParser_Domain_Model_Container::getConstant()</td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$constantName</h4>
+<code></code>
+</div>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>mixed</code>constant value</div>
+</div></div>
+</div>
+<a name="getConstants" id="getConstants"></a><div class="element clickable method public getConstants" data-toggle="collapse" data-target=".getConstants .collapse">
+<h2>Getter for constants</h2>
+<pre>getConstants() : string</pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="span8">
+<p class="long_description"></p>
+<table class="table table-bordered"><tr>
+<th>inherited_from</th>
+<td>\Tx_PhpParser_Domain_Model_Container::getConstants()</td>
+</tr></table>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>string</code>constants</div>
+</div></div>
+</div>
+<a name="getDescription" id="getDescription"></a><div class="element clickable method public getDescription" data-toggle="collapse" data-target=".getDescription .collapse">
+<h2>getDescription()
+        </h2>
+<pre>getDescription() : string</pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="span8">
+<p class="long_description"></p>
+<table class="table table-bordered">
+<tr>
+<th>inherited_from</th>
+<td>\Tx_PhpParser_Domain_Model_AbstractObject::getDescription()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Tx_PhpParser_Domain_Model_Container::getDescription()</td>
+</tr>
+</table>
+<h3>Returns</h3>
+<div class="subelement response"><code>string</code></div>
+</div></div>
+</div>
+<a name="getDocComment" id="getDocComment"></a><div class="element clickable method public getDocComment" data-toggle="collapse" data-target=".getDocComment .collapse">
+<h2>Getter for docComment</h2>
+<pre>getDocComment() : string</pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="span8">
+<p class="long_description"></p>
+<table class="table table-bordered">
+<tr>
+<th>inherited_from</th>
+<td>\Tx_PhpParser_Domain_Model_AbstractObject::getDocComment()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Tx_PhpParser_Domain_Model_Container::getDocComment()</td>
+</tr>
+</table>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>string</code>docComment</div>
+</div></div>
+</div>
+<a name="getFirstClass" id="getFirstClass"></a><div class="element clickable method public getFirstClass" data-toggle="collapse" data-target=".getFirstClass .collapse">
+<h2>getFirstClass()
+        </h2>
+<pre>getFirstClass() : <a href="Tx_PhpParser_Domain_Model_Class.html">\Tx_PhpParser_Domain_Model_Class</a></pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="span8">
+<p class="long_description"></p>
+<table class="table table-bordered"><tr>
+<th>inherited_from</th>
+<td>\Tx_PhpParser_Domain_Model_Container::getFirstClass()</td>
+</tr></table>
+<h3>Returns</h3>
+<div class="subelement response"><code><a href="Tx_PhpParser_Domain_Model_Class.html">\Tx_PhpParser_Domain_Model_Class</a></code></div>
+</div></div>
+</div>
+<a name="getFunction" id="getFunction"></a><div class="element clickable method public getFunction" data-toggle="collapse" data-target=".getFunction .collapse">
+<h2>getFunction()
+        </h2>
+<pre>getFunction(string $name) : <a href="Tx_PhpParser_Domain_Model_Function.html">\Tx_PhpParser_Domain_Model_Function</a></pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="span8">
+<p class="long_description"></p>
+<table class="table table-bordered"><tr>
+<th>inherited_from</th>
+<td>\Tx_PhpParser_Domain_Model_Container::getFunction()</td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$name</h4>
+<code>string</code>
+</div>
+<h3>Returns</h3>
+<div class="subelement response"><code><a href="Tx_PhpParser_Domain_Model_Function.html">\Tx_PhpParser_Domain_Model_Function</a></code></div>
+</div></div>
+</div>
+<a name="getFunctions" id="getFunctions"></a><div class="element clickable method public getFunctions" data-toggle="collapse" data-target=".getFunctions .collapse">
+<h2>getFunctions()
+        </h2>
+<pre>getFunctions() : array</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="span8">
+<p class="long_description"></p>
+<h3>Returns</h3>
+<div class="subelement response"><code>array</code></div>
+</div></div>
+</div>
+<a name="getModifierNames" id="getModifierNames"></a><div class="element clickable method public getModifierNames" data-toggle="collapse" data-target=".getModifierNames .collapse">
+<h2>getModifierNames</h2>
+<pre>getModifierNames() : </pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="span8">
+<p class="long_description"></p>
+<table class="table table-bordered">
+<tr>
+<th>inherited_from</th>
+<td>\Tx_PhpParser_Domain_Model_AbstractObject::getModifierNames()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Tx_PhpParser_Domain_Model_Container::getModifierNames()</td>
+</tr>
+</table>
+<h3>Returns</h3>
+<div class="subelement response"></div>
+</div></div>
+</div>
+<a name="getModifiers" id="getModifiers"></a><div class="element clickable method public getModifiers" data-toggle="collapse" data-target=".getModifiers .collapse">
+<h2>Getter for modifiers</h2>
+<pre>getModifiers() : int</pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="span8">
+<p class="long_description"></p>
+<table class="table table-bordered">
+<tr>
+<th>inherited_from</th>
+<td>\Tx_PhpParser_Domain_Model_AbstractObject::getModifiers()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Tx_PhpParser_Domain_Model_Container::getModifiers()</td>
+</tr>
+</table>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>int</code>modifiers</div>
+</div></div>
+</div>
+<a name="getName" id="getName"></a><div class="element clickable method public getName" data-toggle="collapse" data-target=".getName .collapse">
+<h2>Getter for name</h2>
+<pre>getName() : string</pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="span8">
+<p class="long_description"></p>
+<table class="table table-bordered">
+<tr>
+<th>inherited_from</th>
+<td>\Tx_PhpParser_Domain_Model_AbstractObject::getName()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Tx_PhpParser_Domain_Model_Container::getName()</td>
+</tr>
+</table>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>string</code>name</div>
+</div></div>
+</div>
+<a name="getNamespaceName" id="getNamespaceName"></a><div class="element clickable method public getNamespaceName" data-toggle="collapse" data-target=".getNamespaceName .collapse">
+<h2>getNamespaceName()
+        </h2>
+<pre>getNamespaceName() : string</pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="span8">
+<p class="long_description"></p>
+<table class="table table-bordered">
+<tr>
+<th>inherited_from</th>
+<td>\Tx_PhpParser_Domain_Model_AbstractObject::getNamespaceName()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Tx_PhpParser_Domain_Model_Container::getNamespaceName()</td>
+</tr>
+</table>
+<h3>Returns</h3>
+<div class="subelement response"><code>string</code></div>
+</div></div>
+</div>
+<a name="getNode" id="getNode"></a><div class="element clickable method public getNode" data-toggle="collapse" data-target=".getNode .collapse">
+<h2>getNode()
+        </h2>
+<pre>getNode() : \PHPParser_Node</pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="span8">
+<p class="long_description"></p>
+<table class="table table-bordered">
+<tr>
+<th>inherited_from</th>
+<td>\Tx_PhpParser_Domain_Model_AbstractObject::getNode()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Tx_PhpParser_Domain_Model_Container::getNode()</td>
+</tr>
+</table>
+<h3>Returns</h3>
+<div class="subelement response"><code>\PHPParser_Node</code></div>
+</div></div>
+</div>
+<a name="getPostIncludes" id="getPostIncludes"></a><div class="element clickable method public getPostIncludes" data-toggle="collapse" data-target=".getPostIncludes .collapse">
+<h2>getPostIncludes()
+        </h2>
+<pre>getPostIncludes() </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="span8"><p class="long_description"></p></div></div>
+</div>
+<a name="getPreIncludes" id="getPreIncludes"></a><div class="element clickable method public getPreIncludes" data-toggle="collapse" data-target=".getPreIncludes .collapse">
+<h2>getPreIncludes()
+        </h2>
+<pre>getPreIncludes() : array</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="span8">
+<p class="long_description"></p>
+<h3>Returns</h3>
+<div class="subelement response"><code>array</code></div>
+</div></div>
+</div>
+<a name="getShortName" id="getShortName"></a><div class="element clickable method public getShortName" data-toggle="collapse" data-target=".getShortName .collapse">
+<h2>Getter for short name (without namespace</h2>
+<pre>getShortName() : string</pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="span8">
+<p class="long_description"></p>
+<table class="table table-bordered">
+<tr>
+<th>inherited_from</th>
+<td>\Tx_PhpParser_Domain_Model_AbstractObject::getShortName()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Tx_PhpParser_Domain_Model_Container::getShortName()</td>
+</tr>
+</table>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>string</code>name</div>
+</div></div>
+</div>
+<a name="getTagValues" id="getTagValues"></a><div class="element clickable method public getTagValues" data-toggle="collapse" data-target=".getTagValues .collapse">
+<h2>Returns the values of the specified tag</h2>
+<pre>getTagValues($tagName) : array</pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="span8">
+<p class="long_description"></p>
+<table class="table table-bordered">
+<tr>
+<th>inherited_from</th>
+<td>\Tx_PhpParser_Domain_Model_AbstractObject::getTagValues()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Tx_PhpParser_Domain_Model_Container::getTagValues()</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$tagName</h4>
+<code></code>
+</div>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>array</code>Values of the given tag</div>
+</div></div>
+</div>
+<a name="getTags" id="getTags"></a><div class="element clickable method public getTags" data-toggle="collapse" data-target=".getTags .collapse">
+<h2>Returns an array of tags and their values</h2>
+<pre>getTags() : array</pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="span8">
+<p class="long_description"></p>
+<table class="table table-bordered">
+<tr>
+<th>inherited_from</th>
+<td>\Tx_PhpParser_Domain_Model_AbstractObject::getTags()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Tx_PhpParser_Domain_Model_Container::getTags()</td>
+</tr>
+</table>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>array</code>Tags and values</div>
+</div></div>
+</div>
+<a name="hasDocComment" id="hasDocComment"></a><div class="element clickable method public hasDocComment" data-toggle="collapse" data-target=".hasDocComment .collapse">
+<h2>is there a docComment</h2>
+<pre>hasDocComment() : boolean</pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="span8">
+<p class="long_description"></p>
+<table class="table table-bordered">
+<tr>
+<th>inherited_from</th>
+<td>\Tx_PhpParser_Domain_Model_AbstractObject::hasDocComment()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Tx_PhpParser_Domain_Model_Container::hasDocComment()</td>
+</tr>
+</table>
+<h3>Returns</h3>
+<div class="subelement response"><code>boolean</code></div>
+</div></div>
+</div>
+<a name="inNamespace" id="inNamespace"></a><div class="element clickable method public inNamespace" data-toggle="collapse" data-target=".inNamespace .collapse">
+<h2>inNamespace()
+        </h2>
+<pre>inNamespace($namespace) </pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="span8">
+<p class="long_description"></p>
+<table class="table table-bordered">
+<tr>
+<th>inherited_from</th>
+<td>\Tx_PhpParser_Domain_Model_AbstractObject::inNamespace()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Tx_PhpParser_Domain_Model_Container::inNamespace()</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$namespace</h4>
+<code></code>
+</div>
+</div></div>
+</div>
+<a name="initDocComment" id="initDocComment"></a><div class="element clickable method public initDocComment" data-toggle="collapse" data-target=".initDocComment .collapse">
+<h2>for internal use only</h2>
+<pre>initDocComment() : void</pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="span8">
+<p class="long_description"></p>
+<table class="table table-bordered">
+<tr>
+<th>inherited_from</th>
+<td>\Tx_PhpParser_Domain_Model_AbstractObject::initDocComment()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Tx_PhpParser_Domain_Model_Container::initDocComment()</td>
+</tr>
+</table>
+</div></div>
+</div>
+<a name="isAbstract" id="isAbstract"></a><div class="element clickable method public isAbstract" data-toggle="collapse" data-target=".isAbstract .collapse">
+<h2>isAbstract()
+        </h2>
+<pre>isAbstract() : bool</pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="span8">
+<p class="long_description"></p>
+<table class="table table-bordered">
+<tr>
+<th>inherited_from</th>
+<td>\Tx_PhpParser_Domain_Model_AbstractObject::isAbstract()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Tx_PhpParser_Domain_Model_Container::isAbstract()</td>
+</tr>
+</table>
+<h3>Returns</h3>
+<div class="subelement response"><code>bool</code></div>
+</div></div>
+</div>
+<a name="isFinal" id="isFinal"></a><div class="element clickable method public isFinal" data-toggle="collapse" data-target=".isFinal .collapse">
+<h2>isFinal()
+        </h2>
+<pre>isFinal() : bool</pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="span8">
+<p class="long_description"></p>
+<table class="table table-bordered">
+<tr>
+<th>inherited_from</th>
+<td>\Tx_PhpParser_Domain_Model_AbstractObject::isFinal()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Tx_PhpParser_Domain_Model_Container::isFinal()</td>
+</tr>
+</table>
+<h3>Returns</h3>
+<div class="subelement response"><code>bool</code></div>
+</div></div>
+</div>
+<a name="isNamespaced" id="isNamespaced"></a><div class="element clickable method public isNamespaced" data-toggle="collapse" data-target=".isNamespaced .collapse">
+<h2>isNamespaced()
+        </h2>
+<pre>isNamespaced() : bool</pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="span8">
+<p class="long_description"></p>
+<table class="table table-bordered">
+<tr>
+<th>inherited_from</th>
+<td>\Tx_PhpParser_Domain_Model_AbstractObject::isNamespaced()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Tx_PhpParser_Domain_Model_Container::isNamespaced()</td>
+</tr>
+</table>
+<h3>Returns</h3>
+<div class="subelement response"><code>bool</code></div>
+</div></div>
+</div>
+<a name="isPrivate" id="isPrivate"></a><div class="element clickable method public isPrivate" data-toggle="collapse" data-target=".isPrivate .collapse">
+<h2>isPrivate()
+        </h2>
+<pre>isPrivate() : bool</pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="span8">
+<p class="long_description"></p>
+<table class="table table-bordered">
+<tr>
+<th>inherited_from</th>
+<td>\Tx_PhpParser_Domain_Model_AbstractObject::isPrivate()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Tx_PhpParser_Domain_Model_Container::isPrivate()</td>
+</tr>
+</table>
+<h3>Returns</h3>
+<div class="subelement response"><code>bool</code></div>
+</div></div>
+</div>
+<a name="isProtected" id="isProtected"></a><div class="element clickable method public isProtected" data-toggle="collapse" data-target=".isProtected .collapse">
+<h2>isProtected()
+        </h2>
+<pre>isProtected() : bool</pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="span8">
+<p class="long_description"></p>
+<table class="table table-bordered">
+<tr>
+<th>inherited_from</th>
+<td>\Tx_PhpParser_Domain_Model_AbstractObject::isProtected()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Tx_PhpParser_Domain_Model_Container::isProtected()</td>
+</tr>
+</table>
+<h3>Returns</h3>
+<div class="subelement response"><code>bool</code></div>
+</div></div>
+</div>
+<a name="isPublic" id="isPublic"></a><div class="element clickable method public isPublic" data-toggle="collapse" data-target=".isPublic .collapse">
+<h2>isPublic()
+        </h2>
+<pre>isPublic() : bool</pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="span8">
+<p class="long_description"></p>
+<table class="table table-bordered">
+<tr>
+<th>inherited_from</th>
+<td>\Tx_PhpParser_Domain_Model_AbstractObject::isPublic()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Tx_PhpParser_Domain_Model_Container::isPublic()</td>
+</tr>
+</table>
+<h3>Returns</h3>
+<div class="subelement response"><code>bool</code></div>
+</div></div>
+</div>
+<a name="isStatic" id="isStatic"></a><div class="element clickable method public isStatic" data-toggle="collapse" data-target=".isStatic .collapse">
+<h2>isStatic()
+        </h2>
+<pre>isStatic() : bool</pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="span8">
+<p class="long_description"></p>
+<table class="table table-bordered">
+<tr>
+<th>inherited_from</th>
+<td>\Tx_PhpParser_Domain_Model_AbstractObject::isStatic()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Tx_PhpParser_Domain_Model_Container::isStatic()</td>
+</tr>
+</table>
+<h3>Returns</h3>
+<div class="subelement response"><code>bool</code></div>
+</div></div>
+</div>
+<a name="isTaggedWith" id="isTaggedWith"></a><div class="element clickable method public isTaggedWith" data-toggle="collapse" data-target=".isTaggedWith .collapse">
+<h2>Checks if the doc comment of this method is tagged with
+the specified tag</h2>
+<pre>isTaggedWith($tagName) : boolean</pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="span8">
+<p class="long_description"></p>
+<table class="table table-bordered">
+<tr>
+<th>inherited_from</th>
+<td>\Tx_PhpParser_Domain_Model_AbstractObject::isTaggedWith()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Tx_PhpParser_Domain_Model_Container::isTaggedWith()</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$tagName</h4>
+<code></code>
+</div>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>boolean</code>TRUE if such a tag has been defined, otherwise FALSE</div>
+</div></div>
+</div>
+<a name="removeAllModifiers" id="removeAllModifiers"></a><div class="element clickable method public removeAllModifiers" data-toggle="collapse" data-target=".removeAllModifiers .collapse">
+<h2>removeAllModifiers()
+        </h2>
+<pre>removeAllModifiers() : <a href="Tx_PhpParser_Domain_Model_AbstractObject.html">\Tx_PhpParser_Domain_Model_AbstractObject</a></pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="span8">
+<p class="long_description"></p>
+<table class="table table-bordered">
+<tr>
+<th>inherited_from</th>
+<td>\Tx_PhpParser_Domain_Model_AbstractObject::removeAllModifiers()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Tx_PhpParser_Domain_Model_Container::removeAllModifiers()</td>
+</tr>
+</table>
+<h3>Returns</h3>
+<div class="subelement response">
+<code><a href="Tx_PhpParser_Domain_Model_AbstractObject.html">\Tx_PhpParser_Domain_Model_AbstractObject</a></code>(for fluid interface)</div>
+</div></div>
+</div>
+<a name="removeConstant" id="removeConstant"></a><div class="element clickable method public removeConstant" data-toggle="collapse" data-target=".removeConstant .collapse">
+<h2>removes a constant</h2>
+<pre>removeConstant(string $constantName) : boolean</pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="span8">
+<p class="long_description"></p>
+<table class="table table-bordered"><tr>
+<th>inherited_from</th>
+<td>\Tx_PhpParser_Domain_Model_Container::removeConstant()</td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$constantName</h4>
+<code>string</code>
+</div>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>boolean</code>TRUE (if successfull removed)</div>
+</div></div>
+</div>
+<a name="removeModifier" id="removeModifier"></a><div class="element clickable method public removeModifier" data-toggle="collapse" data-target=".removeModifier .collapse">
+<h2>removeModifier()
+        </h2>
+<pre>removeModifier(string $modifierName) : <a href="Tx_PhpParser_Domain_Model_AbstractObject.html">\Tx_PhpParser_Domain_Model_AbstractObject</a></pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="span8">
+<p class="long_description"></p>
+<table class="table table-bordered">
+<tr>
+<th>inherited_from</th>
+<td>\Tx_PhpParser_Domain_Model_AbstractObject::removeModifier()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Tx_PhpParser_Domain_Model_Container::removeModifier()</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$modifierName</h4>
+<code>string</code>
+</div>
+<h3>Returns</h3>
+<div class="subelement response">
+<code><a href="Tx_PhpParser_Domain_Model_AbstractObject.html">\Tx_PhpParser_Domain_Model_AbstractObject</a></code>(for fluid interface)</div>
+</div></div>
+</div>
+<a name="removeTag" id="removeTag"></a><div class="element clickable method public removeTag" data-toggle="collapse" data-target=".removeTag .collapse">
+<h2>unsets a tag</h2>
+<pre>removeTag(string $tagName, mixed $tagValue) : void</pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="span8">
+<p class="long_description"></p>
+<table class="table table-bordered">
+<tr>
+<th>inherited_from</th>
+<td>\Tx_PhpParser_Domain_Model_AbstractObject::removeTag()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Tx_PhpParser_Domain_Model_Container::removeTag()</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$tagName</h4>
+<code>string</code>
+</div>
+<div class="subelement argument">
+<h4>$tagValue</h4>
+<code>mixed</code><p>of the tag to be removed (if second parameter is not set, all tags with that name will be removed)</p>
+</div>
+</div></div>
+</div>
+<a name="setClasses" id="setClasses"></a><div class="element clickable method public setClasses" data-toggle="collapse" data-target=".setClasses .collapse">
+<h2>setClasses()
+        </h2>
+<pre>setClasses(array $classes) </pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="span8">
+<p class="long_description"></p>
+<table class="table table-bordered"><tr>
+<th>inherited_from</th>
+<td>\Tx_PhpParser_Domain_Model_Container::setClasses()</td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$classes</h4>
+<code>array</code>
+</div>
+</div></div>
+</div>
+<a name="setConstant" id="setConstant"></a><div class="element clickable method public setConstant" data-toggle="collapse" data-target=".setConstant .collapse">
+<h2>Setter for a single constant</h2>
+<pre>setConstant(string $name, mixed $value) : void</pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="span8">
+<p class="long_description"></p>
+<table class="table table-bordered"><tr>
+<th>inherited_from</th>
+<td>\Tx_PhpParser_Domain_Model_Container::setConstant()</td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$name</h4>
+<code>string</code>
+</div>
+<div class="subelement argument">
+<h4>$value</h4>
+<code>mixed</code>
+</div>
+</div></div>
+</div>
+<a name="setDescription" id="setDescription"></a><div class="element clickable method public setDescription" data-toggle="collapse" data-target=".setDescription .collapse">
+<h2>setDescription()
+        </h2>
+<pre>setDescription(string $description) </pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="span8">
+<p class="long_description"></p>
+<table class="table table-bordered">
+<tr>
+<th>inherited_from</th>
+<td>\Tx_PhpParser_Domain_Model_AbstractObject::setDescription()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Tx_PhpParser_Domain_Model_Container::setDescription()</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$description</h4>
+<code>string</code>
+</div>
+</div></div>
+</div>
+<a name="setDocComment" id="setDocComment"></a><div class="element clickable method public setDocComment" data-toggle="collapse" data-target=".setDocComment .collapse">
+<h2>Setter for docComment</h2>
+<pre>setDocComment(string $docComment, boolean $updateNodeDocComment) : void</pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="span8">
+<p class="long_description"></p>
+<table class="table table-bordered">
+<tr>
+<th>inherited_from</th>
+<td>\Tx_PhpParser_Domain_Model_AbstractObject::setDocComment()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Tx_PhpParser_Domain_Model_Container::setDocComment()</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$docComment</h4>
+<code>string</code><p>docComment</p></div>
+<div class="subelement argument">
+<h4>$updateNodeDocComment</h4>
+<code>boolean</code>
+</div>
+</div></div>
+</div>
+<a name="setFunctions" id="setFunctions"></a><div class="element clickable method public setFunctions" data-toggle="collapse" data-target=".setFunctions .collapse">
+<h2>setFunctions()
+        </h2>
+<pre>setFunctions(array $functions) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="span8">
+<p class="long_description"></p>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$functions</h4>
+<code>array</code>
+</div>
+</div></div>
+</div>
+<a name="setModifier" id="setModifier"></a><div class="element clickable method public setModifier" data-toggle="collapse" data-target=".setModifier .collapse">
+<h2>Use this method to set an accessor modifier,
+it will care for removing existing ones to avoid syntax errors</h2>
+<pre>setModifier(string $modifierName) : <a href="Tx_PhpParser_Domain_Model_AbstractObject.html">\Tx_PhpParser_Domain_Model_AbstractObject</a></pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="span8">
+<p class="long_description"></p>
+<table class="table table-bordered">
+<tr>
+<th>inherited_from</th>
+<td>\Tx_PhpParser_Domain_Model_AbstractObject::setModifier()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Tx_PhpParser_Domain_Model_Container::setModifier()</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$modifierName</h4>
+<code>string</code>
+</div>
+<h3>Exceptions</h3>
+<table class="table table-bordered"><tr>
+<th><code><a href="Tx_PhpParser_Exception_SyntaxErrorException.html">\Tx_PhpParser_Exception_SyntaxErrorException</a></code></th>
+<td></td>
+</tr></table>
+<h3>Returns</h3>
+<div class="subelement response">
+<code><a href="Tx_PhpParser_Domain_Model_AbstractObject.html">\Tx_PhpParser_Domain_Model_AbstractObject</a></code>(for fluid interface)</div>
+</div></div>
+</div>
+<a name="setModifiers" id="setModifiers"></a><div class="element clickable method public setModifiers" data-toggle="collapse" data-target=".setModifiers .collapse">
+<h2>Setter for modifiers (will set all modifiers at once,
+since modifiers are claculated bitwise)</h2>
+<pre>setModifiers(int $modifiers) : <a href="Tx_PhpParser_Domain_Model_AbstractObject.html">\Tx_PhpParser_Domain_Model_AbstractObject</a></pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="span8">
+<p class="long_description"></p>
+<table class="table table-bordered">
+<tr>
+<th>inherited_from</th>
+<td>\Tx_PhpParser_Domain_Model_AbstractObject::setModifiers()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Tx_PhpParser_Domain_Model_Container::setModifiers()</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$modifiers</h4>
+<code>int</code><p>modifiers</p></div>
+<h3>Returns</h3>
+<div class="subelement response">
+<code><a href="Tx_PhpParser_Domain_Model_AbstractObject.html">\Tx_PhpParser_Domain_Model_AbstractObject</a></code>(for fluid interface)</div>
+</div></div>
+</div>
+<a name="setName" id="setName"></a><div class="element clickable method public setName" data-toggle="collapse" data-target=".setName .collapse">
+<h2>Setter for name</h2>
+<pre>setName(string $name, $updateNodeName) : void</pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="span8">
+<p class="long_description"></p>
+<table class="table table-bordered">
+<tr>
+<th>inherited_from</th>
+<td>\Tx_PhpParser_Domain_Model_AbstractObject::setName()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Tx_PhpParser_Domain_Model_Container::setName()</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$name</h4>
+<code>string</code><p>name</p></div>
+<div class="subelement argument">
+<h4>$updateNodeName</h4>
+<code></code>
+</div>
+</div></div>
+</div>
+<a name="setNamespaceName" id="setNamespaceName"></a><div class="element clickable method public setNamespaceName" data-toggle="collapse" data-target=".setNamespaceName .collapse">
+<h2>setNamespaceName()
+        </h2>
+<pre>setNamespaceName(string $namespace) </pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="span8">
+<p class="long_description"></p>
+<table class="table table-bordered">
+<tr>
+<th>inherited_from</th>
+<td>\Tx_PhpParser_Domain_Model_AbstractObject::setNamespaceName()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Tx_PhpParser_Domain_Model_Container::setNamespaceName()</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$namespace</h4>
+<code>string</code>
+</div>
+</div></div>
+</div>
+<a name="setNode" id="setNode"></a><div class="element clickable method public setNode" data-toggle="collapse" data-target=".setNode .collapse">
+<h2>setNode()
+        </h2>
+<pre>setNode(PHPParser_Node $node) </pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="span8">
+<p class="long_description"></p>
+<table class="table table-bordered">
+<tr>
+<th>inherited_from</th>
+<td>\Tx_PhpParser_Domain_Model_AbstractObject::setNode()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Tx_PhpParser_Domain_Model_Container::setNode()</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$node</h4>
+<code>\PHPParser_Node</code>
+</div>
+</div></div>
+</div>
+<a name="setPostIncludes" id="setPostIncludes"></a><div class="element clickable method public setPostIncludes" data-toggle="collapse" data-target=".setPostIncludes .collapse">
+<h2>setPostIncludes()
+        </h2>
+<pre>setPostIncludes($postIncludes) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="span8">
+<p class="long_description"></p>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$postIncludes</h4>
+<code></code>
+</div>
+</div></div>
+</div>
+<a name="setPreIncludes" id="setPreIncludes"></a><div class="element clickable method public setPreIncludes" data-toggle="collapse" data-target=".setPreIncludes .collapse">
+<h2>setPreIncludes()
+        </h2>
+<pre>setPreIncludes(array $preIncludes) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="span8">
+<p class="long_description"></p>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$preIncludes</h4>
+<code>array</code>
+</div>
+</div></div>
+</div>
+<a name="setTag" id="setTag"></a><div class="element clickable method public setTag" data-toggle="collapse" data-target=".setTag .collapse">
+<h2>sets a tags</h2>
+<pre>setTag(string $tagName, mixed $tagValue) : void</pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="span8">
+<p class="long_description"></p>
+<table class="table table-bordered">
+<tr>
+<th>inherited_from</th>
+<td>\Tx_PhpParser_Domain_Model_AbstractObject::setTag()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Tx_PhpParser_Domain_Model_Container::setTag()</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$tagName</h4>
+<code>string</code>
+</div>
+<div class="subelement argument">
+<h4>$tagValue</h4>
+<code>mixed</code>
+</div>
+</div></div>
+</div>
+<a name="updateDocComment" id="updateDocComment"></a><div class="element clickable method protected updateDocComment" data-toggle="collapse" data-target=".updateDocComment .collapse">
+<h2>for internal use</h2>
+<pre>updateDocComment() </pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="span8">
+<p class="long_description"></p>
+<table class="table table-bordered">
+<tr>
+<th>inherited_from</th>
+<td>\Tx_PhpParser_Domain_Model_AbstractObject::updateDocComment()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Tx_PhpParser_Domain_Model_Container::updateDocComment()</td>
+</tr>
+</table>
+</div></div>
+</div>
+<a name="validateModifier" id="validateModifier"></a><div class="element clickable method protected validateModifier" data-toggle="collapse" data-target=".validateModifier .collapse">
+<h2>validateModifier()
+        </h2>
+<pre>validateModifier($modifier) </pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="span8">
+<p class="long_description"></p>
+<table class="table table-bordered">
+<tr>
+<th>inherited_from</th>
+<td>\Tx_PhpParser_Domain_Model_AbstractObject::validateModifier()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Tx_PhpParser_Domain_Model_Container::validateModifier()</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$modifier</h4>
+<code></code>
+</div>
+</div></div>
+</div>
+<h3>
+<i class="icon-custom icon-property"></i> Properties</h3>
+<a name="%24aliasDeclarations" id="$aliasDeclarations"> </a><div class="element clickable property protected $aliasDeclarations" data-toggle="collapse" data-target=".$aliasDeclarations .collapse">
+<h2>with nodes</h2>
+<pre>$aliasDeclarations : array</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="span8"><p class="long_description"></p></div></div>
+</div>
+<a name="%24classes" id="$classes"> </a><div class="element clickable property protected $classes" data-toggle="collapse" data-target=".$classes .collapse">
+<h2>Tx_PhpParser_Domain_Model_Class</h2>
+<pre>$classes : array</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="span8"><p class="long_description"></p></div></div>
+</div>
+<a name="%24constants" id="$constants"> </a><div class="element clickable property protected $constants" data-toggle="collapse" data-target=".$constants .collapse">
+<h2>constants</h2>
+<pre>$constants : array</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="span8"><p class="long_description"></p></div></div>
+</div>
+<a name="%24description" id="$description"> </a><div class="element clickable property protected $description" data-toggle="collapse" data-target=".$description .collapse">
+<h2>Description of property</h2>
+<pre>$description : string</pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="span8">
+<p class="long_description"></p>
+<table class="table table-bordered">
+<tr>
+<th>inherited_from</th>
+<td>\Tx_PhpParser_Domain_Model_AbstractObject::$$description</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Tx_PhpParser_Domain_Model_Container::$$description</td>
+</tr>
+</table>
+</div></div>
+</div>
+<a name="%24docComment" id="$docComment"> </a><div class="element clickable property protected $docComment" data-toggle="collapse" data-target=".$docComment .collapse">
+<h2>docComment</h2>
+<pre>$docComment : string</pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="span8">
+<p class="long_description"></p>
+<table class="table table-bordered">
+<tr>
+<th>inherited_from</th>
+<td>\Tx_PhpParser_Domain_Model_AbstractObject::$$docComment</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Tx_PhpParser_Domain_Model_Container::$$docComment</td>
+</tr>
+</table>
+</div></div>
+</div>
+<a name="%24docCommentParser" id="$docCommentParser"> </a><div class="element clickable property protected $docCommentParser" data-toggle="collapse" data-target=".$docCommentParser .collapse">
+<h2>$docCommentParser</h2>
+<pre>$docCommentParser : <a href="Tx_PhpParser_Parser_DocCommentParser.html">\Tx_PhpParser_Parser_DocCommentParser</a></pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="span8">
+<p class="long_description"></p>
+<table class="table table-bordered">
+<tr>
+<th>inherited_from</th>
+<td>\Tx_PhpParser_Domain_Model_AbstractObject::$$docCommentParser</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Tx_PhpParser_Domain_Model_Container::$$docCommentParser</td>
+</tr>
+</table>
+</div></div>
+</div>
+<a name="%24functions" id="$functions"> </a><div class="element clickable property protected $functions" data-toggle="collapse" data-target=".$functions .collapse">
+<h2>Tx_PhpParser_Domain_Model_Function</h2>
+<pre>$functions : array</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="span8"><p class="long_description"></p></div></div>
+</div>
+<a name="%24modifiers" id="$modifiers"> </a><div class="element clickable property protected $modifiers" data-toggle="collapse" data-target=".$modifiers .collapse">
+<h2>array</h2>
+<pre>$modifiers : string</pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="span8">
+<p class="long_description"></p>
+<table class="table table-bordered">
+<tr>
+<th>inherited_from</th>
+<td>\Tx_PhpParser_Domain_Model_AbstractObject::$$modifiers</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Tx_PhpParser_Domain_Model_Container::$$modifiers</td>
+</tr>
+</table>
+</div></div>
+</div>
+<a name="%24name" id="$name"> </a><div class="element clickable property protected $name" data-toggle="collapse" data-target=".$name .collapse">
+<h2>name</h2>
+<pre>$name : string</pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="span8">
+<p class="long_description"></p>
+<table class="table table-bordered">
+<tr>
+<th>inherited_from</th>
+<td>\Tx_PhpParser_Domain_Model_AbstractObject::$$name</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Tx_PhpParser_Domain_Model_Container::$$name</td>
+</tr>
+</table>
+</div></div>
+</div>
+<a name="%24namespace" id="$namespace"> </a><div class="element clickable property protected $namespace" data-toggle="collapse" data-target=".$namespace .collapse">
+<h2>$namespace</h2>
+<pre>$namespace : string</pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="span8">
+<p class="long_description"></p>
+<table class="table table-bordered">
+<tr>
+<th>inherited_from</th>
+<td>\Tx_PhpParser_Domain_Model_AbstractObject::$$namespace</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Tx_PhpParser_Domain_Model_Container::$$namespace</td>
+</tr>
+</table>
+</div></div>
+</div>
+<a name="%24node" id="$node"> </a><div class="element clickable property protected $node" data-toggle="collapse" data-target=".$node .collapse">
+<h2>$node</h2>
+<pre>$node : \PHPParser_Node</pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="span8">
+<p class="long_description"></p>
+<table class="table table-bordered">
+<tr>
+<th>inherited_from</th>
+<td>\Tx_PhpParser_Domain_Model_AbstractObject::$$node</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Tx_PhpParser_Domain_Model_Container::$$node</td>
+</tr>
+</table>
+</div></div>
+</div>
+<a name="%24postIncludes" id="$postIncludes"> </a><div class="element clickable property protected $postIncludes" data-toggle="collapse" data-target=".$postIncludes .collapse">
+<h2>$postIncludes</h2>
+<pre>$postIncludes : array</pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="span8">
+<p class="long_description"></p>
+<table class="table table-bordered"><tr>
+<th>inherited_from</th>
+<td>\Tx_PhpParser_Domain_Model_Container::$$postIncludes</td>
+</tr></table>
+</div></div>
+</div>
+<a name="%24preIncludes" id="$preIncludes"> </a><div class="element clickable property protected $preIncludes" data-toggle="collapse" data-target=".$preIncludes .collapse">
+<h2>$preIncludes</h2>
+<pre>$preIncludes : array</pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="span8">
+<p class="long_description"></p>
+<table class="table table-bordered"><tr>
+<th>inherited_from</th>
+<td>\Tx_PhpParser_Domain_Model_Container::$$preIncludes</td>
+</tr></table>
+</div></div>
+</div>
+<a name="%24tags" id="$tags"> </a><div class="element clickable property protected $tags" data-toggle="collapse" data-target=".$tags .collapse">
+<h2>array</h2>
+<pre>$tags : string</pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="span8">
+<p class="long_description"></p>
+<table class="table table-bordered">
+<tr>
+<th>inherited_from</th>
+<td>\Tx_PhpParser_Domain_Model_AbstractObject::$$tags</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Tx_PhpParser_Domain_Model_Container::$$tags</td>
+</tr>
+</table>
+</div></div>
+</div>
+<a name="%24mapModifierNames" id="$mapModifierNames"> </a><div class="element clickable property private $mapModifierNames" data-toggle="collapse" data-target=".$mapModifierNames .collapse">
+<h2>const MODIFIER_PUBLIC    =  1;
+ const MODIFIER_PROTECTED =  2;
+ const MODIFIER_PRIVATE   =  4;
+ const MODIFIER_STATIC    =  8;
+ const MODIFIER_ABSTRACT  = 16;
+ const MODIFIER_FINAL     = 32;</h2>
+<pre>$mapModifierNames : array</pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="span8">
+<p class="long_description"></p>
+<table class="table table-bordered">
+<tr>
+<th>inherited_from</th>
+<td>\Tx_PhpParser_Domain_Model_AbstractObject::$$mapModifierNames</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Tx_PhpParser_Domain_Model_Container::$$mapModifierNames</td>
+</tr>
+</table>
+</div></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="row"><footer class="span12">
+            Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by <a href="http://glyphicons.com/">Glyphicons</a>.<br>
+            Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor 2.0.0a2</a> and<br>
+            generated on 2012-04-23T11:17:47+02:00.<br></footer></div>
+</div>
+</body>
+</html>

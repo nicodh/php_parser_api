@@ -27,8 +27,8 @@
  * @package
  * @author Nico de Haen
  */
-namespace Test\Model {
-	class Tx_PhpParser_Tests_MultipleBracedNamespaces {
+namespace PhpParser\Test\Model {
+	class MultipleBracedNamespaces {
 
 	}
 }
@@ -38,14 +38,14 @@ namespace Test\Model {
 /**
  * This is another namespace
  */
-namespace Test\Model2 {
+namespace PhpParser\Test\Model2 {
 	/**
 	 * This is my doc comment
 	 *
 	 * @author Nico de Haen
 	 *
 	 */
-	class Tx_PhpParser_Tests_MultipleBracedNamespaces {
+	class MultipleBracedNamespaces {
 
 	}
 }

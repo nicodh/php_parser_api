@@ -1,4 +1,5 @@
 <?php
+namespace TYPO3\ParserApi\Tests;
 /***************************************************************
  *  Copyright notice
  *
@@ -28,38 +29,60 @@
  * @author Nico de Haen
  */
 
-abstract class Tx_PhpParser_Tests_BaseTest extends Tx_Extbase_Tests_Unit_BaseTestCase{
+abstract class BaseTest extends \TYPO3\FLOW3\Tests\UnitTestCase{
 
 	/**
 	 * @var string
 	 */
 	protected $testDir = '';
 
+	protected $fixturesPath = '';
+
 	/**
-	 * @var Tx_PhpParser_Service_Parser
+	 * @var string
+	 */
+	protected $packagePath = '';
+
+	/**
+	 * @var \TYPO3\ParserApi\Service\Parser
 	 */
 	protected $parser;
 
 	/**
-	 * @var Tx_PhpParser_Service_Printer
+	 * @var \TYPO3\ParserApi\Service\Printer
 	 */
 	protected $printer;
 
-	public function setUp(){
-		$this->parser = t3lib_div::makeInstance('Tx_PhpParser_Service_Parser');
-		$this->printer = t3lib_div::makeInstance('Tx_PhpParser_Service_Printer');
-		//vfsStream::setup('testDir');
-		//$this->testDir = vfsStream::url('testDir').'/';
+	/**
+	 * @var \TYPO3\FLOW3\Reflection\ReflectionService
+	 *
+	 * @FLOW3\Inject
+	 */
+	protected $reflectionService;
 
-		// just for inspecting the generated files
-		$this->testDir = t3lib_extmgm::extPath('php_parser_api') . 'Tests/Fixtures/tmp/';
+	public function setUp(){
+		$path = dirname(__FILE__);
+		$pathParts = explode('Tests',$path);
+		$this->packagePath = $pathParts[0];
+		$this->fixturesPath = $this->packagePath . 'Tests/Fixtures/';
+		require_once($this->packagePath.'Resources/Private/PHP/PHP-Parser/lib/bootstrap.php');
+		$this->parser = new \TYPO3\ParserApi\Service\Parser();
+		$this->printer = new \TYPO3\ParserApi\Service\Printer();
+		\vfsStreamWrapper::register();
+		\vfsStreamWrapper::setRoot(new \vfsStreamDirectory('testDirectory'));
+		$this->testDir = \vfsStream::url('testDirectory') . '/';
+
+		// uncomment for inspecting the generated files
+		/**
+		$this->testDir = $this->packagePath . 'Tests/Fixtures/tmp/';
 		if(!is_dir($this->testDir)) {
 			mkdir($this->testDir);
 		}
+		 * */
 	}
 
 	public function tearDown() {
-		$tmpFiles = t3lib_div::getFilesInDir($this->testDir);
+		$tmpFiles = \TYPO3\FLOW3\Utility\Files::readDirectoryRecursively($this->testDir);
 		foreach($tmpFiles as $tmpFile) {
 			//unlink($this->testDir . $tmpFile);
 		}
@@ -67,7 +90,7 @@ abstract class Tx_PhpParser_Tests_BaseTest extends Tx_Extbase_Tests_Unit_BaseTes
 	}
 
 	protected function parseFile($fileName) {
-		$classFilePath = t3lib_extmgm::extPath('php_parser_api') . 'Tests/Fixtures/' . $fileName;
+		$classFilePath = $this->packagePath . 'Tests/Fixtures/' . $fileName;
 		$classFileObject = $this->parser->parseFile($classFilePath);
 		return $classFileObject;
 	}
@@ -75,13 +98,13 @@ abstract class Tx_PhpParser_Tests_BaseTest extends Tx_Extbase_Tests_Unit_BaseTes
 	protected function compareClasses($classFileObject, $classFilePath) {
 		$this->assertTrue(file_exists($classFilePath), $classFilePath . 'not exists');
 		$classObject = $classFileObject->getFirstClass();
-		$this->assertTrue($classObject instanceof Tx_PhpParser_Domain_Model_Class);
+		$this->assertTrue($classObject instanceof \TYPO3\ParserApi\Domain\Model\ClassObject);
 		$className = $classObject->getName();
 		if(!class_exists($className)) {
 			require_once($classFilePath);
 		}
 		$this->assertTrue(class_exists($className), 'Class "' . $className . '" does not exist! Tried ' . $classFilePath);
-		$reflectedClass = new ReflectionClass($className);
+		$reflectedClass = new \ReflectionClass($className);
 		$this->assertEquals(count($reflectedClass->getMethods()), count($classObject->getMethods()), 'Method count does not match');
 		$this->assertEquals(count($reflectedClass->getProperties()), count($classObject->getProperties()));
 		$this->assertEquals(count($reflectedClass->getConstants()), count($classObject->getConstants()));

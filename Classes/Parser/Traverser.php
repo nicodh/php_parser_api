@@ -1,4 +1,5 @@
 <?php
+namespace TYPO3\ParserApi\Parser;
 /***************************************************************
  *  Copyright notice
  *
@@ -28,7 +29,7 @@
  * @author Nico de Haen
  */
 
-class Tx_PhpParser_Parser_Traverser extends PHPParser_NodeTraverser implements Tx_PhpParser_Parser_TraverserInterface{
+class Traverser extends \PHPParser_NodeTraverser implements TraverserInterface{
 
 	public function resetVisitors() {
 		$this->visitors = array();
