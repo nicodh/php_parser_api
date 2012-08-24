@@ -31,6 +31,9 @@ namespace TYPO3\ParserApi\Parser;
 
 class Traverser extends \PHPParser_NodeTraverser implements TraverserInterface{
 
+	/**
+	 * remove all previous set visitors
+	 */
 	public function resetVisitors() {
 		$this->visitors = array();
 	}

@@ -31,6 +31,10 @@ namespace TYPO3\ParserApi\Parser;
 
 class ClassFactory implements ClassFactoryInterface{
 
+	/**
+	 * @param \PHPParser_Node_Stmt_Class $classNode
+	 * @return \TYPO3\ParserApi\Domain\Model\ClassObject
+	 */
 	public function buildClassObjectFromNode(\PHPParser_Node_Stmt_Class $classNode) {
 		$classObject = new \TYPO3\ParserApi\Domain\Model\ClassObject($classNode->getName());
 		$classObject->setNode($classNode);
@@ -43,18 +47,30 @@ class ClassFactory implements ClassFactoryInterface{
 		return $classObject;
 	}
 
+	/**
+	 * @param \PHPParser_Node_Stmt_ClassMethod $methodNode
+	 * @return \TYPO3\ParserApi\Domain\Model\ClassObject\Method
+	 */
 	public function buildClassMethodObjectFromNode (\PHPParser_Node_Stmt_ClassMethod $methodNode) {
 		$methodObject = new \TYPO3\ParserApi\Domain\Model\ClassObject\Method($methodNode->getName());
 		$this->setPropertiesFromNode($methodNode, $methodObject);
 		return $methodObject;
 	}
 
+	/**
+	 * @param \PHPParser_Node_Stmt_Function $functionNode
+	 * @return \TYPO3\ParserApi\Domain\Model\FunctionObject
+	 */
 	public function buildFunctionObjectFromNode (\PHPParser_Node_Stmt_Function $functionNode) {
 		$functionObject = new\TYPO3\ParserApi\Domain\Model\FunctionObject($functionNode->getName());
 		$this->setPropertiesFromNode($functionNode, $functionObject);
 		return $functionObject;
 	}
 
+	/**
+	 * @param \PHPParser_Node_Stmt_Property $propertyNode
+	 * @return \TYPO3\ParserApi\Domain\Model\ClassObject\Property
+	 */
 	public function buildPropertyObjectFromNode(\PHPParser_Node_Stmt_Property $propertyNode) {
 		$propertyName = '';
 		$propertyDefault = NULL;
@@ -76,19 +92,28 @@ class ClassFactory implements ClassFactoryInterface{
 		return $propertyObject;
 	}
 
-	public function buildNamespaceObjectFromNode(\PHPParser_Node_Stmt_Namespace $node) {
-		$nameSpaceObject = new \TYPO3\ParserApi\Domain\Model\NamespaceObject(\TYPO3\ParserApi\Parser\Utility\NodeConverter::getValueFromNode($node->getName()));
-		$nameSpaceObject->setNode($node);
+	/**
+	 * @param \PHPParser_Node_Stmt_Namespace $nameSpaceNode
+	 * @return \TYPO3\ParserApi\Domain\Model\NamespaceObject
+	 */
+	public function buildNamespaceObjectFromNode(\PHPParser_Node_Stmt_Namespace $nameSpaceNode) {
+		$nameSpaceObject = new \TYPO3\ParserApi\Domain\Model\NamespaceObject(\TYPO3\ParserApi\Parser\Utility\NodeConverter::getValueFromNode($nameSpaceNode->getName()));
+		$nameSpaceObject->setNode($nameSpaceNode);
 		$nameSpaceObject->initDocComment();
 		return $nameSpaceObject;
 	}
 
-	protected function setPropertiesFromNode(\PHPParser_Node_Stmt $functionNode, $object) {
-		$object->setNode($functionNode);
-		if(method_exists($functionNode,'getType')) {
-			$object->setModifiers($functionNode->getType());
+	/**
+	 * @param \PHPParser_Node_Stmt $node
+	 * @param \TYPO3\ParserApi\Domain\Model\AbstractObject
+	 * @return \TYPO3\ParserApi\Domain\Model\AbstractObject
+	 */
+	protected function setPropertiesFromNode(\PHPParser_Node_Stmt $node, $object) {
+		$object->setNode($node);
+		if(method_exists($node,'getType')) {
+			$object->setModifiers($node->getType());
 		}
-		$object->setBodyStmts($functionNode->getStmts());
+		$object->setBodyStmts($node->getStmts());
 		$object->initDocComment();
 		$object->initializeParameters();
 		return $object;

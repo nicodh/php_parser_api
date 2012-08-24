@@ -4,7 +4,7 @@ namespace TYPO3\ParserApi\Domain\Model;
  *  Copyright notice
  *
  *  (c) 2012 Nico de Haen <mail@ndh-websolutions.de>
- *  
+ *
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -27,6 +27,7 @@ namespace TYPO3\ParserApi\Domain\Model;
 /**
  * TODO: enable declares
  *
+ * @property string parentClass
  * @author Nico de Haen
  * @package PhpParserApi
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
@@ -38,7 +39,7 @@ class ClassObject extends Container {
 	/**
 	 * interfaces
 	 *
-	 * @var  array of string
+	 * @var  string[]
 	 */
 	protected $interfaceNames = array();
 
@@ -46,7 +47,7 @@ class ClassObject extends Container {
 	/**
 	 * methods
 	 *
-	 * @var array
+	 * @var ClassObject\Method[]
 	 */
 	protected $methods = array();
 
@@ -57,27 +58,32 @@ class ClassObject extends Container {
 	 * @var  string parentClassName
 	 */
 	protected $parentClassName = '';
-	
+
 	/**
 	 * properties
 	 *
-	 * @var array
+	 * @var ClassObject\Property[]
 	 */
 	protected $properties = array();
+
+	/**
+	 * @var array
+	 */
+	protected $propertyNames = array();
 
 
 	/**
 	 * constructor of this class
 	 *
-	 * @param boolean $createNode
 	 * @param string $name
-	 * @return unknown_type
+	 * @param boolean $createNode
+	 * @return \TYPO3\ParserApi\Domain\Model\ClassObject
 	 */
 	public function __construct($name, $createNode = TRUE) {
 		$this->name = $name;
-		if($createNode) {
+		if ($createNode) {
 			$this->node = \TYPO3\ParserApi\Parser\NodeFactory::buildClassNode($name);
-			$this->initDocComment();
+			// $this->initDocComment();
 		}
 	}
 
@@ -95,15 +101,16 @@ class ClassObject extends Container {
 		$methodNames = array_keys($this->methods);
 		if (is_array($methodNames) && in_array($methodName, $methodNames)) {
 			return TRUE;
+		} else {
+			return FALSE;
 		}
-		else return FALSE;
 	}
 
 	/**
 	 * Setter for methods
 	 *
-	 * @param array $methods (TYPO3\ParserApi\Domain\Model\ClassObject\Method[])
-	 * @return void
+	 * @param ClassObject\Method[])
+	 * @return \TYPO3\ParserApi\Domain\Model\ClassObject
 	 */
 	public function setMethods(array $methods) {
 		$this->methods = $methods;
@@ -113,10 +120,10 @@ class ClassObject extends Container {
 	/**
 	 * Setter for a single method (allows to override an existing method)
 	 *
-	 * @param \TYPO3\ParserApi\Domain\Model\ClassObject\Method $method
-	 * @return void
+	 * @param ClassObject\Method $classMethod
+	 * @return \TYPO3\ParserApi\Domain\Model\ClassObject
 	 */
-	public function setMethod(\TYPO3\ParserApi\Domain\Model\ClassObject\Method $classMethod) {
+	public function setMethod(ClassObject\Method $classMethod) {
 		$this->methods[$classMethod->getName()] = $classMethod;
 		return $this;
 	}
@@ -139,15 +146,16 @@ class ClassObject extends Container {
 	public function getMethod($methodName) {
 		if ($this->methodExists($methodName)) {
 			return $this->methods[$methodName];
+		} else {
+			return NULL;
 		}
-		else return NULL;
 	}
 
 	/**
 	 * Add a method
 	 *
 	 * @param \TYPO3\ParserApi\Domain\Model\ClassObject\Method $classMethod
-	 * @return void
+	 * @return \TYPO3\ParserApi\Domain\Model\ClassObject
 	 */
 	public function addMethod($classMethod) {
 		if (!$this->methodExists($classMethod->getName())) {
@@ -184,8 +192,9 @@ class ClassObject extends Container {
 			$this->methods[$newName] = $method;
 			$this->removeMethod($oldName);
 			return TRUE;
+		} else {
+			return FALSE;
 		}
-		else return FALSE;
 	}
 
 	/**
@@ -236,15 +245,16 @@ class ClassObject extends Container {
 	public function getProperty($propertyName) {
 		if ($this->propertyExists($propertyName)) {
 			return $this->properties[$propertyName];
+		} else {
+			return NULL;
 		}
-		else return NULL;
 	}
 
 	/**
 	 * Setter for properties
 	 *
-	 * @param select $properties properties
-	 * @return void
+	 * @param array $properties
+	 * @return \TYPO3\ParserApi\Domain\Model\ClassObject
 	 */
 	public function setProperties($properties) {
 		$this->properties = $properties;
@@ -283,13 +293,14 @@ class ClassObject extends Container {
 	 */
 	public function renameProperty($oldName, $newName) {
 		if ($this->propertyExists($oldName)) {
-			$property = $this->properties[$oldName];
+			$property = $this->getProperty($oldName);
 			$property->setName($newName);
 			$this->properties[$newName] = $property;
 			$this->removeProperty($oldName);
 			return TRUE;
+		} else {
+			return FALSE;
 		}
-		else return FALSE;
 	}
 
 	/**
@@ -304,8 +315,9 @@ class ClassObject extends Container {
 		}
 		if (in_array($propertyName, $this->getPropertyNames())) {
 			return TRUE;
+		} else {
+			return FALSE;
 		}
-		else return FALSE;
 	}
 
 	/**
@@ -319,8 +331,9 @@ class ClassObject extends Container {
 			$this->propertyNames[] = $classProperty->getName();
 			$this->properties[$classProperty->getName()] = $classProperty;
 			return TRUE;
+		} else {
+			return FALSE;
 		}
-		else return FALSE;
 	}
 
 	/**
@@ -344,15 +357,17 @@ class ClassObject extends Container {
 	}
 
 	/**
-	 * @param array of strings $interfaceNames
+	 * @param array $interfaceNames
+	 * @return \TYPO3\ParserApi\Domain\Model\ClassObject
 	 */
 	public function setInterfaces(array $interfaceNames) {
 		$this->interfaceNames = $interfaceNames;
 		$interfaceNodes = array();
-		foreach($interfaceNames as $interfaceName) {
-			$interfaceNodes[] = Tx_PhpParser_Parser_NodeFactory::buildNodeFromName($interfaceName);
+		foreach ($interfaceNames as $interfaceName) {
+			$interfaceNodes[] = \TYPO3\ParserApi\Parser\NodeFactory::buildNodeFromName($interfaceName);
 		}
 		$this->node->setImplements($interfaceNodes);
+		return $this;
 	}
 
 
@@ -360,11 +375,13 @@ class ClassObject extends Container {
 	 * Adds a interface node, based on a string
 	 *
 	 * @param string $interfaceName
+	 * @param bool $updateNode
+	 * @return \TYPO3\ParserApi\Domain\Model\ClassObject
 	 */
 	public function addInterfaceName($interfaceName, $updateNode = TRUE) {
-		if(!in_array($interfaceName, $this->interfaceNames)) {
+		if (!in_array($interfaceName, $this->interfaceNames)) {
 			$this->interfaceNames[] = $interfaceName;
-			if($updateNode) {
+			if ($updateNode) {
 				$interfaceNodes = $this->node->getImplements();
 				$interfaceNodes[] = \TYPO3\ParserApi\Parser\NodeFactory::buildNodeFromName($interfaceName);
 				$this->node->setImplements($interfaceNodes);
@@ -394,11 +411,11 @@ class ClassObject extends Container {
 	/**
 	 * @param $interfaceNameToRemove
 	 */
-	public function removeInterface( $interfaceNameToRemove) {
+	public function removeInterface($interfaceNameToRemove) {
 		$interfaceNames = array();
 		$interfaceNodes = array();
-		foreach($this->interfaceNames as $interfaceName) {
-			if($interfaceName != $interfaceNameToRemove){
+		foreach ($this->interfaceNames as $interfaceName) {
+			if ($interfaceName != $interfaceNameToRemove) {
 				$interfaceNames[] = $interfaceName;
 				$interfaceNodes[] = \TYPO3\ParserApi\Parser\NodeFactory::buildNodeFromName($interfaceName);
 			}
@@ -409,7 +426,7 @@ class ClassObject extends Container {
 
 	public function removeAllInterfaces() {
 		$this->interfaceNames = array();
-		$this->node->setImplements( array());
+		$this->node->setImplements(array());
 	}
 
 	/**
@@ -417,11 +434,11 @@ class ClassObject extends Container {
 	 *
 	 * @param string $parentClassName
 	 * @param boolean $updateNode
-	 * @return void
+	 * @return \TYPO3\ParserApi\Domain\Model\ClassObject
 	 */
 	public function setParentClassName($parentClassName, $updateNode = TRUE) {
 		$this->parentClassName = $parentClassName;
-		if($updateNode) {
+		if ($updateNode) {
 			$this->node->setExtends(\TYPO3\ParserApi\Parser\NodeFactory::buildNodeFromName($parentClassName));
 		}
 		return $this;
@@ -441,7 +458,7 @@ class ClassObject extends Container {
 	 */
 	public function removeParentClassName() {
 		$this->parentClass = '';
-		$this->node->setExtends(NULL);
+		$this->node->setExtends();
 	}
 
 	/**
@@ -454,39 +471,36 @@ class ClassObject extends Container {
 		$properties = array();
 		$methods = array();
 
-		foreach($this->methods as $method) {
+		foreach ($this->methods as $method) {
 			$methods[$method->getName()] = $method->getNode();
 		}
 
-		foreach($this->properties as $property) {
+		foreach ($this->properties as $property) {
 			$properties[$property->getName()] = $property->getNode();
 		}
-
-        //ksort($properties);
-        //ksort($methods);
 
 		foreach ($this->constants as $name => $value) {
 			$stmts[] = \TYPO3\ParserApi\Parser\NodeFactory::buildClassConstantNode($name, $value);
 		}
 
-	    foreach ($properties as $property) {
-	         $stmts[] = $property;
-	    }
+		foreach ($properties as $property) {
+			$stmts[] = $property;
+		}
 
-	    foreach ($methods as $method) {
-            $stmts[] = $method;
-        }
+		foreach ($methods as $method) {
+			$stmts[] = $method;
+		}
 
-	    $this->node->setStmts($stmts);
+		$this->node->setStmts($stmts);
 	}
 
 	/**
 	 * @param string $modifierName
-	 * @return Tx_PhpParser_Domain_Model_AbstractObject (for fluid interface)
-	 * @throws Tx_PhpParser_Exception_SyntaxErrorException
+	 * @return \TYPO3\ParserApi\Domain\Model\AbstractObject (for fluid interface)
+	 * @throws \TYPO3\ParserApi\Exception\SyntaxErrorException
 	 */
 	public function addModifier($modifierName) {
-		if(!in_array($modifierName, array('final','abstract'))) {
+		if (!in_array($modifierName, array('final', 'abstract'))) {
 			throw new \TYPO3\ParserApi\Exception\SyntaxErrorException($modifierName . ' modifier can\'t be applied to classes');
 		} else {
 			return parent::addModifier($modifierName);
@@ -495,11 +509,11 @@ class ClassObject extends Container {
 
 	/**
 	 * @param string $modifierName
-	 * @return Tx_PhpParser_Domain_Model_AbstractObject (for fluid interface)
-	 * @throws Tx_PhpParser_Exception_SyntaxErrorException
+	 * @return \TYPO3\ParserApi\Domain\Model\AbstractObject (for fluid interface)
+	 * @throws \TYPO3\ParserApi\Exception\SyntaxErrorException
 	 */
 	public function setModifier($modifierName) {
-		if(!in_array($modifierName, array('final','abstract'))) {
+		if (!in_array($modifierName, array('final', 'abstract'))) {
 			throw new \TYPO3\ParserApi\Exception\SyntaxErrorException($modifierName . ' modifier can\'t be applied to classes');
 		} else {
 			return parent::setModifier($modifierName);
@@ -507,4 +521,5 @@ class ClassObject extends Container {
 	}
 
 }
+
 ?>

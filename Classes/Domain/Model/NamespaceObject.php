@@ -42,16 +42,6 @@ class NamespaceObject extends Container{
 
 
 	/**
-	 * @var array \TYPO3\ParserApi\Domain\Model\ClassObject[]
-	 */
-	protected $classes = array();
-
-	/**
-	 * @var array \TYPO3\ParserApi\Domain\Model\FunctionObject[]
-	 */
-	protected $functions = array();
-
-	/**
 	 * @param string $name
 	 * @param boolean
 	 */
@@ -61,14 +51,6 @@ class NamespaceObject extends Container{
 			$this->node = \TYPO3\ParserApi\Parser\NodeFactory::buildNamespaceNode($name);
 			$this->initDocComment();
 		}
-	}
-
-	public function setFunctions($functions) {
-		$this->functions = $functions;
-	}
-
-	public function getFunctions() {
-		return $this->functions;
 	}
 
 	public function addAliasDeclaration($aliasDeclaration) {

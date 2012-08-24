@@ -51,7 +51,7 @@ class Container extends AbstractObject {
 	protected $postIncludes = array();
 
 	/**
-	 * @var array Tx_PhpParser_Domain_Model_Function
+	 * @var array FunctionObject[]
 	 */
 	protected $functions = array();
 
@@ -72,13 +72,13 @@ class Container extends AbstractObject {
 
 
 	/**
-	 * @var array Tx_PhpParser_Domain_Model_Class
+	 * @var array ClassObject[]
 	 */
 	protected $classes = array();
 
 
 	/**
-	 * @return Tx_PhpParser_Domain_Model_Class
+	 * @return ClassObject
 	 */
 	public function getFirstClass() {
 		$classes = $this->getClasses();
@@ -94,7 +94,7 @@ class Container extends AbstractObject {
 	}
 
 	/**
-	 * @param array $classes
+	 * @param array ClassObject[]
 	 */
 	public function setClasses($classes) {
 		$this->classes = $classes;
@@ -102,7 +102,7 @@ class Container extends AbstractObject {
 	}
 
 	/**
-	 * @return array
+	 * @return ClassObject[]
 	 */
 	public function getClasses() {
 		return $this->classes;
@@ -175,21 +175,21 @@ class Container extends AbstractObject {
 	}
 
 	/**
-	 * @param array $functions
+	 * @param array FunctionObject[]
 	 */
-	public function setFunctions($functions) {
+	public function setFunctions(array $functions) {
 		$this->functions = $functions;
 	}
 
 	/**
 	 * @param FunctionObject $function
 	 */
-	public function addFunction($function) {
+	public function addFunction(FunctionObject $function) {
 		$this->functions[$function->getName()] = $function;
 	}
 
 	/**
-	 * @return array
+	 * @return array FunctionObject[]
 	 */
 	public function getFunctions() {
 		return $this->functions;

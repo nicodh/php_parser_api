@@ -27,6 +27,7 @@ namespace TYPO3\ParserApi\Service;
 /**
  * provides methods to generate classes from PHP code
  *
+ * @property \TYPO3\ParserApi\Parser\Visitor\FileVisitorInterface classFileVisitor
  * @package PhpParserApi
  * @author Nico de Haen
  */
@@ -56,14 +57,14 @@ class Parser extends \PHPParser_Parser {
 	 */
 	public function parseCode($code) {
 		$stmts = $this->parseRawStatements($code);
-		// set defaults
-		if(NULL === $this->traverser) {
+			// set defaults
+		if (NULL === $this->traverser) {
 			$this->traverser = new \TYPO3\ParserApi\Parser\Traverser;
 		}
-		if(NULL === $this->fileVisitor) {
+		if (NULL === $this->fileVisitor) {
 			$this->fileVisitor = new \TYPO3\ParserApi\Parser\Visitor\FileVisitor;
 		}
-		if(NULL === $this->classFactory) {
+		if (NULL === $this->classFactory) {
 			$this->classFactory = new \TYPO3\ParserApi\Parser\ClassFactory;
 		}
 		$this->fileVisitor->setClassFactory($this->classFactory);
@@ -75,12 +76,12 @@ class Parser extends \PHPParser_Parser {
 
 	/**
 	 * @param string $fileName
+	 * @throws \TYPO3\ParserApi\Exception\FileNotFoundException
 	 * @return \TYPO3\ParserApi\Domain\Model\File
-	 * @throws Exception
 	 */
 	public function parseFile($fileName) {
-		if(!file_exists($fileName)) {
-			throw new \TYPO3\ParserApi\Exception\FileNotFoundException('File "'. $fileName . '" not found!');
+		if (!file_exists($fileName)) {
+			throw new \TYPO3\ParserApi\Exception\FileNotFoundException('File "' . $fileName . '" not found!');
 		}
 		$fileHandler = fopen($fileName, 'r');
 		$code = fread($fileHandler, filesize($fileName));
@@ -105,7 +106,8 @@ class Parser extends \PHPParser_Parser {
 	}
 
 	/**
-	 * @param Tx_PhpParser_Parser_TraverserInterface $traverser
+	 * @param \TYPO3\ParserApi\Parser\TraverserInterface
+	 * @return void
 	 */
 	public function setTraverser(\TYPO3\ParserApi\Parser\TraverserInterface $traverser) {
 		$this->traverser = $traverser;
@@ -123,10 +125,10 @@ class Parser extends \PHPParser_Parser {
 	 * @param array $replacements
 	 * @param string $nodeType
 	 * @param string $nodeProperty
-	 * @return PHPParser_Node
+	 * @return array
 	 */
 	public function replaceNodeProperty($stmts, $replacements, $nodeType = NULL, $nodeProperty = 'name') {
-		if(NULL === $this->traverser) {
+		if (NULL === $this->traverser) {
 			$this->traverser = new \TYPO3\ParserApi\Parser\Traverser;
 		}
 		$this->traverser->resetVisitors();

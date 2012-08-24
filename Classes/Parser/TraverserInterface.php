@@ -30,5 +30,10 @@ namespace TYPO3\ParserApi\Parser;
  */
 
 interface TraverserInterface {
+
 	public function resetVisitors();
+
+	public function appendVisitor(\PHPParser_NodeVisitor $visitor);
+
+	public function traverse( array $stmts);
 }

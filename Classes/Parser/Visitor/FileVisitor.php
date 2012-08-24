@@ -107,6 +107,7 @@ class FileVisitor extends \PHPParser_NodeVisitorAbstract implements FileVisitorI
 		if($this->isContainerNode(end($this->contextStack)) || count($this->contextStack) === 0) {
 			// we are on the first level
 			if($node instanceof \PHPParser_Node_Stmt_Class) {
+				$this->currentClassObject->initDocComment();
 				if(count($this->contextStack) > 0) {
 					if(end($this->contextStack)->getNodeType() == 'Stmt_Namespace') {
 						$currentNamespaceName = \TYPO3\ParserApi\Parser\Utility\NodeConverter::getValueFromNode(end($this->contextStack));

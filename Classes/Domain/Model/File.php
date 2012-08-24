@@ -30,12 +30,12 @@ namespace TYPO3\ParserApi\Domain\Model;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class File extends Container{
+class File extends Container {
 
 	protected $filePathAndName = '';
 
 	/**
-	 * @var array of Tx_PhpParser_Domain_Model_Namespace
+	 * @var NamespaceObject[]
 	 */
 	protected $namespaces = array();
 
@@ -46,17 +46,17 @@ class File extends Container{
 	protected $stmts = array();
 
 	/**
-	 * @var array with PHPParser_Node_Stmts !!
+	 * @var \PHPParser_Node_Stmts[]
 	 */
 	protected $aliasDeclarations = array();
 
 	/**
-	 * @var array of \TYPO3\ParserApi\Domain\Model\FunctionObject
+	 * @var array of FunctionObject
 	 */
 	protected $functions = array();
 
 	/**
-	 * @param \TYPO3\ParserApi\Domain\Model\ClassObject $class
+	 * @param ClassObject
 	 */
 	public function addClass(\TYPO3\ParserApi\Domain\Model\ClassObject $class) {
 		$this->classes[] = $class;
@@ -64,21 +64,22 @@ class File extends Container{
 
 	/**
 	 * @param string $className
-	 * @return \TYPO3\ParserApi\Domain\Model\ClassObject
+	 * @return ClassObject|NULL
 	 */
 	public function getClassByName($className) {
-		foreach($this->getClasses() as $class) {
-			if($class->getName() == $className) {
+		foreach ($this->getClasses() as $class) {
+			if ($class->getName() == $className) {
 				return $class;
 			}
 		}
+		return NULL;
 	}
 
 	/**
-	 * @return array
+	 * @return ClassObject[]
 	 */
 	public function getClasses() {
-		if(count($this->namespaces) > 0) {
+		if (count($this->namespaces) > 0) {
 			return reset($this->namespaces)->getClasses();
 		} else {
 			return $this->classes;
@@ -87,19 +88,31 @@ class File extends Container{
 
 
 	/**
-	 * @param \TYPO3\ParserApi\Domain\Model\NamespaceObject $namespace
+	 * @param NamespaceObject
 	 */
 	public function addNamespace(\TYPO3\ParserApi\Domain\Model\NamespaceObject $namespace) {
 		$this->namespaces[] = $namespace;
 	}
 
 	/**
-	 * @return array of \TYPO3\ParserApi\Domain\Model\NamespaceObject
+	 * @return NamespaceObject[]
 	 */
 	public function getNamespaces() {
 		return $this->namespaces;
 	}
 
+	/**
+	 * get the first namespace of this file
+	 * (only for convenience, most files only use one namespace)
+	 * @return \TYPO3\ParserApi\Domain\Model\NamespaceObject
+	 */
+	public function getNamespace() {
+		return current($this->namespaces);
+	}
+
+	/**
+	 * @return bool
+	 */
 	public function hasNamespaces() {
 		return (count($this->namespaces) > 0);
 	}
@@ -124,13 +137,13 @@ class File extends Container{
 	 */
 	public function getStmts() {
 		$this->stmts = array();
-		if($this->hasNamespaces()) {
-			foreach($this->namespaces as $namespace) {
+		if ($this->hasNamespaces()) {
+			foreach ($this->namespaces as $namespace) {
 				$this->stmts[] = $namespace->getNode();
-				foreach($namespace->getAliasDeclarations() as $aliasDeclaration) {
+				foreach ($namespace->getAliasDeclarations() as $aliasDeclaration) {
 					$this->stmts[] = $aliasDeclaration;
 				}
-				$this->addSubStatements( $namespace);
+				$this->addSubStatements($namespace);
 			}
 		} else {
 			$this->addSubStatements($this);
@@ -143,19 +156,19 @@ class File extends Container{
 	 */
 	protected function addSubStatements($parentObject) {
 
-		foreach($parentObject->getPreClassStatements() as $preInclude) {
+		foreach ($parentObject->getPreClassStatements() as $preInclude) {
 			$this->stmts[] = $preInclude;
 		}
 
-		foreach($parentObject->getClasses() as $class) {
+		foreach ($parentObject->getClasses() as $class) {
 			$this->stmts[] = $class->getNode();
 		}
 
-		foreach($parentObject->getFunctions() as $function) {
+		foreach ($parentObject->getFunctions() as $function) {
 			$this->stmts[] = $function->getNode();
 		}
 
-		foreach($this->getPostClassStatements() as $postInclude) {
+		foreach ($this->getPostClassStatements() as $postInclude) {
 			$this->stmts[] = $postInclude;
 		}
 	}
