@@ -39,11 +39,11 @@ class  BuildObjectsTest extends BaseTest {
 	 * @test
 	 */
 	public function createSimpleClass() {
-		$this->assertTrue(is_writable($this->testDir), 'Directory not writable: Tests/Fixtures/tmp. Can\'t compare rendered files');
+		$this->assertTrue(is_writable($this->testDir), 'Directory not writable: ' . $this->testDir . '. Can\'t compare rendered files');
 		$newClassFileObject = new \TYPO3\ParserApi\Domain\Model\File;
 		$newClassName = 'NewClass';
 		$newClass = new \TYPO3\ParserApi\Domain\Model\ClassObject($newClassName);
-		$newClass->setDescription("This is a class created\nfrom scratch")
+		$newClass->setDescription("This is a class created from scratch")
 			->setTag('author','John Doe');
 		$newClassFileObject->addClass($newClass);
 		$newClassFilePath = $this->testDir . 'NewClassFromScratch.php';

@@ -88,6 +88,11 @@ class AbstractObject {
 	protected $docComment;
 
 	/**
+	 * @var \PHPParser_Node_Ignorable_Comment[]
+	 */
+	protected $commentNodes = array();
+
+	/**
 	 * @var string
 	 */
 	protected $namespace;
@@ -297,15 +302,24 @@ class AbstractObject {
 			foreach ($ignorables as $ignorable) {
 				if ($ignorable instanceof \PHPParser_Node_Ignorable_DocComment) {
 					$this->docComment = $ignorable;
+					$this->tags = $this->docComment->getTags();
+					$this->description = $this->docComment->getDescription();
+				}
+				if ($ignorable instanceof \PHPParser_Node_Ignorable_Comment) {
+					$this->commentNodes[$ignorable->getLine()] = $ignorable;
 				}
 			}
 		}
 		if (empty($this->docComment)) {
 			$this->docComment = new \PHPParser_Node_Ignorable_DocComment('');
 			$this->node->setIgnorables(array($this->docComment));
+			if(empty($this->tags)) {
+				$this->tags = $this->docComment->getTags();
+			}
+			if(empty($this->description)) {
+				$this->description = $this->docComment->getDescription();
+			}
 		}
-		$this->tags = $this->docComment->getTags();
-		$this->description = $this->docComment->getDescription();
 	}
 
 	/**
@@ -326,24 +340,20 @@ class AbstractObject {
 	}
 
 	/**
-	 * Setter for docComment
+	 * Setter for docComment string
 	 *
-	 * @param string $docComment docComment
-	 * @param boolean $updateNodeDocComment
+	 * @param string $docComment
 	 * @return void
 	 */
-	public function setDocComment($docComment, $updateNodeDocComment = TRUE) {
-		$this->docComment = $docComment;
-		if ($updateNodeDocComment) {
-			if (is_array($this->node->getIgnorables())) {
-				foreach ($this->node->getIgnorables() as $ignorable) {
-					if ($ignorable instanceof \PHPParser_Node_Ignorable_DocComment) {
-						$ignorable->setValue($this->docComment);
-					}
+	public function setDocCommentString($docComment) {
+		if (is_array($this->node->getIgnorables())) {
+			foreach ($this->node->getIgnorables() as $ignorable) {
+				if ($ignorable instanceof \PHPParser_Node_Ignorable_DocComment) {
+					$ignorable->setValue($this->docComment);
 				}
-			} else {
-				$this->node->setIgnorables(array(new \PHPParser_Node_Ignorable_DocComment($docComment)));
 			}
+		} else {
+			$this->node->setIgnorables(array(new \PHPParser_Node_Ignorable_DocComment($docComment)));
 		}
 		return $this;
 	}
@@ -351,7 +361,7 @@ class AbstractObject {
 	/**
 	 * Getter for docComment
 	 *
-	 * @return string docComment
+	 * @return NULL|\PHPParser_Node_Ignorable_DocComment
 	 */
 	public function getDocComment() {
 		return $this->docComment;
@@ -537,6 +547,40 @@ class AbstractObject {
 	 */
 	public function getLine() {
 		return $this->node->getLine();
+	}
+
+	/**
+	 * @param string $comment
+	 */
+	public function setComment($comment, $line = -1) {
+		$commentNode = new \PHPParser_Node_Ignorable_Comment($comment, $line);
+		$this->commentNodes[$line] = $commentNode;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getComment() {
+		$comment = '';
+		foreach($this->commentNodes as $line => $commentNode) {
+			$comment .= $commentNode->toString();
+		}
+		return $comment;
+	}
+
+	/**
+	 * @return PHPParser_Node_Ignorable_Comment[]
+	 */
+	public function getAllComments() {
+		return $this->commentNodes;
+	}
+
+	public function replaceComment($comment, $line) {
+		if(!isset($this->commentNodes[$line])) {
+			$this->setComment($comment, $line);
+		} else {
+			$this->commentNodes[$line]->setValue($comment);
+		}
 	}
 
 }

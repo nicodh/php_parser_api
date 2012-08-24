@@ -56,6 +56,11 @@ class File extends Container {
 	protected $functions = array();
 
 	/**
+	 * @var string
+	 */
+	protected $comment;
+
+	/**
 	 * @param ClassObject
 	 */
 	public function addClass(\TYPO3\ParserApi\Domain\Model\ClassObject $class) {
@@ -126,13 +131,6 @@ class File extends Container {
 	}
 
 	/**
-	 * @return string
-	 */
-	public function getFilePathAndName() {
-		return $this->filePathAndName;
-	}
-
-	/**
 	 * @return array
 	 */
 	public function getStmts() {
@@ -186,7 +184,6 @@ class File extends Container {
 	public function getAliasDeclarations() {
 		return $this->aliasDeclarations;
 	}
-
 
 }
 

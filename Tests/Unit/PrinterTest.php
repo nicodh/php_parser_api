@@ -38,6 +38,7 @@ class PrinterTest extends BaseTest {
 		$fileName = 'SimpleProperty.php';
 		$classFileObject = $this->parseAndWrite($fileName);
 		$this->compareClasses($classFileObject, $this->testDir . $fileName);
+		$this->assertEquals(file_get_contents($this->fixturesPath.$fileName), file_get_contents($this->testDir . $fileName));
 	}
 
 	/**
@@ -172,7 +173,7 @@ class PrinterTest extends BaseTest {
 		$this->assertTrue(file_exists($classFilePath));
 		$classFileObject = $this->parser->parseFile($classFilePath);
 		$newClassFilePath = $this->testDir . $fileName;
-		file_put_contents($newClassFilePath,"<?php\n\n" . $this->printer->renderFileObject($classFileObject) . "\n?>");
+		file_put_contents($newClassFilePath,"<?php\n\n" . $this->printer->renderFileObject($classFileObject) . "\n");
 		return $classFileObject;
 	}
 

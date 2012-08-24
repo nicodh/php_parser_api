@@ -71,9 +71,8 @@ abstract class BaseTest extends \TYPO3\FLOW3\Tests\UnitTestCase{
 		\vfsStreamWrapper::register();
 		\vfsStreamWrapper::setRoot(new \vfsStreamDirectory('testDirectory'));
 		$this->testDir = \vfsStream::url('testDirectory') . '/';
-
-		// uncomment for inspecting the generated files
 		/**
+		// uncomment for inspecting the generated files
 		$this->testDir = $this->packagePath . 'Tests/Fixtures/tmp/';
 		if(!is_dir($this->testDir)) {
 			mkdir($this->testDir);
