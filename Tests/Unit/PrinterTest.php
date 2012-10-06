@@ -173,7 +173,7 @@ class PrinterTest extends BaseTest {
 		$this->assertTrue(file_exists($classFilePath));
 		$classFileObject = $this->parser->parseFile($classFilePath);
 		$newClassFilePath = $this->testDir . $fileName;
-		file_put_contents($newClassFilePath,"<?php\n\n" . $this->printer->renderFileObject($classFileObject) . "\n");
+		file_put_contents($newClassFilePath,"<?php\n\n" . $this->printer->renderFileObject($classFileObject) . "\n?>");
 		return $classFileObject;
 	}
 

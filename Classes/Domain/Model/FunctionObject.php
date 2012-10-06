@@ -146,13 +146,13 @@ class FunctionObject extends AbstractObject {
 	/**
 	 * adder for parameters
 	 *
-	 * @param array $parameters of type Tx_PhpParser_Domain_Model_Class_MethodParameter
+	 * @param array \TYPO3\ParserApi\Domain\Model\ClassObject\MethodParameter[]
 	 * @return void
 	 */
 	public function setParameters($parameters) {
 		$parameterNodes = array();
 		foreach ($parameters as $parameter) {
-			$methodParameter = new ClassObject\MethodParameter($parameter->getName(), $parameter);
+			$methodParameter = new Parameter($parameter->getName(), $parameter);
 			$this->parameters[$methodParameter->getPosition()] = $methodParameter;
 			$parameterNodes[] = $parameter->getNode();
 		}
