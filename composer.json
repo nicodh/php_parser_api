@@ -1,11 +1,17 @@
 {
 	"name":"typo3/parserapi",
-	"description":"Wrapper",
+	"description":"Wrapper for Nikita Popovs PHP parser",
 	"keywords":["php", "php-parser"],
 	"type":"typo3-flow-package",
 	"authors":[
 		{
 			"name":"Nico de Haen"
+		},
+		{
+			"name":"Tom Maroschik"
+		},
+		{
+			"name":"Nikita Popov"
 		}
 	],
 	"require":{
