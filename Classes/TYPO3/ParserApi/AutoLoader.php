@@ -40,7 +40,7 @@ class AutoLoader {
     */
     static public function register(){
         ini_set('unserialize_callback_func', 'spl_autoload_call');
-        spl_autoload_register(array(__CLASS__, 'autoload'));
+        spl_autoload_register(array(__CLASS__, 'autoload'), TRUE, TRUE);
     }
 
     /**
@@ -49,14 +49,13 @@ class AutoLoader {
     * @param string $class A class name.
     */
     static public function autoload($class){
-
 		if(0 === strpos($class, '\\TYPO3\\ParserApi')) {
 			$file = dirname(__FILE__) . '/'  . strtr(str_replace('TYPO3\\ParserApi', '', $class), '\\', '/') . '.php';
 			if (is_file($file)) {
 				require $file;
 			}
 		} elseif(0 === strpos($class, 'PHPParser_')) {
-			$file =  str_replace('Classes', '', dirname(__FILE__)) . 'Resources/Private/PHP/PHP-Parser/lib/'  . strtr($class, '_', '/') . '.php';
+			$file =  str_replace('Classes/TYPO3/ParserApi', '', dirname(__FILE__)) . 'Resources/Private/PHP/PHP-Parser/lib/'  . strtr($class, '_', '/') . '.php';
 			if (is_file($file)) {
 				require $file;
 			}

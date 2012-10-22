@@ -1,0 +1,19 @@
+{
+	"name":"typo3/parserapi",
+	"description":"Wrapper",
+	"keywords":["php", "php-parser"],
+	"type":"typo3-flow-package",
+	"authors":[
+		{
+			"name":"Nico de Haen"
+		}
+	],
+	"require":{
+		"typo3/flow": "*"
+	},
+	"autoload":{
+		"psr-0":{
+			"TYPO3\\ParserApi":"Classes/"
+		}
+	}
+}
