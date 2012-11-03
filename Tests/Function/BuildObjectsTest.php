@@ -29,7 +29,7 @@ namespace TYPO3\ParserApi\Tests;
  * @author Nico de Haen
  */
 if(!class_exists('\\TYPO3\\ParserApi\\Tests\\BaseTest')) {
-	require_once('../BaseTest.php');
+	require_once(__DIR__ . '/../BaseTest.php');
 }
 //require_once('../BaseTest.php');
 

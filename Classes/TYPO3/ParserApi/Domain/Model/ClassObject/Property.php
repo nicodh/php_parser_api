@@ -42,6 +42,12 @@ class Property extends \TYPO3\ParserApi\Domain\Model\AbstractObject {
 	protected $value;
 
 	/**
+	 * @var mixed
+	 */
+	protected $default = NULL;
+
+
+	/**
 	 * @var string
 	 */
 	protected $varType = '';
@@ -101,7 +107,9 @@ class Property extends \TYPO3\ParserApi\Domain\Model\AbstractObject {
 	public function setName($name, $updateNodeName = TRUE) {
 		$this->name = $name;
 		if($updateNodeName) {
-			$props =  array(new \PHPParser_Node_Stmt_PropertyProperty($this->name, $this->default));
+
+			$props =  $this->node->getProps();
+			$props[0]->setName($name);
 			$this->node->setProps($props);
 		}
 		return $this;
@@ -127,6 +135,20 @@ class Property extends \TYPO3\ParserApi\Domain\Model\AbstractObject {
 	 */
 	public function getVarType() {
 		return $this->varType;
+	}
+
+	/**
+	 * @param mixed $default
+	 */
+	public function setDefault($default) {
+		$this->default = $default;
+	}
+
+	/**
+	 * @return mixed
+	 */
+	public function getDefault() {
+		return $this->default;
 	}
 
 }

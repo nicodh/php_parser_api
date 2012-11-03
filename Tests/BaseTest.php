@@ -29,7 +29,7 @@ namespace TYPO3\ParserApi\Tests;
  * @author Nico de Haen
  */
 
-abstract class BaseTest extends \TYPO3\FLOW3\Tests\UnitTestCase{
+abstract class BaseTest extends \TYPO3\Flow\Tests\UnitTestCase{
 
 	/**
 	 * @var string
@@ -54,9 +54,9 @@ abstract class BaseTest extends \TYPO3\FLOW3\Tests\UnitTestCase{
 	protected $printer;
 
 	/**
-	 * @var \TYPO3\FLOW3\Reflection\ReflectionService
+	 * @var \TYPO3\FLOW\Reflection\ReflectionService
 	 *
-	 * @FLOW3\Inject
+	 * @Flow\Inject
 	 */
 	protected $reflectionService;
 
@@ -68,20 +68,18 @@ abstract class BaseTest extends \TYPO3\FLOW3\Tests\UnitTestCase{
 		require_once($this->packagePath.'Resources/Private/PHP/PHP-Parser/lib/bootstrap.php');
 		$this->parser = new \TYPO3\ParserApi\Service\Parser();
 		$this->printer = new \TYPO3\ParserApi\Service\Printer();
-		\vfsStreamWrapper::register();
-		\vfsStreamWrapper::setRoot(new \vfsStreamDirectory('testDirectory'));
-		$this->testDir = \vfsStream::url('testDirectory') . '/';
-		/**
+		\org\bovigo\vfs\vfsStream::setup('testDir');
+		//$this->testDir = \org\bovigo\vfs\vfsStream::url('testDir') . '/';
+
 		// uncomment for inspecting the generated files
 		$this->testDir = $this->packagePath . 'Tests/Fixtures/tmp/';
 		if(!is_dir($this->testDir)) {
 			mkdir($this->testDir);
 		}
-		 * */
 	}
 
 	public function tearDown() {
-		$tmpFiles = \TYPO3\FLOW3\Utility\Files::readDirectoryRecursively($this->testDir);
+		$tmpFiles = \TYPO3\Flow\Utility\Files::readDirectoryRecursively($this->testDir);
 		foreach($tmpFiles as $tmpFile) {
 			//unlink($this->testDir . $tmpFile);
 		}
