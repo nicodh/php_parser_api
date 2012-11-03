@@ -76,9 +76,9 @@ class ReplaceVisitor extends \PHPParser_NodeVisitorAbstract {
 			foreach ($this->replacements as $oldValue => $newValue) {
 				if (method_exists($node, 'get' . strtoupper($nodeProperty))) {
 					$nodePropertyValue = NULL;
-					eval('$nodePropertyValue = $node->get' . strtoupper($nodeProperty) . '();');
+					eval('$nodePropertyValue = $node->get' . ucfirst($nodeProperty) . '();');
 					if ($nodePropertyValue == $oldValue) {
-						eval('$node->set' . strtoupper($nodeProperty) . '($newValue);');
+						eval('$node->set' . ucfirst($nodeProperty) . '($newValue);');
 						//$node->$nodeProperty = $newValue;
 					}
 				}
