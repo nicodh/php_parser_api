@@ -97,7 +97,7 @@ class ClassFactory implements ClassFactoryInterface{
 	 * @return \TYPO3\ParserApi\Domain\Model\NamespaceObject
 	 */
 	public function buildNamespaceObjectFromNode(\PHPParser_Node_Stmt_Namespace $nameSpaceNode) {
-		$nameSpaceObject = new \TYPO3\ParserApi\Domain\Model\NamespaceObject(\TYPO3\ParserApi\Parser\Utility\NodeConverter::getValueFromNode($nameSpaceNode->getName()));
+		$nameSpaceObject = new \TYPO3\ParserApi\Domain\Model\NamespaceObject(\TYPO3\ParserApi\Parser\Utility\NodeConverter::getValueFromNode($nameSpaceNode));
 		$nameSpaceObject->setNode($nameSpaceNode);
 		$nameSpaceObject->initDocComment();
 		return $nameSpaceObject;

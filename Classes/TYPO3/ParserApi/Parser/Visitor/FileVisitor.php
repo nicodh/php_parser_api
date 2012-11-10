@@ -90,6 +90,7 @@ class FileVisitor extends \PHPParser_NodeVisitorAbstract implements FileVisitorI
 	public function enterNode(\PHPParser_Node $node) {
 		$this->contextStack[] = $node;
 		if($node instanceof \PHPParser_Node_Stmt_Namespace) {
+
 			$this->currentNamespace = $this->classFactory->buildNamespaceObjectFromNode($node);
 			$this->currentContainer = $this->currentNamespace;
 		} elseif($node instanceof \PHPParser_Node_Stmt_Class) {
@@ -120,9 +121,15 @@ class FileVisitor extends \PHPParser_NodeVisitorAbstract implements FileVisitorI
 					$this->currentContainer = $this->fileObject;
 				}
 			} elseif($node instanceof \PHPParser_Node_Stmt_Namespace) {
-				$this->fileObject->addNamespace($this->currentNamespace);
-				$this->currentNamespace = NULL;
-				$this->currentContainer = $this->fileObject;
+				if(NULL !== $this->currentNamespace) {
+					$this->fileObject->addNamespace($this->currentNamespace);
+					$this->currentNamespace = NULL;
+					$this->currentContainer = $this->fileObject;
+				} else {
+					//TODO: find how this could happen
+					//echo(\TYPO3\ParserApi\Parser\Utility\NodeConverter::getValueFromNode($node));
+					//var_dump($node);
+				}
 			} elseif($node instanceof \PHPParser_Node_Stmt_Use) {
 				$this->currentContainer->addAliasDeclaration($node);
 			} elseif($node instanceof \PHPParser_Node_Stmt_ClassConst) {

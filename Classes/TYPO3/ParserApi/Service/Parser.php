@@ -27,12 +27,16 @@ namespace TYPO3\ParserApi\Service;
 /**
  * provides methods to generate classes from PHP code
  *
- * @property \TYPO3\ParserApi\Parser\Visitor\FileVisitorInterface classFileVisitor
  * @package PhpParserApi
  * @author Nico de Haen
  */
 
+use TYPO3\Flow\Annotations as Flow;
 
+/**
+ *
+ * @Flow\Scope("singleton")
+ */
 class Parser extends \PHPParser_Parser {
 
 	/**
