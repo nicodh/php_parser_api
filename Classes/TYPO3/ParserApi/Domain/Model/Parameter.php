@@ -108,13 +108,15 @@ class Parameter extends AbstractObject {
 	 * Sets $type.
 	 *
 	 * @param string $type
-	 * @return
+	 * @param bool $updateNodeType
+	 * @return \TYPO3\ParserApi\Domain\Model\Parameter
 	 */
 	public function setType($type, $updateNodeType = TRUE) {
 		$this->type = $type;
 		if($updateNodeType) {
 			$this->node->setType($type);
 		}
+		return $this;
 	}
 
 	/**
@@ -130,10 +132,11 @@ class Parameter extends AbstractObject {
 	 * setter for position
 	 *
 	 * @param int $position
-	 * @return void
+	 * @return \TYPO3\ParserApi\Domain\Model\Parameter
 	 */
 	public function setPosition($position) {
 		$this->position = $position;
+		return $this;
 	}
 
 	/**
@@ -149,13 +152,15 @@ class Parameter extends AbstractObject {
 	 * setter for default
 	 *
 	 * @param $default
-	 * @return void
+	 * @param bool $updateNodeDefault
+	 * @return \TYPO3\ParserApi\Domain\Model\Parameter
 	 */
 	public function setDefault($default, $updateNodeDefault = TRUE) {
 		$this->default = $default;
 		if($updateNodeDefault) {
 			$this->node->setDefault(\TYPO3\ParserApi\Parser\Utility\NodeConverter::getNodeFromvalue($default));
 		}
+		return $this;
 	}
 
 	/**
@@ -171,10 +176,11 @@ class Parameter extends AbstractObject {
 	 * setOptional
 	 *
 	 * @param $optional
-	 * @return void
+	 * @return \TYPO3\ParserApi\Domain\Model\Parameter
 	 */
 	public function setOptional($optional) {
 		$this->optional = $optional;
+		return $this;
 	}
 
 	/**
@@ -186,11 +192,17 @@ class Parameter extends AbstractObject {
 		return $this->passedByReference;
 	}
 
+	/**
+	 * @param $passedByReference
+	 * @param bool $updateNodeByRef
+	 * @return \TYPO3\ParserApi\Domain\Model\Parameter
+	 */
 	public function setPassedByReference( $passedByReference, $updateNodeByRef = TRUE ) {
 		$this->passedByReference = $passedByReference;
 		if($updateNodeByRef) {
 			$this->node->setByRef($passedByReference);
 		}
+		return $this;
 	}
 
 	/**
@@ -220,12 +232,15 @@ class Parameter extends AbstractObject {
 
 	/**
 	 * @param string $varType
+	 * @param bool $updateNodeType
+	 * @return \TYPO3\ParserApi\Domain\Model\Parameter
 	 */
 	public function setVarType($varType, $updateNodeType = TRUE) {
 		if($updateNodeType) {
 			$this->setTypeHint(\TYPO3\ParserApi\Parser\Utility\NodeConverter::getTypeHintFromVarType($varType),TRUE);
 		}
 		$this->varType = $varType;
+		return $this;
 	}
 
 	/**

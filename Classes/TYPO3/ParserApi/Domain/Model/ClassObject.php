@@ -137,6 +137,10 @@ class ClassObject extends Container {
 		return $this->methods;
 	}
 
+	public function hasMethod($methodName) {
+		return $this->methodExists($methodName);
+	}
+
 	/**
 	 * Getter for method
 	 *
