@@ -218,7 +218,8 @@ class Parameter extends AbstractObject {
 	 * Sets $typeHint.
 	 *
 	 * @param string $typeHint
-	 * @return
+	 * @param bool $updateNodeTypeHint
+	 * @return \TYPO3\ParserApi\Domain\Model\Parameter
 	 */
 	public function setTypeHint($typeHint, $updateNodeTypeHint = TRUE ) {
 		if(!is_string($typeHint) && !empty($typeHint)) {
@@ -228,6 +229,7 @@ class Parameter extends AbstractObject {
 		if($updateNodeTypeHint) {
 			$this->node->setType(\TYPO3\ParserApi\Parser\NodeFactory::buildNodeFromName($typeHint));
 		}
+		return $this;
 	}
 
 	/**

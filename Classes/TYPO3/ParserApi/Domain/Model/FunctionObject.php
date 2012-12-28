@@ -132,7 +132,7 @@ class FunctionObject extends AbstractObject {
 	/**
 	 * adder for parameters
 	 *
-	 * @param array \TYPO3\ParserApi\Domain\Model\ClassObject\MethodParameter[]
+	 * @param \TYPO3\ParserApi\Domain\Model\Parameter[]
 	 * @return void
 	 */
 	public function setParameters($parameters) {
@@ -149,10 +149,10 @@ class FunctionObject extends AbstractObject {
 	/**
 	 * setter for a single parameter
 	 *
-	 * @param \TYPO3\ParserApi\Domain\Model\ClassObject\MethodParameter $parameter
+	 * @param \TYPO3\ParserApi\Domain\Model\Parameter $parameter
 	 * @return void
 	 */
-	public function setParameter($parameter) {
+	public function setParameter(\TYPO3\ParserApi\Domain\Model\Parameter $parameter) {
 		$this->parameters[$parameter->getPosition()] = $parameter;
 		$parameterNodes = $this->node->getParams();
 		$parameterNodes[$parameter->getPosition()] = $parameter->getNode();
@@ -164,10 +164,10 @@ class FunctionObject extends AbstractObject {
 	/**
 	 * replace a single parameter, depending on position
 	 *
-	 * @param array $parameter
+	 * @param \TYPO3\ParserApi\Domain\Model\Parameter $parameter
 	 * @return void
 	 */
-	public function replaceParameter($parameter) {
+	public function replaceParameter(\TYPO3\ParserApi\Domain\Model\Parameter $parameter) {
 		$this->parameters[$parameter->getPosition()] = $parameter;
 	}
 
